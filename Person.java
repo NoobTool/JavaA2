@@ -5,6 +5,8 @@ public abstract class Person {
 	private int age;
 	private char gender;
 	
+	Person(){}
+	
 	Person (String name, int age, char gender){
 		this.name=name;
 		this.gender=gender;
