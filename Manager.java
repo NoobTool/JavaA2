@@ -1,23 +1,36 @@
+import java.util.*;
+
 
 public class Manager extends Person{
 	
-	Staff<Manager> s = new Staff<Manager>();
-	
-	Manager(int id,String name,String gender){
+	Manager(int id, String name, int age, String gender){
 		super(id,name,gender);
-		s.addStaff(this);
 	}
 	
-	public void addStaff(int id, String name, String gender, String post){
+	public void addStaff(int id, String name, int age, String gender, String post){
 		if (post=="Manager") {
-			Manager m =  new Manager(id,name,gender);
+			Manager m =  new Manager(id, name, age, gender);
 		}
 		
+	}
+	
+	public void displayManagers(ArrayList<Manager> staffList) {
+		for(Manager m: staffList)
+			System.out.println(m.retName());
 	}
 	
 	
 	public String retName() {
 		return super.retName();
+	}
+	
+	
+	public int retAge() {
+		return super.retAge();
+	}
+	
+	public String retGender() {
+		return super.retGender();
 	}
 			
 };

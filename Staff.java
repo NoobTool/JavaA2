@@ -1,16 +1,19 @@
 import java.util.*;
 
 
-public class Staff<S> {
-	ArrayList<S> members = new ArrayList<S>();
+public class Staff<E> {
+	ArrayList<E> members = new ArrayList<E>();
 	
-	public void addStaff(S s){
+	public void addStaff(E s){
 		members.add(s);
 	}
 	
-	public void printStaff() {
-		for(S x:members) {
-			System.out.println(x);
-		}
+	public int retSize() {
+		return members.size();
 	}
+	
+	public ArrayList<E> retStaff(){
+		return members;
+	}
+	
 }
