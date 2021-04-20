@@ -1,19 +1,14 @@
 
 public abstract class Person {
 	
-	private int id;
 	private String name;
 	private int age;
-	private String gender;
+	private char gender;
 	
-	Person (int id,String name,String gender){
-		this.id=id;
+	Person (String name, int age, char gender){
 		this.name=name;
 		this.gender=gender;
-	}
-	
-	public int retId() {
-		return this.id;
+		this.age=age;
 	}
 	
 	public String retName() {
@@ -24,7 +19,7 @@ public abstract class Person {
 		return this.age;
 	}
 	
-	public String retGender() {
+	public char retGender() {
 		return this.gender;
 	}
 }
