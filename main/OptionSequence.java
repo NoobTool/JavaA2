@@ -12,7 +12,7 @@ public class OptionSequence {
 		int choice=0;
 		do {
 			dm.managerMenuEmployeeSelection();
-			choice = c.inputInt();
+			choice = c.inputInt("");
 			
 			switch(choice) {
 				case 1: m.addStaff("Manager");break;
@@ -29,7 +29,7 @@ public class OptionSequence {
 		int choice = 0;
 		
 		dm.managerMenuEmployeeSelection();
-		choice = c.inputInt();
+		choice = c.inputInt("");
 		
 		switch(choice) {
 			case 1: m.displayManagers();break;
@@ -45,7 +45,7 @@ public class OptionSequence {
 		int choice=0;
 		do {
 			dm.managerMenu();
-			choice=c.inputInt();
+			choice=c.inputInt("");
 			
 			switch(choice) {
 				case 1: System.out.println("Admitting a patient!");break;

@@ -10,6 +10,10 @@ public class Doctor extends Employee{
 		System.out.println("Doctor Class");
 	}
 	
+	public long retId() {
+		return super.retId();
+	}
+	
 	public String retName() {
 		return super.retName();
 	}

@@ -10,6 +10,6 @@ public class test {
 		a.add(233);
 		a.add(333);
 		
-		Collections.filter(a,i -> i>123 && i<233);
+		//Collections.filter(a,i -> i>123 && i<233);
 	}
 }

@@ -117,9 +117,9 @@ public class Manager extends Employee{
 		
 	}
 	
-public void addStaff(Manager m){
-		managerList.addStaff(m);
-	}
+	public void addStaff(Manager m){
+			managerList.addStaff(m);
+		}
 	
 	
 	// Displaying the current employees present
@@ -144,7 +144,7 @@ public void addStaff(Manager m){
 	
 	public long displayNurses() {
 		for(Nurse n: nurseList.members)
-			System.out.print(n.retName()+" ");
+			System.out.print(n.retId()+" ");
 		
 		System.out.println();
 		
