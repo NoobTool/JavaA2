@@ -3,7 +3,7 @@ package main;
 
 public class Nurse extends Employee{
 	
-	Nurse(int id, String name, double age, char gender,String shifts){
+	Nurse(long id, String name, double age, char gender,String shifts){
 		super(id,name,age,gender,shifts);
 	}
 	

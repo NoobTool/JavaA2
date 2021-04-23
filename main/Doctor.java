@@ -2,7 +2,7 @@ package main;
 
 public class Doctor extends Employee{
 	
-	Doctor(int id, String name, double age, char gender,String shifts){
+	Doctor(long id, String name, double age, char gender,String shifts){
 		super(id,name,age,gender,shifts);
 	}
 	

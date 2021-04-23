@@ -74,4 +74,13 @@ class ResidentCareTest {
 		assertEquals(23,i.validateAge(age),0);
 	}
 	
+	// Gender test - gender belongs to only M or F
+	@Test
+	void genderTest() {
+		char gender = 'G';
+		System.out.println("\n\n Gender test");
+		i.validateGender(gender);
+		return;
+	}
+	
 }

@@ -5,13 +5,13 @@ import CustomExceptions.InvalidShiftTimings;
 
 
 public class Employee extends Person{
-	private int id;
+	private long id;
 	private LocalTime start_time;
 	private LocalTime end_time;
 	
 	Employee(){}
 	
-	Employee(int id, String name, double age, char gender, String shifts){
+	Employee(long id, String name, double age, char gender, String shifts){
 		super(name,age,gender);
 		
 		LocalTime start_time,end_time;
@@ -22,6 +22,10 @@ public class Employee extends Person{
 		this.start_time = LocalTime.parse(shiftTimings[0]);
 		this.end_time = LocalTime.parse(shiftTimings[1]);
 		
+	}
+	
+	public long retId() {
+		return this.id;
 	}
 	
 	void checkTimings(LocalTime start_time,LocalTime end_time) throws InvalidShiftTimings{

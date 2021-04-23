@@ -3,10 +3,25 @@ import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class CommonCodes {
-	public int inputInt() {
+	
+	Scanner scan = new Scanner(System.in);
+	
+	public long inputLong(String msg) {
 		while(true) {	
 			try {
-				Scanner scan =  new Scanner(System.in);
+				System.out.println(msg);
+				long a = scan.nextLong();
+				return a;
+			}catch(InputMismatchException e) {
+				System.out.println("Expected numeric input, enter again!");
+			}
+		}
+	}
+	
+	public int inputInt(String msg) {
+		while(true) {	
+			try {
+				System.out.println(msg);
 				int a = scan.nextInt();
 				return a;
 			}catch(InputMismatchException e) {
@@ -15,10 +30,10 @@ public class CommonCodes {
 		}
 	}
 	
-	public double inputDouble() {
+	public double inputDouble(String msg) {
 		while(true) {	
 			try {
-				Scanner scan =  new Scanner(System.in);
+				System.out.println(msg);
 				double a = scan.nextDouble();
 				return a;
 			}catch(InputMismatchException e) {
@@ -27,10 +42,11 @@ public class CommonCodes {
 		}
 	}
 	
-	public String inputString() {
+	public String inputString(String msg) {
 		while(true) {	
 			try {
-				Scanner scan =  new Scanner(System.in);
+				Scanner scan = new Scanner(System.in);
+				System.out.println(msg);
 				String a = scan.nextLine();
 				return a;
 			}catch(InputMismatchException e) {
@@ -39,11 +55,11 @@ public class CommonCodes {
 		}
 	}
 	
-	public char inputChar() {
+	public char inputChar(String msg) {
 		while(true) {	
 			try {
-				Scanner scan =  new Scanner(System.in);
-				char a = scan.next().charAt(0);
+				System.out.println(msg);
+				char a = scan.next().toUpperCase().charAt(0);
 				return a;
 			}catch(InputMismatchException e) {
 				System.out.println("Expected a single character, enter again!");
