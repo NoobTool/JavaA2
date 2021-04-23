@@ -1,15 +1,18 @@
+package main;
 import static org.junit.jupiter.api.Assertions.*;
-
+import java.util.*;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.BeforeEach;
-
-
+import CustomExceptions.InputValidation;
 
 class ResidentCareTest {
 	
 	Manager m1 = new Manager(112,"Ram",16,'M',"09:00-05:00");
 	Manager m2 = new Manager(113,"Bhai",15,'M',"09:00-05:00");	
+	InputValidation i = new InputValidation();
+	Scanner scan = new Scanner(System.in);
+	
 	
 	@Test
 	void addManagerTest() {
@@ -57,16 +60,18 @@ class ResidentCareTest {
 		fail("Not yet implemented!");
 	}
 	
-	// Age test - float for ages<1 and integer for others
+	// Age test - float for ages<1 and rounded off integer for others
 	@Test
 	void ageTest() {
-		fail("Not yet implemented!");
+		double age = .5;
+		assertEquals(.5,i.validateAge(age));
 	}
 	
 	// Age test - Age>0 and Age<110
 	@Test
 	void ageTest2() {
-		fail("Not yet implemented!");
+		double age = 23.45;
+		assertEquals(23,i.validateAge(age),0);
 	}
 	
 }

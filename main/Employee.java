@@ -1,3 +1,4 @@
+package main;
 import java.time.LocalTime;
 
 import CustomExceptions.InvalidShiftTimings;
@@ -10,7 +11,7 @@ public class Employee extends Person{
 	
 	Employee(){}
 	
-	Employee(int id, String name, int age, char gender, String shifts){
+	Employee(int id, String name, double age, char gender, String shifts){
 		super(name,age,gender);
 		
 		LocalTime start_time,end_time;
