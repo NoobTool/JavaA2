@@ -1,15 +1,20 @@
 package main;
-import CommonSnippets.DisplayMenu;
-import CommonSnippets.CommonCodes;
+
+
+import CommonSnippets.*;
 import java.util.*;
 
 public class Doctor extends Employee{
 	DisplayMenu dm = new DisplayMenu();
 	CommonCodes c = new CommonCodes();
 	
+	public Doctor(){}
+	
 	Doctor(long id, String name, double age, char gender,String shifts){
 		super(id,name,age,gender,shifts);
 	}
+	
+	public Doctor(OptionSequence o){}
 	
 	public void addPrescription(Patient p) {
 		int choice;
@@ -21,6 +26,7 @@ public class Doctor extends Employee{
 			
 			switch(choice) {
 				case 1: meds.add(c.inputString("Enter the name of the medicine. "));
+						break;
 				case 2: choice=2;
 						MedicineBlock mb = new MedicineBlock(meds);
 						p.addPrescription(new Prescription(mb));

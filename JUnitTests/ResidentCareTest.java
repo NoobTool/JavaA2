@@ -55,7 +55,7 @@ class ResidentCareTest {
 	
 	// Adding a prescription
 	@Test
-	void addPrescriptionTest() {
+	void prescriptionTest() {
 		ArrayList<String> meds = new ArrayList<String>();
 		meds.add("Paracetamol");
 		meds.add("Tetramycin");
@@ -69,6 +69,15 @@ class ResidentCareTest {
 		p.addInPrescription(b2);
 		p.printPrescription();
 		
+	}
+	
+	// Adding a prescription to a patient by a doctor
+	@Test
+	void addPrescriptionTest() {
+		Doctor d = new Doctor();
+		Patient p = new Patient(8030000,"Shyam",89,'M');
+		d.addPrescription(p);
+		p.printPrescription();
 	}
 	
 	// Test to add a patient to patientList

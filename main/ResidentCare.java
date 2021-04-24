@@ -17,11 +17,15 @@ public class ResidentCare {
 		System.out.println("1. Login as Manager");
 		System.out.println("2. Login as Doctor");
 		System.out.println("3. Login as Nurse");
+		System.out.println("4. Signup as Patient");
 		choice=c.inputInt("Enter your choice!");
 		switch(choice) {
 			case 1: 
 					oq.managerSequence();
 					break;
+					
+			case 2:
+					
 					
 			default: System.out.println("Dobara enter krle :| ");
 					

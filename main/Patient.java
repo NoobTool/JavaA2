@@ -23,7 +23,12 @@ public class Patient extends Person{
 				"\nAge: "+this.retAge()+"\nGender: "+this.retGender());
 	}
 	
+	public void printPrescription() {
+		System.out.println("Id: "+id);
+		this.prescription.printPrescription();
+	}
 	
+	// Getter Functions
 	public String retName() {
 		return super.retName();
 	}

@@ -28,11 +28,18 @@ public class DisplayMenu {
 		System.out.println("Enter your choice! ");
 	}
 	
-	public void managerMenuStaffSelectionSearchOptions() {
+	public void searchOptions() {
 		System.out.println("1. Search by id");
 		System.out.println("2. Search by name");
 		System.out.println("3. Exit");
 		System.out.println("Enter your choice! ");
+	}
+	
+	public void doctorMenu() {
+		System.out.println("1. Add a prescription.");
+		System.out.println("2. Suggest Changes");
+		System.out.println("3. Exit");
+		System.out.println("Enter your choice!");
 	}
 	
 	public void doctorAddMedicines() {

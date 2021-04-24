@@ -1,5 +1,7 @@
 package main;
 import java.util.*;
+
+import CommonSnippets.OptionSequence;
 import CustomExceptions.InputValidation;
 import CommonSnippets.CommonCodes;
 
@@ -9,6 +11,8 @@ public class Manager extends Employee{
 	static Staff<Manager> managerList = new Staff<Manager>();
 	static Staff<Doctor> doctorList = new Staff<Doctor>();
 	static Staff<Nurse> nurseList = new Staff<Nurse>();
+	static Staff<Patient> patientList = new Staff<Patient>();
+	
 	static ArrayList<Long> idList = new ArrayList<Long>();
 	static ArrayList<Long> availableIdList = new ArrayList<Long>();
 	//static ArrayList<Patient> patientList = new ArrayList<Patient>();
@@ -26,6 +30,8 @@ public class Manager extends Employee{
 		availableIdList.add((long)7830675);
 		availableIdList.add((long)6830012);
 	}
+	
+	public Manager(OptionSequence o) {};
 	
 	public Manager(long id, String name, double age, char gender,String shifts){
 		super(id,name,age,gender,shifts);
@@ -115,7 +121,17 @@ public class Manager extends Employee{
 		}
 		
 		else {
+			if(id==0) {
+				Patient p =  new Patient(idList.get(2)+1, name, age, gender);
+				idList.set(2,idList.get(2)+1);
+				patientList.addStaff(p);
+			}
 			
+			else {
+				Patient p =  new Patient(id, name, age, gender);
+				availableIdList.remove(availableIdList.indexOf(id));
+				patientList.addStaff(p);
+			}
 		}
 		
 	}
@@ -185,6 +201,10 @@ public class Manager extends Employee{
 	
 	public String retShifts() {
 		return super.retShifts();
+	}
+	
+	public ArrayList<Patient> retPatientList(){
+		return patientList.retStaff();
 	}
 			
 };
