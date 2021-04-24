@@ -86,7 +86,7 @@ public class Manager extends Employee{
 			
 		}
 		
-		if (post=="Doctor") {
+		else if (post=="Doctor") {
 			if(id==0) {
 				Doctor d =  new Doctor(idList.get(1)+1, name, age, gender, shifts);
 				idList.set(1,idList.get(1)+1);
@@ -100,7 +100,7 @@ public class Manager extends Employee{
 			}
 		}
 		
-		if(post == "Nurse") {
+		else if(post == "Nurse") {
 			if(id==0) {
 				Nurse n =  new Nurse(idList.get(2)+1, name, age, gender, shifts);
 				idList.set(2,idList.get(2)+1);
@@ -112,6 +112,10 @@ public class Manager extends Employee{
 				availableIdList.remove(availableIdList.indexOf(id));
 				nurseList.addStaff(n);
 			}
+		}
+		
+		else {
+			
 		}
 		
 	}

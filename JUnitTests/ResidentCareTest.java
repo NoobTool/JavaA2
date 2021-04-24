@@ -1,5 +1,8 @@
 package JUnitTests;
 import static org.junit.jupiter.api.Assertions.*;
+
+import java.util.ArrayList;
+
 import org.junit.jupiter.api.Test;
 
 import main.*;
@@ -39,10 +42,42 @@ class ResidentCareTest {
 		assertEquals((long)7830001,m.displayNurses());
 	}
 	
+	
+	// Adding a medicine block
+	@Test
+	void addMedicineBlockTest() {
+		ArrayList<String> meds = new ArrayList<String>();
+		meds.add("Paracetamol");
+		meds.add("Tetramycin");
+		MedicineBlock b = new MedicineBlock(meds);
+		b.printMedicineBlock();
+	}
+	
+	// Adding a prescription
+	@Test
+	void addPrescriptionTest() {
+		ArrayList<String> meds = new ArrayList<String>();
+		meds.add("Paracetamol");
+		meds.add("Tetramycin");
+		MedicineBlock b = new MedicineBlock(meds);
+		Prescription p = new Prescription(b);
+		
+		ArrayList<String> meds2 = new ArrayList<String>();
+		meds2.add("Crocin");
+		meds2.add("Betadine");
+		MedicineBlock b2 = new MedicineBlock(meds2);
+		p.addInPrescription(b2);
+		p.printPrescription();
+		
+	}
+	
 	// Test to add a patient to patientList
 	@Test
 	void addPatient() {
-		fail("Not yet implemented!");
+		Patient p = new Patient(8030000,"Radhe",89,'M');
+		p.displayPatients();
 	}
+	
+	
 	
 }

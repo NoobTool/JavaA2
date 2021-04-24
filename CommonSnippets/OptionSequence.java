@@ -1,5 +1,8 @@
 package CommonSnippets;
+import java.util.ArrayList;
+
 import main.Manager;
+import main.MedicineBlock;
 
 public class OptionSequence {
 	
@@ -54,8 +57,11 @@ public class OptionSequence {
 				case 5: managerDisplays();break;
 			}
 			
-		}while(choice!=6);
-		
+		}while(choice!=6);		
+	}
+	
+	public void doctorAddMedicines(ArrayList<String> meds) {
+		meds.add(c.inputString("Enter the name of the medicine. "));
 		
 	}
 }
