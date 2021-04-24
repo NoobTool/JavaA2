@@ -87,7 +87,7 @@ public class Manager extends Employee{
 			
 		}
 		
-		else if (post=="Doctor") {
+		if (post=="Doctor") {
 			if(id==0) {
 				Doctor d =  new Doctor(idList.get(1)+1, name, age, gender, shifts);
 				idList.set(1,idList.get(1)+1);
@@ -101,7 +101,7 @@ public class Manager extends Employee{
 			}
 		}
 		
-		else {
+		if(post == "Nurse") {
 			if(id==0) {
 				Nurse n =  new Nurse(idList.get(2)+1, name, age, gender, shifts);
 				idList.set(2,idList.get(2)+1);
@@ -125,30 +125,30 @@ public class Manager extends Employee{
 	// Displaying the current employees present
 	
 	public long displayManagers() {
-		for(Manager m: managerList.members)
+		for(Manager m: managerList.retStaff())
 			System.out.print(m.retName()+" ");
 		
-		System.out.println();
+		System.out.println("\n\n");
 		
-		return managerList.members.get(managerList.members.size()-1).retId();
+		return managerList.retStaff().get(managerList.retSize()-1).retId();
 	}
 	
 	public long displayDoctors() {
-		for (Doctor d: doctorList.members)
+		for (Doctor d: doctorList.retStaff())
 			System.out.print(d.retId()+" ");
 		
-		System.out.println();
+		System.out.println("\n\n");
 		
-		return doctorList.members.get(doctorList.members.size()-1).retId();		
+		return doctorList.retStaff().get(doctorList.retSize()-1).retId();		
 	}
 	
 	public long displayNurses() {
-		for(Nurse n: nurseList.members)
+		for(Nurse n: nurseList.retStaff())
 			System.out.print(n.retId()+" ");
 		
-		System.out.println();
+		System.out.println("\n\n");
 		
-		return nurseList.members.get(nurseList.members.size()-1).retId();
+		return nurseList.retStaff().get(nurseList.retSize()-1).retId();
 	}
 	
 	

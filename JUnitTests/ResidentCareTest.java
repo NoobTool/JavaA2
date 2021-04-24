@@ -1,21 +1,17 @@
 package JUnitTests;
 import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.BeforeEach;
 
-import java.util.*;
-
-import CustomExceptions.InputValidation;
 import main.*;
 
 
 class ResidentCareTest {
 	
-	Manager m = new Manager();
+	static Manager m = new Manager();
 	
 	@Test
 	void idTest() {
-		assertEquals(6830012,m.allotId("Doctor"));
+		assertEquals(0,m.allotId("Doctor"));
 	}
 	
 	@Test
@@ -31,14 +27,14 @@ class ResidentCareTest {
 	void addDoctorTest() {
 		m.addStaff("Doctor");
 		assertEquals(6830012,m.displayDoctors());
-		m.addStaff("Doctor");
-		assertEquals(6830001,m.displayDoctors());
 	}
 	
 	
 	@Test
 	void addNurseTest() {
 		
+		m.addStaff("Nurse");
+		assertEquals((long)7830675,m.displayNurses());
 		m.addStaff("Nurse");
 		assertEquals((long)7830675,m.displayNurses());
 	}
