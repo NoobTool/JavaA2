@@ -1,28 +1,25 @@
 package main;
-import java.time.LocalTime;
-
-import CustomExceptions.InvalidShiftTimings;
-
 
 public class Employee extends Person{
 	private long id;
-	private LocalTime start_time;
-	private LocalTime end_time;
+	private String shifts;
 	
 	Employee(){}
 	
 	Employee(long id, String name, double age, char gender, String shifts){
 		super(name,age,gender);
 		this.id=id;
+		this.shifts = shifts;
 		
 	}
 	
-	public long retId() {
-		return this.id;
-	}
+	// Getter functions
 	
-	void checkTimings(LocalTime start_time,LocalTime end_time) throws InvalidShiftTimings{
-		if (end_time.isBefore(start_time))
-			throw new InvalidShiftTimings();
-	}
+			public long retId() {
+				return this.id;
+			}
+			
+			public String retShifts() {
+				return this.shifts;
+			}
 }

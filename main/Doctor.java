@@ -10,12 +10,27 @@ public class Doctor extends Employee{
 		System.out.println("Doctor Class");
 	}
 	
-	public long retId() {
-		return super.retId();
-	}
+	// Getter functions
 	
-	public String retName() {
-		return super.retName();
-	}
+		public long retId() {
+			return super.retId();
+		}
+		
+		public String retName() {
+			return super.retName();
+		}
+		
+		
+		public double retAge() {
+			return super.retAge();
+		}
+		
+		public char retGender() {
+			return super.retGender();
+		}
+		
+		public String retShifts() {
+			return super.retShifts();
+		}
 	
 }

@@ -11,9 +11,28 @@ public class Nurse extends Employee{
 		System.out.println("Nurse Class");
 	}
 	
-	public String retName() {
-		return super.retName();
-	}
+	// Getter functions
+	
+		public long retId() {
+			return super.retId();
+		}
+		
+		public String retName() {
+			return super.retName();
+		}
+		
+		
+		public double retAge() {
+			return super.retAge();
+		}
+		
+		public char retGender() {
+			return super.retGender();
+		}
+		
+		public String retShifts() {
+			return super.retShifts();
+		}
 	
 }
 

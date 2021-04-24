@@ -36,7 +36,7 @@ class ResidentCareTest {
 		m.addStaff("Nurse");
 		assertEquals((long)7830675,m.displayNurses());
 		m.addStaff("Nurse");
-		assertEquals((long)7830675,m.displayNurses());
+		assertEquals((long)7830001,m.displayNurses());
 	}
 	
 	// Test to add a patient to patientList

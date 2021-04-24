@@ -1,7 +1,5 @@
 package main;
 import java.util.*;
-import java.time.*;
-import CustomExceptions.InvalidShiftTimingsException;
 import CustomExceptions.InputValidation;
 
 public class Manager extends Employee{
@@ -126,7 +124,10 @@ public class Manager extends Employee{
 	
 	public long displayManagers() {
 		for(Manager m: managerList.retStaff())
-			System.out.print(m.retName()+" ");
+			System.out.print("\nId :"+m.retId()+"\n"+
+					"Name: "+m.retName()+"\n"+
+						"Age: "+(int)m.retAge()+"\n"+
+							"Shift: "+m.retShifts()+"\n\n");
 		
 		System.out.println("\n\n");
 		
@@ -135,7 +136,10 @@ public class Manager extends Employee{
 	
 	public long displayDoctors() {
 		for (Doctor d: doctorList.retStaff())
-			System.out.print(d.retId()+" ");
+			System.out.print("\nId :"+d.retId()+"\n"+
+								"Name: "+d.retName()+"\n"+
+									"Age: "+(int)d.retAge()+"\n"+
+										"Shift: "+d.retShifts()+"\n\n");
 		
 		System.out.println("\n\n");
 		
@@ -144,7 +148,10 @@ public class Manager extends Employee{
 	
 	public long displayNurses() {
 		for(Nurse n: nurseList.retStaff())
-			System.out.print(n.retId()+" ");
+			System.out.print("\nId :"+n.retId()+"\n"+
+					"Name: "+n.retName()+"\n"+
+						"Age: "+(int)n.retAge()+"\n"+
+							"Shift: "+n.retShifts()+"\n\n");
 		
 		System.out.println("\n\n");
 		
@@ -169,6 +176,10 @@ public class Manager extends Employee{
 	
 	public char retGender() {
 		return super.retGender();
+	}
+	
+	public String retShifts() {
+		return super.retShifts();
 	}
 			
 };
