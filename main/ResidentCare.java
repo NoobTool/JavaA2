@@ -1,4 +1,6 @@
 package main;
+import CommonSnippets.CommonCodes;
+import CommonSnippets.OptionSequence;;
 
 public class ResidentCare {
 	

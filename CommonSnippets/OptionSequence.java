@@ -1,6 +1,5 @@
-package main;
-import java.util.Scanner;
-import java.util.concurrent.Callable;
+package CommonSnippets;
+import main.Manager;
 
 public class OptionSequence {
 	

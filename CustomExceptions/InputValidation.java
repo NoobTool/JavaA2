@@ -1,7 +1,7 @@
 package CustomExceptions;
 import java.lang.Math;
 import java.util.*;
-import main.CommonCodes;
+import CommonSnippets.CommonCodes;
 import java.time.LocalTime;
 import java.time.format.DateTimeParseException;
 

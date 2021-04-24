@@ -1,4 +1,4 @@
-package main;
+package CommonSnippets;
 
 public class DisplayMenu {
 	

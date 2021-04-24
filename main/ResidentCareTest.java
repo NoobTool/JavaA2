@@ -1,9 +1,7 @@
 package main;
 import static org.junit.jupiter.api.Assertions.*;
 import java.util.*;
-
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.BeforeEach;
 import CustomExceptions.InputValidation;
 
 class ResidentCareTest {
