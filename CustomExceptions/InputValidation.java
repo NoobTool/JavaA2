@@ -2,6 +2,8 @@ package CustomExceptions;
 import java.lang.Math;
 import java.util.*;
 import main.CommonCodes;
+import java.time.LocalTime;
+import java.time.format.DateTimeParseException;
 
 public class InputValidation {
 	Scanner scan = new Scanner(System.in);
@@ -69,4 +71,31 @@ public class InputValidation {
 		}
 		return gender;
 	}
+	
+	public String validateShifts(String shifts) {
+		
+		try {
+			LocalTime start_time,end_time;
+			String[] shiftTimings = shifts.split("-");
+			start_time = LocalTime.parse(shiftTimings[0]);
+			end_time = LocalTime.parse(shiftTimings[1]);
+			
+			if(end_time.isBefore(start_time))
+				throw new InvalidShiftTimingsException();
+			
+			return shifts;
+			
+		}catch(DateTimeParseException e) {
+			String newShifts = c.inputString("Please enter shifts in format XX:XX-YY:YY");
+			newShifts = validateShifts(newShifts);
+			return newShifts;
+			
+		}catch(InvalidShiftTimingsException e) {
+			String newShifts = c.inputString("End_time must be after starting time");
+			newShifts = validateShifts(newShifts);
+			return newShifts;
+		}
+	}
+	
+	
 }

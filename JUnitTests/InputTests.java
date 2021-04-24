@@ -67,13 +67,19 @@ class InputTests {
 	// Test to check if shift timings are in proper format
 	@Test
 	void shiftTimingsTest1() {
-		fail("Not yet implemented!");
+		String shifts="abcas";
+		System.out.println("\n\nShift tests:-");
+		shifts = i.validateShifts(shifts);
+		assertEquals(shifts,i.validateShifts(shifts));
 	}
 	
 	// Test to check if start_time < end_time
 	@Test
 	void shiftTimingsTest2() {
-		fail("Not yet implemented!");
+		String shifts="09:10-09:00";
+		System.out.println("\n\nShift tests:-");
+		shifts = i.validateShifts(shifts);
+		assertEquals(shifts,i.validateShifts(shifts));
 	}
 
 }

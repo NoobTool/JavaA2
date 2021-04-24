@@ -13,14 +13,7 @@ public class Employee extends Person{
 	
 	Employee(long id, String name, double age, char gender, String shifts){
 		super(name,age,gender);
-		
-		LocalTime start_time,end_time;
-		this.id = id;
-		String[] shiftTimings = shifts.split("-");
-		start_time = LocalTime.parse(shiftTimings[0]);
-		end_time = LocalTime.parse(shiftTimings[1]);
-		this.start_time = LocalTime.parse(shiftTimings[0]);
-		this.end_time = LocalTime.parse(shiftTimings[1]);
+		this.id=id;
 		
 	}
 	

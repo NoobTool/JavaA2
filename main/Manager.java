@@ -1,7 +1,7 @@
 package main;
 import java.util.*;
 import java.time.*;
-import CustomExceptions.InvalidShiftTimings;
+import CustomExceptions.InvalidShiftTimingsException;
 import CustomExceptions.InputValidation;
 
 public class Manager extends Employee{
@@ -24,7 +24,7 @@ public class Manager extends Employee{
 		doctorList.addStaff(new Doctor((long)6830000,"Babu",16,'M',"12:00-03:00"));
 		nurseList.addStaff(new Nurse((long)7830000,"Elisa",18,'F',"00:00-07:00"));
 		
-		availableIdList.add((long)7830001);
+		availableIdList.add((long)7830675);
 		availableIdList.add((long)6830012);
 	}
 	
@@ -60,13 +60,13 @@ public class Manager extends Employee{
 		name = name.strip();
 		name = i.validateName(name);
 		
-		age = c.inputDouble("Enter the age of "+name);
-		age = i.validateAge(age);
+		age = i.validateAge(c.inputDouble("Enter the age of "
+		+name));
 		
-		gender = c.inputChar("Enter the gender of the employee "+name);
-		gender = i.validateGender(gender);
+		gender = i.validateGender(c.inputChar("Enter the gender of the employee "+name));
 		
-		shifts = c.inputString("Enter the shift timings in the format XX:XX-YY:YY");
+		shifts = i.validateShifts(c.inputString("Enter the shift timings in the format "
+				+ "XX:XX-YY:YY"));
 		
 		
 		if (post=="Manager") {
