@@ -1,12 +1,10 @@
 package main;
-import java.util.*;
 
 public class Patient extends Person{
 	private long id;
 	private Prescription prescription = new Prescription();
 	
 	public Patient(){
-		Patient p = new Patient(8030000,"PatientOne",34,'M');
 	}
 	
 	public Patient(long id, String name, double age, char gender){
@@ -19,7 +17,7 @@ public class Patient extends Person{
 	}
 	
 	public void displayPatients() {
-		System.out.println("\nId: "+this.retID()+"\nName: "+this.retName()+
+		System.out.println("\nId: "+this.retId()+"\nName: "+this.retName()+
 				"\nAge: "+this.retAge()+"\nGender: "+this.retGender());
 	}
 	
@@ -33,7 +31,7 @@ public class Patient extends Person{
 		return super.retName();
 	}
 	
-	public long retID() {
+	public long retId() {
 		return this.id;		
 	}
 	

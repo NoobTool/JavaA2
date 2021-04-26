@@ -56,7 +56,7 @@ public class Manager extends Employee{
 		
 		long id;
 		double age;
-		String name,shifts;
+		String name,shifts="";
 		char gender;
 		
 		id = allotId(post);
@@ -70,6 +70,7 @@ public class Manager extends Employee{
 		
 		gender = i.validateGender(c.inputChar("Enter the gender of the employee "+name));
 		
+		if(post!="Patient")
 		shifts = i.validateShifts(c.inputString("Enter the shift timings in the format "
 				+ "XX:XX-YY:YY"));
 		
@@ -122,7 +123,7 @@ public class Manager extends Employee{
 		
 		else {
 			if(id==0) {
-				Patient p =  new Patient(idList.get(2)+1, name, age, gender);
+				Patient p =  new Patient(idList.get(3)+1, name, age, gender);
 				idList.set(2,idList.get(2)+1);
 				patientList.addStaff(p);
 			}
@@ -177,6 +178,20 @@ public class Manager extends Employee{
 		System.out.println("\n\n");
 		
 		return nurseList.retStaff().get(nurseList.retSize()-1).retId();
+	}
+	
+	public long displayPatients() {
+		for(Patient p: patientList.retStaff()) {
+			System.out.print("\nId :"+p.retId()+"\n"+
+					"Name: "+p.retName()+"\n"+
+						"Age: "+(int)p.retAge()+"\n");
+			p.printPrescription();
+		}
+			
+		
+		System.out.println("\n\n");
+		
+		return patientList.retStaff().get(patientList.retSize()-1).retId();
 	}
 	
 	

@@ -37,6 +37,87 @@ public class Doctor extends Employee{
 		}while(choice!=2);
 	}
 	
+	
+//	public void doctorSequence() {
+//		int choice;
+//		do {
+//			dm.doctorMenu();
+//			choice=c.inputInt("");
+//			
+//			switch(choice) {
+//				case 1: addPrescription();
+//				case 2: System.out.println("Allotting nurse");
+//				case 3: System.out.println("Exiting..");choice=3;break;
+//				default: System.out.println("Wrong choice, enter again! ");
+//			}
+//			
+//		}while(choice!=3);		
+//	}
+	
+	public void doctorAddMedicines() {
+		int choice;
+		String msg = "Enter your choice";
+		do {
+			dm.doctorMenu();
+			choice=c.inputInt(msg);
+			 switch(choice) {
+			 	case 1: 
+			 			dm.searchOptions();
+			 			Manager m = new Manager();
+			 			Patient p = doctorSearch(c.inputInt(""),m.retPatientList());
+			 			if (p.retName()==null) {
+			 				System.out.println("Patient not found");
+			 				msg="Enter your choice again! ";
+			 				break;
+			 			}
+			 			this.addPrescription(p);
+			 			break;
+			 	case 2:
+			 			System.out.println("Allotting nurse!");
+			 			break;
+			 	case 3: 
+			 			System.out.println("Exiting");
+			 			choice=3;
+			 			break;
+	 			default:
+	 					System.out.println("Wrong choice, enter again! ");
+	 					break; 					
+			 }
+		}while(choice!=3);
+	}
+	
+	public Patient doctorSearch(int choice,ArrayList<Patient> patientList) {
+		do {
+			switch(choice) {
+				case 1: long id = c.inputLong("Enter the id of the patient. ");
+						for (Patient p: patientList) {
+							if (p.retId()==id) {
+								return p;
+							}	
+						}
+						System.out.println("Patient not found ");
+						break;
+						
+				case 2: String name = c.inputString("Enter the name of the patient. ");
+						for (Patient p: patientList) {
+							if (p.retName()==name) {
+								return p;
+							}	
+						}
+						System.out.println("Patient not found ");
+						break;
+						
+				case 3: choice=3;
+						break;
+				default: System.out.println(" Wrong choice, enter again! ");
+						 break;
+			}
+			choice=c.inputInt("");
+		}while(choice!=3);
+		
+		return new Patient();
+	}
+	
 	// Getter functions
 	
 		public long retId() {

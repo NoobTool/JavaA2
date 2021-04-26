@@ -16,7 +16,8 @@ public class DisplayMenu {
 		System.out.println("1. Manager.");
 		System.out.println("2. Doctor.");
 		System.out.println("3. Nurse.");
-		System.out.println("4. Exit");
+		System.out.println("4. Patient.");
+		System.out.println("5. Exit");
 		System.out.println("Enter your choice! ");
 	}
 	
