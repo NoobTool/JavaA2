@@ -1,12 +1,9 @@
 package JUnitTests;
 import static org.junit.jupiter.api.Assertions.*;
-
 import java.util.ArrayList;
-
 import org.junit.jupiter.api.Test;
-
 import main.*;
-
+import ward.*;
 
 class ResidentCareTest {
 	
@@ -123,4 +120,19 @@ class ResidentCareTest {
 		m.modifyDetails();
 		m.displayDoctors();
 	}
+	
+	// Adding patient in room test
+	@Test
+	void addPatientInRoom() {
+		Room r = new Room();
+		r.addPatient(new Patient(123,"Radhe",89,'F'));
+		r.addPatient(new Patient(124,"Isha",42,'F'));
+		r.addPatient(new Patient(123,"Piya",89,'F'));
+		r.addPatient(new Patient(124,"Riya",42,'F'));
+		r.addPatient(new Patient(123,"Radhe",89,'F'));
+		r.addPatient(new Patient(124,"Isha",42,'F'));
+		r.printRoomStatus();
+	}
+	
+	
 }
