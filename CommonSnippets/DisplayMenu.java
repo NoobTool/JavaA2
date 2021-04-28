@@ -16,17 +16,6 @@ public class DisplayMenu {
 		System.out.println("1. Manager.");
 		System.out.println("2. Doctor.");
 		System.out.println("3. Nurse.");
-		System.out.println("4. Patient.");
-		System.out.println("5. Exit");
-		System.out.println("Enter your choice! ");
-	}
-	
-	public void managerMenuStaffSelection() {
-		System.out.println("1. Modify manager's details.");
-		System.out.println("2. Modify doctor's details.");
-		System.out.println("3. Modify nurse's details.");
-		System.out.println("4. Exit");
-		System.out.println("Enter your choice! ");
 	}
 	
 	public void searchOptions() {
@@ -34,6 +23,15 @@ public class DisplayMenu {
 		System.out.println("2. Search by name");
 		System.out.println("3. Exit");
 		System.out.println("Enter your choice! ");
+	}
+	
+	public void modificationOptions() {
+		System.out.println("1. Name ");
+		System.out.println("2. Age ");
+		System.out.println("3. Gender");
+		System.out.println("4. Shifts");
+		System.out.println("5. Password");
+		System.out.println("6. Exit");
 	}
 	
 	public void doctorMenu() {

@@ -4,10 +4,14 @@ import java.util.*;
 import CommonSnippets.CommonCodes;
 import java.time.LocalTime;
 import java.time.format.DateTimeParseException;
+import java.time.temporal.ChronoUnit;
+import main.Employee;
 
 public class InputValidation {
 	Scanner scan = new Scanner(System.in);
 	CommonCodes c = new CommonCodes();
+	Employee e = new Employee();
+	final int MAX_HOURS = e.retMaxHours();
 	
 	public long validateId(long id,String post) {
 		
@@ -81,7 +85,10 @@ public class InputValidation {
 			end_time = LocalTime.parse(shiftTimings[1]);
 			
 			if(end_time.isBefore(start_time))
-				throw new InvalidShiftTimingsException();
+				throw new InvalidShiftTimingsException("End_time must be after starting time");
+			
+			if(start_time.until(end_time, ChronoUnit.HOURS)>MAX_HOURS)
+				throw new InvalidShiftTimingsException("Shift timings must be less than 6 hours!");
 			
 			return shifts;
 			
@@ -91,7 +98,7 @@ public class InputValidation {
 			return newShifts;
 			
 		}catch(InvalidShiftTimingsException e) {
-			String newShifts = c.inputString("End_time must be after starting time");
+			String newShifts = c.inputString("Enter again!");
 			newShifts = validateShifts(newShifts);
 			return newShifts;
 		}

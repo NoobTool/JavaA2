@@ -13,6 +13,36 @@ class ResidentCareTest {
 	static Manager m = new Manager();
 	
 	@Test
+	void managerLoginTest() {
+		Login l = new Login();
+		// Valid Login id = 7730000
+		// Valid Password = 1234
+		
+		assertEquals(true,l.managerLogin());
+	}
+	
+	
+	@Test
+	void doctorLoginTest() {
+		Login l = new Login();
+		// Valid Login id = 6830000
+		// Valid Password = 1234
+		
+		assertEquals(true,l.doctorLogin());
+	}
+	
+	
+	@Test
+	void nurseLoginTest() {
+		Login l = new Login();
+		// Valid Login id = 7830000
+		// Valid Password = 1234
+		
+		assertEquals(true,l.nurseLogin());
+	}
+	
+	
+	@Test
 	void idTest() {
 		assertEquals(0,m.allotId("Doctor"));
 	}
@@ -87,6 +117,10 @@ class ResidentCareTest {
 		p.displayPatients();
 	}
 	
-	
-	
+	// Modifying details test
+	@Test
+	void modifyTest() {
+		m.modifyDetails();
+		m.displayDoctors();
+	}
 }

@@ -1,6 +1,5 @@
 package main;
 import CommonSnippets.CommonCodes;
-import CommonSnippets.OptionSequence;
 
 public class ResidentCare {
 	
@@ -9,32 +8,37 @@ public class ResidentCare {
 		// Variable Initialization
 		int choice=0;
 		CommonCodes c = new CommonCodes();
-		Doctor d = new Doctor();
-			
+		Login login = new Login();
 		
 		// Objects for displaying options
-		OptionSequence oq = new OptionSequence();
 		
 		do {
 			System.out.println("1. Login as Manager");
 			System.out.println("2. Login as Doctor");
 			System.out.println("3. Login as Nurse");
-			System.out.println("4. Signup as Patient");
 			choice=c.inputInt("Enter your choice!");
 			switch(choice) {
 				case 1: 
-						oq.managerSequence();
+						Manager m = login.managerLogin();
+						if(m.retName()!=null)
+							m.managerSequence();
 						break;
-						
+
 				case 2:
-						d.doctorAddMedicines();
+						Doctor d = login.doctorLogin();
+						if(d.retName()!=null)
+							d.doctorAddMedicines();						
+						break;
+				case 3:
+						Nurse n = login.nurseLogin();
+						if(n.retName()!=null)
+							System.out.println("Nurse logged in! ");
 						break;
 						
-						
-				default: System.out.println("Dobara enter krle :| ");
+				default: System.out.println("Dobara enter krle bc :| ");
 						
 			}
-		}while(choice!=5);
+		}while(choice!=4);
 		
 	}
 }

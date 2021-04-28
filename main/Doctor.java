@@ -10,11 +10,9 @@ public class Doctor extends Employee{
 	
 	public Doctor(){}
 	
-	Doctor(long id, String name, double age, char gender,String shifts){
-		super(id,name,age,gender,shifts);
+	Doctor(long id, String name, double age, char gender,String shifts, String password){
+		super(id,name,age,gender,shifts,password);
 	}
-	
-	public Doctor(OptionSequence o){}
 	
 	public void addPrescription(Patient p) {
 		int choice;
@@ -36,23 +34,7 @@ public class Doctor extends Employee{
 			}
 		}while(choice!=2);
 	}
-	
-	
-//	public void doctorSequence() {
-//		int choice;
-//		do {
-//			dm.doctorMenu();
-//			choice=c.inputInt("");
-//			
-//			switch(choice) {
-//				case 1: addPrescription();
-//				case 2: System.out.println("Allotting nurse");
-//				case 3: System.out.println("Exiting..");choice=3;break;
-//				default: System.out.println("Wrong choice, enter again! ");
-//			}
-//			
-//		}while(choice!=3);		
-//	}
+
 	
 	public void doctorAddMedicines() {
 		int choice;
@@ -100,7 +82,8 @@ public class Doctor extends Employee{
 						
 				case 2: String name = c.inputString("Enter the name of the patient. ");
 						for (Patient p: patientList) {
-							if (p.retName()==name) {
+							System.out.println("Patient name: "+p.retName());
+							if (p.retName().matches(name)) {
 								return p;
 							}	
 						}

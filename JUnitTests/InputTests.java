@@ -81,5 +81,16 @@ class InputTests {
 		shifts = i.validateShifts(shifts);
 		assertEquals(shifts,i.validateShifts(shifts));
 	}
+	
+	// Test to check shift timings doesn't exceed 6 hours
+	@Test
+	void shiftTimingsTest3 () {
+		String shifts="09:10-18:20";
+		System.out.println("\n\nShift tests:-");
+		shifts = i.validateShifts(shifts);
+		assertEquals(shifts,i.validateShifts(shifts));
+	}
+	
+	
 
 }

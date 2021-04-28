@@ -3,8 +3,11 @@ package main;
 
 public class Nurse extends Employee{
 	
-	Nurse(long id, String name, double age, char gender,String shifts){
-		super(id,name,age,gender,shifts);
+	
+	public Nurse(){}
+	
+	Nurse(long id, String name, double age, char gender,String shifts,String password){
+		super(id,name,age,gender,shifts,password);
 	}
 	
 	public void addPrescription() {
