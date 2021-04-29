@@ -1,7 +1,5 @@
 package ward;
 import main.Patient;
-import java.util.*;
-
 
 public class Room {
 	final int ROOM_SIZE = 4;
@@ -15,7 +13,7 @@ public class Room {
 			beds[i] = new Bed();
 	}
 	
-	public void addPatient(Patient p) {
+	public boolean addPatient(Patient p) {
 		boolean flag=false;
 		for(int i=0;i<ROOM_SIZE;i++) {
 			if(beds[i].retOccupied()==false) {
@@ -24,11 +22,13 @@ public class Room {
 					gender = p.retGender();
 					flag=true;
 					empty=false;
+					return flag;
 				}
 				else {
 					if(gender==p.retGender()) {
 						flag=true;
 						beds[i]= new Bed(true,p);
+						return flag;
 					}
 					else {
 						System.out.println("Sorry, the gender is not right! ");
@@ -36,13 +36,9 @@ public class Room {
 					}
 						
 				}
-				break;
 			}
 		}
-		
-		if(flag==false)
-			System.out.println("No rooms left! ");
-		
+		return false;
 	}
 	
 	public void printRoomStatus() {
@@ -50,6 +46,15 @@ public class Room {
 			if(b.retOccupied())
 				System.out.println("Name: "+b.retName());
 		}
+	}
+	
+	public boolean isFull() {
+		for(Bed b: beds) {
+			if(b.retOccupied()==false)
+				return false;
+		}
+		
+		return true;
 	}
 
 }

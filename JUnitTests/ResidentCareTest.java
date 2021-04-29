@@ -134,5 +134,36 @@ class ResidentCareTest {
 		r.printRoomStatus();
 	}
 	
+	// Adding patient in ward test
+	@Test
+	void addPatientInWard() {
+		Ward w = new Ward();
+		w.addPatient(new Patient(123,"Radhe",89,'F'));
+		w.addPatient(new Patient(124,"Isha",42,'F'));
+		w.addPatient(new Patient(123,"Piya",89,'F'));
+		w.addPatient(new Patient(123,"Radhe",89,'F'));
+		w.addPatient(new Patient(123,"Radhe",89,'F'));
+		w.addPatient(new Patient(124,"Isha",42,'F'));
+		w.addPatient(new Patient(123,"Piya",89,'F'));
+		w.addPatient(new Patient(123,"Radhe",89,'F'));
+		w.addPatient(new Patient(123,"Radhe",89,'F'));
+		w.addPatient(new Patient(124,"Isha",42,'F'));
+		w.addPatient(new Patient(123,"Piya",89,'F'));
+		w.addPatient(new Patient(123,"Radhe",89,'F'));
+		w.addPatient(new Patient(123,"Radhe",89,'F'));
+		w.addPatient(new Patient(124,"Isha",42,'F'));
+		w.addPatient(new Patient(123,"Piya",89,'F'));
+		w.addPatient(new Patient(123,"Radhe",89,'F'));
+		w.addPatient(new Patient(123,"Radhe",89,'F'));
+		w.addPatient(new Patient(124,"Isha",42,'F'));
+		w.addPatient(new Patient(123,"Piya",89,'F'));
+		w.addPatient(new Patient(123,"Radhe",89,'F'));
+		w.addPatient(new Patient(123,"Radhe",89,'F'));
+		w.addPatient(new Patient(124,"Isha",42,'F'));
+		w.addPatient(new Patient(123,"Piya",89,'F'));
+		w.addPatient(new Patient(123,"Radhe",89,'F'));
+		w.addPatient(new Patient(123,"Radhe",89,'F'));
+		w.printWardStatus();
+	}
 	
 }
