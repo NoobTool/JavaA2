@@ -378,22 +378,34 @@ public class Manager extends Employee{
 	public void addWard(Patient p) {
 		Ward w = new Ward();
 		WardDetails wardDetails = new WardDetails();
-		for(int i=0;i<NO_OF_WARDS;i++) {
-			w=wards[i];
-			wardDetails = w.addPatient(p);
-			if(wardDetails.retRoomNumber()!=-1) {
-				wardDetails.setWardNumber(i);
-				p.setWard(wardDetails);
-				System.out.println("Ward Set Successfully");
-				System.out.println("Patient: "+p.retName()+" is resting at "
-						+"ward "+i+" in room "+wardDetails.retRoomNumber()
-						+" in bed "+wardDetails.retBedNumber());
+		if(isWardFull()==false) {
+			for(int i=0;i<NO_OF_WARDS;i++) {
+				w=wards[i];
+				wardDetails = w.addPatient(p);
+				if(wardDetails.retRoomNumber()!=-1) {
+					wardDetails.setWardNumber((i+1));
+					p.setWard(wardDetails);
+					System.out.println("Ward Set Successfully");
+					System.out.println("Patient: "+p.retName()+" is resting at "
+							+"ward "+(i+1)+" in room "+wardDetails.retRoomNumber()
+							+" in bed "+wardDetails.retBedNumber());
+					return;
+				}
 			}
-			return;	
 		}
 		System.out.println("Sorry, no space for you in the care centre! ");
+		return;
 	}
 	
+	
+	public boolean isWardFull() {
+		Ward w = new Ward();
+		for(int i=0;i<NO_OF_WARDS;i++) {
+			if(w.isFull()==false)
+				return false;
+		}
+		return true;
+	}
 	
 	// Getter functions
 	

@@ -29,6 +29,12 @@ public class Patient extends Person{
 		this.prescription.printPrescription();
 	}
 	
+	public void printWardDetails() {
+		System.out.println("Ward Number: "+retWardNumber());
+		System.out.println("Room Number: "+retRoomNumber());
+		System.out.println("Bed Number: "+retBedNumber());
+	}
+	
 	// Setter functions
 	public void setWard(WardDetails ward) {
 		this.ward=ward;
@@ -49,6 +55,18 @@ public class Patient extends Person{
 	
 	public char retGender() {
 		return super.retGender();
+	}
+	
+	public int retWardNumber() {
+		return ward.retWardNumber();
+	}
+	
+	public int retRoomNumber() {
+		return ward.retRoomNumber();
+	}
+	
+	public int retBedNumber() {
+		return ward.retBedNumber();
 	}
 	
 }

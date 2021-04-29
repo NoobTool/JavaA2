@@ -16,33 +16,33 @@ public class Room {
 	}
 	
 	public WardDetails addPatient(Patient p) {
-		boolean flag=false;
-		for(int i=0;i<ROOM_SIZE;i++) {
-			if(beds[i].retOccupied()==false) {
-				if(empty==true) {
-					beds[i]= new Bed(true, p, (i+1));
-					gender = p.retGender();
-					flag=true;
-					empty=false;
-					wd.setRoomNumber((i+1));
-					return wd;
-				}
-				else {
-					if(gender==p.retGender()) {
-						flag=true;
+		if(!isFull()) {
+			for(int i=0;i<ROOM_SIZE;i++) {
+				if(beds[i].retOccupied()==false) {
+					if(empty==true) {
 						beds[i]= new Bed(true, p, (i+1));
-						wd.setRoomNumber((i+1));
+						gender = p.retGender();
+						empty=false;
+						wd.setBedNumber((i+1));
 						return wd;
 					}
 					else {
-						System.out.println("Sorry, the gender is not right! ");
-						break;
+						if(gender==p.retGender()) {
+							beds[i]= new Bed(true, p, (i+1));
+							wd.setBedNumber((i+1));
+							return wd;
+						}
+						else {
+							System.out.println("Sorry, the gender is not right! ");
+							wd.setBedNumber(-1);
+							break;
+						}	
 					}
-						
 				}
 			}
+			return wd;
 		}
-		return null;
+		return new WardDetails();
 	}
 	
 	public void printRoomStatus() {

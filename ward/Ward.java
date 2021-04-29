@@ -16,13 +16,16 @@ public class Ward {
 	public WardDetails addPatient(Patient p) {
 		if(isFull()) {
 			System.out.println(" No space in this ward! ");
-			return null;
+			return new WardDetails();
 		}
 		
-		for(Room r: rooms) {
-			WardDetails w = r.addPatient(p);
-			if(w.retRoomNumber()!=-1)
+		for(int i=0;i<WARD_SIZE;i++) {
+			WardDetails w = rooms[i].addPatient(p);
+			System.out.println("Name: "+p.retName()+" "+w.retBedNumber());
+			if(w.retBedNumber()!=-1) {
+				w.setRoomNumber((i+1));
 				return w;
+			}
 		}
 		
 		System.out.println("The patient can't be shifted to this ward! ");
