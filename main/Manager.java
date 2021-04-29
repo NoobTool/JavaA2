@@ -3,14 +3,18 @@ import java.util.*;
 import CommonSnippets.DisplayMenu;
 import CustomExceptions.InputValidation;
 import CommonSnippets.CommonCodes;
+import ward.Ward;
+import ward.WardDetails;
 
 public class Manager extends Employee{
+	private final static int NO_OF_WARDS = 2;
 	
 	CommonCodes c = new CommonCodes();
 	static Staff<Manager> managerList = new Staff<Manager>();
 	static Staff<Doctor> doctorList = new Staff<Doctor>();
 	static Staff<Nurse> nurseList = new Staff<Nurse>();
 	static Staff<Patient> patientList = new Staff<Patient>();
+	static Ward wards[] = new Ward[NO_OF_WARDS];
 	
 	static ArrayList<Long> idList = new ArrayList<Long>();
 	static ArrayList<Long> availableIdList = new ArrayList<Long>();
@@ -19,6 +23,10 @@ public class Manager extends Employee{
 	DisplayMenu dm = new DisplayMenu();
 	
 	public Manager(){
+		for(int i=0;i<NO_OF_WARDS;i++)
+			wards[i]= new Ward();
+			
+		
 		idList.add((long)7730000);
 		idList.add((long)6830000);
 		idList.add((long)7830000);
@@ -365,6 +373,25 @@ public class Manager extends Employee{
 			}
 			
 		}while(choice!=6);
+	}
+	
+	public void addWard(Patient p) {
+		Ward w = new Ward();
+		WardDetails wardDetails = new WardDetails();
+		for(int i=0;i<NO_OF_WARDS;i++) {
+			w=wards[i];
+			wardDetails = w.addPatient(p);
+			if(wardDetails.retRoomNumber()!=-1) {
+				wardDetails.setWardNumber(i);
+				p.setWard(wardDetails);
+				System.out.println("Ward Set Successfully");
+				System.out.println("Patient: "+p.retName()+" is resting at "
+						+"ward "+i+" in room "+wardDetails.retRoomNumber()
+						+" in bed "+wardDetails.retBedNumber());
+			}
+			return;	
+		}
+		System.out.println("Sorry, no space for you in the care centre! ");
 	}
 	
 	

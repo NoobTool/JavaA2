@@ -3,9 +3,11 @@ import main.Patient;
 
 public class Room {
 	final int ROOM_SIZE = 4;
+	private int number;
 	private Bed beds[] = new Bed[ROOM_SIZE];
 	private char gender;
 	private boolean empty;
+	private WardDetails wd = new WardDetails();
 	
 	public Room() {
 		empty=true;
@@ -13,22 +15,24 @@ public class Room {
 			beds[i] = new Bed();
 	}
 	
-	public boolean addPatient(Patient p) {
+	public WardDetails addPatient(Patient p) {
 		boolean flag=false;
 		for(int i=0;i<ROOM_SIZE;i++) {
 			if(beds[i].retOccupied()==false) {
 				if(empty==true) {
-					beds[i]= new Bed(true,p);
+					beds[i]= new Bed(true, p, (i+1));
 					gender = p.retGender();
 					flag=true;
 					empty=false;
-					return flag;
+					wd.setRoomNumber((i+1));
+					return wd;
 				}
 				else {
 					if(gender==p.retGender()) {
 						flag=true;
-						beds[i]= new Bed(true,p);
-						return flag;
+						beds[i]= new Bed(true, p, (i+1));
+						wd.setRoomNumber((i+1));
+						return wd;
 					}
 					else {
 						System.out.println("Sorry, the gender is not right! ");
@@ -38,7 +42,7 @@ public class Room {
 				}
 			}
 		}
-		return false;
+		return null;
 	}
 	
 	public void printRoomStatus() {
@@ -55,6 +59,10 @@ public class Room {
 		}
 		
 		return true;
+	}
+	
+	public int retNumber() {
+		return this.number;
 	}
 
 }

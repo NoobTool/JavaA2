@@ -1,8 +1,11 @@
 package main;
+import ward.WardDetails;
+
 
 public class Patient extends Person{
 	private long id;
 	private Prescription prescription = new Prescription();
+	private WardDetails ward;
 	
 	public Patient(){
 	}
@@ -24,6 +27,11 @@ public class Patient extends Person{
 	public void printPrescription() {
 		System.out.println("Id: "+id);
 		this.prescription.printPrescription();
+	}
+	
+	// Setter functions
+	public void setWard(WardDetails ward) {
+		this.ward=ward;
 	}
 	
 	// Getter Functions
