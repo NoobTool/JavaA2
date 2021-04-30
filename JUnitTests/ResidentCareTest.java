@@ -263,7 +263,36 @@ class ResidentCareTest {
 	void printPatientInBedTest() {
 		Manager m = new Manager();
 		m.addStaff("Patient");
-		m.displayPatientInBed(1, 1, 1);
+		Doctor d = new Doctor();
+		d.enterPatientBed();
 	}
+	
+	
+	@Test
+	void enterPatientBedTest() {
+		Doctor d = new Doctor();
+		d.enterPatientBed();
+		}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 }

@@ -6,9 +6,8 @@ public class DisplayMenu {
 		System.out.println("1. Admit a patient.");
 		System.out.println("2. Hire new employees.");
 		System.out.println("3. Modify staff details.");
-		System.out.println("4. Modify shift details.");
-		System.out.println("5. Display staff members.");
-		System.out.println("6. Exit");
+		System.out.println("4. Display staff members.");
+		System.out.println("5. Exit");
 		System.out.println("Enter your choice! ");
 	}
 	
@@ -37,7 +36,8 @@ public class DisplayMenu {
 	public void doctorMenu() {
 		System.out.println("1. Add a prescription.");
 		System.out.println("2. Suggest Changes");
-		System.out.println("3. Exit");
+		System.out.println("3. Display a patient's details. ");
+		System.out.println("4. Exit");
 		System.out.println("Enter your choice!");
 	}
 	

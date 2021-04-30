@@ -40,6 +40,8 @@ public class Manager extends Employee{
 		availableIdList.add((long)6830012);
 	}
 	
+	public Manager(String msg) {}
+	
 	public Manager(long id, String name, double age, char gender,String shifts,String password){
 		super(id,name,age,gender,shifts,password);
 	}
@@ -202,6 +204,7 @@ public class Manager extends Employee{
 						"Age: "+(int)p.retAge()+"\n"+
 							"Gender: "+p.retGender()+"\n");
 			p.printPrescription();
+			p.printWardDetails();
 		}
 			
 		
@@ -209,7 +212,7 @@ public class Manager extends Employee{
 		
 		return patientList.retStaff().get(patientList.retSize()-1).retId();
 	}
-	
+
 	
 	// Manager Functions
 	
@@ -256,11 +259,11 @@ public class Manager extends Employee{
 				case 1: addStaff("Patient");break;
 				case 2: managerHires();break;
 				case 3: modifyDetails();break;
-				case 4: System.out.println("Changing shift timings.");break;
-				case 5: managerDisplays();break;
+				case 4: managerDisplays();break;
+				default: System.out.println("Wrong choice, enter again. ");
 			}
 			
-		}while(choice!=6);		
+		}while(choice!=5);		
 	}
 	
 	// Modify details of people
@@ -415,21 +418,7 @@ public class Manager extends Employee{
 	
 	
 	// Display a patient in a particular bed
-	public void displayPatientInBed(int bedNumber,int roomNumber,int wardNumber) {
-		Ward w = wards[wardNumber-1];
-		Room r = w.retRoom(roomNumber-1);
-		Patient p = r.retPatient(bedNumber-1);
-		if(!Objects.isNull(p)) {
-			p.displayPatients();
-			p.printPrescription();
-			p.printWardDetails();
-		}
 		
-		else {
-			System.out.println("No patient present at this bed! ");
-		}
-	}
-	
 	
 	
 	// Getter functions
@@ -456,6 +445,10 @@ public class Manager extends Employee{
 	
 	public String retPass() {
 		return super.retPass();
+	}
+	
+	public Ward[] retWardList() {
+		return this.wards;
 	}
 	
 	public int retWards() {

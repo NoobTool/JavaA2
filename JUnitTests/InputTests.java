@@ -1,11 +1,9 @@
 package JUnitTests;
 
 import static org.junit.jupiter.api.Assertions.*;
-
+import CommonSnippets.*;
 import java.util.Scanner;
-
 import CustomExceptions.*;
-
 import org.junit.jupiter.api.Test;
 
 class InputTests {
@@ -108,7 +106,8 @@ class InputTests {
 	
 	@Test
 	void bedNumberValidationsTest() {
-		int n = 7;
+		CommonCodes c = new CommonCodes();
+		int n = c.inputInt("");
 		n = i.validateBedNumber(n);
 		assertEquals(n,i.validateBedNumber(n));
 	}

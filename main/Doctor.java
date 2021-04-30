@@ -35,6 +35,9 @@ public class Doctor extends Employee{
 		}while(choice!=2);
 	}
 
+	public void doctorDisplayPatientInBed() {
+		super.enterPatientBed();
+	};
 	
 	public void doctorAddMedicines() {
 		int choice;
@@ -57,7 +60,11 @@ public class Doctor extends Employee{
 			 	case 2:
 			 			System.out.println("Allotting nurse!");
 			 			break;
-			 	case 3: 
+			 			
+			 	case 3:
+			 			super.enterPatientBed();
+			 			break;
+			 	case 4: 
 			 			System.out.println("Exiting");
 			 			choice=3;
 			 			break;
@@ -65,7 +72,7 @@ public class Doctor extends Employee{
 	 					System.out.println("Wrong choice, enter again! ");
 	 					break; 					
 			 }
-		}while(choice!=3);
+		}while(choice!=4);
 	}
 	
 	public Patient doctorSearch(int choice,ArrayList<Patient> patientList) {
@@ -110,8 +117,7 @@ public class Doctor extends Employee{
 		public String retName() {
 			return super.retName();
 		}
-		
-		
+
 		public double retAge() {
 			return super.retAge();
 		}

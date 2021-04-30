@@ -10,8 +10,8 @@ public class Nurse extends Employee{
 		super(id,name,age,gender,shifts,password);
 	}
 	
-	public void addPrescription() {
-		System.out.println("Nurse Class");
+	public void displayPatientInBed() {
+		super.enterPatientBed();
 	}
 	
 	// Getter functions

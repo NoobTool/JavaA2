@@ -1,11 +1,17 @@
 package main;
-import java.time.LocalTime;
+import CommonSnippets.CommonCodes;
+import CustomExceptions.InputValidation;
+import java.util.Objects;
+
+import ward.Room;
+import ward.Ward;
 
 public class Employee extends Person{
 	final int MAX_HOURS = 6 ;
 	private long id;
 	private String shifts;
 	private String password;
+	private CommonCodes c = new CommonCodes();
 	
 	public Employee(){}
 	
@@ -15,6 +21,31 @@ public class Employee extends Person{
 		this.shifts = shifts;
 		this.password = password;
 		
+	}
+	
+	public void enterPatientBed() {
+		InputValidation i = new InputValidation();
+		int wardNumber = i.validateWardNumber(c.inputInt("Enter patient's ward number. "));
+		int roomNumber = i.validateRoomNumber(c.inputInt("Enter patient's room number. "));
+		int bedNumber = i.validateBedNumber(c.inputInt("Enter patient's bed number. "));
+		displayPatientInBed(bedNumber, roomNumber, wardNumber);
+	}
+	
+	public void displayPatientInBed(int bedNumber,int roomNumber,int wardNumber) {
+		Manager m = new Manager("Empty Object");
+		Ward wards[] = m.retWardList();
+		Ward w = wards[wardNumber-1];
+		Room r = w.retRoom(roomNumber-1);
+		Patient p = r.retPatient(bedNumber-1);
+		if(!Objects.isNull(p)) {
+			p.displayPatients();
+			p.printPrescription();
+			p.printWardDetails();
+		}
+		
+		else {
+			System.out.println("No patient present at this bed! ");
+		}
 	}
 	
 	// Setter functions
