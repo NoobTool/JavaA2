@@ -36,5 +36,4 @@ public class WardDetails {
 		return this.bedNumber;
 	}
 	
-	
 }

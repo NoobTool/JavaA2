@@ -257,5 +257,13 @@ class ResidentCareTest {
 		System.out.println("\n\n");
 		
 	}
+
+	// Printing patient by bed details
+	@Test
+	void printPatientInBedTest() {
+		Manager m = new Manager();
+		m.addStaff("Patient");
+		m.displayPatientInBed(1, 1, 1);
+	}
 	
 }

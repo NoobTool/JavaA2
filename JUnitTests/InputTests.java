@@ -91,6 +91,29 @@ class InputTests {
 		assertEquals(shifts,i.validateShifts(shifts));
 	}
 	
+	// Test to validate the ward number entered
+	@Test
+	void wardNumberValidationsTest() {
+		int n = 7;
+		n = i.validateWardNumber(n);
+		assertEquals(n,i.validateWardNumber(n));
+	}
+	
+	@Test
+	void roomNumberValidationsTest() {
+		int n = 7;
+		n = i.validateRoomNumber(n);
+		assertEquals(n,i.validateRoomNumber(n));
+	}
+	
+	@Test
+	void bedNumberValidationsTest() {
+		int n = 7;
+		n = i.validateBedNumber(n);
+		assertEquals(n,i.validateBedNumber(n));
+	}
+	
+	
 	
 
 }

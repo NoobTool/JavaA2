@@ -18,17 +18,12 @@ public class Bed {
 	}
 	
 	
-	public WardDetails addPatient(int n) {
-		if(occupied==false) {
-			this.occupied = true;
-			wd.setBedNumber(n);
-			return wd;
-		}
-		return null;
-	}
-	
 	public boolean retOccupied() {
 		return this.occupied;
+	}
+	
+	public Patient retPatient() {
+		return this.patient;
 	}
 	
 	public char retGender() {

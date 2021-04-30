@@ -61,8 +61,13 @@ public class Room {
 		return true;
 	}
 	
-	public int retNumber() {
-		return this.number;
+	public Patient retPatient(int n) {
+		return this.beds[n].retPatient();
+	}
+	
+	
+	public int retRooms() {
+		return this.ROOM_SIZE;
 	}
 
 }

@@ -30,6 +30,7 @@ public class Patient extends Person{
 	}
 	
 	public void printWardDetails() {
+		System.out.println("\n\n");
 		System.out.println("Ward Number: "+retWardNumber());
 		System.out.println("Room Number: "+retRoomNumber());
 		System.out.println("Bed Number: "+retBedNumber());

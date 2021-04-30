@@ -1,17 +1,22 @@
 package CustomExceptions;
 import java.lang.Math;
+import ward.*;
 import java.util.*;
 import CommonSnippets.CommonCodes;
 import java.time.LocalTime;
 import java.time.format.DateTimeParseException;
 import java.time.temporal.ChronoUnit;
 import main.Employee;
+import main.Manager;
 
 public class InputValidation {
 	Scanner scan = new Scanner(System.in);
 	CommonCodes c = new CommonCodes();
 	Employee e = new Employee();
 	final int MAX_HOURS = e.retMaxHours();
+	Ward w = new Ward();
+	Room r = new Room();
+	Bed b = new Bed();
 	
 	public long validateId(long id,String post) {
 		
@@ -104,5 +109,30 @@ public class InputValidation {
 		}
 	}
 	
+	public int validateWardNumber(int n) {
+		Manager m = new Manager(this);
+		if(n<=0 || n>m.retWards()) {
+			n = c.inputInt("Ward doesn't exist, enter again! ");
+			n = validateWardNumber(n);
+		}		
+		return n;
+	}
 	
+	public int validateRoomNumber(int n) {
+		Ward w = new Ward(this);
+		if(n<=0 || n>w.retWards()) {
+			n = c.inputInt("Room doesn't exist, enter again! ");
+			n = validateRoomNumber(n);
+		}		
+		return n;
+	}
+	
+	public int validateBedNumber(int n) {
+		Room r = new Room();
+		if(n<=0 || n>r.retRooms()) {
+			n = c.inputInt("Bed doesn't exist, enter again! ");
+			n = validateBedNumber(n);
+		}		
+		return n;
+	}
 }

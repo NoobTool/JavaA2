@@ -1,7 +1,7 @@
 package ward;
 import java.util.Objects;
-
 import main.Patient;
+import CustomExceptions.InputValidation;
 
 public class Ward {
 	private final int WARD_SIZE = 6;
@@ -12,6 +12,8 @@ public class Ward {
 		for(int i=0;i<WARD_SIZE;i++)
 			rooms[i] = new Room();
 	}
+	
+	public Ward(InputValidation i) {}
 
 	public WardDetails addPatient(Patient p) {
 		if(isFull()) {
@@ -49,4 +51,13 @@ public class Ward {
 		}	
 		return true;
 	}
+	
+	public Room retRoom(int n) {
+		return this.rooms[n];
+	}
+	
+	public int retWards() {
+		return this.WARD_SIZE;
+	}
+	
 }

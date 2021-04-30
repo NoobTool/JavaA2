@@ -3,6 +3,7 @@ import java.util.*;
 import CommonSnippets.DisplayMenu;
 import CustomExceptions.InputValidation;
 import CommonSnippets.CommonCodes;
+import ward.Room;
 import ward.Ward;
 import ward.WardDetails;
 
@@ -43,6 +44,7 @@ public class Manager extends Employee{
 		super(id,name,age,gender,shifts,password);
 	}
 	
+	public Manager(InputValidation i) {}
 	
 	public long allotId(String post) {
 		long id=0;
@@ -133,12 +135,14 @@ public class Manager extends Employee{
 				Patient p =  new Patient(idList.get(3)+1, name, age, gender);
 				idList.set(2,idList.get(2)+1);
 				patientList.addStaff(p);
+				addWard(p);
 			}
 			
 			else {
 				Patient p =  new Patient(id, name, age, gender);
 				availableIdList.remove(availableIdList.indexOf(id));
 				patientList.addStaff(p);
+				addWard(p);
 			}
 		}
 		
@@ -407,6 +411,25 @@ public class Manager extends Employee{
 		return true;
 	}
 	
+	
+	// Display a patient in a particular bed
+	public void displayPatientInBed(int bedNumber,int roomNumber,int wardNumber) {
+		Ward w = wards[wardNumber-1];
+		Room r = w.retRoom(roomNumber-1);
+		Patient p = r.retPatient(bedNumber-1);
+		if(!Objects.isNull(p)) {
+			p.displayPatients();
+			p.printPrescription();
+			p.printWardDetails();
+		}
+		
+		else {
+			System.out.println("No patient present at this bed! ");
+		}
+	}
+	
+	
+	
 	// Getter functions
 	
 	public long retId() {
@@ -432,6 +455,10 @@ public class Manager extends Employee{
 	
 	public String retPass() {
 		return super.retPass();
+	}
+	
+	public int retWards() {
+		return this.NO_OF_WARDS;
 	}
 	
 	public ArrayList<Manager> retManagerList(){
