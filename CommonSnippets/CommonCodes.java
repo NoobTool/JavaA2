@@ -1,6 +1,8 @@
 package CommonSnippets;
 import java.util.InputMismatchException;
+import java.time.LocalTime;
 import java.util.Scanner;
+import java.time.format.DateTimeParseException;
 
 public class CommonCodes {
 	
@@ -66,4 +68,17 @@ public class CommonCodes {
 			}
 		}
 	}
+	
+	public LocalTime inputTime(String msg) {
+		while(true) {	
+			try {
+				String s = inputString(msg);
+				LocalTime time = LocalTime.parse(s);
+				return time;
+			}catch(DateTimeParseException e) {
+				inputTime("Invalid format, please enter in HH:MM! ");
+			}
+		}
+	}
+	
 }

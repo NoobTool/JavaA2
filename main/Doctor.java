@@ -39,7 +39,7 @@ public class Doctor extends Employee{
 		super.enterPatientBed();
 	};
 	
-	public void doctorAddMedicines() {
+	public void doctorFunctions() {
 		int choice;
 		String msg = "Enter your choice";
 		do {

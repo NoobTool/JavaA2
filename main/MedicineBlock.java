@@ -6,11 +6,11 @@ import java.time.LocalDate;
 public class MedicineBlock {
 	LocalDate date = LocalDate.now();
 	LocalTime time = LocalTime.now();
-	ArrayList<String> medicines = new ArrayList<String>();
+	ArrayList<MedicineDose> medicines = new ArrayList<MedicineDose>();
 	
 	public MedicineBlock() {}
 	
-	public MedicineBlock(ArrayList<String> meds){
+	public MedicineBlock(ArrayList<MedicineDose> meds){
 		this.date = LocalDate.now();
 		this.time = LocalTime.now();
 		this.medicines = meds;

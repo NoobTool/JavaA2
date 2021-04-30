@@ -27,7 +27,7 @@ public class ResidentCare {
 				case 2:
 						Doctor d = login.doctorLogin();
 						if(d.retName()!=null)
-							d.doctorAddMedicines();						
+							d.doctorFunctions();						
 						break;
 				case 3:
 						Nurse n = login.nurseLogin();
