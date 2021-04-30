@@ -64,7 +64,7 @@ public class Manager extends Employee{
 		
 		long id;
 		double age;
-		String name,shifts="",password;
+		String name,shifts="",password="";
 		char gender;
 		
 		id = allotId(post);
@@ -82,6 +82,7 @@ public class Manager extends Employee{
 		shifts = i.validateShifts(c.inputString("Enter the shift timings in the format "
 				+ "XX:XX-YY:YY"));
 		
+		if(post!="Patient")
 		password = c.inputString("Enter your password");
 		
 		if (post=="Manager") {
@@ -337,7 +338,7 @@ public class Manager extends Employee{
 		}while(choice!=3);
 	}
 	
-	
+	// Changing details of the employee found
 	public void changeDetails(Employee e) {
 		int choice=0;
 		do {
@@ -379,6 +380,7 @@ public class Manager extends Employee{
 		}while(choice!=6);
 	}
 	
+	// Add patient to ward
 	public void addWard(Patient p) {
 		Ward w = new Ward();
 		WardDetails wardDetails = new WardDetails();
@@ -401,7 +403,7 @@ public class Manager extends Employee{
 		return;
 	}
 	
-	
+	// To check if ward is full or not
 	public boolean isWardFull() {
 		Ward w = new Ward();
 		for(int i=0;i<NO_OF_WARDS;i++) {
@@ -440,7 +442,6 @@ public class Manager extends Employee{
 		return super.retName();
 	}
 	
-	
 	public double retAge() {
 		return super.retAge();
 	}
@@ -464,7 +465,6 @@ public class Manager extends Employee{
 	public ArrayList<Manager> retManagerList(){
 		return managerList.retStaff();
 	}
-	
 	public ArrayList<Doctor> retDoctorList(){
 		return doctorList.retStaff();
 	}
