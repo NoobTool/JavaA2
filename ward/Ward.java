@@ -52,6 +52,10 @@ public class Ward {
 		return true;
 	}
 	
+	public void unOccupyRoom(int n) {
+		this.rooms[n].unoccupyBed(n);
+	}
+	
 	public Room retRoom(int n) {
 		return this.rooms[n];
 	}

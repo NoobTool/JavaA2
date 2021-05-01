@@ -3,7 +3,6 @@ import main.Patient;
 
 public class Room {
 	final int ROOM_SIZE = 4;
-	private int number;
 	private Bed beds[] = new Bed[ROOM_SIZE];
 	private char gender;
 	private boolean empty;
@@ -52,6 +51,11 @@ public class Room {
 		}
 	}
 	
+	public void unoccupyBed(int n) {
+		this.beds[n].unoccupyBed();
+		this.empty = true;
+	}
+	
 	public boolean isFull() {
 		for(Bed b: beds) {
 			if(b.retOccupied()==false)
@@ -64,7 +68,6 @@ public class Room {
 	public Patient retPatient(int n) {
 		return this.beds[n].retPatient();
 	}
-	
 	
 	public int retRooms() {
 		return this.ROOM_SIZE;

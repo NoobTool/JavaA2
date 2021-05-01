@@ -17,6 +17,10 @@ public class Bed {
 		
 	}
 	
+	public void unoccupyBed() {
+		this.occupied = false;
+		this.patient = null;
+	}
 	
 	public boolean retOccupied() {
 		return this.occupied;
