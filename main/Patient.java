@@ -16,7 +16,7 @@ public class Patient extends Person{
 	}
 	
 	public void addPrescription(Prescription p) {
-		prescription = p;
+		this.prescription = p;
 	}
 	
 	public void displayPatients() {

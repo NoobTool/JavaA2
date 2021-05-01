@@ -38,7 +38,6 @@ public class DisplayMenu {
 		System.out.println("2. Suggest Changes");
 		System.out.println("3. Display a patient's details. ");
 		System.out.println("4. Exit");
-		System.out.println("Enter your choice!");
 	}
 	
 	public void doctorAddMedicines() {

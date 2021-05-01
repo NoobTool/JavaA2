@@ -2,6 +2,7 @@ package main;
 
 
 import CommonSnippets.*;
+import ward.*;
 import java.util.*;
 
 public class Doctor extends Employee{
@@ -27,7 +28,11 @@ public class Doctor extends Employee{
 						break;
 				case 2: 
 						MedicineBlock mb = new MedicineBlock(meds);
+						WardDetails wd = new WardDetails();
 						p.addPrescription(new Prescription(mb));
+						p.displayPatients();
+						p.printWardDetails();
+						p.printPrescription();
 						break;
 				default:
 						System.out.println("Wrong choice, enter again! ");
@@ -48,7 +53,7 @@ public class Doctor extends Employee{
 			 switch(choice) {
 			 	case 1: 
 			 			dm.searchOptions();
-			 			Manager m = new Manager();
+			 			Manager m = new Manager("Empty Object");
 			 			Patient p = doctorSearch(c.inputInt(""),m.retPatientList());
 			 			if (p.retName()==null) {
 			 				System.out.println("Patient not found");
@@ -66,7 +71,7 @@ public class Doctor extends Employee{
 			 			break;
 			 	case 4: 
 			 			System.out.println("Exiting");
-			 			choice=3;
+			 			choice=4;
 			 			break;
 	 			default:
 	 					System.out.println("Wrong choice, enter again! ");

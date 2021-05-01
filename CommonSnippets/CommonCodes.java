@@ -27,7 +27,7 @@ public class CommonCodes {
 				int a = scan.nextInt();
 				return a;
 			}catch(InputMismatchException e) {
-				System.out.println("Expected numeric input, enter again!");
+				inputInt("Expected numeric input, enter again!");
 			}
 		}
 	}
