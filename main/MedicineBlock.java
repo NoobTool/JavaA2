@@ -19,19 +19,16 @@ public class MedicineBlock {
 	public void printMedicineBlock() {
 		
 		System.out.println("\n\nDate: "+date+"\nTime: "+time);
-		System.out.println("\nMedicines: ");
 		
 		for(int k=0;k<medicines.size();k++) {
-			if(k!=medicines.size()-1)
-				System.out.print(medicines.get(k)+", ");
-			else
-				System.out.print(medicines.get(k));
-		}
+			medicines.get(k).printMedicineDose();
 			
-		
+			System.out.println();
+			for(int j=0;j<30;j++)
+				System.out.print('-');
+		}
+						
 		System.out.println();
-		for(int i=0;i<30;i++)
-			System.out.print('-');
 	}
 	
 	

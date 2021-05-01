@@ -11,7 +11,7 @@ public class MedicineDose {
 	
 	public MedicineDose() {}
 	
-	public void addMedicine() {
+	public MedicineDose addMedicine() {
 		CommonCodes c = new CommonCodes();
 		String name = c.inputString("Enter the name of the medicine. ");
 		this.medicineName = name;
@@ -20,6 +20,16 @@ public class MedicineDose {
 		for(int i=0;i<doseNumber;i++) {
 			times.add(c.inputTime("Enter the time for dose "+(i+1)));
 		}
+		return this;
+	}
+	
+	public void printMedicineDose() {
+		System.out.println("Medicine Name: "+this.retName()+"\n");
+		
+		for(int i=0;i<this.retDose();i++) {
+			System.out.println("Dose "+(i+1)+": "+this.retTimes().get(i));
+		}
+			
 	}
 	
 	public String retName() {

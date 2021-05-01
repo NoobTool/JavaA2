@@ -16,16 +16,16 @@ public class Doctor extends Employee{
 	
 	public void addPrescription(Patient p) {
 		int choice;
-		ArrayList<String> meds = new ArrayList<String>();		
-		
+		ArrayList<MedicineDose> meds = new ArrayList<MedicineDose>();		
 		do {
 			dm.doctorAddMedicines();
 			choice = c.inputInt("");
 			
 			switch(choice) {
-				case 1: meds.add(c.inputString("Enter the name of the medicine. "));
+				case 1: MedicineDose md = new MedicineDose();
+						meds.add(md.addMedicine());
 						break;
-				case 2: choice=2;
+				case 2: 
 						MedicineBlock mb = new MedicineBlock(meds);
 						p.addPrescription(new Prescription(mb));
 						break;
