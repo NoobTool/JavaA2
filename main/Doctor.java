@@ -2,7 +2,6 @@ package main;
 
 
 import CommonSnippets.*;
-import ward.*;
 import java.util.*;
 
 public class Doctor extends Employee{
@@ -28,7 +27,6 @@ public class Doctor extends Employee{
 						break;
 				case 2: 
 						MedicineBlock mb = new MedicineBlock(meds);
-						WardDetails wd = new WardDetails();
 						p.addPrescription(new Prescription(mb));
 						p.displayPatients();
 						p.printWardDetails();
@@ -40,6 +38,43 @@ public class Doctor extends Employee{
 		}while(choice!=2);
 	}
 
+	public void updatePrescription(Patient p) {
+		
+	}
+	
+	public void updateMedicineBlock(MedicineBlock mb) {
+		String name = c.inputString("Enter the name of medicine. ");
+		int choice=0;
+		for (MedicineDose md: mb.retMedicines()) {
+			if (md.retName()==name) {
+				do {
+					dm.doctorDoseMenu();
+					choice = c.inputInt("");
+					
+					switch(choice) {
+					case 1: String medicineName = c.inputString(" Enter the new name of the medicine! ");
+							md.setName(medicineName);
+							break;
+							
+					case 2: int dose = c.inputInt("Enter the number of doses ");
+							md.setDose(dose);
+							
+					case 3: md.changeTimes();
+							break;
+							
+					case 4: System.out.println("Exiting...");
+							break;
+							
+					default: System.out.println("Wrong choice, enter again. ");
+						
+					}
+				}while(choice!=4);
+			}
+		}
+		
+	}
+	
+	
 	public void doctorDisplayPatientInBed() {
 		super.enterPatientBed();
 	};
@@ -69,15 +104,17 @@ public class Doctor extends Employee{
 			 	case 3:
 			 			super.enterPatientBed();
 			 			break;
-			 	case 4: 
+			 	case 4: System.out.println("Updating prescription! ");
+			 			break;
+			 			
+			 	case 5: 
 			 			System.out.println("Exiting");
-			 			choice=4;
 			 			break;
 	 			default:
 	 					System.out.println("Wrong choice, enter again! ");
 	 					break; 					
 			 }
-		}while(choice!=4);
+		}while(choice!=5);
 	}
 	
 	public Patient doctorSearch(int choice,ArrayList<Patient> patientList) {

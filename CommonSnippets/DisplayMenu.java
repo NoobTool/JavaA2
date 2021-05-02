@@ -37,7 +37,8 @@ public class DisplayMenu {
 		System.out.println("1. Add a prescription.");
 		System.out.println("2. Suggest Changes");
 		System.out.println("3. Display a patient's details. ");
-		System.out.println("4. Exit");
+		System.out.println("4. Update prescription. ");
+		System.out.println("5. Exit");
 	}
 	
 	public void doctorAddMedicines() {
@@ -45,4 +46,34 @@ public class DisplayMenu {
 		System.out.println("2. Exit");
 		System.out.println("Enter your choice! ");
 	}
+	
+	public void doctorUpdatePrescription() {
+		System.out.println("1. Add new medicines.");
+		System.out.println("2. Exit");
+		System.out.println("Enter your choice! ");
+	}
+	
+	public void doctorDoseMenu() {
+		System.out.println("1. Change name ");
+		System.out.println("2. Change dose. ");
+		System.out.println("3. Change timings. ");
+		System.out.println("4. Exit. ");
+		System.out.println("Enter your choice. ");
+	}
+	
+	
+	
+	
+	// Medicine Dose
+	
+	public void timesMenu() {
+		System.out.println("1. Add a new time for dose. ");
+		System.out.println("2. Change time of dose. ");
+		System.out.println("3. Create new dose schedule. ");
+		System.out.println("4. Exit. ");
+		System.out.println("Enter your choice. ");
+	}
+	
+	
+	
 }

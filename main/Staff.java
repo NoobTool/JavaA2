@@ -2,10 +2,10 @@ package main;
 import java.util.*;
 
 
-public class Staff<Person> {
-	private ArrayList<Person> members = new ArrayList<Person>();
+public class Staff<P> {
+	private ArrayList<P> members = new ArrayList<P>();
 	
-	public void addStaff(Person s){
+	public void addStaff(P s){
 		members.add(s);
 	}
 	
@@ -13,7 +13,7 @@ public class Staff<Person> {
 		return this.members.size();
 	}
 	
-	public ArrayList<Person> retStaff(){
+	public ArrayList<P> retStaff(){
 		return this.members;
 	}
 	

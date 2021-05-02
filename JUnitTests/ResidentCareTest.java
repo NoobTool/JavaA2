@@ -264,13 +264,22 @@ class ResidentCareTest {
 	void changeBedNurse() {
 		Manager m = new Manager();
 		m.addStaff("Patient");
-		m.displayPatientInBed(1, 1, 1);
 		Nurse n = new Nurse();
 		n.changeBed(m.retPatientList().get(0));
-		n.displayPatientInBed();
-		n.displayPatientInBed();
+		n.enterPatientBed();
+		n.changeWardAutomatically(m.retPatientList().get(0));
+		n.enterPatientBed();
 	}
 	
+	
+	// Add new medicine to current medicine block
+	
+	// Change number of doses/time of current medicine block
+	
+	// Add new medicine block
+	
+	// When user changes number of doses, changeTimes is called without displaying
+	// menu
 	
 	
 	

@@ -50,6 +50,7 @@ public class CommonCodes {
 				Scanner scan = new Scanner(System.in);
 				System.out.println(msg);
 				String a = scan.nextLine();
+				scan.close();
 				return a;
 			}catch(InputMismatchException e) {
 				inputString("Expected alphabetical input, enter again!");

@@ -16,13 +16,7 @@ public class Nurse extends Employee{
 		super(id,name,age,gender,shifts,password);
 	}
 	
-	public void displayPatientInBed() {
-		super.enterPatientBed();
-	}
-	
-	
 	public void changeBed(Patient p) {
-		Room r = new Room();
 		WardDetails oldDetails = p.retWardDetails(); 
 		int wardNumber = c.inputInt("Enter the new ward number. ");
 		int roomNumber = c.inputInt("Enter the new room number. ");

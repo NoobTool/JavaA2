@@ -1,12 +1,11 @@
 package ward;
-import java.util.Objects;
+
 import main.Patient;
 import CustomExceptions.InputValidation;
 
 public class Ward {
 	private final int WARD_SIZE = 6;
 	private Room rooms[] = new Room[WARD_SIZE];
-	private WardDetails wd = new WardDetails();
 
 	public Ward() {
 		for(int i=0;i<WARD_SIZE;i++)

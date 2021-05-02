@@ -3,12 +3,11 @@ import java.util.*;
 import CommonSnippets.DisplayMenu;
 import CustomExceptions.InputValidation;
 import CommonSnippets.CommonCodes;
-import ward.Room;
 import ward.Ward;
 import ward.WardDetails;
 
 public class Manager extends Employee{
-	private final static int NO_OF_WARDS = 2;
+	final static int NO_OF_WARDS = 2;
 	
 	CommonCodes c = new CommonCodes();
 	static Staff<Manager> managerList = new Staff<Manager>();

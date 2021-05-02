@@ -31,7 +31,7 @@ public class Employee extends Person{
 		displayPatientInBed(bedNumber, roomNumber, wardNumber);
 	}
 	
-	public void displayPatientInBed(int bedNumber,int roomNumber,int wardNumber) {
+	private void displayPatientInBed(int bedNumber,int roomNumber,int wardNumber) {
 		Manager m = new Manager("Empty Object");
 		Ward wards[] = m.retWardList();
 		Ward w = wards[wardNumber-1];

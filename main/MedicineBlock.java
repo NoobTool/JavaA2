@@ -39,4 +39,10 @@ public class MedicineBlock {
 	public LocalTime retTime() {
 		return this.time;
 	}
+	
+	public ArrayList<MedicineDose> retMedicines(){
+		return this.medicines;
+	}
+	
+	
 }

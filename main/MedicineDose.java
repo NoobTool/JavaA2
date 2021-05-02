@@ -1,8 +1,7 @@
 package main;
 import java.util.ArrayList;
 import java.time.LocalTime;
-import CommonSnippets.CommonCodes;
-import CustomExceptions.InputValidation;
+import CommonSnippets.*;
 
 public class MedicineDose {
 	private String medicineName;
@@ -30,6 +29,60 @@ public class MedicineDose {
 			System.out.println("Dose "+(i+1)+": "+this.retTimes().get(i));
 		}
 			
+	}
+	
+	public void changeTimes() {
+		DisplayMenu dm = new DisplayMenu();
+		CommonCodes c = new CommonCodes();
+		int choice=0;
+		do {
+			dm.doctorDoseMenu();
+			choice = c.inputInt("");
+			
+			switch(choice) {
+				case 1: times.add(c.inputTime("Enter the new time. "));
+						sortTimes(times);
+						break;
+						
+				case 2: System.out.println("Changing time of dose ");
+						
+			}
+		}while(choice!=4);
+	}
+	
+	public void sortTimes(ArrayList<LocalTime> timeList)
+	{
+	    int i, j,n=timeList.size();
+	    LocalTime key;
+	    for (i=1;i<n;i++)
+	    {
+	        key = timeList.get(i);
+	        j = i-1;
+
+	        while (j >= 0 && timeList.get(j).isAfter(key))
+	        {
+	            timeList.set(j+1, timeList.get(j));
+	            j = j - 1;
+	        }
+	        timeList.set(j+1,key);
+	    }
+	    times=timeList;
+	}
+	
+	
+	public void changeDoseTime() {
+		for(int i=0;i<times.size();i++) 
+			System.out.println((i+1)+". "+times.get(i));
+		
+		
+	}
+	
+	public void setName(String medicineName) {
+		this.medicineName = medicineName;
+	}
+	
+	public void setDose(int n) {
+		dose = n;
 	}
 	
 	public String retName() {
