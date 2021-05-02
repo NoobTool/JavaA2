@@ -12,6 +12,12 @@ public class WardDetails {
 		bedNumber=-1;
 	}
 	
+	public WardDetails(int wardNumber, int roomNumber, int bedNumber) {
+		this.wardNumber = wardNumber;
+		this.roomNumber = roomNumber;
+		this.bedNumber = bedNumber;
+	}
+	
 	public void setWardNumber(int n) {
 		wardNumber=n;
 	}

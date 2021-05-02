@@ -259,6 +259,18 @@ class ResidentCareTest {
 		d.enterPatientBed();
 		}
 	
+	//Change bed test
+	@Test
+	void changeBedNurse() {
+		Manager m = new Manager();
+		m.addStaff("Patient");
+		m.displayPatientInBed(1, 1, 1);
+		Nurse n = new Nurse();
+		n.changeBed(m.retPatientList().get(0));
+		n.displayPatientInBed();
+		n.displayPatientInBed();
+	}
+	
 	
 	
 	

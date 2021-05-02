@@ -27,7 +27,7 @@ public class CommonCodes {
 				int a = scan.nextInt();
 				return a;
 			}catch(InputMismatchException e) {
-				inputInt("Expected numeric input, enter again!");
+				inputInt("Expected numeric input, enter again! ");
 			}
 		}
 	}
@@ -39,7 +39,7 @@ public class CommonCodes {
 				double a = scan.nextDouble();
 				return a;
 			}catch(InputMismatchException e) {
-				System.out.println("Expected decimal input, enter again!");
+				inputDouble("Expected numeric input, enter again! ");
 			}
 		}
 	}
@@ -52,7 +52,7 @@ public class CommonCodes {
 				String a = scan.nextLine();
 				return a;
 			}catch(InputMismatchException e) {
-				System.out.println("Expected alphabetical input, enter again!");
+				inputString("Expected alphabetical input, enter again!");
 			}
 		}
 	}
@@ -64,7 +64,7 @@ public class CommonCodes {
 				char a = scan.next().toUpperCase().charAt(0);
 				return a;
 			}catch(InputMismatchException e) {
-				System.out.println("Expected a single character, enter again!");
+				inputChar("Expected a single character, enter again!");
 			}
 		}
 	}

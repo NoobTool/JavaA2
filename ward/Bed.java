@@ -8,6 +8,7 @@ public class Bed {
 	
 	public Bed() {
 		occupied=false;
+		patient=null;
 	}
 	
 	public Bed(boolean occupied, Patient p, int n) {
@@ -15,6 +16,11 @@ public class Bed {
 		this.patient = p;
 		wd.setBedNumber(n);
 		
+	}
+	
+	public void addPatient(Patient p) {
+		this.occupied = true;
+		this.patient = p;
 	}
 	
 	public void unoccupyBed() {

@@ -10,8 +10,8 @@ public class Room {
 	
 	public Room() {
 		empty=true;
-		for(int i=0;i<ROOM_SIZE;i++)
-			beds[i] = new Bed();
+		for(int j=0;j<ROOM_SIZE;j++)
+			beds[j] = new Bed();
 	}
 	
 	public WardDetails addPatient(Patient p) {
@@ -69,8 +69,20 @@ public class Room {
 		return this.beds[n].retPatient();
 	}
 	
+	public boolean retEmpty() {
+		return this.empty;
+	}
+	
 	public int retRooms() {
 		return this.ROOM_SIZE;
+	}
+	
+	public char retGender() {
+		return this.gender;
+	}
+	
+	public Bed[] retBedList() {
+		return beds;
 	}
 
 }
