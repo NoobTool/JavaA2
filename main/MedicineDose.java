@@ -40,39 +40,58 @@ public class MedicineDose {
 			choice = c.inputInt("");
 			
 			switch(choice) {
-				case 1: times.add(c.inputTime("Enter the new time. "));
-						sortTimes(times);
+				case 1: changeDoseTime();
+						sortTimes();
 						break;
 						
-				case 2: System.out.println("Changing time of dose ");
+				case 2: 
 						
 			}
 		}while(choice!=4);
 	}
 	
-	public void sortTimes(ArrayList<LocalTime> timeList)
+	public void sortTimes()
 	{
-	    int i, j,n=timeList.size();
+	    int i, j,n=times.size();
 	    LocalTime key;
 	    for (i=1;i<n;i++)
 	    {
-	        key = timeList.get(i);
+	        key = times.get(i);
 	        j = i-1;
 
-	        while (j >= 0 && timeList.get(j).isAfter(key))
+	        while (j >= 0 && times.get(j).isAfter(key))
 	        {
-	            timeList.set(j+1, timeList.get(j));
+	            times.set(j+1, times.get(j));
 	            j = j - 1;
 	        }
-	        timeList.set(j+1,key);
+	        times.set(j+1,key);
 	    }
-	    times=timeList;
 	}
 	
 	
 	public void changeDoseTime() {
-		for(int i=0;i<times.size();i++) 
-			System.out.println((i+1)+". "+times.get(i));
+		int choice=0,last_iteration=0;
+		CommonCodes c = new CommonCodes();
+		do{
+			for(int i=0;i<times.size();i++) {
+				System.out.println((i+1)+". "+times.get(i));
+				last_iteration=i;
+			}
+				
+			choice = c.inputInt(last_iteration+". Exit. ");
+			if(choice<last_iteration) {
+				times.set(choice-1, c.inputTime("Enter the new time. "));
+				sortTimes();
+			}
+			else if(choice==last_iteration){
+				System.out.println("Exiting... ");
+			}
+			
+			else {
+				System.out.println("Wrong choice! ");
+			}
+		}while(choice!=last_iteration);
+		
 		
 		
 	}

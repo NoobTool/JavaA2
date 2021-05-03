@@ -67,10 +67,9 @@ public class DisplayMenu {
 	// Medicine Dose
 	
 	public void timesMenu() {
-		System.out.println("1. Add a new time for dose. ");
-		System.out.println("2. Change time of dose. ");
-		System.out.println("3. Create new dose schedule. ");
-		System.out.println("4. Exit. ");
+		System.out.println("1. Change time of dose. ");
+		System.out.println("2. Create new dose schedule. ");
+		System.out.println("3. Exit. ");
 		System.out.println("Enter your choice. ");
 	}
 	
