@@ -61,9 +61,6 @@ public class DisplayMenu {
 		System.out.println("Enter your choice. ");
 	}
 	
-	
-	
-	
 	// Medicine Dose
 	
 	public void timesMenu() {

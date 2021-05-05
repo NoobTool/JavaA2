@@ -272,6 +272,25 @@ class ResidentCareTest {
 	}
 	
 	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	// Add new medicine to current medicine block
 	
 	// Change number of doses/time of current medicine block
