@@ -5,7 +5,7 @@ import CommonSnippets.CommonCodes;
 public class Login {
 	
 	CommonCodes c = new CommonCodes();
-	Manager manager = new Manager();
+	Manager manager = new Manager("Empty Object");
 	
 	public Manager managerLogin() {
 		

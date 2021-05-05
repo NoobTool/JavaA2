@@ -44,7 +44,7 @@ public class MedicineDose {
 						sortTimes();
 						break;
 						
-				case 2: 
+				case 2: break;
 						
 			}
 		}while(choice!=4);

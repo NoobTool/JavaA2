@@ -8,6 +8,7 @@ public class ResidentCare {
 		// Variable Initialization
 		int choice=0;
 		CommonCodes c = new CommonCodes();
+		Manager man = new Manager();
 		Login login = new Login();
 		
 		// Objects for displaying options
@@ -35,6 +36,8 @@ public class ResidentCare {
 							System.out.println("Nurse logged in! ");
 						break;
 						
+				case 4: System.out.println("Exiting...");
+						break;
 				default: System.out.println("Dobara enter krle bc :| ");
 						
 			}
