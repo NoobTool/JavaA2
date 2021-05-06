@@ -125,11 +125,20 @@ public class Nurse extends Employee{
 							LocalTime currentTime = LocalTime.now();
 							LocalDate currentDate = LocalDate.now();
 							if(Math.abs(time.until(currentTime,ChronoUnit.MINUTES))<5) {
-								administeredMedicines.add(new AdministerMedicine(p.retId(),
-										this.retId(), medicine, medicine.retTimes().indexOf(time),currentDate,currentTime));
-								System.out.println("Successfully administered "+medicine.retName());
-								flag=true;
-								break;
+								int timeIndex = medicine.retTimes().indexOf(time);
+								boolean administered  = checkMedicineAdministered(p.retId(),timeIndex,currentTime,currentDate);
+								if(administered==true) {
+									administeredMedicines.add(new AdministerMedicine(p.retId(),
+											this.retId(), medicine,timeIndex,currentDate,currentTime));
+									System.out.println("Successfully administered "+medicine.retName());
+									flag=true;
+									break;
+								}
+								else {
+									System.out.println("This medicine has already been administered");
+									flag=true;
+									break;
+								}
 							}
 						}
 						if(flag==false)
@@ -149,13 +158,19 @@ public class Nurse extends Employee{
 		
 	}
 	
-	public boolean medicineAdministered(String name, LocalTime time) {
+	public boolean checkMedicineAdministered(long id, int timeIndex, LocalTime time, LocalDate date) {
 		if(administeredMedicines.size()>0) {
-			for(AdministerMedicine a :administeredMedicines) {
-				if(a.retPatientId()==id && )medicine.retTimes().indexOf(time)
+			for(int i = administeredMedicines.size()-1;i>=0;i--) {
+				AdministerMedicine a = administeredMedicines.get(i);
+				if(a.retPatientId()==id) {
+					if(a.retMedicine().retTimes().get(timeIndex)==time && !a.retDate().isBefore(date)) {
+						System.out.println("Medicine already administered! ");
+						return true;
+					}
+				}
 			}
 		}
-		
+		return false;
 	}
 	
 	public void printAdministerations() {

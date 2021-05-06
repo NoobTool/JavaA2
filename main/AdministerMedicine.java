@@ -27,4 +27,17 @@ public class AdministerMedicine {
 		System.out.println("Date Administered: "+date.format(DateTimeFormatter.ofPattern("dd-MM-YYYY")));  
 		System.out.println("Time Administered: "+time.format(DateTimeFormatter.ofPattern("HH:mm")));
 	}
+	
+	public MedicineDose retMedicine() {
+		return medicine;
+	}
+	
+	public LocalDate retDate() {
+		return this.date;
+	}
+	
+	public long retPatientId() {
+		return this.patientId;
+	}
+	
 }
