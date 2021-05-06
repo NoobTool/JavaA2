@@ -3,6 +3,7 @@ package main;
 import ward.*;
 import java.util.Objects;
 import java.time.LocalTime;
+import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import CommonSnippets.CommonCodes;
@@ -13,6 +14,7 @@ public class Nurse extends Employee{
 	CommonCodes c = new CommonCodes();
 	final int MAX_HOURS = 1;
 	Manager m = new Manager("Empty object");
+	Employee e = new Employee();
 	
 	public static ArrayList<AdministerMedicine> administeredMedicines = new ArrayList<AdministerMedicine>();
 	
@@ -103,7 +105,7 @@ public class Nurse extends Employee{
 	
 	public void administerMedicine() {
 		int choice,medSize=0;
-		Patient p = retPatientInBed();
+		Patient p = enterPatientBed(true);
 		if(!Objects.isNull(p)) {
 			Prescription prescription = p.retPrescription();
 			if(!Objects.isNull(prescription)) {
@@ -121,9 +123,10 @@ public class Nurse extends Employee{
 						MedicineDose medicine = medicines.get(choice-1);
 						for(LocalTime time: medicine.retTimes()) {
 							LocalTime currentTime = LocalTime.now();
+							LocalDate currentDate = LocalDate.now();
 							if(Math.abs(time.until(currentTime,ChronoUnit.MINUTES))<5) {
 								administeredMedicines.add(new AdministerMedicine(p.retId(),
-										this.retId(), medicine, medicine.retTimes().indexOf(time), currentTime));
+										this.retId(), medicine, medicine.retTimes().indexOf(time),currentDate,currentTime));
 								System.out.println("Successfully administered "+medicine.retName());
 								flag=true;
 								break;
@@ -141,11 +144,17 @@ public class Nurse extends Employee{
 						System.out.println("Wrong choice, enter again! ");
 					}
 				}while(choice!=medSize+1);
-				
-				//AdministerMedicine medGiven = new AdministerMedicine(p.retId(),
-				//		this.retId());
 			}else { System.out.println("No prescription added! ");}
 		}else {System.out.println("No patient present");}
+		
+	}
+	
+	public boolean medicineAdministered(String name, LocalTime time) {
+		if(administeredMedicines.size()>0) {
+			for(AdministerMedicine a :administeredMedicines) {
+				if(a.retPatientId()==id && )medicine.retTimes().indexOf(time)
+			}
+		}
 		
 	}
 	

@@ -11,6 +11,6 @@ import java.time.temporal.ChronoUnit;
 public class test {
 	
 	public static void main(String args[]) {
-		System.out.print(LocalTime.now());
+		System.out.print(LocalDate.parse("2021-05-04")));
 	}	
 }

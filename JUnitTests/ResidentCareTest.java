@@ -249,14 +249,14 @@ class ResidentCareTest {
 		Manager m = new Manager();
 		m.addStaff("Patient");
 		Doctor d = new Doctor();
-		d.enterPatientBed();
+		d.enterPatientBed(false);
 	}
 	
 	
 	@Test
 	void enterPatientBedTest() {
 		Doctor d = new Doctor();
-		d.enterPatientBed();
+		d.enterPatientBed(false);
 		}
 	
 	//Change bed test
@@ -266,9 +266,9 @@ class ResidentCareTest {
 		m.addStaff("Patient");
 		Nurse n = new Nurse();
 		n.changeBed(m.retPatientList().get(0));
-		n.enterPatientBed();
+		n.enterPatientBed(false);
 		n.changeWardAutomatically(m.retPatientList().get(0));
-		n.enterPatientBed();
+		n.enterPatientBed(false);
 	}
 	
 	
@@ -280,6 +280,7 @@ class ResidentCareTest {
 	
 	// When user changes number of doses, changeTimes is called without displaying
 	// menu
+	
 	
 	
 	// AdministerMedicine
@@ -302,14 +303,22 @@ class ResidentCareTest {
 	}
 	
 	
+	/*  Patient details to be removed from all places 
+		including administeredMedicinies in nurse
+	*/
+	@Test
+	void removePatient() {
+		fail("not yet implemented");
+	}
 	
 	
-	
-	
-	
-	
-	
-	
+	/*
+	 	Archiving Patients details - include medicines administered too
+	 */
+	@Test
+	void archivePatient() {
+		fail("not yet implemented");
+	}
 	
 	
 	

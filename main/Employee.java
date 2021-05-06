@@ -23,29 +23,37 @@ public class Employee extends Person{
 		
 	}
 	
-	public void enterPatientBed() {
+	public Patient enterPatientBed(boolean shouldReturn) {
 		InputValidation i = new InputValidation();
 		int wardNumber = i.validateWardNumber(c.inputInt("Enter patient's ward number. "));
 		int roomNumber = i.validateRoomNumber(c.inputInt("Enter patient's room number. "));
 		int bedNumber = i.validateBedNumber(c.inputInt("Enter patient's bed number. "));
-		displayPatientInBed(bedNumber, roomNumber, wardNumber);
+		if(shouldReturn==false)
+			return patientInBed(bedNumber, roomNumber, wardNumber,false);
+		else
+			return patientInBed(bedNumber, roomNumber, wardNumber,true);
+			
 	}
 	
-	private void displayPatientInBed(int bedNumber,int roomNumber,int wardNumber) {
+	private Patient patientInBed(int bedNumber,int roomNumber,int wardNumber,boolean shouldReturn) {
 		Manager m = new Manager("Empty Object");
 		Ward wards[] = m.retWardList();
 		Ward w = wards[wardNumber-1];
 		Room r = w.retRoom(roomNumber-1);
 		Patient p = r.retPatient(bedNumber-1);
 		if(!Objects.isNull(p)) {
-			p.displayPatients();
-			p.printPrescription();
-			p.printWardDetails();
+			if(shouldReturn == false) {
+				p.displayPatients();
+				p.printPrescription();
+				p.printWardDetails();
+			}
+			else
+				return p;
 		}
-		
 		else {
 			System.out.println("No patient present at this bed! ");
 		}
+		return new Patient();
 	}
 	
 	// Setter functions

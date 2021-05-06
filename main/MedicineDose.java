@@ -37,8 +37,6 @@ public class MedicineDose {
 		System.out.println("Dose: "+this.retTimes().get(dose));			
 	}
 	
-	
-	
 	public void changeTimes() {
 		DisplayMenu dm = new DisplayMenu();
 		CommonCodes c = new CommonCodes();

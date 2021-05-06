@@ -76,7 +76,7 @@ public class Doctor extends Employee{
 	
 	
 	public void doctorDisplayPatientInBed() {
-		super.enterPatientBed();
+		enterPatientBed(false);
 	};
 	
 	public void doctorFunctions() {
@@ -102,7 +102,7 @@ public class Doctor extends Employee{
 			 			break;
 			 			
 			 	case 3:
-			 			super.enterPatientBed();
+			 			enterPatientBed(false);
 			 			break;
 			 	case 4: System.out.println("Updating prescription! ");
 			 			break;
