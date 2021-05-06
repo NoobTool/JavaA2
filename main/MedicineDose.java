@@ -31,6 +31,14 @@ public class MedicineDose {
 			
 	}
 	
+	
+	public void printMedicineDose(int dose) {
+		System.out.println("Medicine Name: "+this.retName()+"\n");
+		System.out.println("Dose: "+this.retTimes().get(dose));			
+	}
+	
+	
+	
 	public void changeTimes() {
 		DisplayMenu dm = new DisplayMenu();
 		CommonCodes c = new CommonCodes();

@@ -17,7 +17,9 @@ public class AdministerMedicine {
 	}
 	
 	public void printMedicinesAdministered() {
-		System.out.println("Id: "+patientId+"Medicine: ");
-		medicine.printMedicineDose();
+		System.out.println("Id: "+patientId);
+		medicine.printMedicineDose(dose);
+		System.out.println("StaffId: "+staffId);
+		System.out.println("Time Administered: "+time);
 	}
 }

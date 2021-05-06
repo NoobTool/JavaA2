@@ -291,6 +291,7 @@ class ResidentCareTest {
 		Doctor d = new Doctor();
 		d.addPrescription(m.retPatientList().get(0));
 		n.administerMedicine();
+		n.printAdministerations();
 				
 	}
 	

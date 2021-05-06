@@ -16,9 +16,7 @@ public class Nurse extends Employee{
 	
 	public static ArrayList<AdministerMedicine> administeredMedicines = new ArrayList<AdministerMedicine>();
 	
-	public Nurse(){
-		System.out.println(m.retWardList());
-	}
+	public Nurse(){}
 	
 	Nurse(long id, String name, double age, char gender,String shifts,String password){
 		super(id,name,age,gender,shifts,password);
@@ -114,22 +112,25 @@ public class Nurse extends Employee{
 				medSize = medicines.size();
 				do {
 					for(int i=0;i<medSize;i++) {
-						System.out.println((i+1)+". "+medicines.get(i));
+						System.out.println((i+1)+". "+medicines.get(i).retName().toLowerCase());
 					}
+					System.out.println((medSize+1)+". Exit");
 					choice = c.inputInt("Enter your choice!");
 					if(choice<medSize+1) {
-						MedicineDose medicine = medicines.get(choice);
+						boolean flag=false;
+						MedicineDose medicine = medicines.get(choice-1);
 						for(LocalTime time: medicine.retTimes()) {
 							LocalTime currentTime = LocalTime.now();
 							if(Math.abs(time.until(currentTime,ChronoUnit.MINUTES))<5) {
 								administeredMedicines.add(new AdministerMedicine(p.retId(),
 										this.retId(), medicine, medicine.retTimes().indexOf(time), currentTime));
 								System.out.println("Successfully administered "+medicine.retName());
+								flag=true;
 								break;
 							}
-							else
-								System.out.println("This medicine is not to be given at this time, ");
 						}
+						if(flag==false)
+							System.out.println("This medicine is not administered for this time. ");
 					}
 					
 					else if(choice == medSize+1) {
