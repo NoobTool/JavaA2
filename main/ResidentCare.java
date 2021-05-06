@@ -1,5 +1,6 @@
 package main;
 import CommonSnippets.CommonCodes;
+import CommonSnippets.OptionSequence;
 
 public class ResidentCare {
 	
@@ -10,6 +11,7 @@ public class ResidentCare {
 		CommonCodes c = new CommonCodes();
 		Manager man = new Manager();
 		Login login = new Login();
+		OptionSequence oq = new OptionSequence();
 		
 		// Objects for displaying options
 		
@@ -33,7 +35,7 @@ public class ResidentCare {
 				case 3:
 						Nurse n = login.nurseLogin();
 						if(n.retName()!=null)
-							System.out.println("Nurse logged in! ");
+							oq.NurseMenu(n);
 						break;
 						
 				case 4: System.out.println("Exiting...");

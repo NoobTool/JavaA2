@@ -24,6 +24,8 @@ public class Nurse extends Employee{
 		super(id,name,age,gender,shifts,password);
 	}
 	
+	// Changing patient's bed
+	
 	public void changeBed(Patient p) {
 		WardDetails oldDetails = p.retWardDetails(); 
 		int wardNumber = c.inputInt("Enter the new ward number. ");
@@ -77,6 +79,7 @@ public class Nurse extends Employee{
 	
 	// Preparations for administering medicine
 	
+	// Entering the patient's ward details
 	public Patient retPatientInBed() {
 		InputValidation i = new InputValidation();
 		int wardNumber = i.validateWardNumber(c.inputInt("Enter patient's ward number. "));
@@ -85,6 +88,7 @@ public class Nurse extends Employee{
 		return retPatientInBed(bedNumber, roomNumber, wardNumber);
 	}
 	
+	// Return a patient in specific bed number
 	private Patient retPatientInBed(int bedNumber,int roomNumber,int wardNumber) {
 		Manager m = new Manager("Empty Object");
 		Ward wards[] = m.retWardList();
@@ -102,7 +106,7 @@ public class Nurse extends Employee{
 	}
 	
 	
-	
+	// Administer Medicine
 	public void administerMedicine() {
 		int choice,medSize=0;
 		Patient p = enterPatientBed(true);
@@ -158,6 +162,8 @@ public class Nurse extends Employee{
 		
 	}
 	
+	
+	// Check if medicine is already administered or not
 	public boolean checkMedicineAdministered(long id, int timeIndex, LocalTime time, LocalDate date) {
 		if(administeredMedicines.size()>0) {
 			System.out.println("Greater than 0 ");
@@ -175,6 +181,7 @@ public class Nurse extends Employee{
 		return false;
 	}
 	
+	// Print Administerations
 	public void printAdministerations() {
 		for(AdministerMedicine ad: administeredMedicines)
 			ad.printMedicinesAdministered();

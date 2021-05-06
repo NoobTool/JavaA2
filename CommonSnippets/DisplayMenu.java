@@ -1,4 +1,5 @@
 package CommonSnippets;
+import java.util.ArrayList;
 
 public class DisplayMenu {
 	
@@ -60,6 +61,19 @@ public class DisplayMenu {
 		System.out.println("4. Exit. ");
 		System.out.println("Enter your choice. ");
 	}
+	
+	// Nurse 
+	
+	public ArrayList<String> NurseMenu() {
+		ArrayList<String> nurseMenu = new ArrayList<String>();
+		nurseMenu.add("1. Administer a medicine. ");
+		nurseMenu.add("2. Change bed automatically. ");
+		nurseMenu.add("3. Change bed manually. ");
+		nurseMenu.add("4. Exit. ");
+		nurseMenu.add("Enter your choice. ");
+		return nurseMenu;
+	}
+	
 	
 	// Medicine Dose
 	

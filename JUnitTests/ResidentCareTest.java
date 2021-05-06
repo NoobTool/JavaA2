@@ -293,7 +293,6 @@ class ResidentCareTest {
 		d.addPrescription(m.retPatientList().get(0));
 		n.administerMedicine();
 		n.printAdministerations();
-				
 	}
 	
 	// Print Administered Medicines to a patient
