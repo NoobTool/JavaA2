@@ -4,12 +4,12 @@ import java.time.LocalTime;
 import CommonSnippets.CommonCodes;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.time.temporal.ChronoUnit;
 
 public class test {
 	
 	public static void main(String args[]) {
-		CommonCodes c = new CommonCodes();
-		long a = c.inputLong("Enter a num ");
-		System.out.println(a);
+		LocalTime ya = LocalTime.parse("16:20");
+		System.out.println(Math.abs(ya.until(LocalTime.now(),ChronoUnit.MINUTES))<1);
 	}	
 }

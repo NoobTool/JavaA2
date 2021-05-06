@@ -13,6 +13,7 @@ public class Patient extends Person{
 	public Patient(long id, String name, double age, char gender){
 		super(name,age,gender);
 		this.id=id;
+		prescription = null;
 	}
 	
 	public void addPrescription(Prescription p) {
@@ -56,6 +57,10 @@ public class Patient extends Person{
 	
 	public char retGender() {
 		return super.retGender();
+	}
+	
+	public Prescription retPrescription() {
+		return this.prescription;
 	}
 	
 	public int retWardNumber() {

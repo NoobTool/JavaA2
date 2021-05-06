@@ -7,6 +7,8 @@ public class Login {
 	CommonCodes c = new CommonCodes();
 	Manager manager = new Manager("Empty Object");
 	
+	public Login() {}
+	
 	public Manager managerLogin() {
 		
 		long id = c.inputLong("Enter your id. ");

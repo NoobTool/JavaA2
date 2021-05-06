@@ -23,4 +23,9 @@ public class Prescription {
 		for(MedicineBlock b: medicineBlock) 
 			b.printMedicineBlock();
 	}
+	
+	public MedicineBlock retMedicineBlock() {
+		return this.medicineBlock.get(medicineBlock.size()-1);
+	}
+	
 }

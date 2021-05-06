@@ -1,0 +1,23 @@
+package main;
+import java.time.LocalTime;
+
+public class AdministerMedicine {
+	private long patientId;
+	private long staffId;
+	private MedicineDose medicine;
+	private LocalTime time;
+	private int dose;
+	
+	AdministerMedicine(long patientId, long staffId, MedicineDose medicine, int dose, LocalTime time){
+		this.patientId = patientId;
+		this.staffId = staffId;
+		this.medicine = medicine;
+		this.dose = dose;
+		this.time = time;
+	}
+	
+	public void printMedicinesAdministered() {
+		System.out.println("Id: "+patientId+"Medicine: ");
+		medicine.printMedicineDose();
+	}
+}

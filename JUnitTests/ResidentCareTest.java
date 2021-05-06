@@ -272,25 +272,6 @@ class ResidentCareTest {
 	}
 	
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	// Add new medicine to current medicine block
 	
 	// Change number of doses/time of current medicine block
@@ -301,7 +282,23 @@ class ResidentCareTest {
 	// menu
 	
 	
+	// AdministerMedicine
+	@Test
+	void administerMedicineTest() {
+		Nurse n = new Nurse();
+		Manager m = new Manager();
+		m.addStaff("Patient");
+		Doctor d = new Doctor();
+		d.addPrescription(m.retPatientList().get(0));
+		n.administerMedicine();
+				
+	}
 	
+	// Print Administered Medicines to a patient
+	@Test
+	void administeredMedicinesToPatient() {
+		
+	}
 	
 	
 	
