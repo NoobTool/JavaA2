@@ -1,5 +1,6 @@
 package main;
 import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 
 public class AdministerMedicine {
 	private long patientId;
@@ -20,6 +21,6 @@ public class AdministerMedicine {
 		System.out.println("Id: "+patientId);
 		medicine.printMedicineDose(dose);
 		System.out.println("StaffId: "+staffId);
-		System.out.println("Time Administered: "+time);
+		System.out.println("Time Administered: "+time.format(DateTimeFormatter.ofPattern("HH:mm")));
 	}
 }

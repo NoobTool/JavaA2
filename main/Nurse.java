@@ -140,7 +140,6 @@ public class Nurse extends Employee{
 					else {
 						System.out.println("Wrong choice, enter again! ");
 					}
-					
 				}while(choice!=medSize+1);
 				
 				//AdministerMedicine medGiven = new AdministerMedicine(p.retId(),
