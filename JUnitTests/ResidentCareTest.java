@@ -283,7 +283,7 @@ class ResidentCareTest {
 	
 	
 	
-	// AdministerMedicine
+	// Administer Medicine
 	@Test
 	void administerMedicineTest() {
 		Nurse n = new Nurse();
