@@ -17,11 +17,14 @@ public class Prescription {
 	}
 	
 	public void printPrescription() {
-		System.out.println();
-		for(int i=0;i<30;i++)
-			System.out.print('-');
-		for(MedicineBlock b: medicineBlock) 
-			b.printMedicineBlock();
+		if(medicineBlock.size()>0) {
+			System.out.println();
+			for(int i=0;i<30;i++)
+				System.out.print('-');
+			for(MedicineBlock b: medicineBlock) 
+				b.printMedicineBlock();
+		}
+		
 	}
 	
 	public MedicineBlock retMedicineBlock() {

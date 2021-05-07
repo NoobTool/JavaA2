@@ -18,18 +18,18 @@ public class MedicineBlock {
 	
 	public void printMedicineBlock() {
 		
-		System.out.println("\n\nDate: "+date+"\nTime: "+time);
-		
-		for(int k=0;k<medicines.size();k++) {
-			medicines.get(k).printMedicineDose();
+		if(medicines.size()>0) {
+			System.out.println("\n\nDate: "+date+"\nTime: "+time);
 			
-			System.out.println();
-			for(int j=0;j<30;j++)
-				System.out.print('-');
-			System.out.println();
-		}
-						
-		
+			for(int k=0;k<medicines.size();k++) {
+				medicines.get(k).printMedicineDose();
+				
+				System.out.println();
+				for(int j=0;j<30;j++)
+					System.out.print('-');
+				System.out.println();
+			}
+		}	
 	}
 	
 	

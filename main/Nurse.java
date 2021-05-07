@@ -53,22 +53,24 @@ public class Nurse extends Employee{
 	
 	public void changeWardAutomatically(Patient p) {
 		Manager m = new Manager("Empty Object");
-		Ward w = new Ward();
+		Ward ward;
 		Ward wards[] = m.retWardList();
 		WardDetails wardDetails = new WardDetails();
 		WardDetails oldDetails = p.retWardDetails();
+		System.out.println("OldDetails: "+oldDetails.retWardNumber()+" "+oldDetails.retRoomNumber()+" "+oldDetails.retBedNumber());
 		if(isWardFull()==false) {
 			for(int i=0;i<m.retWards();i++) {
-				w=wards[i];
-				wardDetails = w.addPatient(p);
+				ward=wards[i];
+				wardDetails = ward.addPatient(p);
 				if(wardDetails.retRoomNumber()!=-1) {
 					wardDetails.setWardNumber((i+1));
 					p.setWard(wardDetails);
 					System.out.println("Ward Set Successfully");
 					System.out.println("Patient: "+p.retName()+" is resting at "
-							+"ward "+(i+1)+" in room "+wardDetails.retRoomNumber()
-							+" in bed "+wardDetails.retBedNumber());
+							+"ward "+(i+1)+" in room "+p.retRoomNumber()
+							+" in bed "+p.retBedNumber());
 					wards[oldDetails.retWardNumber()-1].unOccupyRoom(oldDetails.retRoomNumber()-1,oldDetails.retBedNumber()-1);
+					enterPatientBed(false);
 					return;
 				}
 			}
@@ -76,6 +78,18 @@ public class Nurse extends Employee{
 		System.out.println("Sorry, no space for you in the care centre! ");
 		return;
 	}
+	
+	// Removing patient from bed
+	
+	public void removePatient(int wardNumber, int bedNumber, int roomNumber) {
+		Manager m = new Manager("Empty Object");
+		Ward ward = new Ward();
+		Ward wards[] = m.retWardList();
+		wards[wardNumber].unOccupyRoom(roomNumber,bedNumber);
+		enterPatientBed(false);
+	}
+	
+	
 	
 	// Preparations for administering medicine
 	

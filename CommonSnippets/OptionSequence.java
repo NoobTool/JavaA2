@@ -20,11 +20,11 @@ public class OptionSequence {
 				case 1: n.administerMedicine();
 						break;
 				case 2: p = n.enterPatientBed(true);
-						if(!Objects.isNull(p))
+						if(!Objects.isNull(p.retName()))
 							n.changeWardAutomatically(p);
 						break;
 				case 3: p = n.enterPatientBed(true);
-						if(!Objects.isNull(p))
+						if(!Objects.isNull(p.retName()))
 							n.changeBed(p);
 						break;
 				case 4: System.out.println("Exiting");

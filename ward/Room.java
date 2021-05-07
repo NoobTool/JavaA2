@@ -52,8 +52,8 @@ public class Room {
 	}
 	
 	public void unoccupyBed(int n) {
-		this.beds[n].unoccupyBed();
-		this.empty = true;
+		beds[n].unoccupyBed();
+		empty = true;
 	}
 	
 	public boolean isFull() {

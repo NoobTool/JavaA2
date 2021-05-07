@@ -7,13 +7,20 @@ public class Ward {
 	private final int WARD_SIZE = 6;
 	private Room rooms[] = new Room[WARD_SIZE];
 
+	// Constructors
+	public Ward(InputValidation i) {}
+	
+	public Ward(String s) {}
+	
 	public Ward() {
 		for(int i=0;i<WARD_SIZE;i++)
 			rooms[i] = new Room();
 	}
 	
-	public Ward(InputValidation i) {}
+	
 
+	
+	// Adding a patient
 	public WardDetails addPatient(Patient p) {
 		if(isFull()) {
 			System.out.println(" No space in this ward! ");
@@ -33,6 +40,7 @@ public class Ward {
 		return null;
 	}
 	
+	// Printing Ward Status
 	public void printWardStatus() {
 		int i=0;
 		for(Room r: rooms) {
@@ -43,6 +51,11 @@ public class Ward {
 	}
 	
 	
+	// Unoccupy room
+	public void unOccupyRoom(int roomNumber, int bedNumber) {
+		this.rooms[roomNumber].unoccupyBed(bedNumber);
+	}
+	
 	public boolean isFull() {
 		for (Room r: rooms) {
 			if(!r.isFull())
@@ -51,9 +64,7 @@ public class Ward {
 		return true;
 	}
 	
-	public void unOccupyRoom(int roomNumber, int bedNumber) {
-		this.rooms[roomNumber].unoccupyBed(bedNumber);
-	}
+	
 	
 	public Room retRoom(int n) {
 		return this.rooms[n];

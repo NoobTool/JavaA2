@@ -6,12 +6,13 @@ import java.time.format.DateTimeFormatter;
 import CommonSnippets.CommonCodes;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Objects;
 import java.time.temporal.ChronoUnit;
 
 public class test {
 	
 	public static void main(String args[]) {
-		System.out.print(LocalDate.parse("2021-05-06").isBefore(LocalDate.parse("2021-05-06")))
-		;
+		test t  = new test();
+		System.out.println(Objects.isNull(t));
 	}	
 }

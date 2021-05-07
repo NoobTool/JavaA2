@@ -26,8 +26,10 @@ public class Patient extends Person{
 	}
 	
 	public void printPrescription() {
-		System.out.println("Id: "+id);
-		this.prescription.printPrescription();
+		if(prescription!=null) {
+			System.out.println("Id: "+id);
+			this.prescription.printPrescription();
+		}
 	}
 	
 	public void printWardDetails() {

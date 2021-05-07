@@ -23,12 +23,13 @@ public class MedicineDose {
 	}
 	
 	public void printMedicineDose() {
-		System.out.println("Medicine Name: "+this.retName()+"\n");
-		
-		for(int i=0;i<this.retDose();i++) {
-			System.out.println("Dose "+(i+1)+": "+this.retTimes().get(i));
-		}
+		if(dose>0) {
+			System.out.println("Medicine Name: "+this.retName()+"\n");
 			
+			for(int i=0;i<this.retDose();i++) {
+				System.out.println("Dose "+(i+1)+": "+this.retTimes().get(i));
+			}
+		}			
 	}
 	
 	
