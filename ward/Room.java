@@ -45,9 +45,11 @@ public class Room {
 	}
 	
 	public void printRoomStatus() {
+		int c=0;
 		for(Bed b: beds) {
+			c+=1;
 			if(b.retOccupied())
-				System.out.println("Name: "+b.retName());
+				System.out.println("Name: "+b.retName()+" Room No. "+c);
 		}
 	}
 	

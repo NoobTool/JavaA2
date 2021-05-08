@@ -108,6 +108,11 @@ public class MedicineDose {
 	}
 	
 	public void setDose(int n) {
+		CommonCodes c =  new CommonCodes();
+		while(n<=0) {
+			System.out.println("Number of doses must be greater than 0.");
+			n = c.inputInt("Enter again! ");
+		}
 		dose = n;
 	}
 	

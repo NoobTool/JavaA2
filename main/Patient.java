@@ -78,7 +78,7 @@ public class Patient extends Person{
 	}
 	
 	public WardDetails retWardDetails() {
-		return this.ward;
+		return new WardDetails(ward.retWardNumber(),ward.retRoomNumber(),ward.retBedNumber());
 	}
 	
 }

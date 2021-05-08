@@ -447,11 +447,11 @@ public class Manager extends Employee{
 	}
 	
 	public Ward[] retWardList() {
-		return this.wards;
+		return wards;
 	}
 	
 	public int retWards() {
-		return this.NO_OF_WARDS;
+		return NO_OF_WARDS;
 	}
 	
 	public ArrayList<Manager> retManagerList(){

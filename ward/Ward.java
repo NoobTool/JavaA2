@@ -52,8 +52,8 @@ public class Ward {
 	
 	
 	// Unoccupy room
-	public void unOccupyRoom(int roomNumber, int bedNumber) {
-		this.rooms[roomNumber].unoccupyBed(bedNumber);
+	public void unOccupyRoom(int room, int bed) {
+		rooms[room].unoccupyBed(bed);
 	}
 	
 	public boolean isFull() {

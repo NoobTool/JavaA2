@@ -26,7 +26,6 @@ public class Bed {
 	public void unoccupyBed() {
 		this.occupied = false;
 		this.patient = null;
-		System.out.println("Patient is "+patient);
 	}
 	
 	public boolean retOccupied() {

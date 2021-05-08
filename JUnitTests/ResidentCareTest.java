@@ -265,11 +265,22 @@ class ResidentCareTest {
 		Manager m = new Manager();
 		m.addStaff("Patient");
 		Nurse n = new Nurse();
-		n.changeBed(m.retPatientList().get(0));
-		n.enterPatientBed(false);
+		//n.changeBed(n.enterPatientBed(true));
+		//n.enterPatientBed(false);
 		n.changeWardAutomatically(m.retPatientList().get(0));
+		//n.changeWardAutomatically(m.retPatientList().get(0));
+		n.enterPatientBed(false);
 		n.enterPatientBed(false);
 	}
+	
+	@Test
+	void removePatientTest() {
+		Manager m = new Manager();
+		m.addStaff("Patient");
+		Nurse n = new Nurse();
+		n.removePatient(1, 1, 1);
+	}
+	
 	
 	
 	// Add new medicine to current medicine block

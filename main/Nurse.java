@@ -41,7 +41,7 @@ public class Nurse extends Employee{
 				if(bed.retOccupied()==false) {
 					bed.addPatient(p);
 					p.setWard(new WardDetails(wardNumber,roomNumber,bedNumber));
-					m.retWardList()[oldDetails.retWardNumber()-1].unOccupyRoom(oldDetails.retRoomNumber()-1,oldDetails.retBedNumber()-1);
+					removePatient(oldDetails.retWardNumber(),oldDetails.retRoomNumber(),oldDetails.retBedNumber());
 				}
 			}
 		}
@@ -53,24 +53,24 @@ public class Nurse extends Employee{
 	
 	public void changeWardAutomatically(Patient p) {
 		Manager m = new Manager("Empty Object");
-		Ward ward;
 		Ward wards[] = m.retWardList();
 		WardDetails wardDetails = new WardDetails();
 		WardDetails oldDetails = p.retWardDetails();
 		System.out.println("OldDetails: "+oldDetails.retWardNumber()+" "+oldDetails.retRoomNumber()+" "+oldDetails.retBedNumber());
 		if(isWardFull()==false) {
 			for(int i=0;i<m.retWards();i++) {
-				ward=wards[i];
-				wardDetails = ward.addPatient(p);
+				System.out.println("Old details now become "+oldDetails.retBedNumber());
+				wardDetails = wards[i].addPatient(p);
 				if(wardDetails.retRoomNumber()!=-1) {
 					wardDetails.setWardNumber((i+1));
+					System.out.println("Old details before setting become "+oldDetails.retBedNumber());
 					p.setWard(wardDetails);
 					System.out.println("Ward Set Successfully");
+					System.out.println("Old details now become "+oldDetails.retBedNumber());
 					System.out.println("Patient: "+p.retName()+" is resting at "
 							+"ward "+(i+1)+" in room "+p.retRoomNumber()
 							+" in bed "+p.retBedNumber());
-					wards[oldDetails.retWardNumber()-1].unOccupyRoom(oldDetails.retRoomNumber()-1,oldDetails.retBedNumber()-1);
-					enterPatientBed(false);
+					removePatient(oldDetails.retWardNumber(),oldDetails.retRoomNumber(),oldDetails.retBedNumber());
 					return;
 				}
 			}
@@ -81,12 +81,11 @@ public class Nurse extends Employee{
 	
 	// Removing patient from bed
 	
-	public void removePatient(int wardNumber, int bedNumber, int roomNumber) {
+	public void removePatient(int wardNumber, int roomNumber, int bedNumber) {
+		System.out.println("Bed number in remove patient "+ bedNumber);
 		Manager m = new Manager("Empty Object");
-		Ward ward = new Ward();
 		Ward wards[] = m.retWardList();
-		wards[wardNumber].unOccupyRoom(roomNumber,bedNumber);
-		enterPatientBed(false);
+		wards[wardNumber-1].unOccupyRoom(roomNumber-1,bedNumber-1);
 	}
 	
 	
