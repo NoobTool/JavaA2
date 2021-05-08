@@ -7,6 +7,7 @@ public class MedicineDose {
 	private String medicineName;
 	private int dose;
 	private ArrayList<LocalTime> times = new ArrayList<LocalTime>();
+	private CommonCodes c = new CommonCodes();
 	
 	public MedicineDose() {}
 	
@@ -36,6 +37,30 @@ public class MedicineDose {
 	public void printMedicineDose(int dose) {
 		System.out.println("Medicine Name: "+this.retName()+"\n");
 		System.out.println("Dose: "+this.retTimes().get(dose));			
+	}
+	
+	public void alterTimes() {
+		if(dose<times.size()) {
+			while(dose!=times.size()) {
+				for(int i=0;i<times.size();i++) {
+					System.out.println((i+1)+". "+times.get(i));
+				}
+				try {
+					times.remove(c.inputInt("")-1);
+					alterTimes();
+				}catch(Exception e) {System.out.println("Incorrect choice! ");alterTimes();}
+			}
+		}
+		
+		else {
+			while(dose!=times.size()) {
+				for(int i=0;i<times.size();i++) {
+					System.out.println((i+1)+". "+times.get(i));
+				}
+				times.add(c.inputTime("Enter new time. "));
+				alterTimes();
+			}
+		}
 	}
 	
 	public void changeTimes() {
@@ -114,6 +139,8 @@ public class MedicineDose {
 			n = c.inputInt("Enter again! ");
 		}
 		dose = n;
+		if(dose!=times.size())
+			alterTimes();
 	}
 	
 	public String retName() {

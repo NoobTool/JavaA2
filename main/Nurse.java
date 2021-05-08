@@ -63,10 +63,7 @@ public class Nurse extends Employee{
 				wardDetails = wards[i].addPatient(p);
 				if(wardDetails.retRoomNumber()!=-1) {
 					wardDetails.setWardNumber((i+1));
-					System.out.println("Old details before setting become "+oldDetails.retBedNumber());
 					p.setWard(wardDetails);
-					System.out.println("Ward Set Successfully");
-					System.out.println("Old details now become "+oldDetails.retBedNumber());
 					System.out.println("Patient: "+p.retName()+" is resting at "
 							+"ward "+(i+1)+" in room "+p.retRoomNumber()
 							+" in bed "+p.retBedNumber());
@@ -82,7 +79,6 @@ public class Nurse extends Employee{
 	// Removing patient from bed
 	
 	public void removePatient(int wardNumber, int roomNumber, int bedNumber) {
-		System.out.println("Bed number in remove patient "+ bedNumber);
 		Manager m = new Manager("Empty Object");
 		Ward wards[] = m.retWardList();
 		wards[wardNumber-1].unOccupyRoom(roomNumber-1,bedNumber-1);
