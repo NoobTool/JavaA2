@@ -275,7 +275,6 @@ class ResidentCareTest {
 	
 	@Test
 	void removePatientTest() {
-		Manager m = new Manager();
 		m.addStaff("Patient");
 		Nurse n = new Nurse();
 		n.removePatient(1, 1, 1);
@@ -284,6 +283,15 @@ class ResidentCareTest {
 	// Add new medicine to current medicine block
 	
 	// Change number of doses/time of current medicine block
+	@Test
+	void updatePrescriptionTest() {
+		Manager m = new Manager();
+		m.addStaff("Patient");
+		Doctor d = new Doctor();
+		d.addPrescription(d.enterPatientBed(true));
+		d.updatePrescription();
+		d.enterPatientBed(false);
+	}
 	
 	// Add new medicine block
 	

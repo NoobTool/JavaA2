@@ -39,6 +39,7 @@ public class MedicineDose {
 		System.out.println("Dose: "+this.retTimes().get(dose));			
 	}
 	
+	// Function to input/delete times to be equal to doses
 	public void alterTimes() {
 		if(dose<times.size()) {
 			while(dose!=times.size()) {
@@ -46,12 +47,12 @@ public class MedicineDose {
 					System.out.println((i+1)+". "+times.get(i));
 				}
 				try {
-					times.remove(c.inputInt("")-1);
+					times.remove(c.inputInt("Enter time to be deleted. ")-1);
 					alterTimes();
+					sortTimes();
 				}catch(Exception e) {System.out.println("Incorrect choice! ");alterTimes();}
 			}
 		}
-		
 		else {
 			while(dose!=times.size()) {
 				for(int i=0;i<times.size();i++) {
@@ -59,6 +60,7 @@ public class MedicineDose {
 				}
 				times.add(c.inputTime("Enter new time. "));
 				alterTimes();
+				sortTimes();
 			}
 		}
 	}
@@ -102,12 +104,12 @@ public class MedicineDose {
 	
 	
 	public void changeDoseTime() {
-		int choice=0,last_iteration=0;
+		int choice=0,last_iteration;
 		CommonCodes c = new CommonCodes();
 		do{
-			for(int i=0;i<times.size();i++) {
+			last_iteration = times.size()+1;
+			for(int i=0;i<last_iteration-1;i++) {
 				System.out.println((i+1)+". "+times.get(i));
-				last_iteration=i;
 			}
 				
 			choice = c.inputInt(last_iteration+". Exit. ");

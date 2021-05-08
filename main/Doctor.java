@@ -40,14 +40,17 @@ public class Doctor extends Employee{
 
 	public void updatePrescription() {
 		Patient p = enterPatientBed(true);
-		updateMedicineBlock(p.retPrescription().retMedicineBlock());
+		if(p.retPrescription()!=null)
+			updateMedicineBlock(p.retPrescription().retMedicineBlock());
+		else 
+			System.out.println("No prescription added");
 	}
 	
 	public void updateMedicineBlock(MedicineBlock mb) {
 		String name = c.inputString("Enter the name of medicine. ");
 		int choice=0;
 		for (MedicineDose md: mb.retMedicines()) {
-			if (md.retName()==name) {
+			if (md.retName().equals(name)) {
 				do {
 					dm.doctorDoseMenu();
 					choice = c.inputInt("");
@@ -59,8 +62,9 @@ public class Doctor extends Employee{
 							
 					case 2: int dose = c.inputInt("Enter the number of doses ");
 							md.setDose(dose);
+							break;
 							
-					case 3: md.changeTimes();
+					case 3: md.changeDoseTime();
 							break;
 							
 					case 4: System.out.println("Exiting...");
