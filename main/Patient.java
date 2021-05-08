@@ -1,5 +1,6 @@
 package main;
 import ward.WardDetails;
+import prescription.Prescription;
 
 
 public class Patient extends Person{

@@ -1,4 +1,4 @@
-package main;
+package prescription;
 import java.util.*;
 import java.time.LocalTime;
 import java.time.LocalDate;

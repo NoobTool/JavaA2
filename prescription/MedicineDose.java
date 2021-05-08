@@ -1,4 +1,4 @@
-package main;
+package prescription;
 import java.util.ArrayList;
 import java.time.LocalTime;
 import CommonSnippets.*;

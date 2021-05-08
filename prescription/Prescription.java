@@ -1,4 +1,4 @@
-package main;
+package prescription;
 import java.util.*;
 
 public class Prescription {
