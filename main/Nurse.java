@@ -56,10 +56,8 @@ public class Nurse extends Employee{
 		Ward wards[] = m.retWardList();
 		WardDetails wardDetails = new WardDetails();
 		WardDetails oldDetails = p.retWardDetails();
-		System.out.println("OldDetails: "+oldDetails.retWardNumber()+" "+oldDetails.retRoomNumber()+" "+oldDetails.retBedNumber());
 		if(isWardFull()==false) {
 			for(int i=0;i<m.retWards();i++) {
-				System.out.println("Old details now become "+oldDetails.retBedNumber());
 				wardDetails = wards[i].addPatient(p);
 				if(wardDetails.retRoomNumber()!=-1) {
 					wardDetails.setWardNumber((i+1));
@@ -72,6 +70,7 @@ public class Nurse extends Employee{
 				}
 			}
 		}
+		
 		System.out.println("Sorry, no space for you in the care centre! ");
 		return;
 	}
