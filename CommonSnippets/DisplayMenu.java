@@ -34,12 +34,14 @@ public class DisplayMenu {
 		System.out.println("6. Exit");
 	}
 	
-	public void doctorMenu() {
-		System.out.println("1. Add a prescription.");
-		System.out.println("2. Suggest Changes");
-		System.out.println("3. Display a patient's details. ");
-		System.out.println("4. Update prescription. ");
-		System.out.println("5. Exit");
+	public ArrayList<String >doctorMenu() {
+		ArrayList<String> doctorMenu = new ArrayList<String>();
+		doctorMenu.add("1. Add a prescription.");
+		doctorMenu.add("2. Suggest Changes");
+		doctorMenu.add("3. Display a patient's details. ");
+		doctorMenu.add("4. Update prescription. ");
+		doctorMenu.add("5. Exit. ");		
+		return doctorMenu;
 	}
 	
 	public void doctorAddMedicines() {

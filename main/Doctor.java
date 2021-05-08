@@ -38,8 +38,9 @@ public class Doctor extends Employee{
 		}while(choice!=2);
 	}
 
-	public void updatePrescription(Patient p) {
-		
+	public void updatePrescription() {
+		Patient p = enterPatientBed(true);
+		updateMedicineBlock(p.retPrescription().retMedicineBlock());
 	}
 	
 	public void updateMedicineBlock(MedicineBlock mb) {
@@ -72,50 +73,7 @@ public class Doctor extends Employee{
 			}
 		}
 		
-	}
-	
-	
-	public void doctorDisplayPatientInBed() {
-		enterPatientBed(false);
-	};
-	
-	public void doctorFunctions() {
-		int choice;
-		String msg = "Enter your choice";
-		do {
-			dm.doctorMenu();
-			choice=c.inputInt(msg);
-			 switch(choice) {
-			 	case 1: 
-			 			dm.searchOptions();
-			 			Manager m = new Manager("Empty Object");
-			 			Patient p = doctorSearch(c.inputInt(""),m.retPatientList());
-			 			if (p.retName()==null) {
-			 				System.out.println("Patient not found");
-			 				msg="Enter your choice again! ";
-			 				break;
-			 			}
-			 			this.addPrescription(p);
-			 			break;
-			 	case 2:
-			 			System.out.println("Allotting nurse!");
-			 			break;
-			 			
-			 	case 3:
-			 			enterPatientBed(false);
-			 			break;
-			 	case 4: System.out.println("Updating prescription! ");
-			 			break;
-			 			
-			 	case 5: 
-			 			System.out.println("Exiting");
-			 			break;
-	 			default:
-	 					System.out.println("Wrong choice, enter again! ");
-	 					break; 					
-			 }
-		}while(choice!=5);
-	}
+	}	
 	
 	public Patient doctorSearch(int choice,ArrayList<Patient> patientList) {
 		do {

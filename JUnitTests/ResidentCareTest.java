@@ -281,8 +281,6 @@ class ResidentCareTest {
 		n.removePatient(1, 1, 1);
 	}
 	
-	
-	
 	// Add new medicine to current medicine block
 	
 	// Change number of doses/time of current medicine block
