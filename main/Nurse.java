@@ -2,20 +2,23 @@ package main;
 import prescription.*;
 import ward.*;
 import java.util.Objects;
+
+import Actions.Action;
+
 import java.time.LocalTime;
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import CommonSnippets.CommonCodes;
 import CustomExceptions.InputValidation;
-
+import Actions.*;
 
 public class Nurse extends Employee{
 	CommonCodes c = new CommonCodes();
 	final int MAX_HOURS = 1;
 	Manager m = new Manager("Empty object");
 	Employee e = new Employee();
-	
+	ActionList a = new ActionList();
 	public static ArrayList<AdministerMedicine> administeredMedicines = new ArrayList<AdministerMedicine>();
 	
 	public Nurse(){}
@@ -42,6 +45,7 @@ public class Nurse extends Employee{
 					bed.addPatient(p);
 					p.setWard(new WardDetails(wardNumber,roomNumber,bedNumber));
 					removePatient(oldDetails.retWardNumber(),oldDetails.retRoomNumber(),oldDetails.retBedNumber());
+					a.addAction(new Action(this.retId(),p.retId(),"bed change",LocalDate.now(),LocalTime.now()));
 				}
 			}
 		}
@@ -66,6 +70,7 @@ public class Nurse extends Employee{
 							+"ward "+(i+1)+" in room "+p.retRoomNumber()
 							+" in bed "+p.retBedNumber());
 					removePatient(oldDetails.retWardNumber(),oldDetails.retRoomNumber(),oldDetails.retBedNumber());
+					a.addAction(new Action(this.retId(),p.retId(),"bed changed",LocalDate.now(),LocalTime.now()));
 					return;
 				}
 			}
@@ -144,6 +149,7 @@ public class Nurse extends Employee{
 											this.retId(), medicine,timeIndex,currentDate,currentTime));
 									System.out.println("Successfully administered "+medicine.retName());
 									flag=true;
+									a.addAction(new Action(this.retId(),p.retId(),"medicine administered",LocalDate.now(),LocalTime.now()));
 									break;
 								}
 								else {
@@ -189,7 +195,7 @@ public class Nurse extends Employee{
 		return false;
 	}
 	
-	// Print Administerations
+	// Print Administrations
 	public void printAdministerations() {
 		for(AdministerMedicine ad: administeredMedicines)
 			ad.printMedicinesAdministered();

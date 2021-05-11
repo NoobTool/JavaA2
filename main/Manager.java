@@ -5,7 +5,8 @@ import CustomExceptions.InputValidation;
 import CommonSnippets.CommonCodes;
 import ward.Ward;
 import ward.WardDetails;
-
+import Actions.*
+;
 public class Manager extends Employee{
 	final static int NO_OF_WARDS = 2;
 	
@@ -15,6 +16,7 @@ public class Manager extends Employee{
 	static Staff<Nurse> nurseList = new Staff<Nurse>();
 	static Staff<Patient> patientList = new Staff<Patient>();
 	static Ward wards[] = new Ward[NO_OF_WARDS];
+	ActionList a = new ActionList();
 	
 	static ArrayList<Long> idList = new ArrayList<Long>();
 	static ArrayList<Long> availableIdList = new ArrayList<Long>();
@@ -259,10 +261,11 @@ public class Manager extends Employee{
 				case 2: managerHires();break;
 				case 3: modifyDetails();break;
 				case 4: managerDisplays();break;
+				case 5: a.printActionList();break;
 				default: System.out.println("Wrong choice, enter again. ");
 			}
 			
-		}while(choice!=5);		
+		}while(choice!=6);		
 	}
 	
 	// Modify details of people

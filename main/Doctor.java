@@ -2,10 +2,13 @@ package main;
 import prescription.*;
 import CommonSnippets.*;
 import java.util.*;
+import Actions.*;
+import java.time.*;
 
 public class Doctor extends Employee{
 	DisplayMenu dm = new DisplayMenu();
 	CommonCodes c = new CommonCodes();
+	ActionList a = new ActionList();
 	
 	public Doctor(){}
 	
@@ -27,6 +30,7 @@ public class Doctor extends Employee{
 				case 2: 
 						MedicineBlock mb = new MedicineBlock(meds);
 						p.addPrescription(new Prescription(mb));
+						a.addAction(new Action(this.retId(),p.retId(),"prescription addition",LocalDate.now(),LocalTime.now()));
 						p.displayPatients();
 						p.printWardDetails();
 						p.printPrescription();
@@ -40,12 +44,12 @@ public class Doctor extends Employee{
 	public void updatePrescription() {
 		Patient p = enterPatientBed(true);
 		if(p.retPrescription()!=null)
-			updateMedicineBlock(p.retPrescription().retMedicineBlock());
+			updateMedicineBlock(p.retPrescription().retMedicineBlock(),p);
 		else 
 			System.out.println("No prescription added");
 	}
 	
-	public void updateMedicineBlock(MedicineBlock mb) {
+	public void updateMedicineBlock(MedicineBlock mb,Patient p) {
 		String name = c.inputString("Enter the name of medicine. ");
 		int choice=0;
 		for (MedicineDose md: mb.retMedicines()) {
@@ -57,13 +61,15 @@ public class Doctor extends Employee{
 					switch(choice) {
 					case 1: String medicineName = c.inputString(" Enter the new name of the medicine! ");
 							md.setName(medicineName);
-							break;
-							
+							a.addAction(new Action(this.retId(),p.retId(),"medicine name updation",LocalDate.now(),LocalTime.now()));
+							break;							
 					case 2: int dose = c.inputInt("Enter the number of doses ");
 							md.setDose(dose);
+							a.addAction(new Action(this.retId(),p.retId(),"dose updation",LocalDate.now(),LocalTime.now()));
 							break;
 							
 					case 3: md.changeDoseTime();
+							a.addAction(new Action(this.retId(),p.retId(),"dose time updation",LocalDate.now(),LocalTime.now()));
 							break;
 							
 					case 4: System.out.println("Exiting...");

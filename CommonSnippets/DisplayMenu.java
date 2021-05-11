@@ -8,7 +8,8 @@ public class DisplayMenu {
 		System.out.println("2. Hire new employees.");
 		System.out.println("3. Modify staff details.");
 		System.out.println("4. Display staff members.");
-		System.out.println("5. Exit");
+		System.out.println("5. Display the actions performed. ");
+		System.out.println("6. Exit");
 		System.out.println("Enter your choice! ");
 	}
 	
