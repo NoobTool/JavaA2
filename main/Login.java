@@ -1,6 +1,7 @@
 package main;
 import java.time.LocalTime;
 import CommonSnippets.CommonCodes;
+import CustomExceptions.*;
 
 public class Login {
 	
@@ -21,12 +22,22 @@ public class Login {
 					String[] shiftTimings = s.split("-");
 					LocalTime start_time = LocalTime.parse(shiftTimings[0]);
 					LocalTime end_time = LocalTime.parse(shiftTimings[1]);
-					if(currentTime.isAfter(start_time.minusNanos(1)) && currentTime.isBefore(end_time.plusNanos(1))) {
-						if(password.matches(m.retPass()))
-							return m;
-						else
-							break;
+					try {
+						if(currentTime.isAfter(start_time.minusNanos(1)) && currentTime.isBefore(end_time.plusNanos(1))) {
+							if(password.matches(m.retPass()))
+								return m;
+							else
+								break;
+								
+						}
+						else {
+							throw new RestrictedTimingException();
+						}
+					}catch(RestrictedTimingException exception) {
+						System.out.println("Not rostered for this shift. ");
+						return new Manager("Exceptionally Correct");
 					}
+					
 				}
 			}
 		}
