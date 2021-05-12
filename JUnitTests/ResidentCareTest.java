@@ -107,6 +107,13 @@ class ResidentCareTest {
 		m.displayDoctors();
 	}
 	
+	// Modifying staff's shifts
+	@Test
+	void shiftsModifyTest() {
+		m.modifyDetails();
+		m.displayDoctors();
+	}
+	
 	// Adding patient in room test
 	@Test
 	void addPatientInRoom() {
@@ -312,7 +319,7 @@ class ResidentCareTest {
 		n.administerMedicine();
 		n.printAdministerations();
 	}
-	
+		
 	// Print Administered Medicines to a patient
 	@Test
 	void administeredMedicinesToPatient() {

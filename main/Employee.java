@@ -1,5 +1,7 @@
 package main;
 import CommonSnippets.CommonCodes;
+
+import java.time.LocalTime;
 import java.util.ArrayList;
 import CustomExceptions.InputValidation;
 import java.util.Objects;
@@ -91,12 +93,21 @@ public class Employee extends Person{
 					if(e.retShifts().size()!=2) {
 						String shift = i.validateShifts(c.inputString("Enter the new shift timings in the format "
 								+ "XX:XX-YY:YY. "));
-						e.setShifts(shift);
-						break;
+						boolean flag = checkShifts(e, shift, false);
+						if(flag==true) {
+							e.setShifts(shift);
+							break;
+						}
+						else {
+							System.out.println("Wrong shift! ");
+							break;
+						}
+							
 					}	
 					else
 						throw new TooManyShiftsException("Cannot add more than 2 shifts. ");
 				}catch(TooManyShiftsException exception) {
+					System.out.println("Cannot enter more than 2 shifts.");
 					return;
 				}
 
@@ -123,30 +134,68 @@ public class Employee extends Person{
 			choice = c.inputInt("Enter your choice! ");
 			if(choice<=last_iteration && choice>0) {
 				if(remove==false) {
-					e.retShifts().set(choice, iv.validateShifts(c.inputString("Enter new shift. ")));
-					return;
+					String newShift = iv.validateShifts(c.inputString("Enter new shift. "));
+					boolean flag = checkShifts(e, newShift, true);
+					if(flag==true) {
+						e.retShifts().set(choice-1, newShift);
+						return;
+					}
+					else {
+						System.out.println("Wrong shifts! ");
+						break;
+					}
 				}
 				
 				else {
-					if(e.retShifts().size()==2)
-					e.retShifts().remove(choice);
+					if(e.retShifts().size()==2) {
+						e.retShifts().remove(choice-1);
+						break;
+					}
 					else {
 						System.out.println("Shifts cannot be 0 ");
 						return;
 					}
 				}
 			}
-				else if(choice==last_iteration+1){}
+				else if(choice==last_iteration+1){break;}
 				
 				else {
 					System.out.println("Wrong choice, enter again! ");
 				}
 			
-		}while(choice>last_iteration);
+		}while(choice<=last_iteration);
 		
 	}
 	
-	
+	// Check if new shift start time is not equal to previous start time
+	// Check if new start time is not in between another shift time
+	// Same for end time
+	public boolean checkShifts(Employee e, String shifts, boolean change) {
+		if(e.retShifts().size()==0)
+			return true;
+		else if(e.retShifts().size()==1 && change==true)
+			return true;
+		else {
+			String[] checkTimings = shifts.split("-");
+			for(String s: e.retShifts()) {
+				String[] shiftTimings = s.split("-");
+				if(checkTimings[0].equals(shiftTimings[0]) || checkTimings[0].equals(shiftTimings[1]))
+					return false;
+				else if(checkTimings[1].equals(shiftTimings[0]) || checkTimings[1].equals(shiftTimings[1]))
+					return false;
+				else if(LocalTime.parse(checkTimings[0]).isAfter(LocalTime.parse(shiftTimings[0]))
+						&& LocalTime.parse(checkTimings[0]).isBefore(LocalTime.parse(shiftTimings[1])))
+						return false;
+				else if(LocalTime.parse(checkTimings[1]).isAfter(LocalTime.parse(shiftTimings[0]))
+						&& LocalTime.parse(checkTimings[1]).isBefore(LocalTime.parse(shiftTimings[1])))
+					return false;
+				else
+					return true;
+			}
+		}
+		
+		return false;
+	}
 	
 	public void setPassword(String password) {
 		this.password = password;
