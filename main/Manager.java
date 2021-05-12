@@ -9,6 +9,7 @@ import Actions.*
 ;
 public class Manager extends Employee{
 	final static int NO_OF_WARDS = 2;
+	final static int MAX_SHIFTS = 2;
 	
 	CommonCodes c = new CommonCodes();
 	static Staff<Manager> managerList = new Staff<Manager>();
@@ -16,6 +17,7 @@ public class Manager extends Employee{
 	static Staff<Nurse> nurseList = new Staff<Nurse>();
 	static Staff<Patient> patientList = new Staff<Patient>();
 	static Ward wards[] = new Ward[NO_OF_WARDS];
+	
 	ActionList a = new ActionList();
 	
 	static ArrayList<Long> idList = new ArrayList<Long>();
@@ -366,9 +368,10 @@ public class Manager extends Employee{
 					e.setGender(gender);
 					break;
 					
-			case 4: String shifts = i.validateShifts(c.inputString("Enter the new shift timings in the format "
-					+ "XX:XX-YY:YY. "));
-					e.setShifts(shifts);
+			case 4: changeShifts(e);
+//				String shifts = i.validateShifts(c.inputString("Enter the new shift timings in the format "
+//					+ "XX:XX-YY:YY. "));
+//					setShifts(shifts);
 					break;
 			
 			case 5: String password = c.inputString("Enter new password. ");
@@ -441,7 +444,7 @@ public class Manager extends Employee{
 		return super.retGender();
 	}
 	
-	public String retShifts() {
+	public ArrayList<String> retShifts() {
 		return super.retShifts();
 	}
 	

@@ -233,7 +233,7 @@ public class Nurse extends Employee{
 			return super.retGender();
 		}
 		
-		public String retShifts() {
+		public ArrayList<String> retShifts() {
 			return super.retShifts();
 		}
 	

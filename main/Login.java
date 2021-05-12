@@ -1,5 +1,5 @@
 package main;
-
+import java.time.LocalTime;
 import CommonSnippets.CommonCodes;
 
 public class Login {
@@ -10,16 +10,24 @@ public class Login {
 	public Login() {}
 	
 	public Manager managerLogin() {
-		
+		LocalTime currentTime = LocalTime.now();
 		long id = c.inputLong("Enter your id. ");
 		String password;
 		for(Manager m: manager.retManagerList()) {
+			
 			if(m.retId()==id) {
 				password = c.inputString("Enter password. ");
-				if(password.matches(m.retPass()))
-					return m;
-				else
-					break;
+				for(String s: m.retShifts()){
+					String[] shiftTimings = s.split("-");
+					LocalTime start_time = LocalTime.parse(shiftTimings[0]);
+					LocalTime end_time = LocalTime.parse(shiftTimings[1]);
+					if(currentTime.isAfter(start_time.minusNanos(1)) && currentTime.isBefore(end_time.plusNanos(1))) {
+						if(password.matches(m.retPass()))
+							return m;
+						else
+							break;
+					}
+				}
 			}
 		}
 		

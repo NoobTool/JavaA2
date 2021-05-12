@@ -2,7 +2,6 @@ package main;
 
 import java.time.*;
 import java.time.format.DateTimeFormatter;
-
 import CommonSnippets.CommonCodes;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -12,7 +11,7 @@ import java.time.temporal.ChronoUnit;
 public class test {
 	
 	public static void main(String args[]) {
-		test t  = new test();
-		System.out.println(Objects.isNull(t));
+		LocalTime time = LocalTime.parse("09:00");
+		System.out.println(time.isAfter(time.minusNanos(1)));
 	}	
 }

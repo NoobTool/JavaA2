@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import org.junit.jupiter.api.Test;
 import main.*;
 import ward.*;
+import prescription.*;
 
 class ResidentCareTest {
 	
