@@ -81,6 +81,7 @@ public class Employee extends Person{
 		int choice;
 		InputValidation i = new InputValidation();
 		String msg = "Enter your choice";
+		Manager m = new Manager("Object to return MAX_SHIFTS");
 		do {
 			System.out.println("1. Add shift. ");
 			System.out.println("2. Change shift timings. ");
@@ -90,12 +91,14 @@ public class Employee extends Person{
 			
 			switch(choice) {
 				case 1: try{
-					if(e.retShifts().size()!=2) {
+					if(e.retShifts().size()!=m.retMaxShifts()) {
 						String shift = i.validateShifts(c.inputString("Enter the new shift timings in the format "
 								+ "XX:XX-YY:YY. "));
 						boolean flag = checkShifts(e, shift, false);
 						if(flag==true) {
 							e.setShifts(shift);
+							if(e.retShifts().size()>=2)
+							sortTimes(e);
 							break;
 						}
 						else {
@@ -138,6 +141,8 @@ public class Employee extends Person{
 					boolean flag = checkShifts(e, newShift, true);
 					if(flag==true) {
 						e.retShifts().set(choice-1, newShift);
+						if(e.retShifts().size()>=2)
+							sortTimes(e);
 						return;
 					}
 					else {
@@ -189,6 +194,10 @@ public class Employee extends Person{
 				else if(LocalTime.parse(checkTimings[1]).isAfter(LocalTime.parse(shiftTimings[0]))
 						&& LocalTime.parse(checkTimings[1]).isBefore(LocalTime.parse(shiftTimings[1])))
 					return false;
+				else if(LocalTime.parse(checkTimings[0]).isBefore(LocalTime.parse(shiftTimings[0]))
+						&& LocalTime.parse(checkTimings[1]).isAfter(LocalTime.parse(shiftTimings[1])))
+					return false;
+				
 				else
 					return true;
 			}
@@ -196,6 +205,28 @@ public class Employee extends Person{
 		
 		return false;
 	}
+	
+	public void sortTimes(Employee e)
+	{
+	    int i, j,n=e.retShifts().size();
+	    LocalTime key;
+	    String keyString;
+	    ArrayList<String> shifts = e.retShifts();
+	    for (i=1;i<n;i++)
+	    {
+	    	keyString = e.retShifts().get(i);
+	        key = LocalTime.parse(e.retShifts().get(i).split("-")[0]);
+	        j = i-1;
+
+	        while (j >= 0 && LocalTime.parse(e.retShifts().get(j).split("-")[0]).isAfter(key))
+	        {
+	            e.retShifts().set(j+1, e.retShifts().get(j));
+	            j = j - 1;
+	        }
+	        e.retShifts().set(j+1,keyString);
+	    }
+	}
+	
 	
 	public void setPassword(String password) {
 		this.password = password;

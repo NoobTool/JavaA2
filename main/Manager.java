@@ -36,7 +36,7 @@ public class Manager extends Employee{
 		idList.add((long)7830000);
 		idList.add((long)8030000);
 		managerList.addStaff(new Manager((long)7730000,"Ram",21,'M',"13:00-23:59","1234"));
-		doctorList.addStaff(new Doctor((long)6830000,"Babu",16,'M',"12:00-15:00","1234"));
+		doctorList.addStaff(new Doctor((long)6830000,"Babu",16,'M',"12:00-13:00","1234"));
 		nurseList.addStaff(new Nurse((long)7830000,"Elisa",18,'F',"00:00-07:00","1234"));
 		
 		availableIdList.add((long)7830675);
@@ -459,6 +459,10 @@ public class Manager extends Employee{
 	
 	public int retWards() {
 		return NO_OF_WARDS;
+	}
+	
+	public int retMaxShifts() {
+		return MAX_SHIFTS;
 	}
 	
 	public ArrayList<Manager> retManagerList(){
