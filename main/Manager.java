@@ -83,11 +83,11 @@ public class Manager extends Employee{
 		
 		gender = i.validateGender(c.inputChar("Enter the gender of the employee "+name));
 		
-		if(post!="Patient")
+		if(post!="Patient" && post!="Nurse")
 		shifts = i.validateShifts(c.inputString("Enter the shift timings in the format "
 				+ "XX:XX-YY:YY"));
 		
-		if(post!="Patient")
+		if(post!="Patient" && post!="Nurse")
 		password = c.inputString("Enter your password");
 		
 		if (post=="Manager") {
@@ -124,13 +124,15 @@ public class Manager extends Employee{
 		
 		else if(post == "Nurse") {
 			if(id==0) {
-				Nurse n =  new Nurse(idList.get(2)+1, name, age, gender, shifts, password);
+				Nurse n =  new Nurse(idList.get(2)+1, name, age, gender, "08:00-16:00", password);
+				n.setShifts("14:00-22:00");
 				idList.set(2,idList.get(2)+1);
 				nurseList.addStaff(n);
 			}
 			
 			else {
-				Nurse n =  new Nurse(id, name, age, gender, shifts, password);
+				Nurse n =  new Nurse(id, name, age, gender, "08:00-16:00", password);
+				n.setShifts("14:00-22:00");
 				availableIdList.remove(availableIdList.indexOf(id));
 				nurseList.addStaff(n);
 			}
@@ -316,7 +318,7 @@ public class Manager extends Employee{
 						for (Object o : list) {
 							Employee e = (Employee) o;
 							if (e.retId()==id) {
-								changeDetails(e);
+								changeDetails(e, post);
 								success=true;
 								return;
 							}	
@@ -329,7 +331,7 @@ public class Manager extends Employee{
 						for (Object o: list) {
 							Employee e = (Employee) o;
 							if (e.retName().matches(name)) {
-								changeDetails(e);
+								changeDetails(e, post);
 								success=true;
 								return;
 							}	
@@ -347,7 +349,7 @@ public class Manager extends Employee{
 	}
 	
 	// Changing details of the employee found
-	public void changeDetails(Employee e) {
+	public void changeDetails(Employee e, String post) {
 		int choice=0;
 		do {
 			dm.modificationOptions();
@@ -369,10 +371,7 @@ public class Manager extends Employee{
 					e.setGender(gender);
 					break;
 					
-			case 4: changeShifts(e);
-//				String shifts = i.validateShifts(c.inputString("Enter the new shift timings in the format "
-//					+ "XX:XX-YY:YY. "));
-//					setShifts(shifts);
+			case 4: changeShifts(e, post);
 					break;
 			
 			case 5: String password = c.inputString("Enter new password. ");

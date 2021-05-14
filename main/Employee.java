@@ -2,6 +2,7 @@ package main;
 import CommonSnippets.CommonCodes;
 
 import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import CustomExceptions.InputValidation;
 import java.util.Objects;
@@ -11,9 +12,12 @@ import ward.Ward;
 
 public class Employee extends Person{
 	final int MAX_HOURS = 6 ;
+	final int DOC_HOURS = 1;
+	final int NURSE_HOURS = 8;
 	private long id;
 	private ArrayList<String> shifts = new ArrayList<String>();
 	private String password;
+	private int shiftIndex;
 	private CommonCodes c = new CommonCodes();
 	
 	public Employee(){}
@@ -77,7 +81,7 @@ public class Employee extends Person{
 		this.shifts.add(shifts);
 	}
 	
-	public void changeShifts(Employee e) {
+	public void changeShifts(Employee e, String post) {
 		int choice;
 		InputValidation i = new InputValidation();
 		String msg = "Enter your choice";
@@ -93,7 +97,7 @@ public class Employee extends Person{
 				case 1: try{
 					if(e.retShifts().size()!=m.retMaxShifts()) {
 						String shift = i.validateShifts(c.inputString("Enter the new shift timings in the format "
-								+ "XX:XX-YY:YY. "));
+								+ "XX:XX-YY:YY. "), post);
 						boolean flag = checkShifts(e, shift, false);
 						if(flag==true) {
 							e.setShifts(shift);
@@ -114,9 +118,15 @@ public class Employee extends Person{
 					return;
 				}
 
-				case 2: alterShifts(e,false);
+				case 2: if(!post.equals("nurse"))
+							alterShifts(e,post,false);
+						else
+							System.out.println("Shifts can't be changed. ");
 						break;
-				case 3: alterShifts(e,true);
+				case 3: if(!post.equals("nurse"))
+							alterShifts(e,post,true);
+						else
+							System.out.println("Nurse's shift can't be deleted. ");
 						break;
 				default: System.out.println("Wrong choice, enter again! ");
 			}
@@ -124,7 +134,7 @@ public class Employee extends Person{
 	}
 	
 	
-	public void alterShifts(Employee e, boolean remove) {
+	public void alterShifts(Employee e, String post, boolean remove) {
 		InputValidation iv = new InputValidation();
 		int choice, last_iteration=0;
 		do {
@@ -137,7 +147,7 @@ public class Employee extends Person{
 			choice = c.inputInt("Enter your choice! ");
 			if(choice<=last_iteration && choice>0) {
 				if(remove==false) {
-					String newShift = iv.validateShifts(c.inputString("Enter new shift. "));
+					String newShift = iv.validateShifts(c.inputString("Enter new shift. "), post);
 					boolean flag = checkShifts(e, newShift, true);
 					if(flag==true) {
 						e.retShifts().set(choice-1, newShift);
@@ -232,6 +242,11 @@ public class Employee extends Person{
 		this.password = password;
 	}
 	
+	// Setter Functions
+	
+	public void setShiftIndex(int shiftIndex) {
+		this.shiftIndex = shiftIndex;
+	}
 	
 	// Getter functions
 	
@@ -250,5 +265,18 @@ public class Employee extends Person{
 	public int retMaxHours() {
 		return this.MAX_HOURS;
 	}
+	
+	public int retDocHours() {
+		return this.DOC_HOURS;
+	}
+	
+	public int retNurseHours() {
+		return this.NURSE_HOURS;
+	}
+	
+	public int retShiftIndex() {
+		return this.shiftIndex;
+	}
+	
 	
 }

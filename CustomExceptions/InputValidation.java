@@ -13,7 +13,6 @@ public class InputValidation {
 	Scanner scan = new Scanner(System.in);
 	CommonCodes c = new CommonCodes();
 	Employee e = new Employee();
-	final int MAX_HOURS = e.retMaxHours();
 	Ward w = new Ward();
 	Room r = new Room();
 	Bed b = new Bed();
@@ -81,8 +80,9 @@ public class InputValidation {
 		return gender;
 	}
 	
-	public String validateShifts(String shifts) {
-		
+	public String validateShifts(String shifts, String post) {
+		final int DOC_HOURS = e.retDocHours();
+		final int MAX_HOURS = e.retMaxHours();
 		try {
 			LocalTime start_time,end_time;
 			String[] shiftTimings = shifts.split("-");
@@ -92,19 +92,24 @@ public class InputValidation {
 			if(end_time.isBefore(start_time))
 				throw new InvalidShiftTimingsException("End_time must be after starting time");
 			
-			if(start_time.until(end_time, ChronoUnit.HOURS)>MAX_HOURS)
+			if(post.equals("doctor") && (start_time.until(end_time, ChronoUnit.HOURS)<DOC_HOURS || 
+					start_time.until(end_time, ChronoUnit.HOURS)>DOC_HOURS))
+				throw new InvalidShiftTimingsException("Shift timings must be equal to 1 hour!");
+			
+			if(post.equals("manager") && (start_time.until(end_time, ChronoUnit.HOURS)<DOC_HOURS || 
+					start_time.until(end_time, ChronoUnit.HOURS)>MAX_HOURS))
 				throw new InvalidShiftTimingsException("Shift timings must be less than 6 hours!");
 			
 			return shifts;
 			
 		}catch(DateTimeParseException e) {
 			String newShifts = c.inputString("Please enter shifts in format XX:XX-YY:YY");
-			newShifts = validateShifts(newShifts);
+			newShifts = validateShifts(newShifts, post);
 			return newShifts;
 			
 		}catch(InvalidShiftTimingsException e) {
 			String newShifts = c.inputString("Enter again!");
-			newShifts = validateShifts(newShifts);
+			newShifts = validateShifts(newShifts, post);
 			return newShifts;
 		}
 	}

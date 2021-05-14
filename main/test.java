@@ -10,6 +10,8 @@ import java.time.temporal.ChronoUnit;
 
 public class test {
 	
+	public void functionCall() {}
+	
 	public static void main(String args[]) {
 		LocalTime time = LocalTime.parse("09:00");
 		System.out.println(time.isAfter(time.minusNanos(1)));
