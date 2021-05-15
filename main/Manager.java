@@ -37,7 +37,9 @@ public class Manager extends Employee{
 		idList.add((long)8030000);
 		managerList.addStaff(new Manager((long)7730000,"Ram",21,'M',"13:00-23:59","1234"));
 		doctorList.addStaff(new Doctor((long)6830000,"Babu",16,'M',"12:00-13:00","1234"));
-		nurseList.addStaff(new Nurse((long)7830000,"Elisa",18,'F',"00:00-07:00","1234"));
+		Nurse nurse1= new Nurse((long)7830000,"Elisa",18,'F',"08:00-16:00","1234");
+		nurse1.setShifts("14:00-20:00");
+		nurseList.addStaff(nurse1);
 		
 		availableIdList.add((long)7830675);
 		availableIdList.add((long)6830012);
@@ -85,7 +87,7 @@ public class Manager extends Employee{
 		
 		if(post!="Patient" && post!="Nurse")
 		shifts = i.validateShifts(c.inputString("Enter the shift timings in the format "
-				+ "XX:XX-YY:YY"));
+				+ "XX:XX-YY:YY"), post.toLowerCase());
 		
 		if(post!="Patient" && post!="Nurse")
 		password = c.inputString("Enter your password");

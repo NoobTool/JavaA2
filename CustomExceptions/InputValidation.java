@@ -92,12 +92,12 @@ public class InputValidation {
 			if(end_time.isBefore(start_time))
 				throw new InvalidShiftTimingsException("End_time must be after starting time");
 			
-			if(post.equals("doctor") && (start_time.until(end_time, ChronoUnit.HOURS)<DOC_HOURS || 
-					start_time.until(end_time, ChronoUnit.HOURS)>DOC_HOURS))
-				throw new InvalidShiftTimingsException("Shift timings must be equal to 1 hour!");
+			if(post.equals("doctor") && (start_time.until(end_time, ChronoUnit.MINUTES)<DOC_HOURS || 
+					start_time.until(end_time, ChronoUnit.MINUTES)>DOC_HOURS))
+				throw new InvalidShiftTimingsException("Shift timings must be equal to "+(DOC_HOURS/60)+" hour(s)!");
 			
-			if(post.equals("manager") && (start_time.until(end_time, ChronoUnit.HOURS)<DOC_HOURS || 
-					start_time.until(end_time, ChronoUnit.HOURS)>MAX_HOURS))
+			if(post.equals("manager") && (start_time.until(end_time, ChronoUnit.MINUTES)<MAX_HOURS || 
+					start_time.until(end_time, ChronoUnit.MINUTES)>MAX_HOURS))
 				throw new InvalidShiftTimingsException("Shift timings must be less than 6 hours!");
 			
 			return shifts;

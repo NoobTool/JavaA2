@@ -67,8 +67,8 @@ class InputTests {
 	void shiftTimingsTest1() {
 		String shifts="abcas";
 		System.out.println("\n\nShift tests:-");
-		shifts = i.validateShifts(shifts);
-		assertEquals(shifts,i.validateShifts(shifts));
+		shifts = i.validateShifts(shifts,"manager");
+		assertEquals(shifts,i.validateShifts(shifts,"manager"));
 	}
 	
 	// Test to check if start_time < end_time
@@ -76,8 +76,8 @@ class InputTests {
 	void shiftTimingsTest2() {
 		String shifts="09:10-09:00";
 		System.out.println("\n\nShift tests:-");
-		shifts = i.validateShifts(shifts);
-		assertEquals(shifts,i.validateShifts(shifts));
+		shifts = i.validateShifts(shifts,"manager");
+		assertEquals(shifts,i.validateShifts(shifts,"manager"));
 	}
 	
 	// Test to check shift timings doesn't exceed 6 hours
@@ -85,9 +85,18 @@ class InputTests {
 	void shiftTimingsTest3 () {
 		String shifts="09:10-18:20";
 		System.out.println("\n\nShift tests:-");
-		shifts = i.validateShifts(shifts);
-		assertEquals(shifts,i.validateShifts(shifts));
+		shifts = i.validateShifts(shifts,"manager");
+		assertEquals(shifts,i.validateShifts(shifts,"manager"));
 	}
+	
+	// Test to check shift timings doesn't exceed 1 hours for doctor
+		@Test
+		void shiftTimingsTest4 () {
+			String shifts="09:10-18:20";
+			System.out.println("\n\nShift tests:-");
+			shifts = i.validateShifts(shifts,"doctor");
+			assertEquals(shifts,i.validateShifts(shifts,"doctor"));
+		}
 	
 	// Test to validate the ward number entered
 	@Test

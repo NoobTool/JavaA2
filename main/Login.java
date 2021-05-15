@@ -1,5 +1,7 @@
 package main;
 import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import CommonSnippets.CommonCodes;
 import CustomExceptions.*;
 
@@ -64,16 +66,37 @@ public class Login {
 	}
 	
 	public Nurse nurseLogin() {
-
+		Manager m = new Manager("Object to return max shifts");
 		long id = c.inputLong("Enter your id. ");
 		String password;
+		LocalTime shiftStart,shiftEnd;
 		for(Nurse n: manager.retNurseList()) {
 			if(n.retId()==id) {
-				password = c.inputString("Enter password. ");
-				if(password.matches(n.retPass()))
-					return n;
-				else
-					break;
+				// Checking if login is within shift timings
+				ArrayList<String> shiftTimings = n.retShifts();
+				LocalTime currentTime = LocalTime.now();
+				currentTime = LocalTime.parse(currentTime.format
+						(DateTimeFormatter.ofPattern("HH:mm")));
+				for(int i=0;i<m.retMaxShifts();i++) {
+					shiftStart = LocalTime.parse(shiftTimings.get(i).split("-")[0]);
+					shiftEnd = LocalTime.parse(shiftTimings.get(i).split("-")[1]);
+					if(currentTime==shiftStart || currentTime==shiftEnd || 
+							(currentTime.isAfter(shiftStart) && 
+									currentTime.isBefore(shiftEnd))) {
+						password = c.inputString("Enter password. ");
+						if(password.matches(n.retPass()))
+							return n;
+						else
+							break;
+					}
+					else {
+						try {
+							throw new RestrictedTimingException();
+						}catch(RestrictedTimingException e) {
+							System.out.println("You cannot go in this shift!");
+						}
+					}
+				}
 			}
 		}
 		

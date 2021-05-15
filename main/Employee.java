@@ -11,9 +11,9 @@ import ward.Room;
 import ward.Ward;
 
 public class Employee extends Person{
-	final int MAX_HOURS = 6 ;
-	final int DOC_HOURS = 1;
-	final int NURSE_HOURS = 8;
+	final int MAX_MINUTES = 360 ;
+	final int DOC_MINUTES = 60;
+	final int NURSE_MINUTES = 480;
 	private long id;
 	private ArrayList<String> shifts = new ArrayList<String>();
 	private String password;
@@ -263,15 +263,15 @@ public class Employee extends Person{
 	}
 	
 	public int retMaxHours() {
-		return this.MAX_HOURS;
+		return this.MAX_MINUTES;
 	}
 	
 	public int retDocHours() {
-		return this.DOC_HOURS;
+		return this.DOC_MINUTES;
 	}
 	
 	public int retNurseHours() {
-		return this.NURSE_HOURS;
+		return this.NURSE_MINUTES;
 	}
 	
 	public int retShiftIndex() {

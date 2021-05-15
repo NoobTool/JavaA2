@@ -13,7 +13,6 @@ import Actions.*;
 
 public class Nurse extends Employee{
 	CommonCodes c = new CommonCodes();
-	final int MAX_HOURS = 1;
 	Manager m = new Manager("Empty object");
 	Employee e = new Employee();
 	ActionList a = new ActionList();

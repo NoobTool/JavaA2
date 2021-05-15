@@ -13,7 +13,9 @@ public class test {
 	public void functionCall() {}
 	
 	public static void main(String args[]) {
-		LocalTime time = LocalTime.parse("09:00");
-		System.out.println(time.isAfter(time.minusNanos(1)));
+		LocalTime start_time = LocalTime.parse("09:00");
+		LocalTime end_time = LocalTime.parse("09:00");
+		
+		System.out.println(start_time.format(DateTimeFormatter.ofPattern("HH:mm")));
 	}	
 }
