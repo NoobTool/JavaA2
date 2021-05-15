@@ -24,7 +24,7 @@ public class Login {
 		currentTime = LocalTime.parse(currentTime.format
 				(DateTimeFormatter.ofPattern("HH:mm")));
 		
-		for(int i=0;i<m.retMaxShifts();i++) {
+		for(int i=0;i<e.retShifts().size();i++) {
 			shiftStart = LocalTime.parse(shiftTimings.get(i).split("-")[0]);
 			shiftEnd = LocalTime.parse(shiftTimings.get(i).split("-")[1]);
 			
@@ -79,73 +79,82 @@ public class Login {
 		long id = c.inputLong("Enter your id. ");
 		String password;
 		for(Manager m: manager.retManagerList()) {
-			
 			if(m.retId()==id) {
 				password = c.inputString("Enter password. ");
-				for(String s: m.retShifts()){
-					String[] shiftTimings = s.split("-");
-					LocalTime start_time = LocalTime.parse(shiftTimings[0]);
-					LocalTime end_time = LocalTime.parse(shiftTimings[1]);
 					try {
-						if(currentTime.isAfter(start_time.minusNanos(1)) && 
-								currentTime.isBefore(end_time.plusNanos(1))
-								&& currentTime.until(end_time, ChronoUnit.HOURS)>5) {
-							
-							if(password.matches(m.retPass()) && verifySecondLogin((Employee)m)==true)
+						if(verifySecondLogin((Employee) m)) {
+							if(password.matches(m.retPass()))
 								return m;
-							else
-								break;
-								
+							else {
+								System.out.println("Id or password is wrong, try again! ");
+								return new Manager("Empty Object");
+							}
 						}
-						else {
+						else
 							throw new RestrictedTimingException();
-						}
 					}catch(RestrictedTimingException exception) {
 						System.out.println("Not rostered for this shift. ");
 						return new Manager("Exceptionally Correct");
 					}
-					
-				}
 			}
 		}
-		
-		System.out.println("Id or password is wrong, try again! ");
-		return new Manager();
+		System.out.println("Manager not found! ");
+		return new Manager("Empty Object");
 	}
 	
 	public Doctor doctorLogin() {
+		LocalTime currentTime = LocalTime.now();
 		long id = c.inputLong("Enter your id. ");
 		String password;
 		for(Doctor d: manager.retDoctorList()) {
 			if(d.retId()==id) {
 				password = c.inputString("Enter password. ");
-				if(password.matches(d.retPass()))
-					return d;
-				else
-					break;
+					try {
+						if(verifySecondLogin((Employee) d)) {
+							if(password.matches(d.retPass()))
+								return d;
+							else {
+								System.out.println("Id or password is wrong, try again! ");
+								return new Doctor();
+							}
+						}
+						else
+							throw new RestrictedTimingException();
+					}catch(RestrictedTimingException exception) {
+						System.out.println("Not rostered for this shift. ");
+						return new Doctor();
+					}
 			}
 		}
-		
-		System.out.println("Id or password is wrong, try again! ");
+		System.out.println("Manager not found! ");
 		return new Doctor();
 	}
 	
-	public Nurse nurseLogin() throws RestrictedTimingException{
+	public Nurse nurseLogin() {
+		LocalTime currentTime = LocalTime.now();
 		long id = c.inputLong("Enter your id. ");
 		String password;
 		for(Nurse n: manager.retNurseList()) {
 			if(n.retId()==id) {
 				password = c.inputString("Enter password. ");
-				if(password.matches(n.retPass()) && 
-						verifySecondLogin((Employee) n))
-					return n;
-				else {
-					System.out.println("Sorry can't login.");
-					throw new RestrictedTimingException();
-				}
+					try {
+						if(verifySecondLogin((Employee) n)) {
+							if(password.matches(n.retPass()))
+								return n;
+							else {
+								System.out.println("Id or password is wrong, try again! ");
+								return new Nurse();
+							}
+						}
+						else
+							throw new RestrictedTimingException();
+					}catch(RestrictedTimingException exception) {
+						System.out.println("Not rostered for this shift. ");
+						return new Nurse();
+					}
 			}
 		}
-		System.out.println("Id or password is wrong, try again! ");
+		System.out.println("Manager not found! ");
 		return new Nurse();
 	}
 	
