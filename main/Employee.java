@@ -267,6 +267,16 @@ public class Employee extends Person{
 		return this.password;
 	}
 	
+
+	public int retHours(String post) {
+		if(post.equals("nurse"))
+			return NURSE_MINUTES;
+		else if(post.equals("doctor"))
+			return DOC_MINUTES;
+		else
+			return MAX_MINUTES;
+	}
+	
 	public int retMaxHours() {
 		return this.MAX_MINUTES;
 	}

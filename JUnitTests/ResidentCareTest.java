@@ -13,29 +13,36 @@ class ResidentCareTest {
 	@Test
 	void managerLoginTest() {
 		Login l = new Login();
+		boolean managerReturned=true;
 		// Valid Login id = 7730000
 		// Valid Password = 1234
-		
-		assertEquals(true,l.managerLogin());
+		if(l.managerLogin().retName()==null)
+			managerReturned=false;
+		assertEquals(true,managerReturned);
 	}
 	
 	
 	@Test
 	void doctorLoginTest() {
 		Login l = new Login();
+		boolean doctorReturned=true;
 		// Valid Login id = 6830000
 		// Valid Password = 1234
-		
-		assertEquals(true,l.doctorLogin());
+		if(l.doctorLogin().retName()==null)
+			doctorReturned=false;
+		assertEquals(true,doctorReturned);
 	}
 	
 	
 	@Test
 	void nurseLoginTest() {
 		Login l = new Login();
-		// Valid Login id = 7830000
+		boolean managerReturned=true;
+		// Valid Login id = 7730000
 		// Valid Password = 1234
-		
+		if(l.nurseLogin().retName()==null)
+			managerReturned=false;
+		assertEquals(true,managerReturned);
 		assertEquals(true,l.nurseLogin());
 	}
 	

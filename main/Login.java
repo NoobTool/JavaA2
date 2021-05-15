@@ -16,8 +16,7 @@ public class Login {
 	
 	// To verify if an employee is not logging in 
 	// after taking 1 shift
-	public boolean verifySecondLogin(Employee e) {
-		Manager m = new Manager("Object to return max shifts");
+	public boolean verifySecondLogin(Employee e,String post) {
 		ArrayList<String> shiftTimings = e.retShifts();
 		LocalTime shiftStart,shiftEnd;
 		LocalTime currentTime = LocalTime.now();
@@ -42,7 +41,7 @@ public class Login {
 				 * case the second shift should be considered.*/
 				
 				// Checking if the login and end shift time are not close
-				if(currentTime.until(shiftEnd, ChronoUnit.HOURS)>7) {
+				if(currentTime.until(shiftEnd, ChronoUnit.HOURS)>=((e.retHours(post)/60)-1)) {
 					
 					// Below conditions are to ensure only 1 shift is 
 					// taken on a day
@@ -75,14 +74,13 @@ public class Login {
 	}
 	
 	public Manager managerLogin() {
-		LocalTime currentTime = LocalTime.now();
 		long id = c.inputLong("Enter your id. ");
 		String password;
 		for(Manager m: manager.retManagerList()) {
 			if(m.retId()==id) {
 				password = c.inputString("Enter password. ");
 					try {
-						if(verifySecondLogin((Employee) m)) {
+						if(verifySecondLogin((Employee) m, "manager")) {
 							if(password.matches(m.retPass()))
 								return m;
 							else {
@@ -103,14 +101,13 @@ public class Login {
 	}
 	
 	public Doctor doctorLogin() {
-		LocalTime currentTime = LocalTime.now();
 		long id = c.inputLong("Enter your id. ");
 		String password;
 		for(Doctor d: manager.retDoctorList()) {
 			if(d.retId()==id) {
 				password = c.inputString("Enter password. ");
 					try {
-						if(verifySecondLogin((Employee) d)) {
+						if(verifySecondLogin((Employee) d, "doctor")) {
 							if(password.matches(d.retPass()))
 								return d;
 							else {
@@ -126,19 +123,18 @@ public class Login {
 					}
 			}
 		}
-		System.out.println("Manager not found! ");
+		System.out.println("Doctor not found! ");
 		return new Doctor();
 	}
 	
 	public Nurse nurseLogin() {
-		LocalTime currentTime = LocalTime.now();
 		long id = c.inputLong("Enter your id. ");
 		String password;
 		for(Nurse n: manager.retNurseList()) {
 			if(n.retId()==id) {
 				password = c.inputString("Enter password. ");
 					try {
-						if(verifySecondLogin((Employee) n)) {
+						if(verifySecondLogin((Employee) n, "nurse")) {
 							if(password.matches(n.retPass()))
 								return n;
 							else {
@@ -154,7 +150,7 @@ public class Login {
 					}
 			}
 		}
-		System.out.println("Manager not found! ");
+		System.out.println("Nurse not found! ");
 		return new Nurse();
 	}
 	
