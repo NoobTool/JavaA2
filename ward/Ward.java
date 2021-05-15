@@ -49,6 +49,7 @@ public class Ward {
 		}
 		
 		for(int i=0;i<DUAL_ROOMS;i++) {
+			System.out.println("In dual rooms");
 			WardDetails w = dualRooms[i].addPatient(p);
 			System.out.println("Name: "+p.retName()+" "+w.retBedNumber());
 			if(w.retBedNumber()!=-1) {
@@ -58,7 +59,7 @@ public class Ward {
 		}
 		
 		System.out.println("The patient can't be shifted to this ward! ");
-		return null;
+		return new WardDetails();
 	}
 	
 	// Printing Ward Status (Polymorphism)
@@ -94,10 +95,19 @@ public class Ward {
 	}
 	
 	public boolean isFull() {
+		boolean isFull;
 		for (Room r: rooms) {
 			if(!r.isFull())
+				isFull = false;
+		}
+		
+		for(DualRoom dr: dualRooms) {
+			if(!dr.isFull())
 				return false;
-		}	
+			else
+				return true;
+		}
+		
 		return true;
 	}
 	
