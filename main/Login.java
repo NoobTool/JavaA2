@@ -14,6 +14,66 @@ public class Login {
 	
 	public Login() {}
 	
+	// To verify if an employee is not logging in 
+	// after taking 1 shift
+	public boolean verifySecondLogin(Employee e) {
+		Manager m = new Manager("Object to return max shifts");
+		ArrayList<String> shiftTimings = e.retShifts();
+		LocalTime shiftStart,shiftEnd;
+		LocalTime currentTime = LocalTime.now();
+		currentTime = LocalTime.parse(currentTime.format
+				(DateTimeFormatter.ofPattern("HH:mm")));
+		
+		for(int i=0;i<m.retMaxShifts();i++) {
+			shiftStart = LocalTime.parse(shiftTimings.get(i).split("-")[0]);
+			shiftEnd = LocalTime.parse(shiftTimings.get(i).split("-")[1]);
+			
+			// Checking if the login time is within shift timings or not
+			if(currentTime==shiftStart || currentTime==shiftEnd || 
+					(currentTime.isAfter(shiftStart) && 
+							currentTime.isBefore(shiftEnd))) {
+				
+				
+				/* There could be a scenario where a nurse could login at
+				 * 14.01 hours and thus be lying in both the shifts and 
+				 * as the timings are sorted, the shift recognized by the 
+				 * if condition would be shift 1 which would finish in around
+				 * 2 hours disobeying business rules of the assignment in which
+				 * case the second shift should be considered.*/
+				
+				// Checking if the login and end shift time are not close
+				if(currentTime.until(shiftEnd, ChronoUnit.HOURS)>7) {
+					
+					// Below conditions are to ensure only 1 shift is 
+					// taken on a day
+					
+					if(e.retLastShiftDate()==null) {
+						e.setLastShiftDate(LocalDate.now());
+						e.setChosenShiftTime(shiftTimings.get(i));
+						System.out.println();
+						return true;
+					}
+					
+					else if(e.retLastShiftDate()!=LocalDate.now()) {
+						e.setLastShiftDate(LocalDate.now());
+						e.setChosenShiftTime(shiftTimings.get(i));
+						return true;
+					}
+					
+					else if(e.retLastShiftDate()==LocalDate.now()) {
+						if(e.retChosenShiftTime()==shiftTimings.get(i))
+							return true;
+						else
+							return false;
+					}
+				}
+				else
+					continue;
+			}
+		}
+		return false;
+	}
+	
 	public Manager managerLogin() {
 		LocalTime currentTime = LocalTime.now();
 		long id = c.inputLong("Enter your id. ");
@@ -27,8 +87,11 @@ public class Login {
 					LocalTime start_time = LocalTime.parse(shiftTimings[0]);
 					LocalTime end_time = LocalTime.parse(shiftTimings[1]);
 					try {
-						if(currentTime.isAfter(start_time.minusNanos(1)) && currentTime.isBefore(end_time.plusNanos(1))) {
-							if(password.matches(m.retPass()))
+						if(currentTime.isAfter(start_time.minusNanos(1)) && 
+								currentTime.isBefore(end_time.plusNanos(1))
+								&& currentTime.until(end_time, ChronoUnit.HOURS)>5) {
+							
+							if(password.matches(m.retPass()) && verifySecondLogin((Employee)m)==true)
 								return m;
 							else
 								break;
@@ -67,103 +130,24 @@ public class Login {
 		return new Doctor();
 	}
 	
-	public Nurse nurseLogin() {
-		Manager m = new Manager("Object to return max shifts");
+	public Nurse nurseLogin() throws RestrictedTimingException{
 		long id = c.inputLong("Enter your id. ");
 		String password;
-		LocalTime shiftStart,shiftEnd;
 		for(Nurse n: manager.retNurseList()) {
 			if(n.retId()==id) {
-				// Checking if login is within shift timings
-//				ArrayList<String> shiftTimings = n.retShifts();
-//				LocalTime currentTime = LocalTime.now();
-//				currentTime = LocalTime.parse(currentTime.format
-//						(DateTimeFormatter.ofPattern("HH:mm")));
-//				for(int i=0;i<m.retMaxShifts();i++) {
-//					shiftStart = LocalTime.parse(shiftTimings.get(i).split("-")[0]);
-//					shiftEnd = LocalTime.parse(shiftTimings.get(i).split("-")[1]);
-//					if(currentTime==shiftStart || currentTime==shiftEnd || 
-//							(currentTime.isAfter(shiftStart) && 
-//									currentTime.isBefore(shiftEnd))) {
-						boolean shouldLogin = verifySecondLogin((Employee)n);
-						if(shouldLogin==true) {
-							password = c.inputString("Enter password. ");
-							if(password.matches(n.retPass()))
-								return n;
-							else
-								break;
-						}
-						else {
-							System.out.println("Sorry can't login.");
-						}
-					}
-					else {
-						try {
-							throw new RestrictedTimingException();
-						}catch(RestrictedTimingException e) {
-							System.out.println("You cannot go in this shift!");
-						}
-					}
+				password = c.inputString("Enter password. ");
+				if(password.matches(n.retPass()) && 
+						verifySecondLogin((Employee) n))
+					return n;
+				else {
+					System.out.println("Sorry can't login.");
+					throw new RestrictedTimingException();
 				}
+			}
+		}
 		System.out.println("Id or password is wrong, try again! ");
 		return new Nurse();
 	}
-	
-	
-	public boolean verifyShiftTimings() {
-		return false;
-	}
-	
-	
-	// To verify if an employee is not logging in 
-	// after taking 1 shift
-	public boolean verifySecondLogin(Employee e) {
-		Manager m = new Manager("Object to return max shifts");
-		ArrayList<String> shiftTimings = e.retShifts();
-		LocalTime shiftStart,shiftEnd;
-		LocalTime currentTime = LocalTime.now();
-		currentTime = LocalTime.parse(currentTime.format
-				(DateTimeFormatter.ofPattern("HH:mm")));
-		
-		for(int i=0;i<m.retMaxShifts();i++) {
-			shiftStart = LocalTime.parse(shiftTimings.get(i).split("-")[0]);
-			shiftEnd = LocalTime.parse(shiftTimings.get(i).split("-")[1]);
-			if(currentTime==shiftStart || currentTime==shiftEnd || 
-					(currentTime.isAfter(shiftStart) && 
-							currentTime.isBefore(shiftEnd))) {
-				
-				if(currentTime.until(shiftEnd, ChronoUnit.HOURS)<7) {
-					if(e.retLastShiftDate()==null) {
-						e.setLastShiftDate(LocalDate.now());
-						e.setChosenShiftTime(shiftTimings.get(i));
-						return true;
-					}
-					
-					else if(e.retLastShiftDate()!=LocalDate.now()) {
-						e.setLastShiftDate(LocalDate.now());
-						e.setChosenShiftTime(shiftTimings.get(i));
-						return true;
-					}
-					
-					else if(e.retLastShiftDate()==LocalDate.now()) {
-						if(e.retChosenShiftTime()==shiftTimings.get(i))
-							return true;
-						else
-							return false;
-					}
-				}
-
-				else {
-					continue;
-				}
-				
-				// Enter password here
-			}
-		}
-		return false;
-	}
-	
-	
 	
 }
 	

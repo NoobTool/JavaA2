@@ -4,7 +4,7 @@ import CommonSnippets.OptionSequence;
 
 public class ResidentCare {
 	
-	public static void main(String args[]) {
+	public static void main(String args[]) throws Exception{
 		
 		// Variable Initialization
 		int choice=0;
