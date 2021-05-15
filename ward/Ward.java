@@ -2,19 +2,31 @@ package ward;
 
 import main.Patient;
 import CustomExceptions.InputValidation;
+import java.util.ArrayList;
 
 public class Ward {
-	private final int WARD_SIZE = 6;
+	private final int WARD_SIZE = 4;
+	private final int DUAL_ROOMS = 1;
+	private final int SINGLE_ROOMS = 1;
 	private Room rooms[] = new Room[WARD_SIZE];
-
+	private DualRoom dualRooms[] = new DualRoom[DUAL_ROOMS];
+	private SingleRoom singleRooms[] = new SingleRoom[SINGLE_ROOMS];
+	
 	// Constructors
 	public Ward(InputValidation i) {}
 	
 	public Ward(String s) {}
 	
 	public Ward() {
+		
 		for(int i=0;i<WARD_SIZE;i++)
 			rooms[i] = new Room();
+		
+		for(int i=0;i<DUAL_ROOMS;i++)
+			dualRooms[i] = new DualRoom();
+		
+		for(int i=0;i<SINGLE_ROOMS;i++)
+			singleRooms[i] = new SingleRoom();
 	}
 	
 	
@@ -31,7 +43,16 @@ public class Ward {
 			WardDetails w = rooms[i].addPatient(p);
 			System.out.println("Name: "+p.retName()+" "+w.retBedNumber());
 			if(w.retBedNumber()!=-1) {
-				w.setRoomNumber((i+1));
+				w.setRoomNumber((SINGLE_ROOMS+DUAL_ROOMS+i+1));
+				return w;
+			}
+		}
+		
+		for(int i=0;i<DUAL_ROOMS;i++) {
+			WardDetails w = dualRooms[i].addPatient(p);
+			System.out.println("Name: "+p.retName()+" "+w.retBedNumber());
+			if(w.retBedNumber()!=-1) {
+				w.setRoomNumber((SINGLE_ROOMS+i+1));
 				return w;
 			}
 		}
@@ -40,10 +61,22 @@ public class Ward {
 		return null;
 	}
 	
-	// Printing Ward Status
+	// Printing Ward Status (Polymorphism)
 	public void printWardStatus() {
 		int i=0;
 		for(Room r: rooms) {
+			System.out.println("Room "+(i+1));
+			r.printRoomStatus();
+			i+=1;
+		}
+		
+		for(DualRoom r: dualRooms) {
+			System.out.println("Room "+(i+1));
+			r.printRoomStatus();
+			i+=1;
+		}
+		
+		for(SingleRoom r: singleRooms) {
 			System.out.println("Room "+(i+1));
 			r.printRoomStatus();
 			i+=1;
@@ -54,6 +87,10 @@ public class Ward {
 	// Unoccupy room
 	public void unOccupyRoom(int room, int bed) {
 		rooms[room].unoccupyBed(bed);
+	}
+	
+	public void unOccupyDualRoom(int room, int bed) {
+		dualRooms[room].unoccupyBed(bed);
 	}
 	
 	public boolean isFull() {
