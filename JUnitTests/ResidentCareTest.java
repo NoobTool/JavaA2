@@ -124,12 +124,10 @@ class ResidentCareTest {
 	@Test
 	void addPatientInRoom() {
 		Room r = new Room();
-		r.addPatient(new Patient(123,"Radhe",89,'F'));
-		r.addPatient(new Patient(124,"Isha",42,'F'));
-		r.addPatient(new Patient(123,"Piya",89,'F'));
-		r.addPatient(new Patient(124,"Riya",42,'F'));
-		r.addPatient(new Patient(123,"Radhe",89,'F'));
-		r.addPatient(new Patient(124,"Isha",42,'F'));
+		for(int i=0;i<4;i++) {
+			r.addPatient(new Patient(123,"Radhe",89,'F'));
+			r.addPatient(new Patient(124,"Isha",42,'F'));
+		}
 		r.printRoomStatus();
 	}
 	
@@ -137,16 +135,11 @@ class ResidentCareTest {
 	@Test
 	void addPatientInWard() {
 		Ward w = new Ward();
-		w.addPatient(new Patient(123,"Piya",89,'F'));
-		w.addPatient(new Patient(123,"Riya",89,'F'));
-		w.addPatient(new Patient(123,"Radhe",89,'M'));
-		w.addPatient(new Patient(123,"Piya",89,'F'));
-		w.addPatient(new Patient(123,"Riya",89,'F'));
-		w.addPatient(new Patient(123,"Piya",89,'F'));
-		w.addPatient(new Patient(123,"Riya",89,'F'));
-		w.addPatient(new Patient(123,"Radhe",89,'M'));
-		w.addPatient(new Patient(123,"Radhe",89,'M'));
-		w.addPatient(new Patient(123,"Radhe",89,'M'));
+		for(int i=0;i<6;i++) {
+			w.addPatient(new Patient(123,"Piya",89,'F'));
+			w.addPatient(new Patient(123,"Riya",89,'F'));
+		}
+		
 		w.printWardStatus();
 	}
 	
@@ -161,7 +154,7 @@ class ResidentCareTest {
 			m.addWard(p2);System.out.println("\n");
 		}
 		
-		// Should display "Sorry, no space for you in the care centre."
+		// Should display "Sorry, no space for you in the care centre! "
 	}
 
 	// Printing patient by bed details
