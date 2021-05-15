@@ -1,7 +1,7 @@
 package main;
 import CommonSnippets.CommonCodes;
-
 import java.time.LocalTime;
+import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import CustomExceptions.InputValidation;
@@ -17,7 +17,8 @@ public class Employee extends Person{
 	private long id;
 	private ArrayList<String> shifts = new ArrayList<String>();
 	private String password;
-	private int shiftIndex;
+	private LocalDate lastShiftDate;
+	private String chosenShiftTime;
 	private CommonCodes c = new CommonCodes();
 	
 	public Employee(){}
@@ -244,8 +245,12 @@ public class Employee extends Person{
 	
 	// Setter Functions
 	
-	public void setShiftIndex(int shiftIndex) {
-		this.shiftIndex = shiftIndex;
+	public void setLastShiftDate(LocalDate lastShiftDate) {
+		this.lastShiftDate = lastShiftDate;
+	}
+	
+	public void setChosenShiftTime(String chosenShiftTime) {
+		this.chosenShiftTime= chosenShiftTime;
 	}
 	
 	// Getter functions
@@ -274,8 +279,12 @@ public class Employee extends Person{
 		return this.NURSE_MINUTES;
 	}
 	
-	public int retShiftIndex() {
-		return this.shiftIndex;
+	public LocalDate retLastShiftDate() {
+		return this.lastShiftDate;
+	}
+	
+	public String retChosenShiftTime() {
+		return this.chosenShiftTime;
 	}
 	
 	

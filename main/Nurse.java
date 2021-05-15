@@ -14,7 +14,6 @@ import Actions.*;
 public class Nurse extends Employee{
 	CommonCodes c = new CommonCodes();
 	Manager m = new Manager("Empty object");
-	Employee e = new Employee();
 	ActionList a = new ActionList();
 	public static ArrayList<AdministerMedicine> administeredMedicines = new ArrayList<AdministerMedicine>();
 	
