@@ -37,13 +37,12 @@ class ResidentCareTest {
 	@Test
 	void nurseLoginTest() {
 		Login l = new Login();
-		boolean managerReturned=true;
+		boolean nurseReturned=true;
 		// Valid Login id = 7730000
 		// Valid Password = 1234
 		if(l.nurseLogin().retName()==null)
-			managerReturned=false;
-		assertEquals(true,managerReturned);
-		assertEquals(true,l.nurseLogin());
+			nurseReturned=false;
+		assertEquals(true,nurseReturned);
 	}
 	
 	
