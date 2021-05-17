@@ -26,8 +26,6 @@ public class Action {
 				+" at "+this.retTime());
 	}
 	
-	
-	
 	// Setters
 	
 	public void setPerformerId(long id) {
