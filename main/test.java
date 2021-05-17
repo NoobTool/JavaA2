@@ -10,21 +10,20 @@ import java.time.temporal.ChronoUnit;
 
 public class test {
 	
-	public void functionCall() {}
+	public static void print(Object o) {
+		System.out.println(o);
+	}
+	
+	public static void print() {
+		System.out.println();
+	}
 	
 	public static void main(String args[]) {
-		ArrayList<LocalTime> times = new ArrayList<LocalTime>();
-		times.add(LocalTime.parse("09:00"));
-		times.add(LocalTime.parse("14:10"));
-		times.add(LocalTime.parse("14:00"));
-		for (int i=0;i<3;i++) {
-			System.out.println(times.get(i));
-			if(times.get(i).until(LocalTime.parse("16:00"),
-					ChronoUnit.HOURS)<5)
-			continue;
-			else
-				System.out.println("Ya");
-			System.out.println(times.get(i));
-		}
-	}	
+		final int MAX_MINUTES=360;
+		LocalTime shiftStart = LocalTime.parse("20:00");
+		LocalTime currentTime = LocalTime.parse("20:30");
+		LocalTime shiftEnd = LocalTime.parse("02:00");
+		print(Math.abs(currentTime.until(shiftEnd,ChronoUnit.HOURS)+24));
+	
+	}
 }

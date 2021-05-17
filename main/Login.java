@@ -30,7 +30,9 @@ public class Login {
 			// Checking if the login time is within shift timings or not
 			if(currentTime==shiftStart || currentTime==shiftEnd || 
 					(currentTime.isAfter(shiftStart) && 
-							currentTime.isBefore(shiftEnd))) {
+							currentTime.isBefore(shiftEnd)) ||
+					((currentTime.until(shiftEnd, ChronoUnit.MINUTES)+(24*60))>=300 &&
+					(currentTime.until(shiftEnd, ChronoUnit.MINUTES)+(24*60))<=360)) {
 				
 				
 				/* There could be a scenario where a nurse could login at
@@ -41,7 +43,8 @@ public class Login {
 				 * case the second shift should be considered.*/
 				
 				// Checking if the login and end shift time are not close
-				if(currentTime.until(shiftEnd, ChronoUnit.HOURS)>=((e.retHours(post)/60)-1)) {
+				if(currentTime.until(shiftEnd, ChronoUnit.MINUTES)*60>=(e.retHours(post)-60) ||
+						(currentTime.until(shiftEnd, ChronoUnit.MINUTES)+(24*60))>=(e.retHours(post)-60)) {
 					
 					// Below conditions are to ensure only 1 shift is 
 					// taken on a day
