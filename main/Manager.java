@@ -409,6 +409,18 @@ public class Manager extends Employee{
 				}
 			}
 		}
+		
+		char ans = c.inputChar(" Press 'y' to provide installation instead. ");
+		if(ans=='y'){
+			Nurse n = new Nurse();
+			n.provideIsolation(p);
+		    if(p.retWardDetails()!=null) {
+			    System.out.println("Patient: "+p.retName()+" is isolated at "
+				  		+"ward "+p.retWardNumber()+" in room "+wardDetails.retRoomNumber());
+		    return;
+		    }
+		}
+		
 		System.out.println("Sorry, no space for you in the care centre! ");
 		return;
 	}

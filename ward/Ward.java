@@ -111,6 +111,14 @@ public class Ward {
 		return true;
 	}
 	
+	public boolean isolationAvailable() {
+		for(SingleRoom room: singleRooms) {
+			if(room.retOccupied()==false)
+				return true;
+		}
+		
+		return false;
+	}
 	
 	
 	public Room retRoom(int n) {
@@ -123,6 +131,18 @@ public class Ward {
 	
 	public int retWards() {
 		return this.WARD_SIZE;
+	}
+	
+	public int retDualRooms() {
+		return this.DUAL_ROOMS;
+	}
+	
+	public int retSingleRooms() {
+		return this.SINGLE_ROOMS;
+	}
+	
+	public SingleRoom[] retSingleRoomsList(){
+		return this.singleRooms;
 	}
 	
 }

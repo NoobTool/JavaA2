@@ -23,8 +23,7 @@ public class Nurse extends Employee{
 		super(id,name,age,gender,shifts,password);
 	}
 	
-	// Changing patient's bed
-	
+	// Changing patient's bed manually
 	public void changeBed(Patient p) {
 		WardDetails oldDetails = p.retWardDetails(); 
 		int wardNumber = c.inputInt("Enter the new ward number. ");
@@ -51,6 +50,7 @@ public class Nurse extends Employee{
 		}
 	}
 	
+	// Changing patient's bed automatically
 	public void changeWardAutomatically(Patient p) {
 		Manager m = new Manager("Empty Object");
 		Ward wards[] = m.retWardList();
@@ -74,6 +74,39 @@ public class Nurse extends Employee{
 		
 		System.out.println("Sorry, no space for you in the care centre! ");
 		return;
+	}
+	
+	// Assign single room to a patient
+	public void provideIsolation(Patient p) {
+		WardDetails oldDetails=null;
+		if(p.retWardDetails()!=null) {
+			oldDetails = p.retWardDetails();
+		}
+			 
+		
+		int wardNumber = c.inputInt("Enter the new ward number. ");
+		int roomNumber = c.inputInt("Enter the new room number. ");
+		
+		Ward ward = m.retWardList()[wardNumber-1];
+		if(roomNumber>ward.retSingleRooms()) {
+			System.out.println("This room is not used for isolation. ");
+			return;
+		}
+		
+		if(ward.isolationAvailable()) {
+			SingleRoom room = ward.retSingleRoomsList()[roomNumber-1];
+			if(!room.retOccupied()) {
+				room.addPatient(p);
+				p.setWard(new WardDetails(wardNumber,roomNumber,1));
+				if(oldDetails!=null)
+					removePatient(oldDetails.retWardNumber(),oldDetails.retRoomNumber(),oldDetails.retBedNumber());
+				a.addAction(new Action(this.retId(),p.retId(),"isolation provided",LocalDate.now(),LocalTime.now()));
+			}
+		}
+		
+		else {
+			System.out.println("Isolation can't be possible! ");
+		}
 	}
 	
 	// Removing patient from bed

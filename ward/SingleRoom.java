@@ -24,6 +24,10 @@ public class SingleRoom {
 			System.out.println("Name: "+bed.retName()+" Room No. 1");
 	}
 	
+	public boolean retOccupied() {
+		return bed.retOccupied();
+	}
+	
 	public void unoccupyBed(int n) {
 		bed.unoccupyBed();
 	}
