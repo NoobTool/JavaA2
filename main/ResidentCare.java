@@ -24,7 +24,7 @@ public class ResidentCare {
 				case 1: 
 						Manager m = login.managerLogin();
 						if(m.retName()!=null)
-							m.managerSequence();
+							oq.managerSequence(m);
 						break;
 
 				case 2:

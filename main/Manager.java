@@ -1,4 +1,6 @@
 package main;
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.*;
 import CommonSnippets.DisplayMenu;
 import CustomExceptions.InputValidation;
@@ -18,7 +20,7 @@ public class Manager extends Employee{
 	static Staff<Patient> patientList = new Staff<Patient>();
 	static Ward wards[] = new Ward[NO_OF_WARDS];
 	
-	ActionList a = new ActionList();
+	static ActionList a = new ActionList();
 	
 	static ArrayList<Long> idList = new ArrayList<Long>();
 	static ArrayList<Long> availableIdList = new ArrayList<Long>();
@@ -67,7 +69,44 @@ public class Manager extends Employee{
 		return id;
 	}
 	
-	public void addStaff(String post){
+	// Add patient to ward
+	public void addWard(Patient p) {
+		Ward w = new Ward();
+		WardDetails wardDetails = new WardDetails();
+		if(isWardFull()==false) {
+			for(int i=0;i<NO_OF_WARDS;i++) {
+				w=wards[i];
+				wardDetails = w.addPatient(p);
+				if(wardDetails.retRoomNumber()!=-1) {
+					wardDetails.setWardNumber((i+1));
+					p.setWard(wardDetails);
+					System.out.println("Ward Set Successfully");
+					System.out.println("Patient: "+p.retName()+" is resting at "
+							+"ward "+(i+1)+" in room "+wardDetails.retRoomNumber()
+							+" in bed "+wardDetails.retBedNumber());
+					a.addAction(new Action(retId(),p.retId(),"centre admission",LocalDate.now(),LocalTime.now()));
+					return;
+				}
+			}
+		}
+		
+		char ans = c.inputChar(" Press 'y' to provide installation instead. ");
+		if(ans=='y'){
+			Nurse n = new Nurse();
+			n.provideIsolation(p);
+		    if(p.retWardDetails()!=null) {
+			    System.out.println("Patient: "+p.retName()+" is isolated at "
+				  		+"ward "+p.retWardNumber()+" in room "+wardDetails.retRoomNumber());
+			    a.addAction(new Action(retId(),p.retId(),"centre isolation",LocalDate.now(),LocalTime.now()));
+			    return;
+		    }
+		}
+		
+		System.out.println("Sorry, no space for you in the care centre! ");
+		return;
+	}
+	
+	public void addPeople(String post){
 		
 		long id;
 		double age;
@@ -97,30 +136,27 @@ public class Manager extends Employee{
 			if(id==0) {
 				Manager m =  new Manager(idList.get(0)+1, name, age, gender, shifts, password);
 				idList.set(0,idList.get(0)+1);
-				managerList.addStaff(m);
-				
+				managerList.addStaff(m, retId(), m.retId());				
 			}
 			
 			else {
 				Manager m =  new Manager(id, name, age, gender, shifts, password);
 				availableIdList.remove(availableIdList.indexOf(id));
-				managerList.addStaff(m);
-			}
-			
-			
+				managerList.addStaff(m, retId(), m.retId());
+			}			
 		}
 		
 		else if (post=="Doctor") {
 			if(id==0) {
 				Doctor d =  new Doctor(idList.get(1)+1, name, age, gender, shifts, password);
 				idList.set(1,idList.get(1)+1);
-				doctorList.addStaff(d);
+				doctorList.addStaff(d, retId(), d.retId());
 			}
 			
 			else {
 				Doctor d =  new Doctor(id, name, age, gender, shifts, password);
 				availableIdList.remove(availableIdList.indexOf(id));
-				doctorList.addStaff(d);
+				doctorList.addStaff(d, retId(), d.retId());
 			}
 		}
 		
@@ -129,14 +165,14 @@ public class Manager extends Employee{
 				Nurse n =  new Nurse(idList.get(2)+1, name, age, gender, "08:00-16:00", password);
 				n.setShifts("14:00-22:00");
 				idList.set(2,idList.get(2)+1);
-				nurseList.addStaff(n);
+				nurseList.addStaff(n, retId(), n.retId());
 			}
 			
 			else {
 				Nurse n =  new Nurse(id, name, age, gender, "08:00-16:00", password);
 				n.setShifts("14:00-22:00");
 				availableIdList.remove(availableIdList.indexOf(id));
-				nurseList.addStaff(n);
+				nurseList.addStaff(n, retId(), n.retId());
 			}
 		}
 		
@@ -144,27 +180,83 @@ public class Manager extends Employee{
 			if(id==0) {
 				Patient p =  new Patient(idList.get(3)+1, name, age, gender);
 				idList.set(2,idList.get(2)+1);
-				patientList.addStaff(p);
+				patientList.addStaff(p, retId(), p.retId());
 				addWard(p);
 			}
 			
 			else {
 				Patient p =  new Patient(id, name, age, gender);
 				availableIdList.remove(availableIdList.indexOf(id));
-				patientList.addStaff(p);
+				patientList.addStaff(p, retId(), p.retId());
 				addWard(p);
 			}
 		}
-		
 	}
 	
+	
 	public void addStaff(Manager m){
-			managerList.addStaff(m);
+			managerList.addStaff(m,retId(),m.retId());
 		}
 	
 	
+	// Changing details of the employee found
+		public void changeDetails(Employee e, String post) {
+			int choice=0;
+			do {
+				dm.modificationOptions();
+				choice=c.inputInt("Enter your choice!");
+				
+				switch(choice) {
+				
+				case 1: String name = c.inputString("Enter the new name. ");
+						name = name.strip();
+						name = i.validateName(name);
+						e.setName(name);
+						break;
+				
+				case 2: double age = i.validateAge(c.inputDouble("Enter the new value for age. "));
+						e.setAge(age);
+						break;
+				
+				case 3: char gender = i.validateGender(c.inputChar("Enter new value for gender. "));
+						e.setGender(gender);
+						break;
+						
+				case 4: changeShifts(e, post);
+						break;
+				
+				case 5: String password = c.inputString("Enter new password. ");
+						e.setPassword(password);
+						break;
+				
+				case 6: choice=6;
+						System.out.println("Exiting. ");
+						break;
+				
+				default : System.out.println("Wrong choice! ");
+				}
+				
+			}while(choice!=6);
+		}
+	
 	// Displaying the current employees present
 	
+	public void managerDisplays() {
+		int choice;
+		dm.managerMenuEmployeeSelection();
+		choice = c.inputInt("");
+		
+		switch(choice) {
+			case 1: displayManagers();break;
+			case 2: displayDoctors();break;
+			case 3: displayNurses();break;
+			case 4: displayPatients();break;
+			default: System.out.println("Wrong choice");break;
+		}
+	}
+
+	
+	// Displaying managers
 	public long displayManagers() {
 		for(Manager m: managerList.retStaff())
 			System.out.print("\nId :"+m.retId()+"\n"+
@@ -178,6 +270,7 @@ public class Manager extends Employee{
 		return managerList.retStaff().get(managerList.retSize()-1).retId();
 	}
 	
+	// Displaying doctors
 	public long displayDoctors() {
 		for (Doctor d: doctorList.retStaff())
 			System.out.print("\nId :"+d.retId()+"\n"+
@@ -191,6 +284,7 @@ public class Manager extends Employee{
 		return doctorList.retStaff().get(doctorList.retSize()-1).retId();		
 	}
 	
+	// Displaying Nurses
 	public long displayNurses() {
 		for(Nurse n: nurseList.retStaff())
 			System.out.print("\nId :"+n.retId()+"\n"+
@@ -204,6 +298,7 @@ public class Manager extends Employee{
 		return nurseList.retStaff().get(nurseList.retSize()-1).retId();
 	}
 	
+	// Displaying Patients
 	public long displayPatients() {
 		for(Patient p: patientList.retStaff()) {
 			System.out.print("\nId :"+p.retId()+"\n"+
@@ -219,210 +314,11 @@ public class Manager extends Employee{
 		
 		return patientList.retStaff().get(patientList.retSize()-1).retId();
 	}
-
 	
-	// Manager Functions
+	// Print all actions
 	
-	public void managerHires() {
-		int choice;
-		do {
-			dm.managerMenuEmployeeSelection();
-			System.out.println("4. Exit");
-			choice = c.inputInt("");
-			
-			switch(choice) {
-				case 1: addStaff("Manager");break;
-				case 2: addStaff("Doctor");break;
-				case 3: addStaff("Nurse");break;
-				case 4: System.out.println("Exiting.");choice=4;break;
-				default: System.out.println("Wrong choice!");
-			}
-		}while(choice!=4);
-		
-	}
-	
-	public void managerDisplays() {
-		int choice;
-		dm.managerMenuEmployeeSelection();
-		choice = c.inputInt("");
-		
-		switch(choice) {
-			case 1: displayManagers();break;
-			case 2: displayDoctors();break;
-			case 3: displayNurses();break;
-			case 4: displayPatients();break;
-			default: System.out.println("Wrong choice");break;
-		}
-	}
-	
-	
-	public void managerSequence() {
-		int choice;
-		do {
-			dm.managerMenu();
-			choice=c.inputInt("");
-			
-			switch(choice) {
-				case 1: addStaff("Patient");break;
-				case 2: managerHires();break;
-				case 3: modifyDetails();break;
-				case 4: managerDisplays();break;
-				case 5: a.printActionList();break;
-				case 6: System.out.println("Exiting");break;
-				default: System.out.println("Wrong choice, enter again. ");
-			}
-			
-		}while(choice!=6);		
-	}
-	
-	// Modify details of people
-	public void modifyDetails() {
-		int choice;
-		do {
-			dm.managerMenuEmployeeSelection();
-			System.out.println("4. Patient\n5. Exit ");
-			choice = c.inputInt("Enter your choice. ");
-			
-			
-			switch(choice) {
-				case 1:	managerSearch("manager",managerList.retStaff());
-						break;
-						
-				case 2:	managerSearch("doctor",doctorList.retStaff());
-						break;
-						
-				case 3: managerSearch("nurse",nurseList.retStaff());
-						break;
-						
-				case 4: managerSearch("patient",patientList.retStaff());
-						break;
-						
-				case 5: System.out.println("Exiting. ");
-						choice=5;
-						break;
-				default:
-					System.out.println("Wrong choice, enter again.");
-			}
-		}while(choice!=5);
-		
-	}
-	
-	
-	public void managerSearch(String post, ArrayList list) {
-		int choice=0;
-		
-		do {
-			dm.searchOptions();
-			boolean success=false;
-			choice=c.inputInt("");
-			switch(choice) {
-				case 1: long id = c.inputLong("Enter the id of the "+post+". ");
-						for (Object o : list) {
-							Employee e = (Employee) o;
-							if (e.retId()==id) {
-								changeDetails(e, post);
-								success=true;
-								return;
-							}	
-						}
-						if(success==false)
-						System.out.println(post.substring(0,1).toUpperCase()+post.substring(1)+" not found ");
-						break;
-						
-				case 2: String name = c.inputString("Enter the name of the  "+post+". ");
-						for (Object o: list) {
-							Employee e = (Employee) o;
-							if (e.retName().matches(name)) {
-								changeDetails(e, post);
-								success=true;
-								return;
-							}	
-						}
-						if(success==false)
-						System.out.println(post.substring(0,1).toUpperCase()+post.substring(1)+" not found ");
-						break;
-						
-				case 3: choice=3;
-						break;
-				default: System.out.println(" Wrong choice, enter again! ");
-						 break;
-			}
-		}while(choice!=3);
-	}
-	
-	// Changing details of the employee found
-	public void changeDetails(Employee e, String post) {
-		int choice=0;
-		do {
-			dm.modificationOptions();
-			choice=c.inputInt("Enter your choice!");
-			
-			switch(choice) {
-			
-			case 1: String name = c.inputString("Enter the new name. ");
-					name = name.strip();
-					name = i.validateName(name);
-					e.setName(name);
-					break;
-			
-			case 2: double age = i.validateAge(c.inputDouble("Enter the new value for age. "));
-					e.setAge(age);
-					break;
-			
-			case 3: char gender = i.validateGender(c.inputChar("Enter new value for gender. "));
-					e.setGender(gender);
-					break;
-					
-			case 4: changeShifts(e, post);
-					break;
-			
-			case 5: String password = c.inputString("Enter new password. ");
-					e.setPassword(password);
-					break;
-			
-			case 6: choice=6;
-					System.out.println("Exiting. ");
-					break;
-			
-			default : System.out.println("Wrong choice! ");
-			}
-			
-		}while(choice!=6);
-	}
-	
-	// Add patient to ward
-	public void addWard(Patient p) {
-		Ward w = new Ward();
-		WardDetails wardDetails = new WardDetails();
-		if(isWardFull()==false) {
-			for(int i=0;i<NO_OF_WARDS;i++) {
-				w=wards[i];
-				wardDetails = w.addPatient(p);
-				if(wardDetails.retRoomNumber()!=-1) {
-					wardDetails.setWardNumber((i+1));
-					p.setWard(wardDetails);
-					System.out.println("Ward Set Successfully");
-					System.out.println("Patient: "+p.retName()+" is resting at "
-							+"ward "+(i+1)+" in room "+wardDetails.retRoomNumber()
-							+" in bed "+wardDetails.retBedNumber());
-					return;
-				}
-			}
-		}
-		
-		char ans = c.inputChar(" Press 'y' to provide installation instead. ");
-		if(ans=='y'){
-			Nurse n = new Nurse();
-			n.provideIsolation(p);
-		    if(p.retWardDetails()!=null) {
-			    System.out.println("Patient: "+p.retName()+" is isolated at "
-				  		+"ward "+p.retWardNumber()+" in room "+wardDetails.retRoomNumber());
-		    return;
-		    }
-		}
-		
-		System.out.println("Sorry, no space for you in the care centre! ");
-		return;
+	public void printActionList() {
+		a.printActionList();
 	}
 	
 	// To check if ward is full or not
@@ -436,8 +332,10 @@ public class Manager extends Employee{
 	}
 	
 	
-	// Display a patient in a particular bed
-		
+	// Setter Functions
+	public void addAction(Action action) {
+		a.addAction(action);
+	}
 	
 	
 	// Getter functions
