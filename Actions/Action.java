@@ -1,5 +1,6 @@
 package Actions;
 import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.time.LocalDate;
 
 public class Action {
@@ -64,12 +65,12 @@ public class Action {
 		return actionName;
 	}
 	
-	public LocalDate retDate() {
-		return date;
+	public String retDate() {
+		return date.format(DateTimeFormatter.ofPattern("dd-MM-YYYY"));
 	}
 	
-	public LocalTime retTime() {
-		return time;
+	public String retTime() {
+		return time.format(DateTimeFormatter.ofPattern("HH:mm"));
 	}
 	
 }
