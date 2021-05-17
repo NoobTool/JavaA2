@@ -180,14 +180,14 @@ public class Manager extends Employee{
 			if(id==0) {
 				Patient p =  new Patient(idList.get(3)+1, name, age, gender);
 				idList.set(2,idList.get(2)+1);
-				patientList.addStaff(p, retId(), p.retId());
+				patientList.addStaff(p);
 				addWard(p);
 			}
 			
 			else {
 				Patient p =  new Patient(id, name, age, gender);
 				availableIdList.remove(availableIdList.indexOf(id));
-				patientList.addStaff(p, retId(), p.retId());
+				patientList.addStaff(p);
 				addWard(p);
 			}
 		}
@@ -212,21 +212,26 @@ public class Manager extends Employee{
 						name = name.strip();
 						name = i.validateName(name);
 						e.setName(name);
+						addAction(new Action(retId(),e.retId(),"name updation",LocalDate.now(),LocalTime.now()));
 						break;
 				
 				case 2: double age = i.validateAge(c.inputDouble("Enter the new value for age. "));
 						e.setAge(age);
+						addAction(new Action(retId(),e.retId(),"age updation",LocalDate.now(),LocalTime.now()));
 						break;
 				
 				case 3: char gender = i.validateGender(c.inputChar("Enter new value for gender. "));
 						e.setGender(gender);
+						addAction(new Action(retId(),e.retId(),"gender updation",LocalDate.now(),LocalTime.now()));
 						break;
 						
 				case 4: changeShifts(e, post);
+						addAction(new Action(retId(),e.retId(),"shift updation",LocalDate.now(),LocalTime.now()));
 						break;
 				
 				case 5: String password = c.inputString("Enter new password. ");
 						e.setPassword(password);
+						addAction(new Action(retId(),e.retId(),"password updation",LocalDate.now(),LocalTime.now()));
 						break;
 				
 				case 6: choice=6;
@@ -253,6 +258,7 @@ public class Manager extends Employee{
 			case 4: displayPatients();break;
 			default: System.out.println("Wrong choice");break;
 		}
+		addAction(new Action(retId(),retId(),"members display",LocalDate.now(),LocalTime.now()));
 	}
 
 	
@@ -319,6 +325,7 @@ public class Manager extends Employee{
 	
 	public void printActionList() {
 		a.printActionList();
+		addAction(new Action(retId(),retId(),"actions display",LocalDate.now(),LocalTime.now()));
 	}
 	
 	// To check if ward is full or not
