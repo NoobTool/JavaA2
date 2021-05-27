@@ -2,6 +2,7 @@ package CustomExceptions;
 import java.lang.Math;
 import ward.*;
 import java.util.*;
+import javafx.util.Pair;
 import CommonSnippets.CommonCodes;
 import java.time.LocalTime;
 import java.time.format.DateTimeParseException;
@@ -14,7 +15,7 @@ public class InputValidation {
 	CommonCodes c = new CommonCodes();
 	Employee e = new Employee();
 	Ward w = new Ward();
-	Room r = new Room();
+	Room r = new Room(); 
 	Bed b = new Bed();
 	
 	public long validateId(long id,String post) {
@@ -56,24 +57,23 @@ public class InputValidation {
 		
 		return "";
 	}
-	public double validateAge(double age) {
-		
-		if(age<0 || age>110) {
-			age = c.inputDouble("Wrong age specified, enter again! ");
-			age = validateAge(age);
-		}
+	 
+	public Pair<Double,String> validateAge(double age) {
+	
+		if(age<0 || age>110) 
+			return new Pair<Double,String>((double)-1,"Wrong age specified, enter again! ");
 		
 		if(age>1)
-			age = Math.floor(age);
-		return age;	
+			return new Pair<Double,String>(Math.floor(age),"");
+			
+		return new Pair<Double,String>(age,"");	
 	}
 	
-	public char validateGender(char gender) {
+	public String validateGender(char gender) {
 		if(gender != 'M' && gender!='F') {
-			gender = c.inputChar("Wrong gender specified, enter again! ");
-			gender = validateGender(gender);
+			return "Wrong gender specified, enter again! ";
 		}
-		return gender;
+		return "";
 	}
 	
 	public String validateShifts(String shifts, String post) {

@@ -7,8 +7,9 @@ import CustomExceptions.InputValidation;
 import CommonSnippets.CommonCodes;
 import ward.Ward;
 import ward.WardDetails;
-import Actions.*
-;
+import Actions.*;
+import javafx.util.Pair;
+
 public class Manager extends Employee{
 	final static int NO_OF_WARDS = 2;
 	final static int MAX_SHIFTS = 2;
@@ -37,7 +38,7 @@ public class Manager extends Employee{
 		idList.add((long)6830000);
 		idList.add((long)7830000);
 		idList.add((long)8030000);
-		managerList.addStaff(new Manager((long)7730000,"Ram",21,'M',"15:00-21:00","1234"));
+		managerList.addStaff(new Manager((long)7730000,"Ram",21,'M',"18:00-00:00","1234"));
 		doctorList.addStaff(new Doctor((long)6830000,"Babu",16,'M',"14:00-15:00","1234"));
 		Nurse nurse1= new Nurse((long)7830000,"Elisa",18,'F',"10:00-16:00","1234");
 		nurse1.setShifts("14:00-22:00");
@@ -65,12 +66,11 @@ public class Manager extends Employee{
 			if(x>postId && x<postLastId)
 				return x;
 		}
-
 		return id;
 	}
 	
 	// Add patient to ward
-	public void addWard(Patient p) {
+	public Pair<Boolean,String> addWard(Patient p) {
 		Ward w = new Ward();
 		WardDetails wardDetails = new WardDetails();
 		if(isWardFull()==false) {
@@ -80,12 +80,12 @@ public class Manager extends Employee{
 				if(wardDetails.retRoomNumber()!=-1) {
 					wardDetails.setWardNumber((i+1));
 					p.setWard(wardDetails);
-					System.out.println("Ward Set Successfully");
-					System.out.println("Patient: "+p.retName()+" is resting at "
+					String returnValue = "Patient: "+p.retName()+" is resting at "
 							+"ward "+(i+1)+" in room "+wardDetails.retRoomNumber()
-							+" in bed "+wardDetails.retBedNumber());
+							+" in bed "+wardDetails.retBedNumber()+"";
 					a.addAction(new Action(retId(),p.retId(),"centre admission",LocalDate.now(),LocalTime.now()));
-					return;
+					return new Pair<Boolean,String>(true,returnValue);
+					
 				}
 			}
 		}
@@ -95,17 +95,16 @@ public class Manager extends Employee{
 			Nurse n = new Nurse();
 			n.provideIsolation(p);
 		    if(p.retWardDetails()!=null) {
-			    System.out.println("Patient: "+p.retName()+" is isolated at "
+		    	a.addAction(new Action(retId(),p.retId(),"centre isolation",LocalDate.now(),LocalTime.now()));
+		    	return new Pair<Boolean,String>(true, "Patient: "+p.retName()+" is isolated at "
 				  		+"ward "+p.retWardNumber()+" in room "+wardDetails.retRoomNumber());
-			    a.addAction(new Action(retId(),p.retId(),"centre isolation",LocalDate.now(),LocalTime.now()));
-			    return;
+			    
 		    }
 		}
-		
-		System.out.println("Sorry, no space for you in the care centre! ");
-		return;
+		return new Pair<Boolean,String>(false,"Sorry, no space for you in the care centre! ");
 	}
 	
+	// Hire staff
 	public void addPeople(String name, double age, char gender, String shifts, String password, String post){
 		
 		long id;
@@ -175,21 +174,22 @@ public class Manager extends Employee{
 		}
 	}
 	
-	public void admitPatient(String name, double age, char gender, String post) {
+	// Admit Patient
+	public Pair<Boolean,String> admitPatient(String name, double age, char gender, String post) {
 		long id = allotId(post);
-		
+		 
 		if(id==0) {
 			Patient p =  new Patient(idList.get(3)+1, name, age, gender);
 			idList.set(2,idList.get(2)+1);
 			patientList.addStaff(p);
-			addWard(p);
+			return addWard(p);
 		}
 		
 		else {
 			Patient p =  new Patient(id, name, age, gender);
 			availableIdList.remove(availableIdList.indexOf(id));
 			patientList.addStaff(p);
-			addWard(p);
+			return addWard(p);
 		}
 	}
 	

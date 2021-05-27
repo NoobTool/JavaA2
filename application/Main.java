@@ -1,8 +1,10 @@
 package application;
 import main.*;
+import javafx.util.Pair;
 import javafx.application.Application;
 import javafx.stage.Stage;
 import javafx.scene.Scene;
+import javafx.scene.text.*;
 import javafx.scene.control.*;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
@@ -16,6 +18,7 @@ public class Main extends Application {
 	DisplayMenu dm = new DisplayMenu();
 	OptionSequence oq = new OptionSequence();
 	CommonOperations co = new CommonOperations();
+	InputValidation i = new InputValidation();
 	
 	
 	@Override
@@ -150,7 +153,7 @@ public class Main extends Application {
 		return exit;
 	}
 	
-	public void managerStart() {
+	private void managerStart() {
 		Stage managerStage = new Stage();
 		BorderPane bp = new BorderPane();
 		VBox vbox = new VBox();
@@ -178,6 +181,11 @@ public class Main extends Application {
 			
 		admitButton.setOnAction(e->{
 			Button submitButton = new Button("Submit");
+			Label errorMsg = new Label();
+			HBox errorBox = new HBox();
+			errorMsg.setTextFill(Color.RED);
+			errorMsg.setFont(new Font("Cambria",16));
+			
 			GridPane gp = new GridPane();			
 			gp.setPadding(new Insets(15,30,0,50));
 			gp.setHgap(10);
@@ -193,22 +201,54 @@ public class Main extends Application {
 			gp.add(name,3,0);
 			gp.add(age,3,1);
 			gp.add(gender,3,2);
+			errorBox.getChildren().add(errorMsg);
+			errorBox.setAlignment(Pos.CENTER);
 			
-			bp.setCenter(gp);
+			bp.setCenter(gp);bp.setBottom(errorBox);
+			
 			submitButton.setOnAction(e2->{
-				m.admitPatient(name.getText(), Double.parseDouble(age.getText()), gender.getText().charAt(0), "patient");name.getText();
+				String nameText = i.validateName(name.getText());
+				Pair<Double,String> agePair = i.validateAge(Double.parseDouble(age.getText()));
+				String genderString = i.validateGender(gender.getText().toUpperCase().charAt(0));
+				
+				if(nameText.length()>0) 
+					errorMsg.setText(nameText);
+					
+				else if(agePair.getValue().length()>0)
+					errorMsg.setText(agePair.getValue());
+				
+				else if(genderString.length()>0)
+					errorMsg.setText(genderString);
+				
+				else {
+					Pair<Boolean,String> returnValue = m.admitPatient(name.getText(), 
+							agePair.getKey(),gender.getText().toUpperCase().charAt(0), "patient");
+					if(returnValue.getKey()==true) {
+						errorMsg.setTextFill(Color.GREEN);
+						errorMsg.setText(returnValue.getValue());
+					}
+					
+					else {
+						errorMsg.setTextFill(Color.RED);
+						errorMsg.setText(returnValue.getValue());
+					}
+				}				
 			});
 		});
 		
 		
 		hireButton.setOnAction(e->{
 			GridPane gp = new GridPane();	
+			Label errorMsg = new Label();
+			HBox errorBox = new HBox();
+			errorBox.getChildren().add(errorMsg);
+			errorBox.setAlignment(Pos.CENTER);
 			gp.setPadding(new Insets(15,30,0,50));
 			gp.setHgap(10);
 	        gp.setVgap(10);
 			ComboBox<String> cb = new ComboBox<String>();
 			cb.getItems().addAll("Manager","Nurse","Doctor");
-			Object selectedItem = cb.getSelectionModel().getSelectedItem();
+			String selectedItem = cb.getSelectionModel().getSelectedItem();
 		
 			Button submitButton = new Button("Submit");
 			TextField name = new TextField();
@@ -236,7 +276,7 @@ public class Main extends Application {
 		});
 		
 		
-		managerStage.setScene(new Scene(bp,700,300));
+		managerStage.setScene(new Scene(bp,700,350));
 		managerStage.show();
 		
 		

@@ -19,9 +19,7 @@ public class test {
 	}
 	
 	public static void main(String args[]) {
-		LocalTime currentTime = LocalTime.parse("00:30");
-		LocalTime shiftEnd = LocalTime.parse("23:59");
-		
-			print(currentTime.isAfter(shiftEnd));
+		String name="213413";
+		print(name.length());
 	}
 }
