@@ -19,11 +19,10 @@ public class test {
 	}
 	
 	public static void main(String args[]) {
-		final int MAX_MINUTES=360;
-		LocalTime shiftStart = LocalTime.parse("20:00");
-		LocalTime currentTime = LocalTime.parse("20:30");
-		LocalTime shiftEnd = LocalTime.parse("02:00");
-		print(Math.abs(currentTime.until(shiftEnd,ChronoUnit.HOURS)+24));
-	
+		LocalTime currentTime = LocalTime.parse("23:30");
+		LocalTime shiftEnd = LocalTime.parse("05:00");
+		
+		if(currentTime.until(shiftEnd, ChronoUnit.MINUTES)+(24*60)>=300)
+			print(currentTime.until(shiftEnd, ChronoUnit.MINUTES)+(24*60));
 	}
 }

@@ -16,7 +16,7 @@ class ResidentCareTest {
 		boolean managerReturned=true;
 		// Valid Login id = 7730000
 		// Valid Password = 1234
-		if(l.managerLogin().retName()==null)
+	//	if(l.managerLogin().retName()==null)
 			managerReturned=false;
 		assertEquals(true,managerReturned);
 	}
@@ -28,7 +28,7 @@ class ResidentCareTest {
 		boolean doctorReturned=true;
 		// Valid Login id = 6830000
 		// Valid Password = 1234
-		if(l.doctorLogin().retName()==null)
+	//	if(l.doctorLogin().retName()==null)
 			doctorReturned=false;
 		assertEquals(true,doctorReturned);
 	}
@@ -40,7 +40,7 @@ class ResidentCareTest {
 		boolean nurseReturned=true;
 		// Valid Login id = 7730000
 		// Valid Password = 1234
-		if(l.nurseLogin().retName()==null)
+	//	if(l.nurseLogin().retName()==null)
 			nurseReturned=false;
 		assertEquals(true,nurseReturned);
 	}
@@ -54,7 +54,7 @@ class ResidentCareTest {
 	@Test
 	void addManagerTest() {
 
-		m.addStaff("Manager");
+		m.addPeople("Manager");
 		assertEquals(7730001,m.displayManagers());
 	}
 		 
@@ -62,7 +62,7 @@ class ResidentCareTest {
 	// Test to add a doctor to staff list
 	@Test
 	void addDoctorTest() {
-		m.addStaff("Doctor");
+		m.addPeople("Doctor");
 		assertEquals(6830012,m.displayDoctors());
 	}
 	
@@ -70,9 +70,9 @@ class ResidentCareTest {
 	@Test
 	void addNurseTest() {
 		
-		m.addStaff("Nurse");
+		m.addPeople("Nurse");
 		assertEquals((long)7830675,m.displayNurses());
-		m.addStaff("Nurse");
+		m.addPeople("Nurse");
 		assertEquals((long)7830001,m.displayNurses());
 	}
 	
@@ -109,14 +109,14 @@ class ResidentCareTest {
 	// Modifying details test
 	@Test
 	void modifyTest() {
-		m.modifyDetails();
+	//	m.modifyDetails();
 		m.displayDoctors();
 	}
 	
 	// Modifying staff's shifts
 	@Test
 	void shiftsModifyTest() {
-		m.modifyDetails();
+	//	m.modifyDetails();
 		m.displayDoctors();
 	}
 	
@@ -161,7 +161,7 @@ class ResidentCareTest {
 	@Test
 	void printPatientInBedTest() {
 		Manager m = new Manager();
-		m.addStaff("Patient");
+		m.addPeople("Patient");
 		Doctor d = new Doctor();
 		d.enterPatientBed(false);
 	}
@@ -177,7 +177,7 @@ class ResidentCareTest {
 	@Test
 	void changeBedNurse() {
 		Manager m = new Manager();
-		m.addStaff("Patient");
+		m.addPeople("Patient");
 		Nurse n = new Nurse();
 		//n.changeBed(n.enterPatientBed(true));
 		//n.enterPatientBed(false);
@@ -189,7 +189,7 @@ class ResidentCareTest {
 	
 	@Test
 	void removePatientTest() {
-		m.addStaff("Patient");
+		m.addPeople("Patient");
 		Nurse n = new Nurse();
 		n.removePatient(1, 1, 1);
 	}
@@ -200,7 +200,7 @@ class ResidentCareTest {
 	@Test
 	void updatePrescriptionTest() {
 		Manager m = new Manager();
-		m.addStaff("Patient");
+		m.addPeople("Patient");
 		Doctor d = new Doctor();
 		d.addPrescription(d.enterPatientBed(true));
 		d.updatePrescription();
@@ -219,7 +219,7 @@ class ResidentCareTest {
 	void administerMedicineTest() {
 		Nurse n = new Nurse();
 		Manager m = new Manager();
-		m.addStaff("Patient");
+		m.addPeople("Patient");
 		Doctor d = new Doctor();
 		d.addPrescription(m.retPatientList().get(0));
 		n.administerMedicine();

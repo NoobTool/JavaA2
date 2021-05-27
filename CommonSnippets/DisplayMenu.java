@@ -3,14 +3,14 @@ import java.util.ArrayList;
 
 public class DisplayMenu {
 	
-	public void managerMenu() {
-		System.out.println("1. Admit a patient.");
-		System.out.println("2. Hire new employees.");
-		System.out.println("3. Modify staff details.");
-		System.out.println("4. Display staff members.");
-		System.out.println("5. Display the actions performed. ");
-		System.out.println("6. Exit");
-		System.out.println("Enter your choice! ");
+	public ArrayList<String> managerMenu() {
+		ArrayList<String> managerMenu = new ArrayList<String>();
+		managerMenu.add("Admit a patient.");
+		managerMenu.add("Hire new employees.");
+		managerMenu.add("Modify staff details.");
+		managerMenu.add("Display staff members.");
+		managerMenu.add("Display the actions performed. ");
+		return managerMenu;
 	}
 	
 	public void managerMenuEmployeeSelection() {
@@ -32,16 +32,14 @@ public class DisplayMenu {
 		System.out.println("3. Gender");
 		System.out.println("4. Shifts");
 		System.out.println("5. Password");
-		System.out.println("6. Exit");
 	}
 	
-	public ArrayList<String >doctorMenu() {
+	public ArrayList<String > doctorMenu() {
 		ArrayList<String> doctorMenu = new ArrayList<String>();
 		doctorMenu.add("1. Add a prescription.");
 		doctorMenu.add("2. Suggest Changes");
 		doctorMenu.add("3. Display a patient's details. ");
 		doctorMenu.add("4. Update prescription. ");
-		doctorMenu.add("5. Exit. ");		
 		return doctorMenu;
 	}
 	
@@ -67,7 +65,7 @@ public class DisplayMenu {
 	
 	// Nurse 
 	
-	public ArrayList<String> NurseMenu() {
+	public ArrayList<String> nurseMenu() {
 		ArrayList<String> nurseMenu = new ArrayList<String>();
 		nurseMenu.add("1. Administer a medicine. ");
 		nurseMenu.add("2. Change bed automatically. ");

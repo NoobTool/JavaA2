@@ -22,20 +22,20 @@ public class ResidentCare {
 			choice=c.inputInt("Enter your choice!");
 			switch(choice) {
 				case 1: 
-						Manager m = login.managerLogin();
-						if(m.retName()!=null)
-							oq.managerSequence(m);
+					//	Manager m = login.managerLogin();
+//						if(m.retName()!=null)
+//							oq.managerSequence(m);
 						break;
 
 				case 2:
-						Doctor d = login.doctorLogin();
-						if(d.retName()!=null)
-							oq.doctorFunctions(d);						
+						//Doctor d = login.doctorLogin();
+//						if(d.retName()!=null)
+//							oq.doctorFunctions(d);						
 						break;
 				case 3:
-						Nurse n = login.nurseLogin();
-						if(n.retName()!=null)
-							oq.NurseMenu(n);
+					//	Nurse n = login.nurseLogin();
+						//if(n.retName()!=null)
+							//oq.NurseMenu(n);
 						break;
 						
 				case 4: System.out.println("Exiting...");

@@ -19,7 +19,9 @@ public class OptionSequence {
 	public void managerSequence(Manager m) {
 		int choice;
 		do {
-			dm.managerMenu();
+			for(String s: dm.managerMenu())
+				System.out.println(s);
+			
 			choice=c.inputInt("");
 			
 			switch(choice) {
@@ -181,7 +183,7 @@ public class OptionSequence {
 		int choice;
 		Patient p;
 		do {
-			for(String s : dm.NurseMenu())
+			for(String s : dm.nurseMenu())
 				System.out.println(s);
 			choice = c.inputInt("");
 			

@@ -31,8 +31,8 @@ public class Login {
 			if(currentTime==shiftStart || currentTime==shiftEnd || 
 					(currentTime.isAfter(shiftStart) && 
 							currentTime.isBefore(shiftEnd)) ||
-					((currentTime.until(shiftEnd, ChronoUnit.MINUTES)+(24*60))>=300 &&
-					(currentTime.until(shiftEnd, ChronoUnit.MINUTES)+(24*60))<=360)) {
+					((currentTime.until(shiftEnd, ChronoUnit.MINUTES)+(24*60))>=(e.retHours(post)-60) &&
+					(currentTime.until(shiftEnd, ChronoUnit.MINUTES)+(24*60))<=e.retHours(post))) {
 				
 				
 				/* There could be a scenario where a nurse could login at
@@ -43,8 +43,8 @@ public class Login {
 				 * case the second shift should be considered.*/
 				
 				// Checking if the login and end shift time are not close
-				if(currentTime.until(shiftEnd, ChronoUnit.MINUTES)*60>=(e.retHours(post)-60) ||
-						(currentTime.until(shiftEnd, ChronoUnit.MINUTES)+(24*60))>=(e.retHours(post)-60)) {
+				if(currentTime.until(shiftEnd, ChronoUnit.MINUTES)*60>=(e.retHours(post)-60) &&
+						(currentTime.until(shiftEnd, ChronoUnit.MINUTES)+(24*60))<=(e.retHours(post))) {
 					
 					// Below conditions are to ensure only 1 shift is 
 					// taken on a day
@@ -76,12 +76,9 @@ public class Login {
 		return false;
 	}
 	
-	public Manager managerLogin() {
-		long id = c.inputLong("Enter your id. ");
-		String password;
+	public Manager managerLogin(long id, String password) throws RestrictedTimingException{
 		for(Manager m: manager.retManagerList()) {
 			if(m.retId()==id) {
-				password = c.inputString("Enter password. ");
 					try {
 						if(verifySecondLogin((Employee) m, "manager")) {
 							if(password.matches(m.retPass()))
@@ -97,18 +94,15 @@ public class Login {
 						System.out.println("Not rostered for this shift. ");
 						return new Manager("Exceptionally Correct");
 					}
-			}
+			} 
 		}
 		System.out.println("Manager not found! ");
 		return new Manager("Empty Object");
 	}
 	
-	public Doctor doctorLogin() {
-		long id = c.inputLong("Enter your id. ");
-		String password;
+	public Doctor doctorLogin(long id, String password) {
 		for(Doctor d: manager.retDoctorList()) {
 			if(d.retId()==id) {
-				password = c.inputString("Enter password. ");
 					try {
 						if(verifySecondLogin((Employee) d, "doctor")) {
 							if(password.matches(d.retPass()))
@@ -130,12 +124,9 @@ public class Login {
 		return new Doctor();
 	}
 	
-	public Nurse nurseLogin() {
-		long id = c.inputLong("Enter your id. ");
-		String password;
+	public Nurse nurseLogin(long id, String password) {
 		for(Nurse n: manager.retNurseList()) {
 			if(n.retId()==id) {
-				password = c.inputString("Enter password. ");
 					try {
 						if(verifySecondLogin((Employee) n, "nurse")) {
 							if(password.matches(n.retPass()))
