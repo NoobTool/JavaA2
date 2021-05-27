@@ -19,10 +19,9 @@ public class test {
 	}
 	
 	public static void main(String args[]) {
-		LocalTime currentTime = LocalTime.parse("23:30");
-		LocalTime shiftEnd = LocalTime.parse("05:00");
+		LocalTime currentTime = LocalTime.parse("00:30");
+		LocalTime shiftEnd = LocalTime.parse("23:59");
 		
-		if(currentTime.until(shiftEnd, ChronoUnit.MINUTES)+(24*60)>=300)
-			print(currentTime.until(shiftEnd, ChronoUnit.MINUTES)+(24*60));
+			print(currentTime.isAfter(shiftEnd));
 	}
 }

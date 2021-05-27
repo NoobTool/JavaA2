@@ -20,7 +20,7 @@ public class Manager extends Employee{
 	static Staff<Patient> patientList = new Staff<Patient>();
 	static Ward wards[] = new Ward[NO_OF_WARDS];
 	
-	static ActionList a = new ActionList();
+	static ActionList a = new ActionList(); 
 	
 	static ArrayList<Long> idList = new ArrayList<Long>();
 	static ArrayList<Long> availableIdList = new ArrayList<Long>();
@@ -37,7 +37,7 @@ public class Manager extends Employee{
 		idList.add((long)6830000);
 		idList.add((long)7830000);
 		idList.add((long)8030000);
-		managerList.addStaff(new Manager((long)7730000,"Ram",21,'M',"09:00-15:00","1234"));
+		managerList.addStaff(new Manager((long)7730000,"Ram",21,'M',"00:00-06:00","1234"));
 		doctorList.addStaff(new Doctor((long)6830000,"Babu",16,'M',"11:00-11:30","1234"));
 		Nurse nurse1= new Nurse((long)7830000,"Elisa",18,'F',"10:00-16:00","1234");
 		nurse1.setShifts("14:00-22:00");

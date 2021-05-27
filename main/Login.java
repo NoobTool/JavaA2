@@ -19,7 +19,7 @@ public class Login {
 	public boolean verifySecondLogin(Employee e,String post) {
 		ArrayList<String> shiftTimings = e.retShifts();
 		LocalTime shiftStart,shiftEnd;
-		LocalTime currentTime = LocalTime.now();
+		LocalTime currentTime = LocalTime.parse("00:30");
 		currentTime = LocalTime.parse(currentTime.format
 				(DateTimeFormatter.ofPattern("HH:mm")));
 		
@@ -28,12 +28,15 @@ public class Login {
 			shiftEnd = LocalTime.parse(shiftTimings.get(i).split("-")[1]);
 			
 			// Checking if the login time is within shift timings or not
-			if(currentTime==shiftStart || currentTime==shiftEnd || 
-					(currentTime.isAfter(shiftStart) && 
-							currentTime.isBefore(shiftEnd)) ||
-					((currentTime.until(shiftEnd, ChronoUnit.MINUTES)+(24*60))>=(e.retHours(post)-60) &&
-					(currentTime.until(shiftEnd, ChronoUnit.MINUTES)+(24*60))<=e.retHours(post))) {
-				
+//			if(currentTime==shiftStart || currentTime==shiftEnd || 
+//					(currentTime.isAfter(shiftStart) && 
+//							currentTime.isBefore(shiftEnd)) ||
+//					((currentTime.until(shiftEnd, ChronoUnit.MINUTES)+(24*60))>=(e.retHours(post)-60) &&
+//					(currentTime.until(shiftEnd, ChronoUnit.MINUTES)+(24*60))<=e.retHours(post))) {	
+			if(((currentTime.isAfter(shiftStart.minusNanos(1)) || currentTime.isAfter(shiftStart)) 
+						&& currentTime.until(shiftEnd, ChronoUnit.MINUTES)>=(e.retHours(post)-60))
+						|| (currentTime.until(shiftEnd, ChronoUnit.MINUTES)+(24*60))>=(e.retHours(post)-60) &&
+								(currentTime.until(shiftEnd, ChronoUnit.MINUTES)+(24*60))<=e.retHours(post)) {
 				
 				/* There could be a scenario where a nurse could login at
 				 * 14.01 hours and thus be lying in both the shifts and 
@@ -43,9 +46,10 @@ public class Login {
 				 * case the second shift should be considered.*/
 				
 				// Checking if the login and end shift time are not close
-				if(currentTime.until(shiftEnd, ChronoUnit.MINUTES)*60>=(e.retHours(post)-60) &&
-						(currentTime.until(shiftEnd, ChronoUnit.MINUTES)+(24*60))<=(e.retHours(post))) {
-					
+//				if(currentTime.until(shiftEnd, ChronoUnit.MINUTES)*60>=(e.retHours(post)-60) &&
+//						(currentTime.until(shiftEnd, ChronoUnit.MINUTES)+(24*60))<=(e.retHours(post))) {
+
+				if(1<2) {
 					// Below conditions are to ensure only 1 shift is 
 					// taken on a day
 					
@@ -79,26 +83,21 @@ public class Login {
 	public Manager managerLogin(long id, String password) throws RestrictedTimingException{
 		for(Manager m: manager.retManagerList()) {
 			if(m.retId()==id) {
-					try {
-						if(verifySecondLogin((Employee) m, "manager")) {
-							if(password.matches(m.retPass()))
-								return m;
-							else {
-								System.out.println("Id or password is wrong, try again! ");
-								return new Manager("Empty Object");
-							}
-						}
-						else
-							throw new RestrictedTimingException();
-					}catch(RestrictedTimingException exception) {
-						System.out.println("Not rostered for this shift. ");
-						return new Manager("Exceptionally Correct");
+				if(verifySecondLogin((Employee) m, "manager")) {
+					if(password.matches(m.retPass()))
+						return m;
+					else {
+						System.out.println("Id or password is wrong, try again! ");
+						return new Manager("Empty Object");
 					}
-			} 
-		}
-		System.out.println("Manager not found! ");
-		return new Manager("Empty Object");
+				}
+				else
+					throw new RestrictedTimingException();
+			}
+		} 
+		return new Manager("Empty Objecy");
 	}
+
 	
 	public Doctor doctorLogin(long id, String password) {
 		for(Doctor d: manager.retDoctorList()) {
