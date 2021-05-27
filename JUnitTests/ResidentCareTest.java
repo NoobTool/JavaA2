@@ -1,5 +1,6 @@
 package JUnitTests;
 import static org.junit.jupiter.api.Assertions.*;
+import application.*;
 import java.util.ArrayList;
 import org.junit.jupiter.api.Test;
 import main.*;
@@ -251,10 +252,10 @@ class ResidentCareTest {
 	}
 	
 	
-	
-	
-	
-	
-	
+	@Test
+	void managerStartTest() {
+		Main main = new Main();
+		main.managerStart();
+	}
 	
 }

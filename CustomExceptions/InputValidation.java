@@ -45,20 +45,16 @@ public class InputValidation {
 	public String validateName(String name) {
 		
 		if (name.length()<=1) {
-			name = c.inputString("Name must be 2 characters or more, enter again! ");
-			name = validateName(name);
+			return "Name must be 2 characters or more, enter again! ";
 		}
 		
 		for(char s:name.toCharArray()) {
 			if(!Character.isLetter(s)) {
-				name = c.inputString("Invalid Name, enter again! ");
-				name = validateName(name);
-				break;
+				return "Invalid Name, enter again! ";
 			}
-				
 		}
 		
-		return name;
+		return "";
 	}
 	public double validateAge(double age) {
 		

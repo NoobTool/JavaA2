@@ -150,19 +150,19 @@ public class Main extends Application {
 		return exit;
 	}
 	
-	private void managerStart() {
+	public void managerStart() {
 		Stage managerStage = new Stage();
 		BorderPane bp = new BorderPane();
 		VBox vbox = new VBox();
 		HBox hbox = new HBox();
-	    hbox.setPadding(new Insets(15, 12, 15, 12));
+		hbox.setPadding(new Insets(15, 12, 15, 12));
 	    hbox.setSpacing(10);
 	    hbox.setStyle("-fx-background-color: #4477aa;");
 
 	    Label currentUser = new Label("Ram Rattan Goyal");
 	    
-	    Button button1 = new Button(dm.managerMenu().get(0));
-	    Button button2 = new Button(dm.managerMenu().get(1));
+	    Button admitButton = new Button(dm.managerMenu().get(0));
+	    Button hireButton = new Button(dm.managerMenu().get(1));
 	    Button button3 = new Button(dm.managerMenu().get(2));
 	    Button button4 = new Button(dm.managerMenu().get(3));
 	    Button button5 = new Button(dm.managerMenu().get(4));
@@ -171,35 +171,41 @@ public class Main extends Application {
 	    hbox.getChildren().addAll(currentUser, addExitButton(managerStage));
 		
 		vbox.setPadding(new Insets(10,0,0,50));
-//		for(int i=0;i<dm.managerMenu().size();i++)
-//			vbox.getChildren().add(new Button(dm.managerMenu().get(i)));
-		vbox.getChildren().addAll(button1,button2,button3,button4,button5);
+		
+		vbox.getChildren().addAll(admitButton,hireButton,button3,button4,button5);
 		bp.setLeft(vbox);
 		bp.setTop(hbox);
 			
-		button1.setOnAction(e->{
+		admitButton.setOnAction(e->{
 			Button submitButton = new Button("Submit");
 			GridPane gp = new GridPane();			
+			gp.setPadding(new Insets(15,30,0,50));
+			gp.setHgap(10);
+	        gp.setVgap(10);
 			TextField name = new TextField();
 			TextField age = new TextField();
 			TextField gender = new TextField();
+			
 			gp.add(new Label("Name:"), 1, 0);
 			gp.add(new Label("Age:"), 1, 1);
 			gp.add(new Label("Gender:"), 1, 2);
-			gp.add(submitButton, 2, 4);
+			gp.add(submitButton, 3, 4);
 			gp.add(name,3,0);
 			gp.add(age,3,1);
 			gp.add(gender,3,2);
-			bp.setCenter(gp);
 			
+			bp.setCenter(gp);
 			submitButton.setOnAction(e2->{
 				m.admitPatient(name.getText(), Double.parseDouble(age.getText()), gender.getText().charAt(0), "patient");name.getText();
 			});
 		});
 		
 		
-		button2.setOnAction(e->{
+		hireButton.setOnAction(e->{
 			GridPane gp = new GridPane();	
+			gp.setPadding(new Insets(15,30,0,50));
+			gp.setHgap(10);
+	        gp.setVgap(10);
 			ComboBox<String> cb = new ComboBox<String>();
 			cb.getItems().addAll("Manager","Nurse","Doctor");
 			Object selectedItem = cb.getSelectionModel().getSelectedItem();
@@ -211,17 +217,17 @@ public class Main extends Application {
 			TextField shifts = new TextField();
 			TextField password = new TextField();
 			
-			gp.add(new Label("Name:"), 1, 1);
-			gp.add(new Label("Age:"), 1, 2);
-			gp.add(new Label("Gender:"), 1, 3);
-			gp.add(new Label("Shifts:"), 1, 4);
-			gp.add(new Label("Password:"), 1, 5);
-			gp.add(submitButton, 2, 4);
-			gp.add(name,3,1);
-			gp.add(age,3,2);
-			gp.add(gender,3,3);
-			gp.add(shifts,3,4);
-			gp.add(password,3,5);
+			gp.add(new Label("Name:"), 2, 1);
+			gp.add(new Label("Age:"), 2, 2);
+			gp.add(new Label("Gender:"), 2, 3);
+			gp.add(new Label("Shifts:"), 2, 4);
+			gp.add(new Label("Password:"), 2, 5);
+			gp.add(name,4,1);
+			gp.add(age,4,2);
+			gp.add(gender,4,3);
+			gp.add(shifts,4,4);
+			gp.add(password,4,5);
+			gp.add(submitButton, 4, 6);
 			bp.setCenter(gp);
 			
 			submitButton.setOnAction(e2->{
@@ -230,7 +236,7 @@ public class Main extends Application {
 		});
 		
 		
-		managerStage.setScene(new Scene(bp,600,400));
+		managerStage.setScene(new Scene(bp,700,300));
 		managerStage.show();
 		
 		
