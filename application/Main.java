@@ -6,7 +6,6 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
-import javafx.fxml.FXMLLoader;
 import javafx.geometry.*;
 import CommonSnippets.*;
 import CustomExceptions.*;
@@ -16,6 +15,7 @@ public class Main extends Application {
 	Manager m = new Manager();
 	DisplayMenu dm = new DisplayMenu();
 	OptionSequence oq = new OptionSequence();
+	CommonOperations co = new CommonOperations();
 	
 	
 	@Override
@@ -45,10 +45,10 @@ public class Main extends Application {
 			try {
 				long userId= Long.parseLong(usernameField.getText().strip());
 				String userText = Long.toString(userId);
-				String passText = passwordField.getText();
+				String passText = passwordField.getText(); 
 				if(passText.isBlank())
 					errorMsg.setText("*Password cannot be empty!\n\n\n");
-				
+				 
 				// Verifying details for login
 				else {
 					Login login = new Login();
@@ -62,37 +62,69 @@ public class Main extends Application {
 								primaryStage.close();
 								managerStart();
 							}
+							else {
+								errorMsg.setText("Id or password is wrong!"+"\n\n\n");
+								co.clearLabels(usernameField, passwordField);
+							}
 						}catch(RestrictedTimingException exception) {
 							errorMsg.setText("Not Rostered for this shift!"+"\n\n\n");
+							co.clearLabels(usernameField, passwordField);
+						}catch(InvalidCredentialsException exception) {
+							errorMsg.setText("Id or password is wrong!"+"\n\n\n");
+							co.clearLabels(usernameField, passwordField);
 						}
 					}
 					
 					// Doctor's Login
 					else if(userText.substring(0,2).equals("68")) {
-						Doctor d = login.doctorLogin(userId, passText);
-						if(d.retName()!=null) {
-							errorMsg.setText("Hi, Dr."+d.retName()+"\n\n\n");
-							primaryStage.close();
-							doctorStart();
-						}	
-					}
+						try {
+							Doctor d = login.doctorLogin(userId, passText);
+							if(d.retName()!=null) {
+								errorMsg.setText("Hi, "+d.retName()+"\n\n\n");
+								primaryStage.close();
+								doctorStart();
+							}
+							else {
+								errorMsg.setText("Id or password is wrong!"+"\n\n\n");
+								co.clearLabels(usernameField, passwordField);
+							}
+						}catch(RestrictedTimingException exception) {
+							errorMsg.setText("Not Rostered for this shift!"+"\n\n\n");
+							co.clearLabels(usernameField, passwordField);
+						}catch(InvalidCredentialsException exception) {
+							errorMsg.setText("Id or password is wrong!"+"\n\n\n");
+							co.clearLabels(usernameField, passwordField);
+						}
+					}	
 					 
 					// Nurse's Login
 					else if(userText.substring(0,2).equals("78")) {
-						Nurse n = login.nurseLogin(userId, passText);
-						if(n.retName()!=null) {
-							errorMsg.setText("Hi, "+n.retName()+"\n\n\n");
-							primaryStage.close();
-							nurseStart();
-							
+						try {
+							Doctor d = login.doctorLogin(userId, passText);
+							if(d.retName()!=null) {
+								errorMsg.setText("Hi, "+d.retName()+"\n\n\n");
+								primaryStage.close();
+								nurseStart();
+							}
+							else {
+								errorMsg.setText("Id or password is wrong!"+"\n\n\n");
+								co.clearLabels(usernameField, passwordField);
+							}
+						}catch(RestrictedTimingException exception) {
+							errorMsg.setText("Not Rostered for this shift!"+"\n\n\n");
+							co.clearLabels(usernameField, passwordField);
+						}catch(InvalidCredentialsException exception) {
+							errorMsg.setText("Id or password is wrong!"+"\n\n\n");
+							co.clearLabels(usernameField, passwordField);
 						}
-							 
+						
 					}
+						
 					// Wrong ID
 					else
 						errorMsg.setText("No employee by this ID.");
-				}
 					
+				}
 			}catch(NumberFormatException n) {
 				errorMsg.setText("*Invalid ID\n\n\n");
 			}
