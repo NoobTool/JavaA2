@@ -11,6 +11,7 @@ import javafx.scene.paint.Color;
 import javafx.geometry.*;
 import CommonSnippets.*;
 import CustomExceptions.*;
+import Actions.Action;
 
 public class Main extends Application {
 		
@@ -461,11 +462,26 @@ public class Main extends Application {
 			bp.setRight(null);
 			bp.setBottom(null);
 			
-			}
+			});
 		
-		
-		);
-		
+		displayActions.setOnAction(e->{
+					ScrollPane sp = new ScrollPane();
+					VBox actionBox = new VBox(10);
+					
+					for(Action a: m.retActionList()) {
+						actionBox.getChildren().add(new Label("Employee with ID: "
+								+a.retPerformerId()+" performed a/an "
+								+a.retActionName()+" on Id: "
+								+a.retReceiverId()+" on "+a.retDate()
+								+" at "+a.retTime()));
+					}
+					
+					sp.setContent(actionBox);
+					bp.setCenter(sp);
+					bp.setBottom(null);
+					bp.setRight(null);
+					
+				});
 		
 		managerStage.setScene(new Scene(bp,800,350));
 		managerStage.show();

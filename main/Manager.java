@@ -394,5 +394,9 @@ public class Manager extends Employee{
 	public ArrayList<Patient> retPatientList(){
 		return patientList.retStaff();
 	}
+	
+	public ArrayList<Action> retActionList(){
+		return a.retActionList();
+	}
 
 };
