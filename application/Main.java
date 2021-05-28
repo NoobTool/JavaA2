@@ -63,7 +63,7 @@ public class Main extends Application {
 							if(m.retName()!=null) {
 								errorMsg.setText("Hi, "+m.retName()+"\n\n\n");
 								primaryStage.close();
-								managerStart();
+								managerStart(m);
 							}
 							else {
 								errorMsg.setText("Id or password is wrong!"+"\n\n\n");
@@ -85,7 +85,7 @@ public class Main extends Application {
 							if(d.retName()!=null) {
 								errorMsg.setText("Hi, "+d.retName()+"\n\n\n");
 								primaryStage.close();
-								doctorStart();
+								doctorStart(d);
 							}
 							else {
 								errorMsg.setText("Id or password is wrong!"+"\n\n\n");
@@ -103,11 +103,11 @@ public class Main extends Application {
 					// Nurse's Login
 					else if(userText.substring(0,2).equals("78")) {
 						try {
-							Doctor d = login.doctorLogin(userId, passText);
-							if(d.retName()!=null) {
-								errorMsg.setText("Hi, "+d.retName()+"\n\n\n");
+							Nurse n = login.nurseLogin(userId, passText);
+							if(n.retName()!=null) {
+								errorMsg.setText("Hi, "+n.retName()+"\n\n\n");
 								primaryStage.close();
-								nurseStart();
+								nurseStart(n);
 							}
 							else {
 								errorMsg.setText("Id or password is wrong!"+"\n\n\n");
@@ -194,34 +194,38 @@ public class Main extends Application {
 		return displayCell;
 	}
 	
-	private void managerStart() {
+	// Graphical User Interface for different roles
+	
+	//Manager
+	private void managerStart(Manager m) {
 		Stage managerStage = new Stage();
 		BorderPane bp = new BorderPane();
 		VBox vbox = new VBox(15);
-		HBox hbox = new HBox();
+		BorderPane topBar = new BorderPane();
 		
 		// VBox and HBox formatting
-		hbox.setPadding(new Insets(15, 12, 15, 12));
-	    hbox.setSpacing(10);
-	    hbox.setStyle("-fx-background-color: #4477aa;");
+		topBar.setPadding(new Insets(15, 12, 15, 12));
+	    topBar.setStyle("-fx-background-color: #4477aa;");
 	    vbox.setPadding(new Insets(50,50,50,50));
 	    
-	    System.out.println("Name is "+m.retName());
-	    Label currentUser = new Label(m.retName());
+	    Label currentUser = new Label("Hi, "+m.retName());
+	    currentUser.setFont(new Font("cambria",16));
+	    currentUser.setStyle("-fx-font-weight: bold");
 	    
 	    Button admitButton = new Button(dm.managerMenu().get(0));
 	    Button hireButton = new Button(dm.managerMenu().get(1));
 	    Button button3 = new Button(dm.managerMenu().get(2));
 	    Button displayButton = new Button(dm.managerMenu().get(3));
-	    Button button5 = new Button(dm.managerMenu().get(4));
+	    Button displayActions = new Button(dm.managerMenu().get(4));
 	    
 
-	    hbox.getChildren().addAll(currentUser, addExitButton(managerStage));
+	    topBar.setLeft(currentUser);
+	    topBar.setRight(addExitButton(managerStage));
 		
 		vbox.setPadding(new Insets(10,0,0,50));
-		vbox.getChildren().addAll(admitButton,hireButton,button3,displayButton,button5);
+		vbox.getChildren().addAll(admitButton,hireButton,button3,displayButton,displayActions);
 		bp.setLeft(vbox);
-		bp.setTop(hbox);
+		bp.setTop(topBar);
 			
 		admitButton.setOnAction(e->{
 			Button submitButton = new Button("Submit");
@@ -457,14 +461,17 @@ public class Main extends Application {
 			bp.setRight(null);
 			bp.setBottom(null);
 			
-			});
+			}
+		
+		
+		);
 		
 		
 		managerStage.setScene(new Scene(bp,800,350));
 		managerStage.show();
 	}
 	
-	private void doctorStart() {
+	private void doctorStart(Doctor d) {
 		Stage doctorStage = new Stage();
 		BorderPane bp = new BorderPane();
 		VBox vbox = new VBox();
@@ -486,7 +493,7 @@ public class Main extends Application {
 		doctorStage.show();		
 	}
 	
-	private void nurseStart() {
+	private void nurseStart(Nurse n) {
 		Stage nurseStage = new Stage();
 		BorderPane bp = new BorderPane();
 		VBox vbox = new VBox();
