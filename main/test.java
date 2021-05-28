@@ -19,7 +19,14 @@ public class test {
 	}
 	
 	public static void main(String args[]) {
-		String name="213413";
-		print(name.length());
+		String name="Niya      Nona     n";
+		String finalName="";
+		
+		for(String s: name.split(" ")) {
+			if(s.length()>0)
+				finalName = finalName + " " +s;		
+		}		
+		
+		print(finalName);
 	}
 }

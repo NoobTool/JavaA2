@@ -43,19 +43,25 @@ public class InputValidation {
 		return id;
 	}
 	
-	public String validateName(String name) {
-		
+	public Pair<Boolean,String> validateName(String name) {
+		name = name.strip();
+		String finalName;
 		if (name.length()<=1) {
-			return "Name must be 2 characters or more, enter again! ";
+			return new Pair<Boolean,String>(false,"Name must be 2 characters or more, enter again! ");
 		}
 		
 		for(char s:name.toCharArray()) {
-			if(!Character.isLetter(s)) {
-				return "Invalid Name, enter again! ";
+			if(!Character.isLetter(s) && s!=' ') {
+				return new Pair<Boolean,String>(false,"Invalid Name, enter again! ");
 			}
 		}
 		
-		return "";
+		for(String s: name.split(" ")) {
+			if(s.length()>0)
+				finalName=finalName+" "+s;			
+		}
+		
+		return ;
 	}
 	 
 	public Pair<Double,String> validateAge(double age) {
@@ -109,7 +115,7 @@ public class InputValidation {
 		}catch(ArrayIndexOutOfBoundsException e) {
 			return new Pair<Boolean,String>(false,"Please enter shifts in format XX:XX-YY:YY");
 		}
-	}
+	} 
 	
 	public Boolean validatePassword(String password) {
 		if(password.length()<4)

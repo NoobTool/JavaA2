@@ -1,11 +1,9 @@
 package application;
-import java.util.Objects;
 import main.*;
 import javafx.util.Pair;
 import javafx.application.Application;
 import javafx.stage.Stage;
 import javafx.scene.Scene;
-import javafx.scene.Node;
 import javafx.scene.text.*;
 import javafx.scene.control.*;
 import javafx.scene.layout.*;
@@ -168,29 +166,59 @@ public class Main extends Application {
 			t.setText("");
 	}
 	
+	private GridPane displayUsingGridPane(Employee e) {
+		int rowIndex=1,columnIndex=1;
+		
+		GridPane displayCell = new GridPane();
+		displayCell.add(new Label("Name:"),1,rowIndex);
+		displayCell.add(new Label(e.retName()),2,rowIndex);
+		
+		displayCell.add(new Label("Age:"),1,++rowIndex);
+		displayCell.add(new Label(""+e.retAge()),2,rowIndex);
+		
+		displayCell.add(new Label("Gender:"),1,++rowIndex);
+		displayCell.add(new Label(""+e.retGender()),2,rowIndex);
+		
+		displayCell.add(new Label("Shifts:"),1,++rowIndex);
+		for(String s: e.retShifts()) {
+			displayCell.add(new Label(s),++columnIndex, rowIndex);
+		}
+		
+		displayCell.add(new Label("----------------"),1,++rowIndex);
+		displayCell.add(new Label(""),1,++rowIndex);
+		
+		columnIndex=2;
+		rowIndex=1;
+		displayCell.setHgap(10);
+		
+		return displayCell;
+	}
+	
 	private void managerStart() {
 		Stage managerStage = new Stage();
 		BorderPane bp = new BorderPane();
-		VBox vbox = new VBox();
+		VBox vbox = new VBox(15);
 		HBox hbox = new HBox();
+		
+		// VBox and HBox formatting
 		hbox.setPadding(new Insets(15, 12, 15, 12));
 	    hbox.setSpacing(10);
 	    hbox.setStyle("-fx-background-color: #4477aa;");
-
-	    Label currentUser = new Label("Ram Rattan Goyal");
+	    vbox.setPadding(new Insets(50,50,50,50));
+	    
+	    Label currentUser = new Label(m.retName());
 	    
 	    Button admitButton = new Button(dm.managerMenu().get(0));
 	    Button hireButton = new Button(dm.managerMenu().get(1));
 	    Button button3 = new Button(dm.managerMenu().get(2));
-	    Button button4 = new Button(dm.managerMenu().get(3));
+	    Button displayButton = new Button(dm.managerMenu().get(3));
 	    Button button5 = new Button(dm.managerMenu().get(4));
 	    
 
 	    hbox.getChildren().addAll(currentUser, addExitButton(managerStage));
 		
 		vbox.setPadding(new Insets(10,0,0,50));
-		
-		vbox.getChildren().addAll(admitButton,hireButton,button3,button4,button5);
+		vbox.getChildren().addAll(admitButton,hireButton,button3,displayButton,button5);
 		bp.setLeft(vbox);
 		bp.setTop(hbox);
 			
@@ -220,7 +248,9 @@ public class Main extends Application {
 			errorBox.getChildren().add(errorMsg);
 			errorBox.setAlignment(Pos.CENTER);
 			
-			bp.setCenter(gp);bp.setBottom(errorBox);
+			bp.setCenter(gp);
+			bp.setBottom(errorBox);
+			bp.setRight(null);
 			
 			submitButton.setOnAction(e2->{
 				String nameText = i.validateName(name.getText());
@@ -282,17 +312,17 @@ public class Main extends Application {
 			Button submitButton = new Button("Submit");
 			
 			// Adding elements at grid pane
-			gp.add(new Label("Name:"), 2, 1);
-			gp.add(new Label("Age:"), 2, 2);
-			gp.add(new Label("Gender:"), 2, 3);
-			gp.add(new Label("Shifts:"), 2, 4);
-			gp.add(new Label("Password:"), 2, 5);
-			gp.add(name,4,1);
-			gp.add(age,4,2);
-			gp.add(gender,4,3);
-			gp.add(shifts,4,4);
-			gp.add(password,4,5);
-			gp.add(submitButton, 4, 6);
+			gp.add(new Label("Name:"), 1, 1);
+			gp.add(new Label("Age:"), 1, 2);
+			gp.add(new Label("Gender:"), 1, 3);
+			gp.add(new Label("Shifts:"), 1, 4);
+			gp.add(new Label("Password:"), 1, 5);
+			gp.add(name,2,1);
+			gp.add(age,2,2);
+			gp.add(gender,2,3);
+			gp.add(shifts,2,4);
+			gp.add(password,2,5);
+			gp.add(submitButton, 2, 6);
 			
 			// Adding elements to errorBox and formatting
 			errorMsg.setTextFill(Color.RED);
@@ -344,7 +374,7 @@ public class Main extends Application {
 					else {
 						m.addPeople(name.getText(), 
 								Double.parseDouble(age.getText()), 
-								gender.getText().charAt(0), 
+								gender.getText().toUpperCase().charAt(0), 
 								shifts.getText(), password.getText(),
 								selectedItem);
 						errorMsg.setTextFill(Color.GREEN);
@@ -365,11 +395,64 @@ public class Main extends Application {
 			});
 		});
 		
+		displayButton.setOnAction(e->{
+			
+			// Biggest wrapper containing drop-down and scroll
+			VBox displayWrapper = new VBox(10);
+			
+			
+			ComboBox<String> cb = new ComboBox<String>();
+			
+			ScrollPane sp = new ScrollPane();
+			
+			cb.getItems().addAll("Manager","Doctor","Nurse");
+			
+			
+			cb.setOnAction(e2->{
+				String selectedItem = cb.getSelectionModel().getSelectedItem();
+				if(!selectedItem.isEmpty()) {
+					
+					if(selectedItem.equals("Manager")) {
+						VBox displayBox = new VBox(10);
+						for(Manager manager: m.retManagerList()) {
+							GridPane displayCell = displayUsingGridPane(manager);
+							displayBox.getChildren().add(displayCell);
+						}
+						sp.setContent(displayBox);
+					}
+					
+					else if(selectedItem.equals("Doctor")) {
+						VBox displayBox = new VBox(10);
+						for(Doctor doctor: m.retDoctorList()) {
+							GridPane displayCell = displayUsingGridPane(doctor);
+							displayBox.getChildren().add(displayCell);
+						}
+						sp.setContent(displayBox);
+					}
+					
+					else {
+						VBox displayBox = new VBox(10);
+						for(Nurse nurse: m.retNurseList()) {
+							GridPane displayCell = displayUsingGridPane(nurse);
+							displayBox.getChildren().add(displayCell);
+						}
+						sp.setContent(displayBox);
+					}
+				}
+				
+			});
+			
+			
+			displayWrapper.getChildren().addAll(cb,sp);
+			bp.setCenter(displayWrapper);
+			bp.setRight(null);
+			bp.setBottom(null);
+			
+			});
+		
 		
 		managerStage.setScene(new Scene(bp,800,350));
 		managerStage.show();
-		
-		
 	}
 	
 	private void doctorStart() {
