@@ -206,6 +206,7 @@ public class Main extends Application {
 	    hbox.setStyle("-fx-background-color: #4477aa;");
 	    vbox.setPadding(new Insets(50,50,50,50));
 	    
+	    System.out.println("Name is "+m.retName());
 	    Label currentUser = new Label(m.retName());
 	    
 	    Button admitButton = new Button(dm.managerMenu().get(0));
@@ -253,32 +254,40 @@ public class Main extends Application {
 			bp.setRight(null);
 			
 			submitButton.setOnAction(e2->{
-				String nameText = i.validateName(name.getText());
-				Pair<Double,String> agePair = i.validateAge(Double.parseDouble(age.getText()));
-				String genderString = i.validateGender(gender.getText().toUpperCase().charAt(0));
-				
-				if(nameText.length()>0) 
-					errorMsg.setText(nameText);
+				if(checkBlankFields(name.getText(),age.getText(),gender.getText())) {
+					Pair<Boolean,String> namePair= i.validateName(name.getText());
+					Pair<Double,String> agePair = i.validateAge(Double.parseDouble(age.getText()));
+					String genderString = i.validateGender(gender.getText().toUpperCase().charAt(0));
 					
-				else if(agePair.getValue().length()>0)
-					errorMsg.setText(agePair.getValue());
-				
-				else if(genderString.length()>0)
-					errorMsg.setText(genderString);
-				
-				else {
-					Pair<Boolean,String> returnValue = m.admitPatient(name.getText(), 
-							agePair.getKey(),gender.getText().toUpperCase().charAt(0), "patient");
-					if(returnValue.getKey()==true) {
-						errorMsg.setTextFill(Color.GREEN);
-						errorMsg.setText(returnValue.getValue());
-					}
+					if(!namePair.getKey()) 
+						errorMsg.setText(namePair.getValue());
+						
+					else if(agePair.getValue().length()>0)
+						errorMsg.setText(agePair.getValue());
+					
+					else if(genderString.length()>0)
+						errorMsg.setText(genderString);
 					
 					else {
-						errorMsg.setTextFill(Color.RED);
-						errorMsg.setText(returnValue.getValue());
-					}
-				}				
+						Pair<Boolean,String> returnValue = m.admitPatient(namePair.getValue(), 
+								agePair.getKey(),gender.getText().toUpperCase().charAt(0), "patient");
+						if(returnValue.getKey()==true) {
+							errorMsg.setTextFill(Color.GREEN);
+							errorMsg.setText(returnValue.getValue());
+						}
+						
+						else {
+							errorMsg.setTextFill(Color.RED);
+							errorMsg.setText(returnValue.getValue());
+						}
+					}		
+				}
+				
+				else {
+					errorMsg.setTextFill(Color.RED);
+					errorMsg.setText("All fields are mandatory");
+				}
+						
 			});
 		});
 		
@@ -347,15 +356,15 @@ public class Main extends Application {
 						gender.getText(),shifts.getText(),password.getText())
 						&& cb.getSelectionModel().isEmpty()==false) {
 					
-					String nameText = i.validateName(name.getText());
+					Pair<Boolean,String> namePair = i.validateName(name.getText());
 					Pair<Double,String> agePair = i.validateAge(Double.parseDouble(age.getText()));
 					String genderString = i.validateGender(gender.getText().toUpperCase().charAt(0));
 					Pair<Boolean,String> shiftText = i.validateShifts(shifts.getText(), selectedItem);
 					errorMsg.setTextFill(Color.RED);
 					System.out.println(selectedItem);
 					
-					if(nameText.length()>0) 
-						errorMsg.setText(nameText);
+					if(!namePair.getKey()) 
+						errorMsg.setText(namePair.getValue());
 						
 					else if(agePair.getValue().length()>0)
 						errorMsg.setText(agePair.getValue());
@@ -372,7 +381,7 @@ public class Main extends Application {
 						errorMsg.setText("Password must be greater than 4 letters");
 					 
 					else {
-						m.addPeople(name.getText(), 
+						m.addPeople(namePair.getValue(), 
 								Double.parseDouble(age.getText()), 
 								gender.getText().toUpperCase().charAt(0), 
 								shifts.getText(), password.getText(),

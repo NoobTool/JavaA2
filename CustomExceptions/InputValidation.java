@@ -45,7 +45,7 @@ public class InputValidation {
 	
 	public Pair<Boolean,String> validateName(String name) {
 		name = name.strip();
-		String finalName;
+		String finalName="";
 		if (name.length()<=1) {
 			return new Pair<Boolean,String>(false,"Name must be 2 characters or more, enter again! ");
 		}
@@ -61,7 +61,7 @@ public class InputValidation {
 				finalName=finalName+" "+s;			
 		}
 		
-		return ;
+		return new Pair<Boolean,String>(true,finalName);
 	}
 	 
 	public Pair<Double,String> validateAge(double age) {
