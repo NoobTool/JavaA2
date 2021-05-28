@@ -1,9 +1,11 @@
 package application;
+import java.util.Objects;
 import main.*;
 import javafx.util.Pair;
 import javafx.application.Application;
 import javafx.stage.Stage;
 import javafx.scene.Scene;
+import javafx.scene.Node;
 import javafx.scene.text.*;
 import javafx.scene.control.*;
 import javafx.scene.layout.*;
@@ -153,6 +155,19 @@ public class Main extends Application {
 		return exit;
 	}
 	
+	private Boolean checkBlankFields(String ...args) {
+		for (String s:args) {
+			if(s.contentEquals(""))
+				return false;
+		}		
+		return true;
+	}
+	
+	private void clearAllFields(TextField ...args) {
+		for (TextField t:args)
+			t.setText("");
+	}
+	
 	private void managerStart() {
 		Stage managerStage = new Stage();
 		BorderPane bp = new BorderPane();
@@ -185,6 +200,7 @@ public class Main extends Application {
 			HBox errorBox = new HBox();
 			errorMsg.setTextFill(Color.RED);
 			errorMsg.setFont(new Font("Cambria",16));
+			errorBox.setPadding(new Insets(0,0,20,0));
 			
 			GridPane gp = new GridPane();			
 			gp.setPadding(new Insets(15,30,0,50));
@@ -238,25 +254,34 @@ public class Main extends Application {
 		
 		
 		hireButton.setOnAction(e->{
+			
+			// Parent elements
 			GridPane gp = new GridPane();	
 			Label errorMsg = new Label();
 			HBox errorBox = new HBox();
-			errorBox.getChildren().add(errorMsg);
-			errorBox.setAlignment(Pos.CENTER);
+			ComboBox<String> cb = new ComboBox<String>();
+			HBox comboHBox = new HBox();
+			
+			
+			// Grid pane formatting
 			gp.setPadding(new Insets(15,30,0,50));
 			gp.setHgap(10);
 	        gp.setVgap(10);
-			ComboBox<String> cb = new ComboBox<String>();
+			
+	        // ComboBox Items
 			cb.getItems().addAll("Manager","Nurse","Doctor");
-			String selectedItem = cb.getSelectionModel().getSelectedItem();
 		
-			Button submitButton = new Button("Submit");
+			// TextFields
 			TextField name = new TextField();
 			TextField age = new TextField();
 			TextField gender = new TextField();
 			TextField shifts = new TextField();
-			TextField password = new TextField();
+			PasswordField password = new PasswordField();
 			
+			// Buttons
+			Button submitButton = new Button("Submit");
+			
+			// Adding elements at grid pane
 			gp.add(new Label("Name:"), 2, 1);
 			gp.add(new Label("Age:"), 2, 2);
 			gp.add(new Label("Gender:"), 2, 3);
@@ -268,15 +293,80 @@ public class Main extends Application {
 			gp.add(shifts,4,4);
 			gp.add(password,4,5);
 			gp.add(submitButton, 4, 6);
-			bp.setCenter(gp);
 			
+			// Adding elements to errorBox and formatting
+			errorMsg.setTextFill(Color.RED);
+			errorMsg.setFont(new Font("Cambria",16));
+			errorBox.getChildren().add(errorMsg);
+			errorBox.setAlignment(Pos.CENTER);
+			
+			// Adding elements to comboHBox and formatting
+			comboHBox.getChildren().add(cb);
+			comboHBox.setPadding(new Insets(25,0,0,0));
+			
+			// Adding elements at border pane
+			bp.setCenter(gp);			
+			bp.setBottom(errorBox);
+			bp.setRight(comboHBox);
+			
+			// Assigning actions to buttons
 			submitButton.setOnAction(e2->{
-				m.addPeople(name.getText(), Double.parseDouble(age.getText()), gender.getText().charAt(0), shifts.getText(), password.getText(),"manager");name.getText();
+				String selectedItem = cb.getSelectionModel().getSelectedItem();
+				
+				if(checkBlankFields(name.getText(),age.getText(),
+						gender.getText(),shifts.getText(),password.getText())
+						&& cb.getSelectionModel().isEmpty()==false) {
+					
+					String nameText = i.validateName(name.getText());
+					Pair<Double,String> agePair = i.validateAge(Double.parseDouble(age.getText()));
+					String genderString = i.validateGender(gender.getText().toUpperCase().charAt(0));
+					Pair<Boolean,String> shiftText = i.validateShifts(shifts.getText(), selectedItem);
+					errorMsg.setTextFill(Color.RED);
+					System.out.println(selectedItem);
+					
+					if(nameText.length()>0) 
+						errorMsg.setText(nameText);
+						
+					else if(agePair.getValue().length()>0)
+						errorMsg.setText(agePair.getValue());
+					
+					else if(genderString.length()>0)
+						errorMsg.setText(genderString);
+						
+					else if(!shiftText.getKey()) {
+						System.out.println(shiftText.getValue());
+						errorMsg.setText(shiftText.getValue());
+					}
+						
+					else if(!i.validatePassword(password.getText()))
+						errorMsg.setText("Password must be greater than 4 letters");
+					 
+					else {
+						m.addPeople(name.getText(), 
+								Double.parseDouble(age.getText()), 
+								gender.getText().charAt(0), 
+								shifts.getText(), password.getText(),
+								selectedItem);
+						errorMsg.setTextFill(Color.GREEN);
+						errorMsg.setText("Added successfully!");
+						clearAllFields(name,age,gender,shifts,password);
+					}
+						
+				}
+				
+				else {
+					if(cb.getSelectionModel().isEmpty())
+						errorMsg.setText("Please select a post from the drop-down list!");
+					else
+						errorMsg.setText("Every field is mandatory!");
+				}
+					
+				
 			});
 		});
 		
 		
-		managerStage.setScene(new Scene(bp,700,350));
+		managerStage.setScene(new Scene(bp,800,350));
 		managerStage.show();
 		
 		

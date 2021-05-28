@@ -222,7 +222,6 @@ public class Employee extends Person{
 	    int i, j,n=e.retShifts().size();
 	    LocalTime key;
 	    String keyString;
-	    ArrayList<String> shifts = e.retShifts();
 	    for (i=1;i<n;i++)
 	    {
 	    	keyString = e.retShifts().get(i);
@@ -269,24 +268,12 @@ public class Employee extends Person{
 	
 
 	public int retHours(String post) {
-		if(post.equals("nurse"))
+		if(post.equals("Nurse"))
 			return NURSE_MINUTES;
-		else if(post.equals("doctor"))
+		else if(post.equals("Doctor"))
 			return DOC_MINUTES;
 		else
 			return MAX_MINUTES;
-	}
-	
-	public int retMaxHours() {
-		return this.MAX_MINUTES;
-	}
-	
-	public int retDocHours() {
-		return this.DOC_MINUTES;
-	}
-	
-	public int retNurseHours() {
-		return this.NURSE_MINUTES;
 	}
 	
 	public LocalDate retLastShiftDate() {

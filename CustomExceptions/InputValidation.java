@@ -76,9 +76,10 @@ public class InputValidation {
 		return "";
 	}
 	
-	public String validateShifts(String shifts, String post) {
-		final int DOC_HOURS = e.retDocHours();
-		final int MAX_HOURS = e.retMaxHours();
+	public Pair<Boolean,String> validateShifts(String shifts, String post) {
+		
+		final int MAX_HOURS = e.retHours(post);
+		String errorMsg;
 		try {
 			LocalTime start_time,end_time;
 			String[] shiftTimings = shifts.split("-");
@@ -88,26 +89,32 @@ public class InputValidation {
 			if(end_time.isBefore(start_time))
 				throw new InvalidShiftTimingsException("End_time must be after starting time");
 			
-			if(post.equals("doctor") && (start_time.until(end_time, ChronoUnit.MINUTES)<DOC_HOURS || 
-					start_time.until(end_time, ChronoUnit.MINUTES)>DOC_HOURS))
-				throw new InvalidShiftTimingsException("Shift timings must be equal to "+(DOC_HOURS/60)+" hour(s)!");
-			
-			if(post.equals("manager") && (start_time.until(end_time, ChronoUnit.MINUTES)<MAX_HOURS || 
+			if(post.equals("Doctor") && (start_time.until(end_time, ChronoUnit.MINUTES)<MAX_HOURS || 
 					start_time.until(end_time, ChronoUnit.MINUTES)>MAX_HOURS))
-				throw new InvalidShiftTimingsException("Shift timings must be less than 6 hours!");
+				throw new InvalidShiftTimingsException("Shift duration must be equal to "+(MAX_HOURS/60)+" hour(s)!");
 			
-			return shifts;
+			if(post.equals("Manager") && (start_time.until(end_time, ChronoUnit.MINUTES)<MAX_HOURS || 
+					start_time.until(end_time, ChronoUnit.MINUTES)>MAX_HOURS))
+				throw new InvalidShiftTimingsException("Shift duration must be only 6 hours!");
+			
+			
+			return new Pair<Boolean,String>(true,shifts);
 			
 		}catch(DateTimeParseException e) {
-			String newShifts = c.inputString("Please enter shifts in format XX:XX-YY:YY");
-			newShifts = validateShifts(newShifts, post);
-			return newShifts;
+			return new Pair<Boolean,String>(false,"Please enter shifts in format XX:XX-YY:YY");
 			
 		}catch(InvalidShiftTimingsException e) {
-			String newShifts = c.inputString("Enter again!");
-			newShifts = validateShifts(newShifts, post);
-			return newShifts;
+			return new Pair<Boolean,String>(false,e.retMsg());
+		
+		}catch(ArrayIndexOutOfBoundsException e) {
+			return new Pair<Boolean,String>(false,"Please enter shifts in format XX:XX-YY:YY");
 		}
+	}
+	
+	public Boolean validatePassword(String password) {
+		if(password.length()<4)
+			return false;
+		return true;
 	}
 	
 	public int validateWardNumber(int n) {
