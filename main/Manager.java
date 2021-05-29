@@ -1,6 +1,7 @@
 package main;
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.*;
 import CommonSnippets.DisplayMenu;
 import CustomExceptions.InputValidation;
@@ -38,8 +39,12 @@ public class Manager extends Employee{
 		idList.add((long)6830000);
 		idList.add((long)7830000);
 		idList.add((long)8030000);
-		managerList.addStaff(new Manager((long)7730000,"Ram",21,'M',"19:00-01:00","1234"));
-		doctorList.addStaff(new Doctor((long)6830000,"Babu",16,'M',"14:00-15:00","1234"));
+		String startTime = LocalTime.now().format(DateTimeFormatter.ofPattern("HH:00"));
+		managerList.addStaff(new Manager((long)7730000,"Ram",21,'M',startTime+"-"
+				+LocalTime.parse(startTime).plusHours(6),"1234"));
+//		doctorList.addStaff(new Doctor((long)6830000,"Babu",16,'M',startTime+"-"
+//				+LocalTime.parse(startTime).plusHours(1),"1234"));
+//		doctorList.addStaff(new Doctor((long)6830000,"Babu",16,'M',"23:00-00:00","1234"));
 		Nurse nurse1= new Nurse((long)7830000,"Elisa",18,'F',"10:00-16:00","1234");
 		nurse1.setShifts("14:00-22:00");
 		nurseList.addStaff(nurse1);

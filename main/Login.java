@@ -76,7 +76,7 @@ public class Login {
 			throws RestrictedTimingException, InvalidCredentialsException{
 		for(Manager m: manager.retManagerList()) {
 			if(m.retId()==id) {
-				if(verifySecondLogin((Employee) m, "manager")) {
+				if(verifySecondLogin((Employee) m, "Manager")) {
 					if(password.matches(m.retPass()))
 						return m;
 					else {
@@ -95,7 +95,7 @@ public class Login {
 			throws RestrictedTimingException, InvalidCredentialsException{
 		for(Doctor d: manager.retDoctorList()) {
 			if(d.retId()==id) {
-				if(verifySecondLogin((Employee) d, "doctor")) {
+				if(verifySecondLogin((Employee) d, "Doctor")) {
 					if(password.matches(d.retPass()))
 						return d;
 					else {
@@ -113,7 +113,7 @@ public class Login {
 			throws RestrictedTimingException, InvalidCredentialsException{
 		for(Nurse n: manager.retNurseList()) {
 			if(n.retId()==id) {
-				if(verifySecondLogin((Employee) n, "nurse")) {
+				if(verifySecondLogin((Employee) n, "Nurse")) {
 					if(password.matches(n.retPass()))
 						return n;
 					else {

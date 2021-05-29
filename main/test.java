@@ -19,14 +19,11 @@ public class test {
 	}
 	
 	public static void main(String args[]) {
-		String name="Niya      Nona     n";
-		String finalName="";
+		LocalTime currentTime = LocalTime.now();
+		LocalTime shiftEnd = LocalTime.parse("00:00");
 		
-		for(String s: name.split(" ")) {
-			if(s.length()>0)
-				finalName = finalName + " " +s;		
-		}		
+		print(currentTime.until(shiftEnd, ChronoUnit.MINUTES)+(24*60)>=0);
+		print(currentTime.until(shiftEnd, ChronoUnit.MINUTES)+(24*60)<=60);
 		
-		print(finalName);
 	}
 }

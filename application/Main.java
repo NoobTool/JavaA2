@@ -154,6 +154,17 @@ public class Main extends Application {
 		return exit;
 	}
 	
+	private Button addCancelButton(BorderPane bp) {
+		Button cancel = new Button("Cancel");
+	    
+	    cancel.setOnAction(e->{
+	    	bp.setCenter(null);
+	    	bp.setRight(null);
+		});
+	    
+		return cancel;
+	}
+	
 	private Boolean checkBlankFields(String ...args) {
 		for (String s:args) {
 			if(s.contentEquals(""))
@@ -215,7 +226,7 @@ public class Main extends Application {
 	    
 	    Button admitButton = new Button(dm.managerMenu().get(0));
 	    Button hireButton = new Button(dm.managerMenu().get(1));
-	    Button button3 = new Button(dm.managerMenu().get(2));
+	    Button modifyButton = new Button(dm.managerMenu().get(2));
 	    Button displayButton = new Button(dm.managerMenu().get(3));
 	    Button displayActions = new Button(dm.managerMenu().get(4));
 	    
@@ -224,7 +235,7 @@ public class Main extends Application {
 	    topBar.setRight(addExitButton(managerStage));
 		
 		vbox.setPadding(new Insets(10,0,0,50));
-		vbox.getChildren().addAll(admitButton,hireButton,button3,displayButton,displayActions);
+		vbox.getChildren().addAll(admitButton,hireButton,modifyButton,displayButton,displayActions);
 		bp.setLeft(vbox);
 		bp.setTop(topBar);
 			
@@ -337,6 +348,7 @@ public class Main extends Application {
 			gp.add(shifts,2,4);
 			gp.add(password,2,5);
 			gp.add(submitButton, 2, 6);
+			gp.add(addCancelButton(bp), 3, 6);
 			
 			// Adding elements to errorBox and formatting
 			errorMsg.setTextFill(Color.RED);
@@ -483,6 +495,11 @@ public class Main extends Application {
 					bp.setRight(null);
 					
 				});
+		
+		
+		modifyButton.setOnAction(e->{
+			
+		});
 		
 		managerStage.setScene(new Scene(bp,800,350));
 		managerStage.show();
