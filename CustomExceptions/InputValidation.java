@@ -18,29 +18,21 @@ public class InputValidation {
 	Room r = new Room(); 
 	Bed b = new Bed();
 	
-	public long validateId(long id,String post) {
+	public String validateId(long id,String post) {
 		
-		if(post == "Manager" && id<13000) {
-			id = c.inputLong("Id must be greater than 1,30,000 , enter again! ");
-			id = validateId(id,"Manager");
-		}
-
-		else if(post == "Doctor" && id<230000) {
-			id = c.inputLong("Id must be greater than 2,30,000 , enter again! ");
-			id = validateId(id,"Doctor");
-		}
+		if(post == "Manager" && id<7730000)
+			return "Id must be greater than 7730000 , enter again! ";
 		
-		else if(post=="Nurse" && id<330000) {
-			id = c.inputLong("Id must be greater than 3,30,000 , enter again! ");
-			id = validateId(id,"Doctor");
-		}
+		else if(post == "Doctor" && id<230000) 
+			return "Id must be greater than 2,30,000 , enter again! ";
 		
-		else {
-			id = c.inputLong("Id must be greater than 43,00,000 , enter again! ");
-			id = validateId(id,"Patient");
-		}
+		else if(post=="Nurse" && id<330000) 
+			return "Id must be greater than 3,30,000 , enter again! ";
 		
-		return id;
+		else if(post=="Patient")
+			return "Id must be greater than 43,00,000 , enter again! ";
+		
+		return "";
 	}
 	
 	public Pair<Boolean,String> validateName(String name) {

@@ -167,7 +167,7 @@ public class Main extends Application {
 	
 	private Boolean checkBlankFields(String ...args) {
 		for (String s:args) {
-			if(s.contentEquals(""))
+			if(s.equals(""))
 				return false;
 		}		
 		return true;
@@ -498,6 +498,90 @@ public class Main extends Application {
 		
 		
 		modifyButton.setOnAction(e->{
+			
+			// Big Wrapper
+			BorderPane wrapperPane = new BorderPane();
+			wrapperPane.setPadding(new Insets(20,0,0,20));
+			
+			// Layouts
+			ComboBox<String> personBox = new ComboBox<String>();
+			GridPane searchGrid = new GridPane();
+			Button idButton = new Button("Search by ID");
+			Button nameButton = new Button("Search by Name");
+			Button submitButton = new Button("Submit");
+			TextField idField = new TextField();
+			TextField nameField = new TextField();
+			
+			//Adding nodes in gridpane
+			searchGrid.add(idButton, 1, 1);
+			searchGrid.add(idField, 2, 1);
+			searchGrid.add(nameButton, 1, 2);
+			searchGrid.add(nameField, 2, 2);
+			searchGrid.add(submitButton, 2, 3);
+			searchGrid.add(addCancelButton(bp),3,3);
+			
+			// GridPane formatting
+			searchGrid.setHgap(20);
+			searchGrid.setVgap(20);
+			idField.setVisible(false);
+			nameField.setVisible(false);
+			searchGrid.setPadding(new Insets(20,0,0,0));
+			Label errorMsg = new Label();
+			
+			// Editing the ComboBox for post selection
+			personBox.getItems().addAll("Patient","Manager","Doctor","Nurse");
+			
+			// errorMsg editing
+			errorMsg.setFont(new Font("cambria",16));
+			errorMsg.setTextFill(Color.RED);
+			
+			// Defining actions for the buttons
+			
+			idButton.setOnAction(e2->{
+				idField.setVisible(true);
+				nameField.setVisible(false);
+			});
+			
+			nameButton.setOnAction(e2->{
+				idField.setVisible(false);
+				nameField.setVisible(true);
+			});
+			
+			
+			submitButton.setOnAction(e2->{
+				String selectedItem = personBox.getSelectionModel().getSelectedItem();
+				
+				if (!idField.isVisible() && !nameField.isVisible()){
+					errorMsg.setText("Please select a search option.");
+				}
+				
+				// Searching by ID
+				else if(idField.isVisible() && selectedItem!=null) {
+					if(!checkBlankFields(idField.getText()))
+						errorMsg.setText("Please fill the ID field.");
+					else {
+						
+					}
+				}
+				
+				else if(idField.isVisible() && selectedItem!=null) {
+					if(!checkBlankFields(nameField.getText()))
+						errorMsg.setText("Please fill the name field.");
+				}
+				
+				else {
+					errorMsg.setText("Please choose an option from drop-down.");
+				}
+					
+			});
+			
+			// Assigning a drop-down for post selection
+			wrapperPane.setTop(personBox);
+			wrapperPane.setCenter(searchGrid);
+			wrapperPane.setBottom(errorMsg);
+			wrapperPane.setAlignment(errorMsg, Pos.CENTER);
+			bp.setCenter(wrapperPane);
+			
 			
 		});
 		
