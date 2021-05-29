@@ -94,16 +94,17 @@ public class InputValidation {
 			start_time = LocalTime.parse(shiftTimings[0]);
 			end_time = LocalTime.parse(shiftTimings[1]);
 			
-			if(end_time.isBefore(start_time))
-				throw new InvalidShiftTimingsException("End_time must be after starting time");
-			
-			if(post.equals("Doctor") && (start_time.until(end_time, ChronoUnit.MINUTES)<MAX_HOURS || 
-					start_time.until(end_time, ChronoUnit.MINUTES)>MAX_HOURS))
+			if(post.equals("Doctor") && ((start_time.until(end_time, ChronoUnit.MINUTES)<MAX_HOURS || 
+					start_time.until(end_time, ChronoUnit.MINUTES)>MAX_HOURS)) && 
+					((start_time.until(end_time, ChronoUnit.MINUTES)+(24*60))>MAX_HOURS ||
+							(start_time.until(end_time, ChronoUnit.MINUTES)+(24*60))<MAX_HOURS))
 				throw new InvalidShiftTimingsException("Shift duration must be equal to "+(MAX_HOURS/60)+" hour(s)!");
 			
-			if(post.equals("Manager") && (start_time.until(end_time, ChronoUnit.MINUTES)<MAX_HOURS || 
-					start_time.until(end_time, ChronoUnit.MINUTES)>MAX_HOURS))
-				throw new InvalidShiftTimingsException("Shift duration must be only 6 hours!");
+			if(post.equals("Manager") && ((start_time.until(end_time, ChronoUnit.MINUTES)<MAX_HOURS || 
+					start_time.until(end_time, ChronoUnit.MINUTES)>MAX_HOURS) && 
+					((start_time.until(end_time, ChronoUnit.MINUTES)+(24*60))>MAX_HOURS ||
+							(start_time.until(end_time, ChronoUnit.MINUTES)+(24*60))<MAX_HOURS)))
+				throw new InvalidShiftTimingsException("Shift duration must be only "+(MAX_HOURS/60)+" hours!");
 			
 			return new Pair<Boolean,String>(true,shifts);
 			
