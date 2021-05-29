@@ -85,7 +85,9 @@ public class InputValidation {
 	public Pair<Boolean,String> validateShifts(String shifts, String post) {
 		
 		final int MAX_HOURS = e.retHours(post);
-		String errorMsg;
+		if(post=="Nurse")
+			return new Pair<Boolean,String>(true,"");
+		
 		try {
 			LocalTime start_time,end_time;
 			String[] shiftTimings = shifts.split("-");
@@ -102,7 +104,6 @@ public class InputValidation {
 			if(post.equals("Manager") && (start_time.until(end_time, ChronoUnit.MINUTES)<MAX_HOURS || 
 					start_time.until(end_time, ChronoUnit.MINUTES)>MAX_HOURS))
 				throw new InvalidShiftTimingsException("Shift duration must be only 6 hours!");
-			
 			
 			return new Pair<Boolean,String>(true,shifts);
 			

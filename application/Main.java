@@ -172,7 +172,7 @@ public class Main extends Application {
 		
 		GridPane displayCell = new GridPane();
 		displayCell.add(new Label("Name:"),1,rowIndex);
-		displayCell.add(new Label(e.retName()),2,rowIndex);
+		displayCell.add(new Label(e.retName().strip()),2,rowIndex);
 		
 		displayCell.add(new Label("Age:"),1,++rowIndex);
 		displayCell.add(new Label(""+e.retAge()),2,rowIndex);
@@ -313,7 +313,7 @@ public class Main extends Application {
 	        gp.setVgap(10);
 			
 	        // ComboBox Items
-			cb.getItems().addAll("Manager","Nurse","Doctor");
+			cb.getItems().addAll("Manager","Doctor","Nurse");
 		
 			// TextFields
 			TextField name = new TextField();
@@ -356,17 +356,19 @@ public class Main extends Application {
 			// Assigning actions to buttons
 			submitButton.setOnAction(e2->{
 				String selectedItem = cb.getSelectionModel().getSelectedItem();
+				errorMsg.setTextFill(Color.RED);
 				
-				if(checkBlankFields(name.getText(),age.getText(),
-						gender.getText(),shifts.getText(),password.getText())
+				if((checkBlankFields(name.getText(),age.getText(),
+						gender.getText(),shifts.getText(),password.getText()) || 
+						
+						(checkBlankFields(name.getText(),age.getText(),
+						gender.getText(),password.getText()) && selectedItem.equals("Nurse")))
 						&& cb.getSelectionModel().isEmpty()==false) {
 					
 					Pair<Boolean,String> namePair = i.validateName(name.getText());
 					Pair<Double,String> agePair = i.validateAge(Double.parseDouble(age.getText()));
 					String genderString = i.validateGender(gender.getText().toUpperCase().charAt(0));
 					Pair<Boolean,String> shiftText = i.validateShifts(shifts.getText(), selectedItem);
-					errorMsg.setTextFill(Color.RED);
-					System.out.println(selectedItem);
 					
 					if(!namePair.getKey()) 
 						errorMsg.setText(namePair.getValue());
@@ -378,7 +380,6 @@ public class Main extends Application {
 						errorMsg.setText(genderString);
 						
 					else if(!shiftText.getKey()) {
-						System.out.println(shiftText.getValue());
 						errorMsg.setText(shiftText.getValue());
 					}
 						
