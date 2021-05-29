@@ -1,7 +1,7 @@
 ﻿The class design
 
 
-NOTE:- A user may find some features not correctly implemented as per the assignment’s guidelines but they soon will be corrected as the progress is still incomplete. The main aim was to be able to implement a working prototype.
+NOTE:- Though the main functionality was complete, due to the integration with GUI and identification of some bugs progress is still being made and cannot be concluded as done. But the GUI is still working, and most of the manager's role are completed successfully.
 
 Package:main
 
@@ -40,6 +40,8 @@ Package:Ward
 
 This one contains the classes such as Ward, Room, Bed and hence as the names suggests, a package dedicated to the classes to operate wards, rooms, beds respectively.
 
+
+NOTE:- To run this masterpiece, you need to make sure that your current time falls within the object declaration of the Manager class. This process will soon be automated.
 
 
 
