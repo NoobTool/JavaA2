@@ -581,7 +581,8 @@ public class Main extends Application {
 								TextField nameModifyField = new TextField();
 								TextField ageModifyField = new TextField();
 								TextField genderModifyField = new TextField();
-								TextField shiftsModifyField = new TextField();
+								Label shiftsModifyLabel = new Label();
+								shiftsModifyLabel.setText("A new modification windows will appear after this!");
 								TextField passwordModifyField = new PasswordField();
 								Button submitButton2 = new Button("Submit");
 								HashMap modifiedItems = new HashMap();
@@ -593,7 +594,7 @@ public class Main extends Application {
 								detailsPane.add(genderBox, 1, 3);
 								detailsPane.add(genderModifyField, 2, 3);
 								detailsPane.add(shiftsBox, 1, 4);
-								detailsPane.add(shiftsModifyField, 2, 4);
+								detailsPane.add(shiftsModifyLabel, 2, 4);
 								detailsPane.add(passwordBox, 1, 5);
 								detailsPane.add(passwordModifyField, 2, 5);
 								detailsPane.add(submitButton2, 2, 6);
@@ -602,7 +603,7 @@ public class Main extends Application {
 								nameModifyField.setVisible(false);
 								ageModifyField.setVisible(false);
 								genderModifyField.setVisible(false);
-								shiftsModifyField.setVisible(false);
+								shiftsModifyLabel.setVisible(false);
 								passwordModifyField.setVisible(false);
 								
 								
@@ -630,9 +631,9 @@ public class Main extends Application {
 								
 								shiftsBox.setOnAction(e3->{
 									if(shiftsBox.isSelected())
-										shiftsModifyField.setVisible(true);
+										shiftsModifyLabel.setVisible(true);
 									else
-										shiftsModifyField.setVisible(false);
+										shiftsModifyLabel.setVisible(false);
 								});
 								
 								passwordBox.setOnAction(e3->{
@@ -642,19 +643,28 @@ public class Main extends Application {
 										passwordModifyField.setVisible(false);
 								});
 								
+								// DetailsPane grid Formatting
+								detailsPane.setHgap(20);
+								detailsPane.setVgap(20);
+								
+								wrapperPane.setCenter(detailsPane);
+								wrapperPane.setTop(null);
+								wrapperPane.setRight(null);
+								
 								submitButton2.setOnAction(e3->{
 									try {
 										if(nameBox.isSelected()) {
 											String newName = nameModifyField.getText();									
 											if(newName!="") {
 												Pair<Boolean,String> namePair = i.validateName(newName);
-												if(!namePair.getKey()) 
+												if(!namePair.getKey())
 													errorMsg.setText(namePair.getValue());
 												else
 													modifiedItems.put("Name", newName);
 											}
 											
-										}
+										}else
+											modifiedItems.put("Name", "");
 										
 										if(ageBox.isSelected()) {
 											String newAge = ageModifyField.getText();									
@@ -668,6 +678,8 @@ public class Main extends Application {
 											}
 											
 										}
+										else
+											modifiedItems.put("Age", -1);
 										
 										if(genderBox.isSelected()) {
 											String newGender = genderModifyField.getText();									
@@ -679,33 +691,101 @@ public class Main extends Application {
 													modifiedItems.put("Gender",newGender.toUpperCase());
 											}											
 										}
+										else
+											modifiedItems.put("Gender","");
 										
 										if(passwordBox.isSelected()) {
 											String newPass = passwordModifyField.getText();									
-											if(!i.validatePassword(newPass)) {
-													errorMsg.setText("Password must be more than 4 characters");
-											}	
+											if(!i.validatePassword(newPass))
+												errorMsg.setText("Password must be more than 4 characters");
+												
 											else
 												modifiedItems.put("Password",newPass);
 										}
+										else 	
+											modifiedItems.put("Password","");
 										
 										m.changeDetails(emp, selectedItem, modifiedItems.get("Name").toString(),
 												Double.parseDouble(modifiedItems.get("Age").toString())
 												,modifiedItems.get("Gender").toString(),modifiedItems.get("Password").toString());
+										
+										if(shiftsBox.isSelected()) {
+											// Layout 
+											GridPane shiftPane = new GridPane();
+											Button addShift = new Button("Add shifts");
+											Button changeShift = new Button("Change shifts");
+											Button deleteShift = new Button("Delete shift(s)");
+											Button submitButton3 = new Button("Submit");
+											TextField addShiftField = new TextField();
+											TextField changeShiftField = new TextField();
+											ComboBox<String> changeShiftBox = new ComboBox<String>();
+											ComboBox<String> deleteShiftBox = new ComboBox<String>();
+											
+											// Setting Visibilities
+											addShiftField.setVisible(false);
+											changeShiftField.setVisible(false);
+											changeShiftBox.setVisible(false);
+											deleteShiftBox.setVisible(false);
+											
+											// Adding elements to combo boxes
+											changeShiftBox.getItems().add("None");
+											deleteShiftBox.getItems().add("None");
+											
+											for(String s: emp.retShifts()) {
+												changeShiftBox.getItems().add(s);
+												deleteShiftBox.getItems().add(s);
+											}
+											
+											// Adding elements to shiftPane grid pane
+											shiftPane.add(addShift, 1, 1);
+											shiftPane.add(addShiftField, 2, 1);
+											shiftPane.add(changeShift, 1, 2);
+											shiftPane.add(changeShiftBox, 2, 2);
+											shiftPane.add(changeShiftField, 3, 2);
+											shiftPane.add(deleteShift, 1, 3);
+											shiftPane.add(deleteShiftBox, 2, 3);
+											shiftPane.add(submitButton3, 2, 4);
+											shiftPane.add(addCancelButton(bp), 3, 4);
+											
+											// Formatting grid pane
+											shiftPane.setHgap(20);
+											shiftPane.setVgap(20);
+											
+											// Adding actions on buttons
+											addShift.setOnAction(e4->{
+												addShiftField.setVisible(true);
+												changeShiftField.setVisible(false);
+												changeShiftBox.setVisible(false);
+												deleteShiftBox.setVisible(false);
+												clearAllFields(changeShiftField,addShiftField);
+											});
+											
+											changeShift.setOnAction(e4->{
+												addShiftField.setVisible(false);
+												changeShiftField.setVisible(true);
+												changeShiftBox.setVisible(true);
+												deleteShiftBox.setVisible(false);
+												clearAllFields(changeShiftField,addShiftField);
+											});
+											
+											deleteShift.setOnAction(e4->{
+												addShiftField.setVisible(false);
+												changeShiftField.setVisible(false);
+												changeShiftBox.setVisible(false);
+												deleteShiftBox.setVisible(true);
+												clearAllFields(changeShiftField,addShiftField);
+											});
+											
+											wrapperPane.setCenter(shiftPane);
+											wrapperPane.setTop(null);
+											wrapperPane.setRight(null);
+										}
 										
 									}catch(NumberFormatException exception) {
 										errorMsg.setText("Age must be in number");
 									}
 									
 								});
-								
-								// DetailsPane grid Formatting
-								detailsPane.setHgap(20);
-								detailsPane.setVgap(20);
-								
-								wrapperPane.setCenter(detailsPane);
-								wrapperPane.setTop(null);
-								wrapperPane.setRight(null);
 								
 							}
 							else

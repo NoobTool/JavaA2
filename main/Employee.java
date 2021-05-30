@@ -82,60 +82,49 @@ public class Employee extends Person{
 		this.shifts.add(shifts);
 	}
 	
-	public void changeShifts(Employee e, String post) {
-		int choice;
-		InputValidation i = new InputValidation();
-		String msg = "Enter your choice";
+	public String changeShifts(Employee e, String post, String shift, int choice) {
 		Manager m = new Manager("Object to return MAX_SHIFTS");
-		do {
 			System.out.println("1. Add shift. ");
 			System.out.println("2. Change shift timings. ");
 			System.out.println("3. Delete a shift. ");
 			System.out.println("4. Exit");
-			choice = c.inputInt(msg);
+			
 			
 			switch(choice) {
 				case 1: try{
 					if(e.retShifts().size()!=m.retMaxShifts()) {
-						String shift = i.validateShifts(c.inputString("Enter the new shift timings in the format "
-								+ "XX:XX-YY:YY. "), post);
 						boolean flag = checkShifts(e, shift, false);
 						if(flag==true) {
 							e.setShifts(shift);
 							if(e.retShifts().size()>=2)
 							sortTimes(e);
-							break;
+							return "";
 						}
-						else {
-							System.out.println("Wrong shift! ");
-							break;
-						}
-							
+						else 
+							return "Wrong shift!";							
 					}	
 					else
 						throw new TooManyShiftsException("Cannot add more than 2 shifts. ");
 				}catch(TooManyShiftsException exception) {
 					System.out.println("Cannot enter more than 2 shifts.");
-					return;
 				}
 
 				case 2: if(!post.equals("nurse"))
-							alterShifts(e,post,false);
+							alterShifts(e,post,false,shift);
 						else
-							System.out.println("Shifts can't be changed. ");
-						break;
+							return "Shifts can't be changed. ";
+				
 				case 3: if(!post.equals("nurse"))
-							alterShifts(e,post,true);
+							alterShifts(e,post,true,shift);
 						else
-							System.out.println("Nurse's shift can't be deleted. ");
+							return "Nurse's shift can't be deleted. ";
 						break;
-				default: System.out.println("Wrong choice, enter again! ");
 			}
-		}while(choice!=4);
+		return "Some problem must have occured";
 	}
 	
 	
-	public void alterShifts(Employee e, String post, boolean remove) {
+	public void alterShifts(Employee e, String post, boolean remove, String newShift) {
 		InputValidation iv = new InputValidation();
 		int choice, last_iteration=0;
 		do {
@@ -148,7 +137,6 @@ public class Employee extends Person{
 			choice = c.inputInt("Enter your choice! ");
 			if(choice<=last_iteration && choice>0) {
 				if(remove==false) {
-					String newShift = iv.validateShifts(c.inputString("Enter new shift. "), post);
 					boolean flag = checkShifts(e, newShift, true);
 					if(flag==true) {
 						e.retShifts().set(choice-1, newShift);
@@ -208,7 +196,6 @@ public class Employee extends Person{
 				else if(LocalTime.parse(checkTimings[0]).isBefore(LocalTime.parse(shiftTimings[0]))
 						&& LocalTime.parse(checkTimings[1]).isAfter(LocalTime.parse(shiftTimings[1])))
 					return false;
-				
 				else
 					return true;
 			}

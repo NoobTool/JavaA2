@@ -240,22 +240,22 @@ public class Manager extends Employee{
 	
 	// Changing details of the employee found
 		public void changeDetails(Employee e,  String post, String name, Double age, String gender, String password) {
-			if(name!=null) {
+			if(name!="") {
 				e.setName(name);
 				addAction(new Action(retId(),e.retId(),"name updation",LocalDate.now(),LocalTime.now()));
 			}
 				
-			if(age!=null) {
+			if(age!=-1) {
 				e.setAge(age);
 				addAction(new Action(retId(),e.retId(),"age updation",LocalDate.now(),LocalTime.now()));
 			}
 				
-			if(gender!=null) {
+			if(gender!="") {
 				e.setGender(gender.charAt(0));
 				addAction(new Action(retId(),e.retId(),"gender updation",LocalDate.now(),LocalTime.now()));
 			}	
 			
-			if(password!=null) {
+			if(password!="") {
 				e.setPassword(password);
 				addAction(new Action(retId(),e.retId(),"password updation",LocalDate.now(),LocalTime.now()));
 			}		
