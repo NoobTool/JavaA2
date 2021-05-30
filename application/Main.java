@@ -1,5 +1,6 @@
 package application;
 import main.*;
+import java.util.*;
 import javafx.util.Pair;
 import javafx.application.Application;
 import javafx.stage.Stage;
@@ -561,13 +562,14 @@ public class Main extends Application {
 				else if(idField.isVisible() && selectedItem!=null) {
 					if(!checkBlankFields(idField.getText()))
 						errorMsg.setText("Please fill the ID field.");
+					else if(m.modifyDetails(selectedItem, Long.parseLong(idField.getText()), "").retName()==null)
+						errorMsg.setText(selectedItem.substring(0,1).toUpperCase()+selectedItem.substring(1)+" not found ");
 					else {
 						try {
+							Employee emp = m.modifyDetails(selectedItem, Long.parseLong(idField.getText()), "");
 							long id = Long.parseLong(idField.getText());
 							String returnValue = i.validateId(id, selectedItem);
 							if(returnValue.length()==0) {
-								String detailChange = m.modifyDetails
-										(selectedItem, id, "");
 								
 								// Layout Items
 								GridPane detailsPane = new GridPane();
@@ -580,8 +582,9 @@ public class Main extends Application {
 								TextField ageModifyField = new TextField();
 								TextField genderModifyField = new TextField();
 								TextField shiftsModifyField = new TextField();
-								TextField passwordModifyField = new TextField();
+								TextField passwordModifyField = new PasswordField();
 								Button submitButton2 = new Button("Submit");
+								HashMap modifiedItems = new HashMap();
 								
 								detailsPane.add(nameBox, 1, 1);
 								detailsPane.add(nameModifyField, 2, 1);
@@ -617,7 +620,7 @@ public class Main extends Application {
 									else
 										ageModifyField.setVisible(false);
 								});
-								
+								 
 								genderBox.setOnAction(e3->{
 									if(genderBox.isSelected())
 										genderModifyField.setVisible(true);
@@ -639,6 +642,62 @@ public class Main extends Application {
 										passwordModifyField.setVisible(false);
 								});
 								
+								submitButton2.setOnAction(e3->{
+									try {
+										if(nameBox.isSelected()) {
+											String newName = nameModifyField.getText();									
+											if(newName!="") {
+												Pair<Boolean,String> namePair = i.validateName(newName);
+												if(!namePair.getKey()) 
+													errorMsg.setText(namePair.getValue());
+												else
+													modifiedItems.put("Name", newName);
+											}
+											
+										}
+										
+										if(ageBox.isSelected()) {
+											String newAge = ageModifyField.getText();									
+											if(newAge!="") {
+												Double newAge2 = Double.parseDouble(newAge);
+												Pair<Double,String> agePair = i.validateAge(newAge2);
+												if(agePair.getValue().length()>0)
+													errorMsg.setText(agePair.getValue());
+												else
+													modifiedItems.put("Age",newAge2);
+											}
+											
+										}
+										
+										if(genderBox.isSelected()) {
+											String newGender = genderModifyField.getText();									
+											if(newGender!="") {
+												String genderString = i.validateGender(newGender.toUpperCase().charAt(0));
+												if(genderString.length()>0)
+													errorMsg.setText(genderString);
+												else
+													modifiedItems.put("Gender",newGender.toUpperCase());
+											}											
+										}
+										
+										if(passwordBox.isSelected()) {
+											String newPass = passwordModifyField.getText();									
+											if(!i.validatePassword(newPass)) {
+													errorMsg.setText("Password must be more than 4 characters");
+											}	
+											else
+												modifiedItems.put("Password",newPass);
+										}
+										
+										m.changeDetails(emp, selectedItem, modifiedItems.get("Name").toString(),
+												Double.parseDouble(modifiedItems.get("Age").toString())
+												,modifiedItems.get("Gender").toString(),modifiedItems.get("Password").toString());
+										
+									}catch(NumberFormatException exception) {
+										errorMsg.setText("Age must be in number");
+									}
+									
+								});
 								
 								// DetailsPane grid Formatting
 								detailsPane.setHgap(20);
@@ -679,7 +738,7 @@ public class Main extends Application {
 			
 		});
 		
-		managerStage.setScene(new Scene(bp,800,350));
+		managerStage.setScene(new Scene(bp,800,450));
 		managerStage.show();
 	}
 	

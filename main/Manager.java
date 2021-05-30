@@ -201,7 +201,7 @@ public class Manager extends Employee{
 			managerList.addStaff(m,retId(),m.retId());
 		}
 	
-	public String modifyDetails(String post, long id, String name) {
+	public Employee modifyDetails(String post, long id, String name) {
 		
 		if(post.equals("Manager"))
 			return managerSearch(post, retManagerList(), id, name);
@@ -216,76 +216,57 @@ public class Manager extends Employee{
 			return managerSearch(post, retPatientList(), id, name);
 	}
 	
-	public String managerSearch(String post, ArrayList list, long id, String name) {
+	public Employee managerSearch(String post, ArrayList list, long id, String name) {
 		
 		if(id!=-1) {
 			for (Object o : list) {
 				Employee e = (Employee) o;
-				if (e.retId()==id) {
-					//changeDetails(e, post);
-					return "";
-				}
+				if (e.retId()==id)
+					return e;
 			}
-		return post.substring(0,1).toUpperCase()+post.substring(1)+" not found ";
+		return new Employee();
 		}
 			 		
-		else{
+		else {
 			for (Object o: list) {
 				Employee e = (Employee) o;
-				if (e.retName().matches(name)) {
-					changeDetails(e, post);
-					return "";
-				}	
+				if (e.retName().matches(name))
+					return e;
 			}
-			return post.substring(0,1).toUpperCase()+post.substring(1)+" not found ";
+			return new Employee();
+			//return post.substring(0,1).toUpperCase()+post.substring(1)+" not found ";
 		}
 	}
 	
 	// Changing details of the employee found
-		public void changeDetails(Employee e, String post) {
-			int choice=0;
-			do {
-				dm.modificationOptions();
-				choice=c.inputInt("Enter your choice!");
+		public void changeDetails(Employee e,  String post, String name, Double age, String gender, String password) {
+			if(name!=null) {
+				e.setName(name);
+				addAction(new Action(retId(),e.retId(),"name updation",LocalDate.now(),LocalTime.now()));
+			}
 				
-				switch(choice) {
+			if(age!=null) {
+				e.setAge(age);
+				addAction(new Action(retId(),e.retId(),"age updation",LocalDate.now(),LocalTime.now()));
+			}
 				
-				case 1: String name = c.inputString("Enter the new name. ");
-						name = name.strip();
-						name = i.validateName(name);
-						e.setName(name);
-						addAction(new Action(retId(),e.retId(),"name updation",LocalDate.now(),LocalTime.now()));
-						break;
-				
-				case 2: double age = i.validateAge(c.inputDouble("Enter the new value for age. "));
-						e.setAge(age);
-						addAction(new Action(retId(),e.retId(),"age updation",LocalDate.now(),LocalTime.now()));
-						break;
-				
-				case 3: char gender = i.validateGender(c.inputChar("Enter new value for gender. "));
-						e.setGender(gender);
-						addAction(new Action(retId(),e.retId(),"gender updation",LocalDate.now(),LocalTime.now()));
-						break;
-						
-				case 4: changeShifts(e, post);
-						addAction(new Action(retId(),e.retId(),"shift updation",LocalDate.now(),LocalTime.now()));
-						break;
-				
-				case 5: String password = c.inputString("Enter new password. ");
-						e.setPassword(password);
-						addAction(new Action(retId(),e.retId(),"password updation",LocalDate.now(),LocalTime.now()));
-						break;
-				
-				case 6: choice=6;
-						System.out.println("Exiting. ");
-						break;
-				
-				default : System.out.println("Wrong choice! ");
-				}
-				
-			}while(choice!=6);
+			if(gender!=null) {
+				e.setGender(gender.charAt(0));
+				addAction(new Action(retId(),e.retId(),"gender updation",LocalDate.now(),LocalTime.now()));
+			}	
+			
+			if(password!=null) {
+				e.setPassword(password);
+				addAction(new Action(retId(),e.retId(),"password updation",LocalDate.now(),LocalTime.now()));
+			}		
+		}
+		
+		public void changeDetails(Employee e, String post, String shifts) {
+			changeShifts(e,post);
+			addAction(new Action(retId(),e.retId(),"shift updation",LocalDate.now(),LocalTime.now()));
 		}
 	
+		
 	// Displaying the current employees present
 	
 	public void managerDisplays() {
