@@ -83,13 +83,7 @@ public class Employee extends Person{
 	}
 	
 	public String changeShifts(Employee e, String post, String shift, int choice) {
-		Manager m = new Manager("Object to return MAX_SHIFTS");
-			System.out.println("1. Add shift. ");
-			System.out.println("2. Change shift timings. ");
-			System.out.println("3. Delete a shift. ");
-			System.out.println("4. Exit");
-			
-			
+		Manager m = new Manager("Object to return MAX_SHIFTS");		
 			switch(choice) {
 				case 1: try{
 					if(e.retShifts().size()!=m.retMaxShifts()) {
@@ -123,8 +117,7 @@ public class Employee extends Person{
 		return "Some problem must have occured";
 	}
 	
-	
-	public void alterShifts(Employee e, String post, boolean remove, String newShift) {
+	public String alterShifts(Employee e, String post, boolean remove, String newShift) {
 		InputValidation iv = new InputValidation();
 		int choice, last_iteration=0;
 		do {
@@ -142,33 +135,30 @@ public class Employee extends Person{
 						e.retShifts().set(choice-1, newShift);
 						if(e.retShifts().size()>=2)
 							sortTimes(e);
-						return;
+						return "";
 					}
 					else {
-						System.out.println("Wrong shifts! ");
-						break;
+						return "Wrong shifts! ";
 					}
 				}
 				
 				else {
 					if(e.retShifts().size()==2) {
 						e.retShifts().remove(choice-1);
-						break;
+						return "";
 					}
 					else {
-						System.out.println("Shifts cannot be 0 ");
-						return;
+						return "Shifts cannot be 0 ";
 					}
 				}
 			}
 				else if(choice==last_iteration+1){break;}
 				
 				else {
-					System.out.println("Wrong choice, enter again! ");
+					return "Wrong choice, enter again! ";
 				}
-			
 		}while(choice<=last_iteration);
-		
+		return "Something wrong happened!";		
 	}
 	
 	// Check if new shift start time is not equal to previous start time
