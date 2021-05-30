@@ -20,17 +20,17 @@ public class InputValidation {
 	
 	public String validateId(long id,String post) {
 		
-		if(post == "Manager" && id<7730000)
-			return "Id must be greater than 7730000 , enter again! ";
+		if(post == "Manager" && (id<7730000 || id>7739999))
+			return "Id must be in between (7730000,7739999) ! ";
 		
-		else if(post == "Doctor" && id<230000) 
-			return "Id must be greater than 2,30,000 , enter again! ";
+		else if(post == "Doctor" && (id<6830000 || id>6839999)) 
+			return "Id must be in between (6830000,6839999) ! ";
 		
-		else if(post=="Nurse" && id<330000) 
-			return "Id must be greater than 3,30,000 , enter again! ";
+		else if(post=="Nurse" && (id<7830000 || id>7839999)) 
+			return "Id must be in between (7830000,7839999) ! ";
 		
-		else if(post=="Patient")
-			return "Id must be greater than 43,00,000 , enter again! ";
+		else if(post=="Patient" && (id<8030000 || id>8039999))
+			return "Id must be in between (8030000,8039999) ! ";
 		
 		return "";
 	}

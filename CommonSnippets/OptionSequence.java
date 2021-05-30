@@ -57,78 +57,45 @@ public class OptionSequence {
 	}
 	
 	// Modify details of people
-		public void modifyDetails(Manager m) {
-			int choice;
-			do {
-				dm.managerMenuEmployeeSelection();
-				System.out.println("4. Patient\n5. Exit ");
-				choice = c.inputInt("Enter your choice. ");
+		public void modifyDetails(Manager m, String post, long id, String name) {
 				
-				
-				switch(choice) {
-					case 1:	managerSearch("manager",m.retManagerList(),m);
-							break;
-							
-					case 2:	managerSearch("doctor",m.retDoctorList(),m);
-							break;
-							
-					case 3: managerSearch("nurse",m.retNurseList(),m);
-							break;
-							
-					case 4: managerSearch("patient",m.retPatientList(),m);
-							break;
-							
-					case 5: System.out.println("Exiting. ");
-							choice=5;
-							break;
-					default:
-						System.out.println("Wrong choice, enter again.");
-				}
-			}while(choice!=5);
+			if(post.equals("Manager"))
+				managerSearch(post, m.retManagerList(), m, id, name);
 			
+			else if(post.equals("Doctor"))
+				managerSearch(post, m.retDoctorList(), m, id, name);
+			
+			else if(post.equals("Nurse"))
+				managerSearch(post, m.retNurseList(), m, id, name);
+			
+			else
+				managerSearch(post, m.retPatientList(), m, id, name);
 		}
 		
 		// Used to search people with either ID/Name
-		public void managerSearch(String post, ArrayList list, Manager m) {
-			int choice=0;
+		public String managerSearch(String post, ArrayList list, Manager m, long id, String name) {
 			
-			do {
-				dm.searchOptions();
-				boolean success=false;
-				choice=c.inputInt("");
-				switch(choice) {
-					case 1: long id = c.inputLong("Enter the id of the "+post+". ");
-							for (Object o : list) {
-								Employee e = (Employee) o;
-								if (e.retId()==id) {
-									m.changeDetails(e, post);
-									success=true;
-									return;
-								}	
-							}
-							if(success==false)
-							System.out.println(post.substring(0,1).toUpperCase()+post.substring(1)+" not found ");
-							break;
-							
-					case 2: String name = c.inputString("Enter the name of the  "+post+". ");
-							for (Object o: list) {
-								Employee e = (Employee) o;
-								if (e.retName().matches(name)) {
-									m.changeDetails(e, post);
-									success=true;
-									return;
-								}	
-							}
-							if(success==false)
-							System.out.println(post.substring(0,1).toUpperCase()+post.substring(1)+" not found ");
-							break;
-							
-					case 3: choice=3;
-							break;
-					default: System.out.println(" Wrong choice, enter again! ");
-							 break;
+			if(id!=-1) {
+				for (Object o : list) {
+					Employee e = (Employee) o;
+					if (e.retId()==id) {
+						m.changeDetails(e, post);
+						return "";
+					}
 				}
-			}while(choice!=3);
+			return post.substring(0,1).toUpperCase()+post.substring(1)+" not found ";
+			}
+						
+			else{
+				for (Object o: list) {
+					Employee e = (Employee) o;
+					if (e.retName().matches(name)) {
+						m.changeDetails(e, post);
+						return "";
+					}	
+				}
+				return post.substring(0,1).toUpperCase()+post.substring(1)+" not found ";
+			}
 		}
 	
 	

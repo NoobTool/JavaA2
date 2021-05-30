@@ -540,10 +540,12 @@ public class Main extends Application {
 			idButton.setOnAction(e2->{
 				idField.setVisible(true);
 				nameField.setVisible(false);
+				nameField.setText("");
 			});
 			
 			nameButton.setOnAction(e2->{
 				idField.setVisible(false);
+				idField.setText("");
 				nameField.setVisible(true);
 			});
 			
@@ -560,7 +562,99 @@ public class Main extends Application {
 					if(!checkBlankFields(idField.getText()))
 						errorMsg.setText("Please fill the ID field.");
 					else {
-						
+						try {
+							long id = Long.parseLong(idField.getText());
+							String returnValue = i.validateId(id, selectedItem);
+							if(returnValue.length()==0) {
+								String detailChange = m.modifyDetails
+										(selectedItem, id, "");
+								
+								// Layout Items
+								GridPane detailsPane = new GridPane();
+								CheckBox nameBox = new CheckBox("Name");
+								CheckBox ageBox = new CheckBox("Age");
+								CheckBox genderBox = new CheckBox("Gender");
+								CheckBox shiftsBox = new CheckBox("Shifts");
+								CheckBox passwordBox = new CheckBox("Password");
+								TextField nameModifyField = new TextField();
+								TextField ageModifyField = new TextField();
+								TextField genderModifyField = new TextField();
+								TextField shiftsModifyField = new TextField();
+								TextField passwordModifyField = new TextField();
+								Button submitButton2 = new Button("Submit");
+								
+								detailsPane.add(nameBox, 1, 1);
+								detailsPane.add(nameModifyField, 2, 1);
+								detailsPane.add(ageBox, 1, 2);
+								detailsPane.add(ageModifyField, 2, 2);
+								detailsPane.add(genderBox, 1, 3);
+								detailsPane.add(genderModifyField, 2, 3);
+								detailsPane.add(shiftsBox, 1, 4);
+								detailsPane.add(shiftsModifyField, 2, 4);
+								detailsPane.add(passwordBox, 1, 5);
+								detailsPane.add(passwordModifyField, 2, 5);
+								detailsPane.add(submitButton2, 2, 6);
+								detailsPane.add(addCancelButton(bp), 3, 6);
+								
+								nameModifyField.setVisible(false);
+								ageModifyField.setVisible(false);
+								genderModifyField.setVisible(false);
+								shiftsModifyField.setVisible(false);
+								passwordModifyField.setVisible(false);
+								
+								
+								// Toggling visibility of textfields by checkbox selection
+								nameBox.setOnAction(e3->{
+									if(nameBox.isSelected())
+										nameModifyField.setVisible(true);
+									else
+										nameModifyField.setVisible(false);
+								});
+								
+								ageBox.setOnAction(e3->{
+									if(ageBox.isSelected())
+										ageModifyField.setVisible(true);
+									else
+										ageModifyField.setVisible(false);
+								});
+								
+								genderBox.setOnAction(e3->{
+									if(genderBox.isSelected())
+										genderModifyField.setVisible(true);
+									else
+										genderModifyField.setVisible(false);
+								});
+								
+								shiftsBox.setOnAction(e3->{
+									if(shiftsBox.isSelected())
+										shiftsModifyField.setVisible(true);
+									else
+										shiftsModifyField.setVisible(false);
+								});
+								
+								passwordBox.setOnAction(e3->{
+									if(passwordBox.isSelected())
+										passwordModifyField.setVisible(true);
+									else
+										passwordModifyField.setVisible(false);
+								});
+								
+								
+								// DetailsPane grid Formatting
+								detailsPane.setHgap(20);
+								detailsPane.setVgap(20);
+								
+								wrapperPane.setCenter(detailsPane);
+								wrapperPane.setTop(null);
+								wrapperPane.setRight(null);
+								
+							}
+							else
+								errorMsg.setText(returnValue);
+							
+						}catch(NumberFormatException exception) {
+							errorMsg.setText("ID must contain only numbers!");
+						}
 					}
 				}
 				

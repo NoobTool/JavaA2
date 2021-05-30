@@ -201,6 +201,45 @@ public class Manager extends Employee{
 			managerList.addStaff(m,retId(),m.retId());
 		}
 	
+	public String modifyDetails(String post, long id, String name) {
+		
+		if(post.equals("Manager"))
+			return managerSearch(post, retManagerList(), id, name);
+		
+		else if(post.equals("Doctor"))
+			return managerSearch(post, retDoctorList(), id, name);
+		
+		else if(post.equals("Nurse"))
+			return managerSearch(post, retNurseList(), id, name);
+		
+		else
+			return managerSearch(post, retPatientList(), id, name);
+	}
+	
+	public String managerSearch(String post, ArrayList list, long id, String name) {
+		
+		if(id!=-1) {
+			for (Object o : list) {
+				Employee e = (Employee) o;
+				if (e.retId()==id) {
+					//changeDetails(e, post);
+					return "";
+				}
+			}
+		return post.substring(0,1).toUpperCase()+post.substring(1)+" not found ";
+		}
+			 		
+		else{
+			for (Object o: list) {
+				Employee e = (Employee) o;
+				if (e.retName().matches(name)) {
+					changeDetails(e, post);
+					return "";
+				}	
+			}
+			return post.substring(0,1).toUpperCase()+post.substring(1)+" not found ";
+		}
+	}
 	
 	// Changing details of the employee found
 		public void changeDetails(Employee e, String post) {
