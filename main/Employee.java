@@ -82,89 +82,70 @@ public class Employee extends Person{
 		this.shifts.add(shifts);
 	}
 	
-	public String changeShifts(Employee e, String post, String shift, int choice) {
+	public String changeShifts(Employee e, String post, int oldShiftIndex, String newShift, int choice) 
+			throws TooManyShiftsException {
 		Manager m = new Manager("Object to return MAX_SHIFTS");		
-			switch(choice) {
-				case 1: try{
-					if(e.retShifts().size()!=m.retMaxShifts()) {
-						boolean flag = checkShifts(e, shift, false);
-						if(flag==true) {
-							e.setShifts(shift);
-							if(e.retShifts().size()>=2)
-							sortTimes(e);
-							return "";
-						}
-						else 
-							return "Wrong shift!";							
-					}	
-					else
-						throw new TooManyShiftsException("Cannot add more than 2 shifts. ");
-				}catch(TooManyShiftsException exception) {
-					System.out.println("Cannot enter more than 2 shifts.");
-				}
+		switch(choice) {
+			case 1:
+				if(e.retShifts().size()!=m.retMaxShifts()) {
+					boolean flag = checkShifts(e, newShift, false, post);
+					if(flag==true) {
+						e.setShifts(newShift);
+						if(e.retShifts().size()>=2)
+						sortTimes(e);
+						return "";
+					}
+					else 
+						return "Wrong shift!";							
+				}	
+				else
+					throw new TooManyShiftsException("Cannot add more than 2 shifts. ");
 
-				case 2: if(!post.equals("nurse"))
-							alterShifts(e,post,false,shift);
-						else
-							return "Shifts can't be changed. ";
-				
-				case 3: if(!post.equals("nurse"))
-							alterShifts(e,post,true,shift);
-						else
-							return "Nurse's shift can't be deleted. ";
-						break;
-			}
-		return "Some problem must have occured";
+			case 2: if(!post.equals("Nurse"))
+						alterShifts(e,post,false,oldShiftIndex,newShift);
+					else
+						return "Shifts can't be changed. ";
+			
+			case 3: if(!post.equals("Nurse"))
+						alterShifts(e,post,true, oldShiftIndex, newShift);
+					else
+						return "Nurse's shift can't be deleted. ";
+		}
+		
+		return "Suppressing errors!";
 	}
 	
-	public String alterShifts(Employee e, String post, boolean remove, String newShift) {
-		InputValidation iv = new InputValidation();
-		int choice, last_iteration=0;
-		do {
-
-			for(int i=0; i<e.retShifts().size();i++) {
-				last_iteration+=1;
-				System.out.println((i+1)+". "+e.retShifts().get(i));
+	public String alterShifts(Employee e, String post, boolean remove, int oldShiftIndex, String newShift) {
+		if(remove==false) {
+			boolean flag = checkShifts(e, newShift, true, post);
+			if(flag==true) {
+				e.retShifts().set(oldShiftIndex, newShift);
+				if(e.retShifts().size()>=2)
+					sortTimes(e);
+				return "";
 			}
-			System.out.println((last_iteration+1)+". Exit. ");
-			choice = c.inputInt("Enter your choice! ");
-			if(choice<=last_iteration && choice>0) {
-				if(remove==false) {
-					boolean flag = checkShifts(e, newShift, true);
-					if(flag==true) {
-						e.retShifts().set(choice-1, newShift);
-						if(e.retShifts().size()>=2)
-							sortTimes(e);
-						return "";
-					}
-					else {
-						return "Wrong shifts! ";
-					}
-				}
-				
-				else {
-					if(e.retShifts().size()==2) {
-						e.retShifts().remove(choice-1);
-						return "";
-					}
-					else {
-						return "Shifts cannot be 0 ";
-					}
-				}
+			else {
+				return "Wrong shifts! ";
 			}
-				else if(choice==last_iteration+1){break;}
-				
-				else {
-					return "Wrong choice, enter again! ";
-				}
-		}while(choice<=last_iteration);
-		return "Something wrong happened!";		
+		}
+		
+		else {
+			if(e.retShifts().size()==2) {
+				e.retShifts().remove(oldShiftIndex);
+				return "";
+			}
+			else {
+				return "Shifts cannot be 0 ";
+			}
+		}	
 	}
 	
 	// Check if new shift start time is not equal to previous start time
 	// Check if new start time is not in between another shift time
 	// Same for end time
-	public boolean checkShifts(Employee e, String shifts, boolean change) {
+	public boolean checkShifts(Employee e, String shifts, Boolean change, String post) {
+		InputValidation iv = new InputValidation();
+		
 		if(e.retShifts().size()==0)
 			return true;
 		else if(e.retShifts().size()==1 && change==true)
@@ -176,15 +157,6 @@ public class Employee extends Person{
 				if(checkTimings[0].equals(shiftTimings[0]) || checkTimings[0].equals(shiftTimings[1]))
 					return false;
 				else if(checkTimings[1].equals(shiftTimings[0]) || checkTimings[1].equals(shiftTimings[1]))
-					return false;
-				else if(LocalTime.parse(checkTimings[0]).isAfter(LocalTime.parse(shiftTimings[0]))
-						&& LocalTime.parse(checkTimings[0]).isBefore(LocalTime.parse(shiftTimings[1])))
-						return false;
-				else if(LocalTime.parse(checkTimings[1]).isAfter(LocalTime.parse(shiftTimings[0]))
-						&& LocalTime.parse(checkTimings[1]).isBefore(LocalTime.parse(shiftTimings[1])))
-					return false;
-				else if(LocalTime.parse(checkTimings[0]).isBefore(LocalTime.parse(shiftTimings[0]))
-						&& LocalTime.parse(checkTimings[1]).isAfter(LocalTime.parse(shiftTimings[1])))
 					return false;
 				else
 					return true;

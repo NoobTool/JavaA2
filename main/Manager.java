@@ -4,7 +4,7 @@ import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
 import CommonSnippets.DisplayMenu;
-import CustomExceptions.InputValidation;
+import CustomExceptions.*;
 import CommonSnippets.CommonCodes;
 import ward.Ward;
 import ward.WardDetails;
@@ -261,8 +261,9 @@ public class Manager extends Employee{
 			}		
 		}
 		
-		public void changeDetails(Employee e, String post, String shifts) {
-			changeShifts(e,post);
+		public void changeDetails(Employee e, String post, int oldShiftIndex, String newShift, int choice)
+		throws TooManyShiftsException{
+			changeShifts(e,post,oldShiftIndex,newShift,choice);
 			addAction(new Action(retId(),e.retId(),"shift updation",LocalDate.now(),LocalTime.now()));
 		}
 	

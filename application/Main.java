@@ -776,10 +776,45 @@ public class Main extends Application {
 												clearAllFields(changeShiftField,addShiftField);
 											});
 											
+											submitButton3.setOnAction(e4->{
+												try {
+													if(addShiftField.isVisible()) {
+														Pair<Boolean,String> newShift = i.validateShifts(addShiftField.getText(),selectedItem);
+														if(newShift.getKey())
+															m.changeDetails(emp,selectedItem,-1,addShiftField.getText(),1 );
+														else
+															errorMsg.setText(newShift.getValue());
+													} 
+													
+													else if(changeShiftField.isVisible()) {
+														Pair<Boolean,String> newShift = i.validateShifts(addShiftField.getText(),selectedItem);
+														int oldShiftIndex = emp.retShifts().indexOf(changeShiftBox.getSelectionModel().getSelectedItem());
+														if(newShift.getKey())
+															m.changeDetails(emp,selectedItem,oldShiftIndex
+																	,addShiftField.getText(),2 );
+														else
+															errorMsg.setText(newShift.getValue());
+													}
+													
+													else
+														m.changeDetails(emp,selectedItem,emp.retShifts().indexOf(
+																changeShiftBox.getSelectionModel().getSelectedItem())
+																,addShiftField.getText(),3 );
+												}catch(TooManyShiftsException exception) {
+													errorMsg.setText("Too Many shifts");
+												}
+												
+												
+												
+											});
+											
+											
+											
 											wrapperPane.setCenter(shiftPane);
 											wrapperPane.setTop(null);
 											wrapperPane.setRight(null);
 										}
+										
 										
 									}catch(NumberFormatException exception) {
 										errorMsg.setText("Age must be in number");

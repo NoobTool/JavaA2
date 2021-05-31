@@ -1,0 +1,1206 @@
+commit b2b75d1a1f200c1f704cdb2aeb3d5b42bca9a614
+Author: Ram Rattan Goyal <codebits.ram@gmail.com>
+Date:   Sun May 30 23:04:22 2021 +0530
+
+    PreparingChangeShifts
+
+ main/Employee.java | 26 ++++++++------------------
+ 1 file changed, 8 insertions(+), 18 deletions(-)
+
+commit 89b4f556537558e04b90c7380f0e5110a631c9a7
+Author: Ram Rattan Goyal <codebits.ram@gmail.com>
+Date:   Sun May 30 22:56:41 2021 +0530
+
+    ShiftGUIComplete
+
+ application/Main.java | 116 ++++++++++++++++++++++++++++++++++++++++++--------
+ main/Employee.java    |  37 ++++++----------
+ main/Manager.java     |   8 ++--
+ 3 files changed, 114 insertions(+), 47 deletions(-)
+
+commit 7488aab9f564003ee782bbe89801beeefb84b383
+Author: Ram Rattan Goyal <codebits.ram@gmail.com>
+Date:   Sun May 30 21:51:40 2021 +0530
+
+    90%DetailsModified
+
+ application/Main.java | 69 +++++++++++++++++++++++++++++++++++++---
+ main/Manager.java     | 87 ++++++++++++++++++++-------------------------------
+ main/test.java        |  2 +-
+ 3 files changed, 99 insertions(+), 59 deletions(-)
+
+commit d1c4fd711826db05464a646fb3addc540cc5713b
+Author: Ram Rattan Goyal <codebits.ram@gmail.com>
+Date:   Sun May 30 20:35:05 2021 +0530
+
+    ModifyDETAILSGui
+
+ CommonSnippets/OptionSequence.java    | 97 ++++++++++++-----------------------
+ CustomExceptions/InputValidation.java | 16 +++---
+ application/Main.java                 | 96 +++++++++++++++++++++++++++++++++-
+ main/Manager.java                     | 39 ++++++++++++++
+ main/test.java                        |  7 +--
+ 5 files changed, 175 insertions(+), 80 deletions(-)
+
+commit b3f578732621b3788347c9c7f4406b1d64ba3953
+Author: Ram Rattan Goyal <codebits.ram@gmail.com>
+Date:   Sun May 30 00:59:41 2021 +0530
+
+    ModifyDetailsGuiStep1
+
+ CustomExceptions/InputValidation.java |  30 +++++-------
+ Features.odt                          | Bin 15233 -> 16056 bytes
+ application/Main.java                 |  86 +++++++++++++++++++++++++++++++++-
+ 3 files changed, 96 insertions(+), 20 deletions(-)
+
+commit e7ac62f4ebecc79f6ed3ed22c98f09f2f1c6be15
+Author: Ram Rattan Goyal <codebits.ram@gmail.com>
+Date:   Sat May 29 23:56:55 2021 +0530
+
+    AutomatedShiftInit
+
+ main/Manager.java | 5 ++---
+ 1 file changed, 2 insertions(+), 3 deletions(-)
+
+commit 9eb47a02ea8d912d1fa50d9762894342f31228f0
+Author: Ram Rattan Goyal <codebits.ram@gmail.com>
+Date:   Sat May 29 23:56:00 2021 +0530
+
+    LoginBugFixed
+
+ application/Main.java | 21 +++++++++++++++++++--
+ main/Login.java       |  6 +++---
+ main/Manager.java     |  9 +++++++--
+ main/test.java        | 11 ++++-------
+ 4 files changed, 33 insertions(+), 14 deletions(-)
+
+commit 169716b5c632d02326be8bacd34ead4f5bd59313
+Author: Ram Rattan Goyal <codebits.ram@gmail.com>
+Date:   Sat May 29 20:00:53 2021 +0530
+
+    ValidateShiftBugFix
+
+ CustomExceptions/InputValidation.java | 17 +++++++++--------
+ main/Manager.java                     |  2 +-
+ 2 files changed, 10 insertions(+), 9 deletions(-)
+
+commit 1591b966ffff99a2ccd80414142b43366d511970
+Merge: a90a65a 17b6d5e
+Author: Ram Rattan Goyal <codebits.ram@gmail.com>
+Date:   Sat May 29 19:14:29 2021 +0530
+
+    NurseShiftFix
+
+commit a90a65a204bbc461601898431c94577147f27a1c
+Author: Ram Rattan Goyal <codebits.ram@gmail.com>
+Date:   Sat May 29 12:19:45 2021 +0530
+
+    NurseShiftEmptyFixed
+
+ CustomExceptions/InputValidation.java |  5 +++--
+ application/Main.java                 | 15 ++++++++-------
+ main/Manager.java                     |  2 +-
+ 3 files changed, 12 insertions(+), 10 deletions(-)
+
+commit 17b6d5e244f604c61fd8e947755f774e093cc6aa
+Author: Ram Rattan Goyal <45492556+NoobTool@users.noreply.github.com>
+Date:   Fri May 28 18:06:47 2021 +0530
+
+    Update readme.txt
+
+ readme.txt | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
+
+commit 7107583af48ee7d2384bd12b834e1fbeb61e0a1f
+Author: Ram Rattan Goyal <codebits.ram@gmail.com>
+Date:   Fri May 28 18:01:25 2021 +0530
+
+    ActionPrintingGUI
+
+ application/Main.java | 24 ++++++++++++++++++++----
+ main/Manager.java     |  4 ++++
+ 2 files changed, 24 insertions(+), 4 deletions(-)
+
+commit b764134240792e6f2d644aae1c37242b565cae11
+Author: Ram Rattan Goyal <codebits.ram@gmail.com>
+Date:   Fri May 28 17:44:37 2021 +0530
+
+    TopBarFormatting
+
+ Features.odt          | Bin 14493 -> 15233 bytes
+ application/Main.java |  47 +++++++++++++++++++++++++++--------------------
+ 2 files changed, 27 insertions(+), 20 deletions(-)
+
+commit db0c0755730a083275d98912e86aa9324df3529a
+Author: Ram Rattan Goyal <codebits.ram@gmail.com>
+Date:   Fri May 28 17:29:11 2021 +0530
+
+    NameBugFix
+
+ CustomExceptions/InputValidation.java |  4 +--
+ application/Main.java                 | 63 ++++++++++++++++++++---------------
+ main/Manager.java                     |  2 +-
+ 3 files changed, 39 insertions(+), 30 deletions(-)
+
+commit 7baff78646bb0cca9a0e2593ac55c991e9fc4ff9
+Author: Ram Rattan Goyal <codebits.ram@gmail.com>
+Date:   Fri May 28 17:17:51 2021 +0530
+
+    DisplayingStaffInGUI
+
+ CustomExceptions/InputValidation.java |  20 ++++--
+ application/Main.java                 | 129 ++++++++++++++++++++++++++++------
+ main/Manager.java                     |   2 +-
+ main/test.java                        |  11 ++-
+ 4 files changed, 129 insertions(+), 33 deletions(-)
+
+commit 5e0a4f10f7b9ae8549fcaad41451bbe8370d43cb
+Author: Ram Rattan Goyal <codebits.ram@gmail.com>
+Date:   Fri May 28 14:16:32 2021 +0530
+
+    HiringEmployeesUsingGUI
+
+ .~lock.Features.odt#                               |   1 -
+ CustomExceptions/InputValidation.java              |  37 ++++---
+ CustomExceptions/InvalidShiftTimingsException.java |   8 ++
+ application/Main.java                              | 108 +++++++++++++++++++--
+ main/Employee.java                                 |  17 +---
+ main/Manager.java                                  |  14 +--
+ 6 files changed, 138 insertions(+), 47 deletions(-)
+
+commit c38ce6a2ef7cf1fa8d8d00f37e7236fdc1126311
+Author: Ram Rattan Goyal <codebits.ram@gmail.com>
+Date:   Thu May 27 18:42:22 2021 +0530
+
+    PatientGUIAdded
+
+ .~lock.Features.odt#                  |   1 +
+ CustomExceptions/InputValidation.java |  26 +++++++++---------
+ Features.odt                          | Bin 12327 -> 14493 bytes
+ application/Main.java                 |  50 ++++++++++++++++++++++++++++++----
+ main/Manager.java                     |  38 +++++++++++++-------------
+ main/test.java                        |   6 ++--
+ 6 files changed, 80 insertions(+), 41 deletions(-)
+
+commit cecead8e363fec43892d46da6c99e85a664e488e
+Author: Ram Rattan Goyal <codebits.ram@gmail.com>
+Date:   Thu May 27 15:11:39 2021 +0530
+
+    GUIManagerFormatting
+
+ CustomExceptions/InputValidation.java | 10 ++-----
+ JUnitTests/ResidentCareTest.java      | 11 ++++----
+ application/Main.java                 | 52 +++++++++++++++++++----------------
+ main/Manager.java                     |  4 +--
+ 4 files changed, 40 insertions(+), 37 deletions(-)
+
+commit 63e7a17fdba9ba27506932e756e85d6d039bc768
+Author: Ram Rattan Goyal <codebits.ram@gmail.com>
+Date:   Thu May 27 13:52:32 2021 +0530
+
+    LoginBugsSquashed
+
+ CustomExceptions/InvalidCredentialsException.java |   5 +
+ application/CommonOperations.java                 |  12 ++
+ application/Main.java                             |  68 ++++++++---
+ main/Login.java                                   | 138 +++++++++-------------
+ main/Manager.java                                 |   2 +-
+ 5 files changed, 127 insertions(+), 98 deletions(-)
+
+commit 9c897009481bb74e08253033a698019db311699f
+Author: Ram Rattan Goyal <codebits.ram@gmail.com>
+Date:   Thu May 27 13:25:30 2021 +0530
+
+    MinorShiftTimeSquash
+
+ main/Login.java   | 55 +++++++++++++++++++++++++++----------------------------
+ main/Manager.java |  4 ++--
+ main/test.java    |  7 +++----
+ 3 files changed, 32 insertions(+), 34 deletions(-)
+
+commit e4bf9ba5ef97903b66f652a70beeb5cf44d25200
+Author: Ram Rattan Goyal <codebits.ram@gmail.com>
+Date:   Thu May 27 12:43:26 2021 +0530
+
+    MinorTimeBug
+
+ CommonSnippets/DisplayMenu.java    |  22 ++---
+ CommonSnippets/OptionSequence.java |   6 +-
+ JUnitTests/ResidentCareTest.java   |  28 +++---
+ application/Main.java              | 181 +++++++++++++++++++++++++++++++++++--
+ main/Login.java                    |  25 ++---
+ main/Manager.java                  |  61 ++++++-------
+ main/ResidentCare.java             |  18 ++--
+ main/test.java                     |  11 +--
+ 8 files changed, 252 insertions(+), 100 deletions(-)
+
+commit 7d706a148b1947789fbab7da5a844595737c44eb
+Author: Ram Rattan Goyal <codebits.ram@gmail.com>
+Date:   Mon May 17 21:27:39 2021 +0530
+
+    LoginNightShiftBugSquashed
+
+ main/Login.java   |  7 +++++--
+ main/Manager.java |  2 +-
+ main/test.java    | 29 ++++++++++++++---------------
+ 3 files changed, 20 insertions(+), 18 deletions(-)
+
+commit 44842ba8432ac8673e022ac000f25d3b4cfbce49
+Author: Ram Rattan Goyal <codebits.ram@gmail.com>
+Date:   Mon May 17 15:54:03 2021 +0530
+
+    Formatting
+
+ Actions/Action.java | 2 --
+ 1 file changed, 2 deletions(-)
+
+commit 9902c6d84b08f8ac23449dae976e4a118b90f038
+Author: Ram Rattan Goyal <codebits.ram@gmail.com>
+Date:   Mon May 17 15:53:16 2021 +0530
+
+    FormattingActionsDate&Time
+
+ Actions/Action.java | 9 +++++----
+ 1 file changed, 5 insertions(+), 4 deletions(-)
+
+commit cde6b466d06b63f3515b606a8106ca22b7c575c0
+Author: Ram Rattan Goyal <codebits.ram@gmail.com>
+Date:   Mon May 17 15:49:03 2021 +0530
+
+    AddedMoreAddActions()
+
+ main/Manager.java | 11 +++++++++--
+ main/Staff.java   |  3 +--
+ 2 files changed, 10 insertions(+), 4 deletions(-)
+
+commit bb8325f5dfa652a73d583f8ab57531f558c3e4b9
+Author: Ram Rattan Goyal <codebits.ram@gmail.com>
+Date:   Mon May 17 15:41:22 2021 +0530
+
+    Refactor_AddedManagerAction
+
+ CommonSnippets/OptionSequence.java | 123 ++++++++++++++
+ main/Manager.java                  | 338 +++++++++++++------------------------
+ main/ResidentCare.java             |   2 +-
+ main/Staff.java                    |  15 ++
+ 4 files changed, 257 insertions(+), 221 deletions(-)
+
+commit a4df6adea624a00f9467d60d431860c55a9ee277
+Author: Ram Rattan Goyal <codebits.ram@gmail.com>
+Date:   Mon May 17 14:19:07 2021 +0530
+
+    JavaFXAdded
+
+ application/Main.java             | 89 +++++++++++++++++++++++++++++++++++++++
+ application/Sample.fxml           |  7 +++
+ application/SampleController.java |  5 +++
+ application/application.css       |  1 +
+ 4 files changed, 102 insertions(+)
+
+commit 614098c554d16e944397a80a4aa3e96867e75d08
+Author: Ram Rattan Goyal <codebits.ram@gmail.com>
+Date:   Mon May 17 14:14:39 2021 +0530
+
+    IsolationAdded
+
+ main/Manager.java    | 12 ++++++++++++
+ main/Nurse.java      | 37 +++++++++++++++++++++++++++++++++++--
+ ward/SingleRoom.java |  4 ++++
+ ward/Ward.java       | 20 ++++++++++++++++++++
+ 4 files changed, 71 insertions(+), 2 deletions(-)
+
+commit 41d3b99fd3e65bbaa8bd32307c25c3b54c0d51f3
+Author: Ram Rattan Goyal <codebits.ram@gmail.com>
+Date:   Sat May 15 23:20:03 2021 +0530
+
+    TestsRefactored
+
+ JUnitTests/ResidentCareTest.java | 27 ++++++++++-----------------
+ 1 file changed, 10 insertions(+), 17 deletions(-)
+
+commit bc7f905f89d0f4ee9e93acca2592045993d77410
+Author: Ram Rattan Goyal <codebits.ram@gmail.com>
+Date:   Sat May 15 23:16:33 2021 +0530
+
+    RobustSuccess_D/wroomsDone
+
+ JUnitTests/ResidentCareTest.java | 105 +++------------------------------------
+ ward/Ward.java                   |  14 +++++-
+ 2 files changed, 18 insertions(+), 101 deletions(-)
+
+commit f537d60a5b59c4716af2d600b1035620792b1574
+Author: Ram Rattan Goyal <codebits.ram@gmail.com>
+Date:   Sat May 15 19:14:48 2021 +0530
+
+    RobustCheck-D/wRoomTypes
+
+ ward/DualRoom.java   | 91 ++++++++++++++++++++++++++++++++++++++++++++++++++++
+ ward/SingleRoom.java | 35 ++++++++++++++++++++
+ ward/Ward.java       | 45 +++++++++++++++++++++++---
+ 3 files changed, 167 insertions(+), 4 deletions(-)
+
+commit 128a16ce7269d1b304958c8368e797db2aed6578
+Author: Ram Rattan Goyal <codebits.ram@gmail.com>
+Date:   Sat May 15 16:07:04 2021 +0530
+
+    TestsUpdated
+
+ JUnitTests/ResidentCareTest.java | 7 +++----
+ 1 file changed, 3 insertions(+), 4 deletions(-)
+
+commit dc6d75f9303bc4b49256761b68c855b9adc123c5
+Author: Ram Rattan Goyal <codebits.ram@gmail.com>
+Date:   Sat May 15 16:06:02 2021 +0530
+
+    ShiftModulationComplete
+
+ JUnitTests/ResidentCareTest.java | 19 +++++++++++++------
+ main/Employee.java               | 10 ++++++++++
+ main/Login.java                  | 18 +++++++-----------
+ main/Manager.java                |  4 ++--
+ 4 files changed, 32 insertions(+), 19 deletions(-)
+
+commit 7cef6b82c02cec27518eac49e84226916420c53e
+Author: Ram Rattan Goyal <codebits.ram@gmail.com>
+Date:   Sat May 15 15:34:55 2021 +0530
+
+    RefactoredLogin_NurseComp.
+
+ main/Login.java   | 81 ++++++++++++++++++++++++++++++-------------------------
+ main/Manager.java |  2 +-
+ 2 files changed, 46 insertions(+), 37 deletions(-)
+
+commit bc66062753c4657dc68a26788304beb925650fb8
+Author: Ram Rattan Goyal <codebits.ram@gmail.com>
+Date:   Sat May 15 15:19:21 2021 +0530
+
+    VerifiedSecondLogin
+
+ main/Login.java        | 164 ++++++++++++++++++++++---------------------------
+ main/Manager.java      |   2 +-
+ main/ResidentCare.java |   2 +-
+ 3 files changed, 76 insertions(+), 92 deletions(-)
+
+commit f302ceee8a6ba82d9e283d92a1005b2a09e76a37
+Author: Ram Rattan Goyal <codebits.ram@gmail.com>
+Date:   Sat May 15 14:09:15 2021 +0530
+
+    MinorChangesLogin
+
+ main/Employee.java | 21 ++++++++----
+ main/Login.java    | 98 ++++++++++++++++++++++++++++++++++++++++++++----------
+ main/Nurse.java    |  1 -
+ main/test.java     | 17 +++++++---
+ 4 files changed, 108 insertions(+), 29 deletions(-)
+
+commit d98d654e9566c7c3c9ecb1e16e391cd10c98baf4
+Author: Ram Rattan Goyal <codebits.ram@gmail.com>
+Date:   Sat May 15 13:02:52 2021 +0530
+
+    ShiftModulationPart2
+
+ CustomExceptions/InputValidation.java   |  10 ++++-----
+ CustomExceptions/OverworkException.java |   3 +++
+ JUnitTests/InputTests.java              |  21 +++++++++++++------
+ Questions.odt                           | Bin 9195 -> 10031 bytes
+ main/Employee.java                      |  12 +++++------
+ main/Login.java                         |  35 ++++++++++++++++++++++++++------
+ main/Manager.java                       |   6 ++++--
+ main/Nurse.java                         |   1 -
+ main/test.java                          |   6 ++++--
+ 9 files changed, 66 insertions(+), 28 deletions(-)
+
+commit 9a4c6f919cdf226fd75c16bc0da06fc6ffe6e091
+Author: Ram Rattan Goyal <codebits.ram@gmail.com>
+Date:   Fri May 14 20:30:41 2021 +0530
+
+    ShiftModulationInit
+
+ .~lock.Features.odt#                  |  1 -
+ CustomExceptions/InputValidation.java | 17 +++++++++------
+ main/Employee.java                    | 40 +++++++++++++++++++++++++++++------
+ main/Manager.java                     | 21 +++++++++---------
+ main/Nurse.java                       |  2 --
+ main/test.java                        |  2 ++
+ 6 files changed, 57 insertions(+), 26 deletions(-)
+
+commit 57bedb01ec48a14aaa1e07d55c267c28c1715121
+Author: Ram Rattan Goyal <codebits.ram@gmail.com>
+Date:   Wed May 12 23:59:39 2021 +0530
+
+    SortingInShifts
+
+ .~lock.Features.odt# |   1 +
+ Features.odt         | Bin 10283 -> 12327 bytes
+ main/Employee.java   |  33 ++++++++++++++++++++++++++++++++-
+ main/Manager.java    |   6 +++++-
+ 4 files changed, 38 insertions(+), 2 deletions(-)
+
+commit abb4fe7f0713d818ac0ff3785e6bea58e8f464bb
+Author: Ram Rattan Goyal <codebits.ram@gmail.com>
+Date:   Wed May 12 23:35:30 2021 +0530
+
+    ShiftsValidationDone
+
+ JUnitTests/ResidentCareTest.java |  9 +++++-
+ main/Employee.java               | 67 ++++++++++++++++++++++++++++++++++------
+ main/Manager.java                |  5 +--
+ 3 files changed, 69 insertions(+), 12 deletions(-)
+
+commit 08e979b0b7d4ce579e13a61340f8f32a80e8d0e1
+Author: Ram Rattan Goyal <codebits.ram@gmail.com>
+Date:   Wed May 12 17:37:18 2021 +0530
+
+    LoginWithShiftsUpdated
+
+ CustomExceptions/RestrictedTimingException.java |  3 +++
+ main/Login.java                                 | 21 ++++++++++++++++-----
+ 2 files changed, 19 insertions(+), 5 deletions(-)
+
+commit 10ca2898b0f683e4493eed4984aecb06bf0c1ebe
+Author: Ram Rattan Goyal <codebits.ram@gmail.com>
+Date:   Wed May 12 17:18:38 2021 +0530
+
+    ShiftsModulation
+
+ CustomExceptions/TooManyShiftsException.java |  7 +++
+ JUnitTests/ResidentCareTest.java             |  1 +
+ main/Doctor.java                             |  2 +-
+ main/Employee.java                           | 84 ++++++++++++++++++++++++++--
+ main/Login.java                              | 20 +++++--
+ main/Manager.java                            | 11 ++--
+ main/Nurse.java                              |  2 +-
+ main/test.java                               |  5 +-
+ 8 files changed, 112 insertions(+), 20 deletions(-)
+
+commit a43712deb402f734d841a2cd99722f1b5f1865e2
+Author: Ram Rattan Goyal <codebits.ram@gmail.com>
+Date:   Tue May 11 19:54:16 2021 +0530
+
+    JUnitRestored
+
+ Actions/Action.java                                |   0
+ Actions/ActionList.java                            |   0
+ CommonSnippets/CommonCodes.java                    |   0
+ CommonSnippets/DisplayMenu.java                    |   3 +-
+ CommonSnippets/OptionSequence.java                 |   0
+ CustomExceptions/InputValidation.java              |   0
+ CustomExceptions/InvalidShiftTimingsException.java |   0
+ Features.odt                                       | Bin
+ JUnitTests/InputTests.java                         | 118 +++++++
+ JUnitTests/ResidentCareTest.java                   | 346 +++++++++++++++++++++
+ Questions.odt                                      | Bin
+ design.odt                                         | Bin
+ main/AdministerMedicine.java                       |   0
+ main/Doctor.java                                   |  14 +-
+ main/Employee.java                                 |   0
+ main/Login.java                                    |   0
+ main/Manager.java                                  |   7 +-
+ main/Nurse.java                                    |  12 +-
+ main/Patient.java                                  |   0
+ main/Person.java                                   |   0
+ main/ResidentCare.java                             |   0
+ main/Staff.java                                    |   0
+ main/test.java                                     |   0
+ prescription/MedicineBlock.java                    |   0
+ prescription/MedicineDose.java                     |   0
+ prescription/Prescription.java                     |   0
+ readme.txt                                         |   0
+ ward/Bed.java                                      |   0
+ ward/Room.java                                     |   0
+ ward/Ward.java                                     |   0
+ ward/WardDetails.java                              |   0
+ 31 files changed, 490 insertions(+), 10 deletions(-)
+
+commit cc9754bdb320900f613e1e9f3f015404239b773f
+Author: Ram Rattan Goyal <codebits.ram@gmail.com>
+Date:   Sat May 8 19:35:51 2021 +0530
+
+    ActionCompletedAndFilesArranged
+
+ Actions/Action.java                       |  75 +++++++
+ Actions/ActionList.java                   |  93 ++++++++
+ JUnitTests/InputTests.java                | 118 ----------
+ JUnitTests/ResidentCareTest.java          | 346 ------------------------------
+ main/AdministerMedicine.java              |   1 +
+ main/Doctor.java                          |   3 +-
+ main/Nurse.java                           |   2 +-
+ main/Patient.java                         |   1 +
+ {main => prescription}/MedicineBlock.java |   2 +-
+ {main => prescription}/MedicineDose.java  |   2 +-
+ {main => prescription}/Prescription.java  |   2 +-
+ 11 files changed, 175 insertions(+), 470 deletions(-)
+
+commit 74e650159132f995648e1f2892cb199e39024661
+Author: Ram Rattan Goyal <codebits.ram@gmail.com>
+Date:   Sat May 8 15:13:58 2021 +0530
+
+    UpdatePrescriptionSquashed
+
+ JUnitTests/ResidentCareTest.java | 10 +++++++++-
+ main/Doctor.java                 | 10 +++++++---
+ main/MedicineDose.java           | 12 +++++++-----
+ 3 files changed, 23 insertions(+), 9 deletions(-)
+
+commit d715942b9510da784d4da49597eb0299104978f4
+Author: Ram Rattan Goyal <codebits.ram@gmail.com>
+Date:   Sat May 8 14:47:37 2021 +0530
+
+    UpdatePrescriptionFixes
+
+ CommonSnippets/DisplayMenu.java    | 14 ++++++-----
+ CommonSnippets/OptionSequence.java | 48 +++++++++++++++++++++++++++++++++++-
+ JUnitTests/ResidentCareTest.java   |  2 --
+ main/Doctor.java                   | 50 +++-----------------------------------
+ main/ResidentCare.java             |  2 +-
+ 5 files changed, 60 insertions(+), 56 deletions(-)
+
+commit 770fc5209be97c2ed177c30a5c1461938f847d23
+Author: Ram Rattan Goyal <codebits.ram@gmail.com>
+Date:   Sat May 8 14:29:28 2021 +0530
+
+    UnnecessaryLineRemoval
+
+ main/Nurse.java | 3 +--
+ 1 file changed, 1 insertion(+), 2 deletions(-)
+
+commit 5c31ea9acdb9efd1f05f5972f7b65b3b5d4458e5
+Author: Ram Rattan Goyal <codebits.ram@gmail.com>
+Date:   Sat May 8 14:28:04 2021 +0530
+
+    UpdatePrescriptionFixes
+
+ main/MedicineDose.java | 27 +++++++++++++++++++++++++++
+ main/Nurse.java        |  4 ----
+ 2 files changed, 27 insertions(+), 4 deletions(-)
+
+commit 5dbd6f3a39cc288f2cf3602061d5bd8b7e755fef
+Author: Ram Rattan Goyal <codebits.ram@gmail.com>
+Date:   Sat May 8 14:14:59 2021 +0530
+
+    NurseRemovePatientFixed
+
+ JUnitTests/ResidentCareTest.java | 15 +++++++++++++--
+ main/Manager.java                |  4 ++--
+ main/MedicineDose.java           |  5 +++++
+ main/Nurse.java                  | 19 +++++++++----------
+ main/Patient.java                |  2 +-
+ ward/Bed.java                    |  1 -
+ ward/Room.java                   |  4 +++-
+ ward/Ward.java                   |  4 ++--
+ 8 files changed, 35 insertions(+), 19 deletions(-)
+
+commit eea5e4614afcd51f095624efde26825faf070be7
+Author: Ram Rattan Goyal <codebits.ram@gmail.com>
+Date:   Fri May 7 14:45:50 2021 +0530
+
+    BugFixTake1
+
+ CommonSnippets/OptionSequence.java |  4 ++--
+ main/MedicineBlock.java            | 22 +++++++++++-----------
+ main/MedicineDose.java             | 11 ++++++-----
+ main/Nurse.java                    | 24 +++++++++++++++++++-----
+ main/Patient.java                  |  6 ++++--
+ main/Prescription.java             | 13 ++++++++-----
+ main/test.java                     |  5 +++--
+ ward/Bed.java                      |  1 +
+ ward/Room.java                     |  4 ++--
+ ward/Ward.java                     | 19 +++++++++++++++----
+ 10 files changed, 71 insertions(+), 38 deletions(-)
+
+commit 2489d6bb27f651d0fada00faec39c421c0faaa2c
+Author: Ram Rattan Goyal <codebits.ram@gmail.com>
+Date:   Thu May 6 18:51:14 2021 +0530
+
+    NurseMenuComplete
+
+ .~lock.design.odt# | 1 -
+ 1 file changed, 1 deletion(-)
+
+commit c64a9a5ceb213ac0987cd5f19343ed299337e078
+Author: Ram Rattan Goyal <codebits.ram@gmail.com>
+Date:   Thu May 6 18:46:22 2021 +0530
+
+    NurseMenuComplete
+
+ .~lock.design.odt#                 |  1 +
+ CommonSnippets/DisplayMenu.java    | 14 +++++++++++++
+ CommonSnippets/OptionSequence.java | 40 ++++++++++++++++++++++++++++++++++++++
+ JUnitTests/ResidentCareTest.java   |  1 -
+ main/Nurse.java                    |  9 ++++++++-
+ main/ResidentCare.java             |  4 +++-
+ 6 files changed, 66 insertions(+), 3 deletions(-)
+
+commit 98fa62503cfd9a7a75deef0196d8354f48a6b530
+Author: Ram Rattan Goyal <codebits.ram@gmail.com>
+Date:   Thu May 6 18:23:58 2021 +0530
+
+    AdministeringComplete
+
+ Features.odt                     | Bin 0 -> 10283 bytes
+ JUnitTests/ResidentCareTest.java |   2 +-
+ main/Nurse.java                  |   8 +++++---
+ main/test.java                   |   3 ++-
+ 4 files changed, 8 insertions(+), 5 deletions(-)
+
+commit bc145c47154a14776dd8e98b688675be667b96d8
+Author: Ram Rattan Goyal <codebits.ram@gmail.com>
+Date:   Thu May 6 18:02:46 2021 +0530
+
+    AddedAlreadyAdminValidate
+
+ main/AdministerMedicine.java | 13 +++++++++++++
+ main/Nurse.java              | 33 ++++++++++++++++++++++++---------
+ 2 files changed, 37 insertions(+), 9 deletions(-)
+
+commit 7f80de9816e305b68040f5b173883fa754f99aa2
+Author: Ram Rattan Goyal <codebits.ram@gmail.com>
+Date:   Thu May 6 17:11:03 2021 +0530
+
+    DateAddedToAdminister
+
+ JUnitTests/ResidentCareTest.java | 29 +++++++++++++++++++----------
+ main/AdministerMedicine.java     |  6 +++++-
+ main/Doctor.java                 |  4 ++--
+ main/Employee.java               | 22 +++++++++++++++-------
+ main/MedicineDose.java           |  2 --
+ main/Nurse.java                  | 19 ++++++++++++++-----
+ main/test.java                   |  2 +-
+ 7 files changed, 56 insertions(+), 28 deletions(-)
+
+commit 4aaf75627c3e6ad999a88ab6b3d3f4da7f3b438f
+Author: Ram Rattan Goyal <codebits.ram@gmail.com>
+Date:   Thu May 6 16:42:57 2021 +0530
+
+    MinorFormatting
+
+ main/AdministerMedicine.java | 3 ++-
+ main/Nurse.java              | 1 -
+ main/test.java               | 7 ++++---
+ 3 files changed, 6 insertions(+), 5 deletions(-)
+
+commit e2c000128bca02dc5a034205ec761b39ebe5e3cf
+Author: Ram Rattan Goyal <codebits.ram@gmail.com>
+Date:   Thu May 6 16:33:43 2021 +0530
+
+    MinNurseAdminPrintChange
+
+ JUnitTests/ResidentCareTest.java |  1 +
+ main/AdministerMedicine.java     |  6 ++++--
+ main/MedicineDose.java           |  8 ++++++++
+ main/Nurse.java                  | 15 ++++++++-------
+ 4 files changed, 21 insertions(+), 9 deletions(-)
+
+commit 696e772c0231be0ead3aab83b57903674d9d210d
+Author: Ram Rattan Goyal <codebits.ram@gmail.com>
+Date:   Thu May 6 16:21:16 2021 +0530
+
+    AdministerInit
+
+ JUnitTests/ResidentCareTest.java | 35 ++++++++--------
+ main/AdministerMedicine.java     | 23 +++++++++++
+ main/Login.java                  |  2 +
+ main/Nurse.java                  | 87 ++++++++++++++++++++++++++++++++++++++++
+ main/Patient.java                |  5 +++
+ main/Prescription.java           |  5 +++
+ main/test.java                   |  6 +--
+ 7 files changed, 141 insertions(+), 22 deletions(-)
+
+commit 5b7b6579d3449828715849d68276321fb1bf09a5
+Author: Ram Rattan Goyal <codebits.ram@gmail.com>
+Date:   Wed May 5 17:03:53 2021 +0530
+
+    MinorChanges-BetterReadme
+
+ CommonSnippets/DisplayMenu.java  |  3 ---
+ JUnitTests/ResidentCareTest.java | 19 +++++++++++++++++
+ main/MedicineBlock.java          |  3 ++-
+ readme.txt                       | 45 +++++++++++++++++++++++++++++++++++++++-
+ 4 files changed, 65 insertions(+), 5 deletions(-)
+
+commit 3d5d8bd18a72e085a13369044f9de06fab4a3f17
+Author: Ram Rattan Goyal <codebits.ram@gmail.com>
+Date:   Wed May 5 16:10:12 2021 +0530
+
+    MinorBugFixes
+
+ CommonSnippets/CommonCodes.java | 19 ++++++++++---------
+ main/Login.java                 |  2 +-
+ main/MedicineDose.java          |  2 +-
+ main/ResidentCare.java          |  3 +++
+ main/test.java                  | 40 ++++------------------------------------
+ 5 files changed, 19 insertions(+), 47 deletions(-)
+
+commit ce58bdc137db6e6c18f5b2f7c65fce16baa552d0
+Author: Ram Rattan Goyal <codebits.ram@gmail.com>
+Date:   Mon May 3 10:34:25 2021 +0530
+
+    FewFeatureDeletions
+
+ CommonSnippets/DisplayMenu.java |  7 +++----
+ main/MedicineDose.java          | 43 +++++++++++++++++++++++++++++------------
+ 2 files changed, 34 insertions(+), 16 deletions(-)
+
+commit 7ccf7da741416f29675e50a9a3e1183b23485c0c
+Author: Ram Rattan Goyal <codebits.ram@gmail.com>
+Date:   Sun May 2 20:56:15 2021 +0530
+
+    UpdatePrescriptionInitiated
+
+ CommonSnippets/CommonCodes.java  |  1 +
+ CommonSnippets/DisplayMenu.java  | 33 +++++++++++++++++++++-
+ JUnitTests/ResidentCareTest.java | 15 ++++++++--
+ main/Doctor.java                 | 47 +++++++++++++++++++++++++++----
+ main/Employee.java               |  2 +-
+ main/Manager.java                |  3 +-
+ main/MedicineBlock.java          |  6 ++++
+ main/MedicineDose.java           | 57 ++++++++++++++++++++++++++++++++++++--
+ main/Nurse.java                  |  6 ----
+ main/Staff.java                  |  8 +++---
+ main/test.java                   | 60 +++++++++++++++++++++++++---------------
+ ward/Ward.java                   |  3 +-
+ 12 files changed, 192 insertions(+), 49 deletions(-)
+
+commit cd1839e753c05aad0322344ea7582b3996c5fd2a
+Author: Ram Rattan Goyal <codebits.ram@gmail.com>
+Date:   Sun May 2 16:33:18 2021 +0530
+
+    ChangeBedCompleted
+
+ CommonSnippets/CommonCodes.java  |  8 ++++----
+ JUnitTests/ResidentCareTest.java | 12 ++++++++++++
+ main/Nurse.java                  | 42 ++++++++++++++++++++++++++++++++++------
+ ward/Bed.java                    |  6 ++++++
+ ward/Room.java                   | 16 +++++++++++++--
+ ward/Ward.java                   |  8 ++++++--
+ ward/WardDetails.java            |  6 ++++++
+ 7 files changed, 84 insertions(+), 14 deletions(-)
+
+commit f2cebbbb70de89ed291870097176d40fb4e048ed
+Author: Ram Rattan Goyal <codebits.ram@gmail.com>
+Date:   Sat May 1 17:47:56 2021 +0530
+
+    ChangeBedInit
+
+ main/Nurse.java   | 42 ++++++++++++++++++++++++++++++++++++++++++
+ main/Patient.java |  4 ++++
+ ward/Bed.java     |  4 ++++
+ ward/Room.java    |  7 +++++--
+ ward/Ward.java    |  4 ++++
+ 5 files changed, 59 insertions(+), 2 deletions(-)
+
+commit f985d00ab6b92bc1b0a7f1527215cd784fde0ccb
+Author: Ram Rattan Goyal <codebits.ram@gmail.com>
+Date:   Sat May 1 17:14:52 2021 +0530
+
+    PrescriptionAdded
+
+ CommonSnippets/CommonCodes.java | 2 +-
+ CommonSnippets/DisplayMenu.java | 1 -
+ main/Doctor.java                | 9 +++++++--
+ main/Patient.java               | 2 +-
+ 4 files changed, 9 insertions(+), 5 deletions(-)
+
+commit 1577efb9962cc1b9f52f089340ddd70ea768a1d1
+Author: Ram Rattan Goyal <codebits.ram@gmail.com>
+Date:   Sat May 1 16:41:19 2021 +0530
+
+    PrescriptionCompleted
+
+ JUnitTests/ResidentCareTest.java | 25 +++++--------------------
+ main/Doctor.java                 |  8 ++++----
+ main/MedicineBlock.java          | 15 ++++++---------
+ main/MedicineDose.java           | 12 +++++++++++-
+ 4 files changed, 26 insertions(+), 34 deletions(-)
+
+commit 5daa28d3f5ea799e58188a5d98b4e5ee32116f62
+Author: Ram Rattan Goyal <codebits.ram@gmail.com>
+Date:   Fri Apr 30 20:52:57 2021 +0530
+
+    FurtherMedicineInfoStarted
+
+ CommonSnippets/CommonCodes.java | 15 +++++++++++++++
+ main/Doctor.java                |  2 +-
+ main/MedicineBlock.java         |  4 ++--
+ main/MedicineDose.java          | 36 ++++++++++++++++++++++++++++++++++++
+ main/ResidentCare.java          |  2 +-
+ main/test.java                  | 23 +++++++++++++++++++++--
+ 6 files changed, 76 insertions(+), 6 deletions(-)
+
+commit 2233b0cb8c6046ef12567113c8490f9c1fd4cc02
+Author: Ram Rattan Goyal <codebits.ram@gmail.com>
+Date:   Fri Apr 30 19:58:45 2021 +0530
+
+    MedicalStaffPatientInBed
+
+ CommonSnippets/DisplayMenu.java  |  8 ++++----
+ JUnitTests/InputTests.java       |  7 +++----
+ JUnitTests/ResidentCareTest.java | 31 ++++++++++++++++++++++++++++++-
+ main/Doctor.java                 | 14 ++++++++++----
+ main/Employee.java               | 33 ++++++++++++++++++++++++++++++++-
+ main/Manager.java                | 29 +++++++++++------------------
+ main/Nurse.java                  |  4 ++--
+ 7 files changed, 92 insertions(+), 34 deletions(-)
+
+commit 23bd9fc344c5f7563897eff3cc985371f2a14b40
+Author: Ram Rattan Goyal <codebits.ram@gmail.com>
+Date:   Fri Apr 30 15:25:12 2021 +0530
+
+    PasswordRemovedForPatient
+
+ main/Manager.java | 10 +++++-----
+ 1 file changed, 5 insertions(+), 5 deletions(-)
+
+commit 81fb8aa51cde95703a1bdfbc1f5228f8a89a33ab
+Author: Ram Rattan Goyal <codebits.ram@gmail.com>
+Date:   Fri Apr 30 15:20:46 2021 +0530
+
+    CanDisplay1Patient
+
+ CustomExceptions/InputValidation.java | 30 ++++++++++++++++++++++++++++++
+ JUnitTests/InputTests.java            | 23 +++++++++++++++++++++++
+ JUnitTests/ResidentCareTest.java      |  8 ++++++++
+ main/Manager.java                     | 27 +++++++++++++++++++++++++++
+ main/Patient.java                     |  1 +
+ ward/Bed.java                         | 13 ++++---------
+ ward/Room.java                        |  9 +++++++--
+ ward/Ward.java                        | 13 ++++++++++++-
+ ward/WardDetails.java                 |  1 -
+ 9 files changed, 112 insertions(+), 13 deletions(-)
+
+commit 4e893365b4dda5153ab6e35e7e0da6677a850348
+Author: Ram Rattan Goyal <codebits.ram@gmail.com>
+Date:   Thu Apr 29 18:55:33 2021 +0530
+
+    WardFunctionalityInPatient
+
+ JUnitTests/ResidentCareTest.java | 108 ++++++++++++++++++++++++++++++++++++++-
+ main/Manager.java                |  34 ++++++++----
+ main/Patient.java                |  18 +++++++
+ ward/Room.java                   |  38 +++++++-------
+ ward/Ward.java                   |  11 ++--
+ 5 files changed, 174 insertions(+), 35 deletions(-)
+
+commit 571f5139d3df7d3f2d080d917ae34ff78991e5c3
+Author: Ram Rattan Goyal <codebits.ram@gmail.com>
+Date:   Thu Apr 29 18:10:59 2021 +0530
+
+    ChangedWardToManager
+
+ JUnitTests/ResidentCareTest.java | 30 ++++++++----------------------
+ main/Manager.java                | 27 +++++++++++++++++++++++++++
+ main/Patient.java                |  8 ++++++++
+ ward/Bed.java                    | 14 +++++++++-----
+ ward/Room.java                   | 20 ++++++++++++++------
+ ward/Ward.java                   | 16 ++++++++++------
+ ward/WardDetails.java            | 40 ++++++++++++++++++++++++++++++++++++++++
+ 7 files changed, 116 insertions(+), 39 deletions(-)
+
+commit 90b2551c6530ac32baf8c08094b4917905fa646a
+Author: Ram Rattan Goyal <codebits.ram@gmail.com>
+Date:   Thu Apr 29 15:34:56 2021 +0530
+
+    WardFunctionality
+
+ JUnitTests/ResidentCareTest.java | 31 +++++++++++++++++++++++++++++++
+ ward/Room.java                   | 21 +++++++++++++--------
+ ward/Ward.java                   | 40 ++++++++++++++++++++++++++++++++++++++++
+ 3 files changed, 84 insertions(+), 8 deletions(-)
+
+commit 1ffb0ccb87e1470a9ac1f50c36f850e3b964af52
+Author: Ram Rattan Goyal <codebits.ram@gmail.com>
+Date:   Thu Apr 29 01:40:14 2021 +0530
+
+    RoomsFunctionality
+
+ JUnitTests/ResidentCareTest.java | 20 ++++++++++++---
+ ward/Bed.java                    | 38 +++++++++++++++++++++++++++
+ ward/Room.java                   | 55 ++++++++++++++++++++++++++++++++++++++++
+ ward/Ward.java                   |  5 ++++
+ 4 files changed, 114 insertions(+), 4 deletions(-)
+
+commit fd9ac3d6a58be21126e321c050ef45ca2478156e
+Author: Ram Rattan Goyal <codebits.ram@gmail.com>
+Date:   Wed Apr 28 18:57:59 2021 +0530
+
+    ModifyingDetailsComplete
+
+ CommonSnippets/DisplayMenu.java                    |  20 +-
+ CommonSnippets/OptionSequence.java                 |  58 ------
+ CustomExceptions/InputValidation.java              |  11 +-
+ CustomExceptions/InvalidShiftTimingsException.java |   4 +-
+ JUnitTests/InputTests.java                         |  11 +
+ JUnitTests/ResidentCareTest.java                   |  38 +++-
+ main/Doctor.java                                   |  27 +--
+ main/Employee.java                                 |  54 ++++-
+ main/Login.java                                    |  63 ++++++
+ main/Manager.java                                  | 231 +++++++++++++++++++--
+ main/Nurse.java                                    |   7 +-
+ main/Person.java                                   |  15 ++
+ main/ResidentCare.java                             |  26 ++-
+ main/Staff.java                                    |   8 +-
+ main/test.java                                     |  15 +-
+ 15 files changed, 437 insertions(+), 151 deletions(-)
+
+commit efc567b039dfd8f9489005480b8f0d94f84e2a39
+Author: Ram Rattan Goyal <codebits.ram@gmail.com>
+Date:   Mon Apr 26 11:05:01 2021 +0530
+
+    BasicPatient
+
+ CommonSnippets/DisplayMenu.java    |  3 +-
+ CommonSnippets/OptionSequence.java | 74 +++-------------------------------
+ main/Doctor.java                   | 81 ++++++++++++++++++++++++++++++++++++++
+ main/Manager.java                  | 19 ++++++++-
+ main/Patient.java                  |  6 +--
+ main/ResidentCare.java             | 38 ++++++++++--------
+ 6 files changed, 130 insertions(+), 91 deletions(-)
+
+commit 907ac2066bcc1349d0959c4a51e6e0ae848bfc27
+Author: Ram Rattan Goyal <codebits.ram@gmail.com>
+Date:   Sat Apr 24 16:51:06 2021 +0530
+
+    ProgressTowardsPatient
+
+ .~lock.design.odt#                 |   1 -
+ CommonSnippets/DisplayMenu.java    |   9 +++-
+ CommonSnippets/OptionSequence.java |  69 ++++++++++++++++++++++++++----
+ JUnitTests/ResidentCareTest.java   |  11 ++++-
+ design.odt                         | Bin 15016 -> 14669 bytes
+ main/Doctor.java                   |  10 ++++-
+ main/Manager.java                  |  20 +++++++++
+ main/Patient.java                  |   5 +++
+ main/ResidentCare.java             |   4 ++
+ main/ResidentCareTest.java         |  84 -------------------------------------
+ 10 files changed, 116 insertions(+), 97 deletions(-)
+
+commit 3929e546c9f1f12deb7320f64e64dd2772d1193f
+Author: Ram Rattan Goyal <codebits.ram@gmail.com>
+Date:   Sat Apr 24 15:26:00 2021 +0530
+
+    PrescriptionCompleted
+
+ .~lock.design.odt#                 |  1 +
+ CommonSnippets/DisplayMenu.java    |  6 +++++
+ CommonSnippets/OptionSequence.java | 10 +++++++--
+ JUnitTests/ResidentCareTest.java   | 37 ++++++++++++++++++++++++++++++-
+ main/Doctor.java                   | 25 +++++++++++++++++++--
+ main/Manager.java                  |  8 +++++--
+ main/MedicineBlock.java            | 45 ++++++++++++++++++++++++++++++++++++++
+ main/Patient.java                  | 43 ++++++++++++++++++++++++++++++++++++
+ main/Prescription.java             | 26 ++++++++++++++++++++++
+ main/ResidentCare.java             |  2 +-
+ main/test.java                     |  5 ++++-
+ 11 files changed, 199 insertions(+), 9 deletions(-)
+
+commit c86be499ec3f1902282856cabb52241dcea4e18d
+Author: Ram Rattan Goyal <codebits.ram@gmail.com>
+Date:   Sat Apr 24 12:06:12 2021 +0530
+
+    NewPackageAdded
+
+ {main => CommonSnippets}/CommonCodes.java    | 2 +-
+ {main => CommonSnippets}/DisplayMenu.java    | 2 +-
+ {main => CommonSnippets}/OptionSequence.java | 5 ++---
+ CustomExceptions/InputValidation.java        | 2 +-
+ main/Manager.java                            | 1 +
+ main/ResidentCare.java                       | 2 ++
+ main/ResidentCareTest.java                   | 2 --
+ main/test.java                               | 9 +--------
+ 8 files changed, 9 insertions(+), 16 deletions(-)
+
+commit e3725548287e9ba51954d705568868ba619d4585
+Author: Ram Rattan Goyal <codebits.ram@gmail.com>
+Date:   Sat Apr 24 11:47:31 2021 +0530
+
+    StaffAllDone
+
+ JUnitTests/ResidentCareTest.java |  2 +-
+ main/Doctor.java                 | 27 +++++++++++++++++++++------
+ main/Employee.java               | 23 ++++++++++-------------
+ main/Manager.java                | 21 ++++++++++++++++-----
+ main/Nurse.java                  | 25 ++++++++++++++++++++++---
+ main/ResidentCare.java           | 23 +++++------------------
+ 6 files changed, 75 insertions(+), 46 deletions(-)
+
+commit ff755ec90daaf3c0b76f3191e5d2dd451a02e291
+Author: Ram Rattan Goyal <codebits.ram@gmail.com>
+Date:   Sat Apr 24 11:15:48 2021 +0530
+
+    AllBasicValidations
+
+ JUnitTests/ResidentCareTest.java | 12 ++++--------
+ main/Manager.java                | 22 +++++++++++-----------
+ main/Staff.java                  |  6 +++---
+ 3 files changed, 18 insertions(+), 22 deletions(-)
+
+commit 184273376085ec9fe00ec67a1076fb0b7c2f1057
+Author: Ram Rattan Goyal <codebits.ram@gmail.com>
+Date:   Sat Apr 24 10:42:32 2021 +0530
+
+    NecessaryDeletions
+
+ CommonCodes.java      |  52 -----------------------
+ DisplayMenu.java      |  36 ----------------
+ Doctor.java           |  16 --------
+ Employee.java         |  30 --------------
+ Manager.java          | 112 --------------------------------------------------
+ Nurse.java            |  18 --------
+ OptionSequence.java   |  61 ---------------------------
+ Person.java           |  27 ------------
+ ResidentCare.java     |  40 ------------------
+ ResidentCareTest.java |  72 --------------------------------
+ Staff.java            |  19 ---------
+ test.java             |  13 ------
+ 12 files changed, 496 deletions(-)
+
+commit 53748225c3abaa3596660d1afe9e45bf0beeab00
+Author: Ram Rattan Goyal <codebits.ram@gmail.com>
+Date:   Sat Apr 24 10:39:02 2021 +0530
+
+    BasicValidationComplete
+
+ .~lock.design.odt#                                 |   1 -
+ CustomExceptions/InputValidation.java              |  29 +++++++++++++++++++
+ CustomExceptions/InvalidShiftTimings.java          |   7 -----
+ CustomExceptions/InvalidShiftTimingsException.java |   7 +++++
+ JUnitTests/InputTests.java                         |  10 +++++--
+ JUnitTests/ResidentCareTest.java                   |  31 ++++-----------------
+ Questions.odt                                      | Bin 0 -> 9195 bytes
+ main/Employee.java                                 |   9 +-----
+ main/Manager.java                                  |  14 +++++-----
+ 9 files changed, 57 insertions(+), 51 deletions(-)
+
+commit caf6f67e4892edb33055d23ee2fd02f9ce9824b1
+Author: Ram Rattan Goyal <codebits.ram@gmail.com>
+Date:   Fri Apr 23 21:01:58 2021 +0530
+
+    ABackup
+
+ JUnitTests/ResidentCareTest.java | 31 ++++++++++++++++++++++++-------
+ main/Doctor.java                 |  4 ++++
+ main/Manager.java                |  8 ++++----
+ main/OptionSequence.java         |  6 +++---
+ main/test.java                   |  2 +-
+ 5 files changed, 36 insertions(+), 15 deletions(-)
+
+commit 578effb55a99abbe6e53085d27806fbf2049c5e5
+Author: Ram Rattan Goyal <codebits.ram@gmail.com>
+Date:   Fri Apr 23 18:32:56 2021 +0530
+
+    IdAllotmentAndOtherValidationsToo
+
+ CustomExceptions/InputValidation.java |  59 +++++++++++++++--
+ JUnitTests/InputTests.java            |  79 +++++++++++++++++++++++
+ JUnitTests/ResidentCareTest.java      |  56 ++++++++++++++++
+ main/CommonCodes.java                 |  34 +++++++---
+ main/Doctor.java                      |   2 +-
+ main/Employee.java                    |   8 ++-
+ main/Manager.java                     | 116 +++++++++++++++++++++++++---------
+ main/Nurse.java                       |   2 +-
+ main/ResidentCareTest.java            |   9 +++
+ main/test.java                        |   9 +--
+ 10 files changed, 324 insertions(+), 50 deletions(-)
+
+commit eba1cd3d0e033eac96457372682096ef3c651774
+Author: Ram Rattan Goyal <codebits.ram@gmail.com>
+Date:   Fri Apr 23 13:17:09 2021 +0530
+
+    validationInInputs
+
+ .~lock.design.odt#                        |   1 +
+ CommonCodes.java                          |  46 ++++++++++--
+ CustomExceptions/InputValidation.java     |  21 ++++++
+ CustomExceptions/InvalidShiftTimings.java |   7 ++
+ Employee.java                             |  22 +++++-
+ Manager.java                              |  34 +++++----
+ ResidentCareTest.java                     |  57 +++++++++------
+ main/CommonCodes.java                     |  53 ++++++++++++++
+ main/DisplayMenu.java                     |  37 ++++++++++
+ main/Doctor.java                          |  17 +++++
+ main/Employee.java                        |  31 ++++++++
+ main/Manager.java                         | 116 ++++++++++++++++++++++++++++++
+ main/Nurse.java                           |  19 +++++
+ main/OptionSequence.java                  |  62 ++++++++++++++++
+ main/Person.java                          |  28 ++++++++
+ main/ResidentCare.java                    |  41 +++++++++++
+ main/ResidentCareTest.java                |  77 ++++++++++++++++++++
+ main/Staff.java                           |  20 ++++++
+ main/test.java                            |  14 ++++
+ test.java                                 |  10 ++-
+ 20 files changed, 667 insertions(+), 46 deletions(-)
+
+commit 0a55e159ea428b310eff85de1e1946ad05717089
+Author: Ram Rattan Goyal <codebits.ram@gmail.com>
+Date:   Tue Apr 20 22:43:27 2021 +0530
+
+    AddNewManagerAndDisplay
+
+ CommonCodes.java      | 18 ++++++++++++
+ DisplayMenu.java      | 36 +++++++++++++++++++++++
+ Employee.java         |  2 ++
+ Manager.java          | 81 ++++++++++++++++++++++++++++++++++++++++++---------
+ Nurse.java            | 18 ++++++++++++
+ OptionSequence.java   | 61 ++++++++++++++++++++++++++++++++++++++
+ Person.java           |  2 ++
+ ResidentCare.java     | 23 +++++++--------
+ ResidentCareTest.java | 26 +++++++++++++----
+ test.java             |  9 ++++++
+ 10 files changed, 245 insertions(+), 31 deletions(-)
+
+commit 51cb383cef9c7a91f0fcdb6f416a6d054b0c68e6
+Author: Ram Rattan Goyal <codebits.ram@gmail.com>
+Date:   Tue Apr 20 18:26:29 2021 +0530
+
+    EmployeeAndDoctorClassAdded
+
+ Doctor.java           | 16 ++++++++++++++++
+ Employee.java         | 12 ++++++++++++
+ Manager.java          | 25 ++++++++++++++++++-------
+ Person.java           | 13 ++++---------
+ ResidentCare.java     | 13 ++++++++++++-
+ ResidentCareTest.java | 37 +++++++++++++++++++++++++++++++++----
+ 6 files changed, 95 insertions(+), 21 deletions(-)
+
+commit 60ed6bf610e56d46ffa03858ece9bcb78245cdfb
+Author: Ram Rattan Goyal <codebits.ram@gmail.com>
+Date:   Tue Apr 20 15:14:21 2021 +0530
+
+    ManagerSimpleFeaturesAdded
+
+ Manager.java          | 25 +++++++++++++++++++------
+ Person.java           | 13 +++++++++++++
+ ResidentCare.java     |  9 ++++++---
+ ResidentCareTest.java | 14 ++++++++++++++
+ Staff.java            | 17 ++++++++++-------
+ 5 files changed, 62 insertions(+), 16 deletions(-)
+
+commit 5f5d3d88a0b7cf8cac16e2f4381e87e90f674d5f
+Author: Ram Rattan Goyal <codebits.ram@gmail.com>
+Date:   Tue Apr 20 10:31:49 2021 +0530
+
+    ClassCreationTake1
+
+ Manager.java      | 23 +++++++++++++++++++++++
+ Person.java       | 17 +++++++++++++++++
+ ResidentCare.java | 29 +++++++++++++++++++++++++++++
+ Staff.java        | 16 ++++++++++++++++
+ 4 files changed, 85 insertions(+)
+
+commit 08234c2e90d2022c41d60188032870086adfc4c0
+Author: Ram Rattan Goyal <codebits.ram@gmail.com>
+Date:   Mon Apr 19 11:58:38 2021 +0530
+
+    RoughDesign
+
+ design.odt | Bin 0 -> 15016 bytes
+ 1 file changed, 0 insertions(+), 0 deletions(-)
+
+commit a375ff3d87dde380b0f81ff5fd94c7902e7f0fd9
+Author: Ram Rattan Goyal <codebits.ram@gmail.com>
+Date:   Mon Apr 19 10:33:29 2021 +0530
+
+    PushTest
+
+ readme.txt | 2 ++
+ 1 file changed, 2 insertions(+)
