@@ -261,10 +261,11 @@ public class Manager extends Employee{
 			}		
 		}
 		
-		public void changeDetails(Employee e, String post, int oldShiftIndex, String newShift, int choice)
+		public String changeDetails(Employee e, String post, int oldShiftIndex, String newShift, int choice)
 		throws TooManyShiftsException{
-			changeShifts(e,post,oldShiftIndex,newShift,choice);
+			String returnValue = changeShifts(e,post,oldShiftIndex,newShift,choice);
 			addAction(new Action(retId(),e.retId(),"shift updation",LocalDate.now(),LocalTime.now()));
+			return returnValue;
 		}
 	
 		

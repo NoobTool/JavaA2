@@ -102,12 +102,12 @@ public class Employee extends Person{
 					throw new TooManyShiftsException("Cannot add more than 2 shifts. ");
 
 			case 2: if(!post.equals("Nurse"))
-						alterShifts(e,post,false,oldShiftIndex,newShift);
+						return alterShifts(e,post,false,oldShiftIndex,newShift);
 					else
 						return "Shifts can't be changed. ";
 			
 			case 3: if(!post.equals("Nurse"))
-						alterShifts(e,post,true, oldShiftIndex, newShift);
+						return alterShifts(e,post,true, oldShiftIndex, newShift);
 					else
 						return "Nurse's shift can't be deleted. ";
 		}
@@ -130,7 +130,7 @@ public class Employee extends Person{
 		}
 		
 		else {
-			if(e.retShifts().size()==2) {
+			if(e.retShifts().size()>=2) {
 				e.retShifts().remove(oldShiftIndex);
 				return "";
 			}

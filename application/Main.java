@@ -731,11 +731,6 @@ public class Main extends Application {
 											changeShiftBox.getItems().add("None");
 											deleteShiftBox.getItems().add("None");
 											
-											for(String s: emp.retShifts()) {
-												changeShiftBox.getItems().add(s);
-												deleteShiftBox.getItems().add(s);
-											}
-											
 											// Adding elements to shiftPane grid pane
 											shiftPane.add(addShift, 1, 1);
 											shiftPane.add(addShiftField, 2, 1);
@@ -758,54 +753,97 @@ public class Main extends Application {
 												changeShiftBox.setVisible(false);
 												deleteShiftBox.setVisible(false);
 												clearAllFields(changeShiftField,addShiftField);
+												errorMsg.setText("");
 											});
 											
 											changeShift.setOnAction(e4->{
+												// Adding shifts to drop-down
+												// New changes will also be reflected here
+												changeShiftBox.getItems().remove(0, changeShiftBox.getItems().size());
+												for(String s: emp.retShifts())
+													changeShiftBox.getItems().add(s);
 												addShiftField.setVisible(false);
 												changeShiftField.setVisible(true);
 												changeShiftBox.setVisible(true);
 												deleteShiftBox.setVisible(false);
 												clearAllFields(changeShiftField,addShiftField);
+												errorMsg.setText("");
 											});
 											
 											deleteShift.setOnAction(e4->{
+												deleteShiftBox.getItems().remove(0, deleteShiftBox.getItems().size());
+												for(String s: emp.retShifts())
+													deleteShiftBox.getItems().add(s);
 												addShiftField.setVisible(false);
 												changeShiftField.setVisible(false);
 												changeShiftBox.setVisible(false);
 												deleteShiftBox.setVisible(true);
 												clearAllFields(changeShiftField,addShiftField);
+												errorMsg.setText("");
 											});
 											
 											submitButton3.setOnAction(e4->{
+												errorMsg.setTextFill(Color.RED);
+																							
 												try {
 													if(addShiftField.isVisible()) {
 														Pair<Boolean,String> newShift = i.validateShifts(addShiftField.getText(),selectedItem);
-														if(newShift.getKey())
-															m.changeDetails(emp,selectedItem,-1,addShiftField.getText(),1 );
+														if(newShift.getKey()) {
+															String returnValue2 = m.changeDetails(emp,selectedItem,
+																	-1,addShiftField.getText(),1 );
+															if(returnValue.length()==0) {
+																errorMsg.setTextFill(Color.GREEN);
+																errorMsg.setText("Added Successfully");
+															}
+															else
+																errorMsg.setText(returnValue2);
+														}
 														else
 															errorMsg.setText(newShift.getValue());
 													} 
 													
 													else if(changeShiftField.isVisible()) {
-														Pair<Boolean,String> newShift = i.validateShifts(addShiftField.getText(),selectedItem);
+														Pair<Boolean,String> newShift = i.validateShifts(changeShiftField.getText(),selectedItem);
 														int oldShiftIndex = emp.retShifts().indexOf(changeShiftBox.getSelectionModel().getSelectedItem());
-														if(newShift.getKey())
-															m.changeDetails(emp,selectedItem,oldShiftIndex
-																	,addShiftField.getText(),2 );
+														if(newShift.getKey()) {
+															String returnValue2 = m.changeDetails(emp,selectedItem,oldShiftIndex
+																	,changeShiftField.getText(),2 );
+															if(returnValue2.length()==0) {
+																errorMsg.setTextFill(Color.GREEN);
+																errorMsg.setText("Changed Successfully");
+															}
+															else
+																errorMsg.setText(returnValue2);
+														}
+															
 														else
 															errorMsg.setText(newShift.getValue());
 													}
 													
-													else
-														m.changeDetails(emp,selectedItem,emp.retShifts().indexOf(
-																changeShiftBox.getSelectionModel().getSelectedItem())
-																,addShiftField.getText(),3 );
+													else {
+														String returnValue2 = m.changeDetails(emp,selectedItem,emp.retShifts().indexOf(
+																deleteShiftBox.getSelectionModel().getSelectedItem())
+																,"",3 );
+														if(returnValue2.length()==0) {
+															errorMsg.setTextFill(Color.GREEN);
+															errorMsg.setText("Deleted Successfully");
+														}
+														else
+															errorMsg.setText(returnValue2);
+													}
+													
+													addShiftField.setVisible(false);
+													changeShiftField.setVisible(false);
+													changeShiftBox.setVisible(false);
+													deleteShiftBox.setVisible(false);
+														
 												}catch(TooManyShiftsException exception) {
 													errorMsg.setText("Too Many shifts");
+													addShiftField.setVisible(false);
+													changeShiftField.setVisible(false);
+													changeShiftBox.setVisible(false);
+													deleteShiftBox.setVisible(false);
 												}
-												
-												
-												
 											});
 											
 											
