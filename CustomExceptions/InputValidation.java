@@ -35,16 +35,18 @@ public class InputValidation {
 		return "";
 	}
 	
-	public Pair<Boolean,String> validateName(String name) {
+	public Pair<Boolean,String> validateName(String name, Boolean allowed) {
 		name = name.strip();
 		String finalName="";
 		if (name.length()<=1) {
 			return new Pair<Boolean,String>(false,"Name must be 2 characters or more, enter again! ");
 		}
 		
-		for(char s:name.toCharArray()) {
-			if(!Character.isLetter(s) && s!=' ') {
-				return new Pair<Boolean,String>(false,"Invalid Name, enter again! ");
+		if(!allowed) {
+			for(char s:name.toCharArray()) {
+				if(!Character.isLetter(s) && s!=' ') {
+					return new Pair<Boolean,String>(false,"Invalid Name, enter again! ");
+				}
 			}
 		}
 		

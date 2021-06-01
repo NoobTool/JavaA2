@@ -11,11 +11,10 @@ public class MedicineDose {
 	
 	public MedicineDose() {}
 	
-	public MedicineDose addMedicine(String name, int doseNumber, ArrayList<LocalTime> times) {
+	public MedicineDose (String name, int doseNumber, ArrayList<LocalTime> times) {
 		this.medicineName = name;
 		this.dose = doseNumber;
 		this.times = times;
-		return this;
 	}
 	
 	public void printMedicineDose() {

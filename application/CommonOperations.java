@@ -3,6 +3,7 @@ package application;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
 import javafx.scene.layout.*;
+import javafx.geometry.*;
 
 public class CommonOperations {
 	
@@ -28,6 +29,15 @@ public class CommonOperations {
 				return false;
 		}		
 		return true;
+	}
+	
+	public HBox addButtonHolder(BorderPane bp) {
+		HBox hbox = new HBox(10);
+		Button submitButton = new Button("Submit");
+		Button cancelButton = addCancelButton(bp);
+		hbox.getChildren().addAll(submitButton,cancelButton);
+		hbox.setAlignment(Pos.CENTER);
+		return hbox;
 	}
 	
 }

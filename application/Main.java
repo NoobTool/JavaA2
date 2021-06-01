@@ -254,7 +254,7 @@ public class Main extends Application {
 			
 			submitButton.setOnAction(e2->{
 				if(co.checkBlankFields(name.getText(),age.getText(),gender.getText())) {
-					Pair<Boolean,String> namePair= i.validateName(name.getText());
+					Pair<Boolean,String> namePair= i.validateName(name.getText(),false);
 					Pair<Double,String> agePair = i.validateAge(Double.parseDouble(age.getText()));
 					String genderString = i.validateGender(gender.getText().toUpperCase().charAt(0));
 					
@@ -360,7 +360,7 @@ public class Main extends Application {
 						gender.getText(),password.getText()) && selectedItem.equals("Nurse")))
 						&& cb.getSelectionModel().isEmpty()==false) {
 					
-					Pair<Boolean,String> namePair = i.validateName(name.getText());
+					Pair<Boolean,String> namePair = i.validateName(name.getText(),false);
 					Pair<Double,String> agePair = i.validateAge(Double.parseDouble(age.getText()));
 					String genderString = i.validateGender(gender.getText().toUpperCase().charAt(0));
 					Pair<Boolean,String> shiftText = i.validateShifts(shifts.getText(), selectedItem);
@@ -409,7 +409,6 @@ public class Main extends Application {
 			
 			// Biggest wrapper containing drop-down and scroll
 			VBox displayWrapper = new VBox(10);
-			
 			
 			ComboBox<String> cb = new ComboBox<String>();
 			
@@ -639,7 +638,7 @@ public class Main extends Application {
 										if(nameBox.isSelected()) {
 											String newName = nameModifyField.getText();									
 											if(newName!="") {
-												Pair<Boolean,String> namePair = i.validateName(newName);
+												Pair<Boolean,String> namePair = i.validateName(newName,false);
 												if(!namePair.getKey())
 													errorMsg.setText(namePair.getValue());
 												else
@@ -932,7 +931,7 @@ public class Main extends Application {
 		bp.setTop(topBar);
 		
 		
-		doctorStage.setScene(new Scene(bp, 800, 300));
+		doctorStage.setScene(new Scene(bp, 600, 300));
 		doctorStage.show();
 		
 	}

@@ -16,22 +16,17 @@ public class Doctor extends Employee{
 		super(id,name,age,gender,shifts,password);
 	}
 	
-	public void addPrescription(Patient p, String name, int doses, ArrayList<LocalTime> times, int choice) {
-		ArrayList<MedicineDose> meds = new ArrayList<MedicineDose>();		
-		
-		switch(choice) {
-			case 1: MedicineDose md = new MedicineDose();
-					meds.add(md.addMedicine(name,doses,times));
-					break;
-			case 2: 
-					MedicineBlock mb = new MedicineBlock(meds);
-					p.addPrescription(new Prescription(mb));
-					a.addAction(new Action(this.retId(),p.retId(),"prescription addition",LocalDate.now(),LocalTime.now()));
-					p.displayPatients();
-					p.printWardDetails();
-					p.printPrescription();
-					break;
-		}
+	public MedicineDose addMedicineDose(Patient p, String name, int doses, ArrayList<LocalTime> times, int choice) {		
+		return new MedicineDose(name,doses,times);
+	}
+	
+	public void addPrescription(Patient p, ArrayList<MedicineDose> meds) {
+		MedicineBlock mb = new MedicineBlock(meds);
+		p.addPrescription(new Prescription(mb));
+		a.addAction(new Action(this.retId(),p.retId(),"prescription addition",LocalDate.now(),LocalTime.now()));
+		p.displayPatients();
+		p.printWardDetails();
+		p.printPrescription();
 	}
 
 	public void updatePrescription() {
@@ -77,39 +72,7 @@ public class Doctor extends Employee{
 		
 	}	
 	
-//	public Patient doctorSearch(int choice,ArrayList<Patient> patientList) {
-//		do {
-//			switch(choice) {
-//				case 1: long id = c.inputLong("Enter the id of the patient. ");
-//						for (Patient p: patientList) {
-//							if (p.retId()==id) {
-//								return p;
-//							}	
-//						}
-//						System.out.println("Patient not found ");
-//						break;
-//						
-//				case 2: String name = c.inputString("Enter the name of the patient. ");
-//						for (Patient p: patientList) {
-//							System.out.println("Patient name: "+p.retName());
-//							if (p.retName().matches(name)) {
-//								return p;
-//							}	
-//						}
-//						System.out.println("Patient not found ");
-//						break;
-//						
-//				case 3: choice=3;
-//						break;
-//				default: System.out.println(" Wrong choice, enter again! ");
-//						 break;
-//			}
-//			choice=c.inputInt("");
-//		}while(choice!=3);
-//		
-//		return new Patient();
-//	}
-	
+
 	public Patient doctorSearch(ArrayList<Patient> patientList, long id, String name) {
 			
 			if(id!=-1) {
