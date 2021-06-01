@@ -2,7 +2,6 @@ package ward;
 
 import main.Patient;
 import CustomExceptions.InputValidation;
-import java.util.ArrayList;
 
 public class Ward {
 	private final int WARD_SIZE = 4;
@@ -41,7 +40,6 @@ public class Ward {
 		
 		for(int i=0;i<WARD_SIZE;i++) {
 			WardDetails w = rooms[i].addPatient(p);
-			System.out.println("Name: "+p.retName()+" "+w.retBedNumber());
 			if(w.retBedNumber()!=-1) {
 				w.setRoomNumber((SINGLE_ROOMS+DUAL_ROOMS+i+1));
 				return w;
