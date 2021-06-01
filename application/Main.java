@@ -661,7 +661,8 @@ public class Main extends Application {
 													errorMsg.setText(namePair.getValue());
 												else
 													modifiedItems.put("Name", newName);
-											}
+											}else
+												modifiedItems.put("Name", "");
 											
 										}else
 											modifiedItems.put("Name", "");
@@ -683,13 +684,19 @@ public class Main extends Application {
 										
 										if(genderBox.isSelected()) {
 											String newGender = genderModifyField.getText();									
-											if(newGender!="") {
+											if(!newGender.equals("")) {
 												String genderString = i.validateGender(newGender.toUpperCase().charAt(0));
 												if(genderString.length()>0)
 													errorMsg.setText(genderString);
-												else
-													modifiedItems.put("Gender",newGender.toUpperCase());
-											}											
+												else 
+													modifiedItems.put("Gender",newGender.toUpperCase());	
+													
+											}
+											else {
+												errorMsg.setText("Gender field cannot be empty while selected.");
+												modifiedItems.put("Gender","");
+											}
+												
 										}
 										else
 											modifiedItems.put("Gender","");
@@ -803,21 +810,26 @@ public class Main extends Application {
 													} 
 													
 													else if(changeShiftField.isVisible()) {
-														Pair<Boolean,String> newShift = i.validateShifts(changeShiftField.getText(),selectedItem);
-														int oldShiftIndex = emp.retShifts().indexOf(changeShiftBox.getSelectionModel().getSelectedItem());
-														if(newShift.getKey()) {
-															String returnValue2 = m.changeDetails(emp,selectedItem,oldShiftIndex
-																	,changeShiftField.getText(),2 );
-															if(returnValue2.length()==0) {
-																errorMsg.setTextFill(Color.GREEN);
-																errorMsg.setText("Changed Successfully");
+														if(!changeShiftBox.getSelectionModel().isEmpty()) {
+															Pair<Boolean,String> newShift = i.validateShifts(changeShiftField.getText(),selectedItem);
+															int oldShiftIndex = emp.retShifts().indexOf(changeShiftBox.getSelectionModel().getSelectedItem());
+															if(newShift.getKey()) {
+																String returnValue2 = m.changeDetails(emp,selectedItem,oldShiftIndex
+																		,changeShiftField.getText(),2 );
+																if(returnValue2.length()==0) {
+																	errorMsg.setTextFill(Color.GREEN);
+																	errorMsg.setText("Changed Successfully");
+																}
+																else
+																	errorMsg.setText(returnValue2);
 															}
+																
 															else
-																errorMsg.setText(returnValue2);
+																errorMsg.setText(newShift.getValue());
 														}
-															
-														else
-															errorMsg.setText(newShift.getValue());
+														else {
+															errorMsg.setText("Please select a shift from the drop-down.");
+														}
 													}
 													
 													else {
@@ -845,8 +857,6 @@ public class Main extends Application {
 													deleteShiftBox.setVisible(false);
 												}
 											});
-											
-											
 											
 											wrapperPane.setCenter(shiftPane);
 											wrapperPane.setTop(null);
