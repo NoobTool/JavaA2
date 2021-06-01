@@ -11,15 +11,10 @@ public class MedicineDose {
 	
 	public MedicineDose() {}
 	
-	public MedicineDose addMedicine() {
-		CommonCodes c = new CommonCodes();
-		String name = c.inputString("Enter the name of the medicine. ");
+	public MedicineDose addMedicine(String name, int doseNumber, ArrayList<LocalTime> times) {
 		this.medicineName = name;
-		int doseNumber = c.inputInt("Enter the number of doses. ");
 		this.dose = doseNumber;
-		for(int i=0;i<doseNumber;i++) {
-			times.add(c.inputTime("Enter the time for dose "+(i+1)));
-		}
+		this.times = times;
 		return this;
 	}
 	

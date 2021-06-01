@@ -112,25 +112,7 @@ public class Manager extends Employee{
 	public void addPeople(String name, double age, char gender, String shifts, String password, String post){
 		
 		long id;
-//		String shifts="",password="";
-		
 		id = allotId(post);
-		
-//		name = c.inputString("Enter the name of the "+post.toLowerCase()+"! ");
-//		name = name.strip();
-//		name = i.validateName(name);
-//		
-//		age = i.validateAge(c.inputDouble("Enter the age of "
-//		+name));
-//		
-//		gender = i.validateGender(c.inputChar("Enter the gender of the employee "+name));
-		
-//		if(post!="Patient" && post!="Nurse")
-//		shifts = i.validateShifts(c.inputString("Enter the shift timings in the format "
-//				+ "XX:XX-YY:YY"), post.toLowerCase());
-//		
-//		if(post!="Patient" && post!="Nurse")
-//		password = c.inputString("Enter your password");
 		
 		if (post=="Manager") {
 			

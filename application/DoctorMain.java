@@ -16,4 +16,8 @@ public class DoctorMain {
 	
 	CommonOperations co = new CommonOperations();
 	
+	public void addPrescription() {
+		
+	}
+	
 }

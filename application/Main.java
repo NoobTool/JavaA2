@@ -18,7 +18,6 @@ public class Main extends Application {
 		
 	Manager m = new Manager();
 	DisplayMenu dm = new DisplayMenu();
-	OptionSequence oq = new OptionSequence();
 	CommonOperations co = new CommonOperations();
 	InputValidation i = new InputValidation();
 	
@@ -889,42 +888,50 @@ public class Main extends Application {
 	}
 	
 	private void doctorStart(Doctor d) {
+		
+		DoctorMain doctorMain = new DoctorMain();
+		
 		// Layout Elements
-				Stage doctorStage = new Stage();
-				BorderPane bp = new BorderPane();
-				VBox vbox = new VBox(25);
-				BorderPane topBar = new BorderPane();
-				
-				// VBox and HBox formatting
-				topBar.setPadding(new Insets(15, 12, 15, 12));
-			    topBar.setStyle("-fx-background-color: #4477aa;");
-			    vbox.setPadding(new Insets(60,50,50,50));
-			    
-			    // Hi message
-			    Label currentUser = new Label("Hi, "+d.retName());
-			    currentUser.setFont(new Font("cambria",16));
-			    currentUser.setStyle("-fx-font-weight: bold");
-			    
-			    //Buttons
-			    Button addPrescriptionButton = new Button(dm.doctorMenu().get(0));
-			    Button updatePrescriptionButton = new Button(dm.managerMenu().get(1));
-			    Button displayButton = new Button(dm.managerMenu().get(2));
-			    
-			    // Top Bar hbox formatting
-			    topBar.setLeft(currentUser);
-			    topBar.setRight(addExitButton(doctorStage));
-				
-			    //Setting elements in Vbox
-				vbox.setPadding(new Insets(10,0,0,50));
-				vbox.getChildren().addAll(addPrescriptionButton,updatePrescriptionButton
-						,displayButton);
-				
-				// Adding elements to the main border pane
-				bp.setLeft(vbox);
-				bp.setTop(topBar);
-				
-				doctorStage.setScene(new Scene(bp, 500, 250));
-				doctorStage.show();
+		Stage doctorStage = new Stage();
+		BorderPane bp = new BorderPane();
+		VBox vbox = new VBox(25);
+		BorderPane topBar = new BorderPane();
+		
+		// VBox and HBox formatting
+		topBar.setPadding(new Insets(15, 12, 15, 12));
+	    topBar.setStyle("-fx-background-color: #4477aa;");
+	    vbox.setPadding(new Insets(60,50,50,50));
+	    
+	    // Hi message
+	    Label currentUser = new Label("Hi, "+d.retName());
+	    currentUser.setFont(new Font("cambria",16));
+	    currentUser.setStyle("-fx-font-weight: bold");
+	    
+	    //Buttons
+	    Button addPrescriptionButton = new Button(dm.doctorMenu().get(0));
+	    Button updatePrescriptionButton = new Button(dm.managerMenu().get(1));
+	    Button displayButton = new Button(dm.managerMenu().get(2));
+	    
+	    // Top Bar hbox formatting
+	    topBar.setLeft(currentUser);
+	    topBar.setRight(addExitButton(doctorStage));
+		
+	    //Setting elements in Vbox
+		vbox.setPadding(new Insets(10,0,0,50));
+		vbox.getChildren().addAll(addPrescriptionButton,updatePrescriptionButton
+				,displayButton);
+		
+		// Adding elements to the main border pane
+		bp.setLeft(vbox);
+		bp.setTop(topBar);
+		
+		addPrescriptionButton.setOnAction(e->{
+			doctorMain.addPrescription();
+		});
+			
+		
+		doctorStage.setScene(new Scene(bp, 500, 250));
+		doctorStage.show();
 		
 	}
 
