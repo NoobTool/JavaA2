@@ -36,10 +36,9 @@ public class DisplayMenu {
 	
 	public ArrayList<String > doctorMenu() {
 		ArrayList<String> doctorMenu = new ArrayList<String>();
-		doctorMenu.add("1. Add a prescription.");
-		doctorMenu.add("2. Suggest Changes");
-		doctorMenu.add("3. Display a patient's details. ");
-		doctorMenu.add("4. Update prescription. ");
+		doctorMenu.add("Add a prescription.");
+		doctorMenu.add("Update prescription. ");
+		doctorMenu.add("Display a patient's details. ");
 		return doctorMenu;
 	}
 	
