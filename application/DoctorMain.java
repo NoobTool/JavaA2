@@ -246,20 +246,23 @@ public class DoctorMain {
 	
 	public void displayPatientDetails(Patient p,BorderPane bp) {
 		// Big Wrapper
-					BorderPane wrapperPane = new BorderPane();
-					wrapperPane.setPadding(new Insets(20,0,0,20));
-					
-					
-					// Layout Elements
-					Button addMedicine = new Button("Add Medicine");
-					ScrollPane sp = new ScrollPane();
-					
-					for()
-					// Assigning elements to corresponding elements
-					wrapperPane.setTop(null);
-					wrapperPane.setCenter(sp);
-					
-					
+		BorderPane wrapperPane = new BorderPane();
+		wrapperPane.setPadding(new Insets(20,0,0,20));
+		
+		
+		// Layout Elements
+		ScrollPane sp = new ScrollPane();
+		
+		String returnValue = p.printPrescription();
+		
+		sp.setContent(new Label(returnValue));
+		
+		// Assigning elements to corresponding elements
+		wrapperPane.setTop(null);
+		wrapperPane.setCenter(sp);
+		
+		bp.setCenter(wrapperPane);
+		bp.setBottom(null);
+		bp.setRight(null);
 	}
-	
 }

@@ -16,15 +16,16 @@ public class Prescription {
 		medicineBlock.add(mb);
 	}
 	
-	public void printPrescription() {
+	public String printPrescription() {
+		String returnValue="";
 		if(medicineBlock.size()>0) {
-			System.out.println();
-			for(int i=0;i<30;i++)
-				System.out.print('-');
+			returnValue+="\n";
+			for(int i=0;i<20;i++)
+				returnValue+="-";
 			for(MedicineBlock b: medicineBlock) 
-				b.printMedicineBlock();
+				returnValue+=b.printMedicineBlock();
 		}
-		
+		return returnValue;
 	}
 	
 	public MedicineBlock retMedicineBlock() {

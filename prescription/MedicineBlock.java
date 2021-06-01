@@ -1,6 +1,7 @@
 package prescription;
 import java.util.*;
 import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.time.LocalDate;
 
 public class MedicineBlock {
@@ -16,20 +17,22 @@ public class MedicineBlock {
 		this.medicines = meds;
 	}
 	
-	public void printMedicineBlock() {
-		
+	public String printMedicineBlock() {
+		String returnValue="";
 		if(medicines.size()>0) {
-			System.out.println("\n\nDate: "+date+"\nTime: "+time);
+			returnValue+="\n\nDate: "+date.format(DateTimeFormatter.ofPattern("dd-MM-YYYY"))+"\nTime: "+
+		time.format(DateTimeFormatter.ofPattern("HH:mm"));
 			
 			for(int k=0;k<medicines.size();k++) {
-				medicines.get(k).printMedicineDose();
+				returnValue += medicines.get(k).printMedicineDose();
 				
-				System.out.println();
-				for(int j=0;j<30;j++)
-					System.out.print('-');
-				System.out.println();
+				returnValue+="\n";
+				for(int j=0;j<20;j++)
+					returnValue+="-";
+				returnValue+="\n";
 			}
-		}	
+		}
+		return returnValue;
 	}
 	
 	

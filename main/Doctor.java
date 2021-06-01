@@ -24,9 +24,6 @@ public class Doctor extends Employee{
 		MedicineBlock mb = new MedicineBlock(meds);
 		p.addPrescription(new Prescription(mb));
 		a.addAction(new Action(this.retId(),p.retId(),"prescription addition",LocalDate.now(),LocalTime.now()));
-		p.displayPatients();
-		p.printWardDetails();
-		p.printPrescription();
 	}
 
 	public void updatePrescription() {

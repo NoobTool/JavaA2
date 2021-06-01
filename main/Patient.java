@@ -26,11 +26,13 @@ public class Patient extends Person{
 				"\nAge: "+this.retAge()+"\nGender: "+this.retGender());
 	}
 	
-	public void printPrescription() {
+	public String printPrescription() {
+		String returnValue="";
 		if(prescription!=null) {
-			System.out.println("Id: "+id);
-			this.prescription.printPrescription();
+			returnValue+="Id: "+id;
+			returnValue+="\n"+this.prescription.printPrescription();
 		}
+		return returnValue;
 	}
 	
 	public void printWardDetails() {

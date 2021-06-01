@@ -17,14 +17,16 @@ public class MedicineDose {
 		this.times = times;
 	}
 	
-	public void printMedicineDose() {
+	public String printMedicineDose() {
+		String returnValue="";
 		if(dose>0) {
-			System.out.println("Medicine Name: "+this.retName()+"\n");
+			returnValue+="\nMedicine Name: "+this.retName()+"\n";
 			
 			for(int i=0;i<this.retDose();i++) {
-				System.out.println("Dose "+(i+1)+": "+this.retTimes().get(i));
+				returnValue+="\nDose "+(i+1)+": "+this.retTimes().get(i);
 			}
-		}			
+		}
+		return returnValue;
 	}
 	
 	

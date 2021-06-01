@@ -934,7 +934,7 @@ public class Main extends Application {
 		bp.setTop(topBar);
 		
 		
-		doctorStage.setScene(new Scene(bp, 600, 300));
+		doctorStage.setScene(new Scene(bp, 700, 300));
 		doctorStage.show();
 		
 	}
