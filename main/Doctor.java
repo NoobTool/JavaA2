@@ -69,10 +69,8 @@ public class Doctor extends Employee{
 				}while(choice!=4);
 			}
 		}
-		
 	}	
 	
-
 	public Patient doctorSearch(ArrayList<Patient> patientList, long id, String name) {
 			
 			if(id!=-1) {

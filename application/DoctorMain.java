@@ -22,9 +22,9 @@ public class DoctorMain {
 	Manager m = new Manager("Object to return patient list");
 	InputValidation i = new InputValidation();
 	ArrayList<MedicineDose> meds = new ArrayList<MedicineDose>();
+	Patient p;
 	
-	public BorderPane addPrescription(Doctor d, BorderPane bp) {
-		
+	public void patientSearch(Doctor d, BorderPane bp, Boolean add) {
 		// Big Wrapper
 		BorderPane wrapperPane = new BorderPane();
 		wrapperPane.setPadding(new Insets(20,0,0,20));
@@ -84,51 +84,70 @@ public class DoctorMain {
 					if(!co.checkBlankFields(idField.getText()))
 						errorMsg.setText("Please fill the ID field.");
 					else {
-						Patient p = d.doctorSearch(m.retPatientList(),Long.parseLong(id)
+						p =  d.doctorSearch(m.retPatientList(),Long.parseLong(id)
 								,"");
+						if(add)
+							addPrescription(d,bp);
+						else
+							displayPatientDetails(p,bp);
 						
-						if(p.retName()==null)
-							errorMsg.setText("Patient not found ");
-						else {
-							
-							// Layout Elements
-							Button addMedicine = new Button("Add Medicine");
-							ScrollPane sp = new ScrollPane();
-							VBox prescriptionBox = new VBox(5);
-							HBox prescriptionButtonHolder = co.addButtonHolder(bp);
-							
-							// Adding elements in prescription box and formatting
-							errorMsg.setText("");
-							prescriptionBox.getChildren().addAll(prescriptionButtonHolder,errorMsg);
-							prescriptionBox.setPadding(new Insets(10,0,0,0));
-							
-							// Assigning elements to corresponding elements
-							wrapperPane.setTop(null);
-							wrapperPane.setLeft(addMedicine);
-							wrapperPane.setCenter(sp);
-							BorderPane.setMargin(sp, new Insets(0,0,0,20));
-							wrapperPane.setBottom(prescriptionBox);
-							BorderPane.setAlignment(prescriptionBox, Pos.CENTER);
-							
-							
-							//Action Events
-							addMedicine.setOnAction(e2->{
-								addMedicine(d,p,sp);
-							});
-							
-							((Button)prescriptionButtonHolder.getChildren().get(0)).setOnAction(e3->{
-								d.addPrescription(p, meds);
-							});
-						}
 					}
 				}catch(NumberFormatException exception) {
 					errorMsg.setText("The ID must be in numberic characters!");
 				}
 			}
-		});
+		});	
 		
-		wrapperPane.setBottom(errorMsg);		
-		return wrapperPane;
+		bp.setCenter(wrapperPane);
+		bp.setBottom(errorMsg);
+	}
+	
+	private void addPrescription(Doctor d, BorderPane bp) {
+		
+		Label errorMsg = new Label();
+		errorMsg.setTextFill(Color.RED);
+		bp.setBottom(errorMsg);
+		BorderPane.setAlignment(errorMsg, Pos.CENTER);
+
+		if(p.retName()==null)
+			errorMsg.setText("Patient not found ");
+		else {
+			
+			// Big Wrapper
+			BorderPane wrapperPane = new BorderPane();
+			wrapperPane.setPadding(new Insets(20,0,0,20));
+			
+			
+			// Layout Elements
+			Button addMedicine = new Button("Add Medicine");
+			ScrollPane sp = new ScrollPane();
+			VBox prescriptionBox = new VBox(5);
+			HBox prescriptionButtonHolder = co.addButtonHolder(bp);
+			
+			// Adding elements in prescription box and formatting
+			errorMsg.setText("");
+			prescriptionBox.getChildren().addAll(prescriptionButtonHolder,errorMsg);
+			prescriptionBox.setPadding(new Insets(10,0,0,0));
+			
+			// Assigning elements to corresponding elements
+			wrapperPane.setTop(null);
+			wrapperPane.setLeft(addMedicine);
+			wrapperPane.setCenter(sp);
+			BorderPane.setMargin(sp, new Insets(0,0,0,20));
+			wrapperPane.setBottom(prescriptionBox);
+			BorderPane.setAlignment(prescriptionBox, Pos.CENTER);
+			
+			
+			//Action Events
+			addMedicine.setOnAction(e2->{
+				addMedicine(d,p,sp);
+			});
+			
+			((Button)prescriptionButtonHolder.getChildren().get(0)).setOnAction(e3->{
+				d.addPrescription(p, meds);
+			});
+			bp.setCenter(wrapperPane);
+		}
 	}
 	
 	public void addMedicine(Doctor d, Patient p,ScrollPane sp) {
@@ -224,5 +243,23 @@ public class DoctorMain {
 		sp.setContent(medicineBox);
 	}
 	
+	
+	public void displayPatientDetails(Patient p,BorderPane bp) {
+		// Big Wrapper
+					BorderPane wrapperPane = new BorderPane();
+					wrapperPane.setPadding(new Insets(20,0,0,20));
+					
+					
+					// Layout Elements
+					Button addMedicine = new Button("Add Medicine");
+					ScrollPane sp = new ScrollPane();
+					
+					for()
+					// Assigning elements to corresponding elements
+					wrapperPane.setTop(null);
+					wrapperPane.setCenter(sp);
+					
+					
+	}
 	
 }

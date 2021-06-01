@@ -909,8 +909,8 @@ public class Main extends Application {
 	    
 	    //Buttons
 	    Button addPrescriptionButton = new Button(dm.doctorMenu().get(0));
-	    Button updatePrescriptionButton = new Button(dm.managerMenu().get(1));
-	    Button displayButton = new Button(dm.managerMenu().get(2));
+	    Button updatePrescriptionButton = new Button(dm.doctorMenu().get(1));
+	    Button displayButton = new Button(dm.doctorMenu().get(2));
 	    
 	    // Top Bar hbox formatting
 	    topBar.setLeft(currentUser);
@@ -922,8 +922,11 @@ public class Main extends Application {
 				,displayButton);
 			
 		addPrescriptionButton.setOnAction(e->{
-			BorderPane wrapperPane = doctorMain.addPrescription(d,bp);
-			bp.setCenter(wrapperPane);
+			doctorMain.patientSearch(d, bp, true);
+		});
+		
+		displayButton.setOnAction(e->{
+			doctorMain.patientSearch(d, bp, false);
 		});
 			
 		// Adding elements to the main border pane
