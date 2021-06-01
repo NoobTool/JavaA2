@@ -460,6 +460,7 @@ public class Main extends Application {
 			
 			});
 		
+		// Displaying the actions performed
 		displayActions.setOnAction(e->{
 					ScrollPane sp = new ScrollPane();
 					VBox actionBox = new VBox(10);
@@ -479,7 +480,7 @@ public class Main extends Application {
 					
 				});
 		
-		
+		// Modifying Details
 		modifyButton.setOnAction(e->{
 			
 			// Big Wrapper
@@ -920,17 +921,18 @@ public class Main extends Application {
 		vbox.setPadding(new Insets(10,0,0,50));
 		vbox.getChildren().addAll(addPrescriptionButton,updatePrescriptionButton
 				,displayButton);
-		
+			
+		addPrescriptionButton.setOnAction(e->{
+			BorderPane wrapperPane = doctorMain.addPrescription(d,bp);
+			bp.setCenter(wrapperPane);
+		});
+			
 		// Adding elements to the main border pane
 		bp.setLeft(vbox);
 		bp.setTop(topBar);
 		
-		addPrescriptionButton.setOnAction(e->{
-			doctorMain.addPrescription();
-		});
-			
 		
-		doctorStage.setScene(new Scene(bp, 500, 250));
+		doctorStage.setScene(new Scene(bp, 800, 300));
 		doctorStage.show();
 		
 	}
@@ -954,7 +956,7 @@ public class Main extends Application {
 			vbox.getChildren().add(new Button(dm.nurseMenu().get(i)));
 		bp.setLeft(vbox);
 		bp.setTop(hbox);
-		nurseStage.setScene(new Scene(bp,500,250));
+		nurseStage.setScene(new Scene(bp,1000,450));
 		nurseStage.show();		
 	}
 	

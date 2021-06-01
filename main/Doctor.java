@@ -110,25 +110,22 @@ public class Doctor extends Employee{
 //		return new Patient();
 //	}
 	
-	public Employee doctorSearch(String post, ArrayList list, long id, String name) {
+	public Patient doctorSearch(ArrayList<Patient> patientList, long id, String name) {
 			
 			if(id!=-1) {
-				for (Object o : list) {
-					Employee e = (Employee) o;
-					if (e.retId()==id)
-						return e;
+				for (Patient p : patientList) {
+					if (p.retId()==id)
+						return p;
 				}
-			return new Employee();
+			return new Patient();
 			}
 				 		
 			else {
-				for (Object o: list) {
-					Employee e = (Employee) o;
-					if (e.retName().matches(name))
-						return e;
+				for (Patient p: patientList) {
+					if (p.retName().matches(name))
+						return p;
 				}
-				return new Employee();
-				//return post.substring(0,1).toUpperCase()+post.substring(1)+" not found ";
+				return new Patient();
 			}
 		}
 	

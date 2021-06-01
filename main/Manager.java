@@ -48,6 +48,8 @@ public class Manager extends Employee{
 		nurse1.setShifts("14:00-22:00");
 		nurseList.addStaff(nurse1);
 		
+		admitPatient("Radhe", 89, 'M', "Patient");
+		
 		availableIdList.add((long)7830675);
 		availableIdList.add((long)6830012);
 	}
