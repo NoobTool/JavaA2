@@ -22,7 +22,6 @@ public class Main extends Application {
 	CommonOperations co = new CommonOperations();
 	InputValidation i = new InputValidation();
 	
-	
 	@Override
 	public void start(Stage primaryStage) {
 		
@@ -69,14 +68,14 @@ public class Main extends Application {
 							}
 							else {
 								errorMsg.setText("Id or password is wrong!"+"\n\n\n");
-								co.clearLabels(usernameField, passwordField);
+								co.clearAllFields(usernameField, passwordField);
 							}
 						}catch(RestrictedTimingException exception) {
 							errorMsg.setText("Not Rostered for this shift!"+"\n\n\n");
-							co.clearLabels(usernameField, passwordField);
+							co.clearAllFields(usernameField, passwordField);
 						}catch(InvalidCredentialsException exception) {
 							errorMsg.setText("Id or password is wrong!"+"\n\n\n");
-							co.clearLabels(usernameField, passwordField);
+							co.clearAllFields(usernameField, passwordField);
 						}
 					}
 					
@@ -91,14 +90,14 @@ public class Main extends Application {
 							}
 							else {
 								errorMsg.setText("Id or password is wrong!"+"\n\n\n");
-								co.clearLabels(usernameField, passwordField);
+								co.clearAllFields(usernameField, passwordField);
 							}
 						}catch(RestrictedTimingException exception) {
 							errorMsg.setText("Not Rostered for this shift!"+"\n\n\n");
-							co.clearLabels(usernameField, passwordField);
+							co.clearAllFields(usernameField, passwordField);
 						}catch(InvalidCredentialsException exception) {
 							errorMsg.setText("Id or password is wrong!"+"\n\n\n");
-							co.clearLabels(usernameField, passwordField);
+							co.clearAllFields(usernameField, passwordField);
 						}
 					}	
 					 
@@ -113,14 +112,14 @@ public class Main extends Application {
 							}
 							else {
 								errorMsg.setText("Id or password is wrong!"+"\n\n\n");
-								co.clearLabels(usernameField, passwordField);
+								co.clearAllFields(usernameField, passwordField);
 							}
 						}catch(RestrictedTimingException exception) {
 							errorMsg.setText("Not Rostered for this shift!"+"\n\n\n");
-							co.clearLabels(usernameField, passwordField);
+							co.clearAllFields(usernameField, passwordField);
 						}catch(InvalidCredentialsException exception) {
 							errorMsg.setText("Id or password is wrong!"+"\n\n\n");
-							co.clearLabels(usernameField, passwordField);
+							co.clearAllFields(usernameField, passwordField);
 						}
 						
 					}
@@ -148,35 +147,12 @@ public class Main extends Application {
 	    exit.setPrefSize(100, 20);
 	    
 	    exit.setOnAction(e->{
-			start(new Stage());
+			
+	    	start(new Stage());
 			thisStage.close();
 		});
 	    
 		return exit;
-	}
-	
-	private Button addCancelButton(BorderPane bp) {
-		Button cancel = new Button("Cancel");
-	    
-	    cancel.setOnAction(e->{
-	    	bp.setCenter(null);
-	    	bp.setRight(null);
-		});
-	    
-		return cancel;
-	}
-	
-	private Boolean checkBlankFields(String ...args) {
-		for (String s:args) {
-			if(s.equals(""))
-				return false;
-		}		
-		return true;
-	}
-	
-	private void clearAllFields(TextField ...args) {
-		for (TextField t:args)
-			t.setText("");
 	}
 	
 	private GridPane displayUsingGridPane(Employee e) {
@@ -211,6 +187,8 @@ public class Main extends Application {
 	
 	//Manager
 	private void managerStart(Manager m) {
+		
+		// Layout Elements
 		Stage managerStage = new Stage();
 		BorderPane bp = new BorderPane();
 		VBox vbox = new VBox(15);
@@ -221,22 +199,27 @@ public class Main extends Application {
 	    topBar.setStyle("-fx-background-color: #4477aa;");
 	    vbox.setPadding(new Insets(50,50,50,50));
 	    
+	    // Hi message
 	    Label currentUser = new Label("Hi, "+m.retName());
 	    currentUser.setFont(new Font("cambria",16));
 	    currentUser.setStyle("-fx-font-weight: bold");
 	    
+	    //Buttons
 	    Button admitButton = new Button(dm.managerMenu().get(0));
 	    Button hireButton = new Button(dm.managerMenu().get(1));
 	    Button modifyButton = new Button(dm.managerMenu().get(2));
 	    Button displayButton = new Button(dm.managerMenu().get(3));
 	    Button displayActions = new Button(dm.managerMenu().get(4));
 	    
-
+	    // Top Bar hbox formatting
 	    topBar.setLeft(currentUser);
 	    topBar.setRight(addExitButton(managerStage));
 		
+	    //Setting elements in Vbox
 		vbox.setPadding(new Insets(10,0,0,50));
 		vbox.getChildren().addAll(admitButton,hireButton,modifyButton,displayButton,displayActions);
+		
+		// Adding elements to the main border pane
 		bp.setLeft(vbox);
 		bp.setTop(topBar);
 			
@@ -271,7 +254,7 @@ public class Main extends Application {
 			bp.setRight(null);
 			
 			submitButton.setOnAction(e2->{
-				if(checkBlankFields(name.getText(),age.getText(),gender.getText())) {
+				if(co.checkBlankFields(name.getText(),age.getText(),gender.getText())) {
 					Pair<Boolean,String> namePair= i.validateName(name.getText());
 					Pair<Double,String> agePair = i.validateAge(Double.parseDouble(age.getText()));
 					String genderString = i.validateGender(gender.getText().toUpperCase().charAt(0));
@@ -349,7 +332,7 @@ public class Main extends Application {
 			gp.add(shifts,2,4);
 			gp.add(password,2,5);
 			gp.add(submitButton, 2, 6);
-			gp.add(addCancelButton(bp), 3, 6);
+			gp.add(co.addCancelButton(bp), 3, 6);
 			
 			// Adding elements to errorBox and formatting
 			errorMsg.setTextFill(Color.RED);
@@ -371,10 +354,10 @@ public class Main extends Application {
 				String selectedItem = cb.getSelectionModel().getSelectedItem();
 				errorMsg.setTextFill(Color.RED);
 				
-				if((checkBlankFields(name.getText(),age.getText(),
+				if((co.checkBlankFields(name.getText(),age.getText(),
 						gender.getText(),shifts.getText(),password.getText()) || 
 						
-						(checkBlankFields(name.getText(),age.getText(),
+						(co.checkBlankFields(name.getText(),age.getText(),
 						gender.getText(),password.getText()) && selectedItem.equals("Nurse")))
 						&& cb.getSelectionModel().isEmpty()==false) {
 					
@@ -407,7 +390,7 @@ public class Main extends Application {
 								selectedItem);
 						errorMsg.setTextFill(Color.GREEN);
 						errorMsg.setText("Added successfully!");
-						clearAllFields(name,age,gender,shifts,password);
+						co.clearAllFields(name,age,gender,shifts,password);
 					}
 						
 				}
@@ -519,7 +502,7 @@ public class Main extends Application {
 			searchGrid.add(nameButton, 1, 2);
 			searchGrid.add(nameField, 2, 2);
 			searchGrid.add(submitButton, 2, 3);
-			searchGrid.add(addCancelButton(bp),3,3);
+			searchGrid.add(co.addCancelButton(bp),3,3);
 			
 			// GridPane formatting
 			searchGrid.setHgap(20);
@@ -560,7 +543,7 @@ public class Main extends Application {
 				
 				// Searching by ID
 				else if(idField.isVisible() && selectedItem!=null) {
-					if(!checkBlankFields(idField.getText()))
+					if(!co.checkBlankFields(idField.getText()))
 						errorMsg.setText("Please fill the ID field.");
 					else if(m.modifyDetails(selectedItem, Long.parseLong(idField.getText()), "").retName()==null)
 						errorMsg.setText(selectedItem.substring(0,1).toUpperCase()+selectedItem.substring(1)+" not found ");
@@ -598,7 +581,7 @@ public class Main extends Application {
 								detailsPane.add(passwordBox, 1, 5);
 								detailsPane.add(passwordModifyField, 2, 5);
 								detailsPane.add(submitButton2, 2, 6);
-								detailsPane.add(addCancelButton(bp), 3, 6);
+								detailsPane.add(co.addCancelButton(bp), 3, 6);
 								
 								nameModifyField.setVisible(false);
 								ageModifyField.setVisible(false);
@@ -747,7 +730,7 @@ public class Main extends Application {
 											shiftPane.add(deleteShift, 1, 3);
 											shiftPane.add(deleteShiftBox, 2, 3);
 											shiftPane.add(submitButton3, 2, 4);
-											shiftPane.add(addCancelButton(bp), 3, 4);
+											shiftPane.add(co.addCancelButton(bp), 3, 4);
 											
 											// Formatting grid pane
 											shiftPane.setHgap(20);
@@ -759,7 +742,7 @@ public class Main extends Application {
 												changeShiftField.setVisible(false);
 												changeShiftBox.setVisible(false);
 												deleteShiftBox.setVisible(false);
-												clearAllFields(changeShiftField,addShiftField);
+												co.clearAllFields(changeShiftField,addShiftField);
 												errorMsg.setText("");
 											});
 											
@@ -773,7 +756,7 @@ public class Main extends Application {
 												changeShiftField.setVisible(true);
 												changeShiftBox.setVisible(true);
 												deleteShiftBox.setVisible(false);
-												clearAllFields(changeShiftField,addShiftField);
+												co.clearAllFields(changeShiftField,addShiftField);
 												errorMsg.setText("");
 											});
 											
@@ -785,7 +768,7 @@ public class Main extends Application {
 												changeShiftField.setVisible(false);
 												changeShiftBox.setVisible(false);
 												deleteShiftBox.setVisible(true);
-												clearAllFields(changeShiftField,addShiftField);
+												co.clearAllFields(changeShiftField,addShiftField);
 												errorMsg.setText("");
 											});
 											
@@ -881,7 +864,7 @@ public class Main extends Application {
 				}
 				
 				else if(idField.isVisible() && selectedItem!=null) {
-					if(!checkBlankFields(nameField.getText()))
+					if(!co.checkBlankFields(nameField.getText()))
 						errorMsg.setText("Please fill the name field.");
 				}
 				
@@ -901,31 +884,50 @@ public class Main extends Application {
 			
 		});
 		
-		managerStage.setScene(new Scene(bp,800,450));
+		managerStage.setScene(new Scene(bp,1000,450));
 		managerStage.show();
 	}
 	
 	private void doctorStart(Doctor d) {
-		Stage doctorStage = new Stage();
-		BorderPane bp = new BorderPane();
-		VBox vbox = new VBox();
-		HBox hbox = new HBox();
-	    hbox.setPadding(new Insets(15, 12, 15, 12));
-	    hbox.setSpacing(10);
-	    hbox.setStyle("-fx-background-color: #4477aa;");
-
-	    Label currentUser = new Label("Ram Rattan Goyal");
-
-	    hbox.getChildren().addAll(currentUser, addExitButton(doctorStage));
+		// Layout Elements
+				Stage doctorStage = new Stage();
+				BorderPane bp = new BorderPane();
+				VBox vbox = new VBox(25);
+				BorderPane topBar = new BorderPane();
+				
+				// VBox and HBox formatting
+				topBar.setPadding(new Insets(15, 12, 15, 12));
+			    topBar.setStyle("-fx-background-color: #4477aa;");
+			    vbox.setPadding(new Insets(60,50,50,50));
+			    
+			    // Hi message
+			    Label currentUser = new Label("Hi, "+d.retName());
+			    currentUser.setFont(new Font("cambria",16));
+			    currentUser.setStyle("-fx-font-weight: bold");
+			    
+			    //Buttons
+			    Button addPrescriptionButton = new Button(dm.doctorMenu().get(0));
+			    Button updatePrescriptionButton = new Button(dm.managerMenu().get(1));
+			    Button displayButton = new Button(dm.managerMenu().get(2));
+			    
+			    // Top Bar hbox formatting
+			    topBar.setLeft(currentUser);
+			    topBar.setRight(addExitButton(doctorStage));
+				
+			    //Setting elements in Vbox
+				vbox.setPadding(new Insets(10,0,0,50));
+				vbox.getChildren().addAll(addPrescriptionButton,updatePrescriptionButton
+						,displayButton);
+				
+				// Adding elements to the main border pane
+				bp.setLeft(vbox);
+				bp.setTop(topBar);
+				
+				doctorStage.setScene(new Scene(bp, 500, 250));
+				doctorStage.show();
 		
-		vbox.setPadding(new Insets(10,0,0,50));
-		for(int i=0;i<dm.doctorMenu().size();i++)
-			vbox.getChildren().add(new Button(dm.doctorMenu().get(i)));
-		bp.setLeft(vbox);
-		bp.setTop(hbox);
-		doctorStage.setScene(new Scene(bp,300,400));
-		doctorStage.show();		
 	}
+
 	
 	private void nurseStart(Nurse n) {
 		Stage nurseStage = new Stage();
@@ -945,7 +947,7 @@ public class Main extends Application {
 			vbox.getChildren().add(new Button(dm.nurseMenu().get(i)));
 		bp.setLeft(vbox);
 		bp.setTop(hbox);
-		nurseStage.setScene(new Scene(bp,300,400));
+		nurseStage.setScene(new Scene(bp,500,250));
 		nurseStage.show();		
 	}
 	
