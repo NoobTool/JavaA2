@@ -37,6 +37,8 @@ public class CommonOperations {
 		Button cancelButton = addCancelButton(bp);
 		hbox.getChildren().addAll(submitButton,cancelButton);
 		hbox.setAlignment(Pos.CENTER);
+		hbox.setPrefSize(50,20);
+		hbox.setMaxWidth(150);
 		return hbox;
 	}
 	

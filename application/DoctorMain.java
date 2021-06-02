@@ -24,7 +24,7 @@ public class DoctorMain {
 	ArrayList<MedicineDose> meds = new ArrayList<MedicineDose>();
 	Patient p;
 	
-	public void patientSearch(Doctor d, BorderPane bp, Boolean add) {
+	public void patientSearch(Doctor d, BorderPane bp, String add) {
 		// Big Wrapper
 		BorderPane wrapperPane = new BorderPane();
 		wrapperPane.setPadding(new Insets(20,0,0,20));
@@ -86,8 +86,15 @@ public class DoctorMain {
 					else {
 						p =  d.doctorSearch(m.retPatientList(),Long.parseLong(id)
 								,"");
-						if(add)
+						if(add.contentEquals("add"))
 							addPrescription(d,bp);
+						else if(add.contentEquals("update")) {
+							if(p.retPrescription()!=null)
+								updatePrescription(p,bp);
+							else
+								errorMsg.setText("Add a prescription first! ");
+						}
+							
 						else
 							displayPatientDetails(p,bp);
 						
@@ -244,6 +251,244 @@ public class DoctorMain {
 	}
 	
 	
+	public void updatePrescription(Patient p,BorderPane bp) {		
+		// Big Wrapper
+		BorderPane wrapperPane = new BorderPane();
+		
+		//Layout
+		ComboBox<String> medicineName = new ComboBox<String>();
+		
+		// Adding elements to medicineName
+		for(MedicineDose md: p.retPrescription().retMedicineBlock().retMedicines())
+			medicineName.getItems().add(md.retName());
+		
+		
+		// Common error message
+		Label errorMsg = new Label();
+		
+		// Layout Items
+		GridPane detailsPane = new GridPane();
+		CheckBox nameBox = new CheckBox("Medicine Name");
+		CheckBox doseBox = new CheckBox("Medicine Dose");
+		CheckBox timeBox = new CheckBox("Medicine Time");
+		TextField nameUpdateField = new TextField();
+		TextField doseUpdateField = new TextField();
+		Label timeUpdateLabel = new Label();
+		HBox buttonHolder = co.addButtonHolder(bp);
+		HashMap<String,String> updateItems = new HashMap<String,String>();
+		ComboBox<String> nameDrop = new ComboBox<String>();
+		ComboBox<String> timeDrop = new ComboBox<String>();
+		
+		
+		// Label Formatting
+		timeUpdateLabel.setText("A new modification windows\nwill appear after this!");
+		
+		detailsPane.add(nameBox, 1, 1);
+		detailsPane.add(nameDrop, 2, 1);
+		detailsPane.add(nameUpdateField, 3, 1);
+		detailsPane.add(doseBox, 1, 2);
+		detailsPane.add(doseUpdateField, 2, 2);
+		detailsPane.add(timeBox, 1, 3);
+		detailsPane.add(timeDrop, 2, 3);
+		detailsPane.add(timeUpdateLabel, 3, 3);
+		detailsPane.add(buttonHolder, 2, 4);
+		
+		
+		nameUpdateField.setVisible(false);
+		doseUpdateField.setVisible(false);
+		timeUpdateLabel.setVisible(false);
+		
+		// Toggling visibility of textfields by checkbox selection
+		nameBox.setOnAction(e3->{
+			if(nameBox.isSelected())
+				nameUpdateField.setVisible(true);
+			else
+				nameUpdateField.setVisible(false);
+		});
+		
+		doseBox.setOnAction(e3->{
+			if(doseBox.isSelected())
+				doseUpdateField.setVisible(true);
+			else
+				doseUpdateField.setVisible(false);
+		});
+		
+		timeBox.setOnAction(e3->{
+			if(timeBox.isSelected()) {
+				timeUpdateLabel.setVisible(true);
+				timeDrop.setVisible(true);
+			}
+				
+			else {
+				timeUpdateLabel.setVisible(false);
+				timeDrop.setVisible(true);
+			}
+		});
+		
+		
+		((Button) buttonHolder.getChildren().get(0)).setOnAction(e3->{
+			int medicineIndex = medicineName.getSelectionModel()
+					.getSelectedIndex();
+			System.out.println(medicineIndex);
+			
+			try {
+				if(nameBox.isSelected()) {
+					String newName = nameUpdateField.getText();									
+					if(newName!="") {
+						Pair<Boolean,String> namePair = i.validateName(newName,false);
+						if(!namePair.getKey())
+							errorMsg.setText(namePair.getValue());
+						else
+							updateItems.put("Name", newName);
+					}else
+						updateItems.put("Name", "");
+					
+				}else
+					updateItems.put("Name", "");
+				
+				if(doseBox.isSelected()) {
+					String newAge = doseUpdateField.getText();									
+					if(newAge!="") {
+						Double newAge2 = Double.parseDouble(newAge);
+						Pair<Double,String> agePair = i.validateAge(newAge2);
+						if(agePair.getValue().length()>0)
+							errorMsg.setText(agePair.getValue());
+						else
+							updateItems.put("Dose",newAge);
+					}
+				}
+				else
+					updateItems.put("Dose", "");
+		
+			}catch(NumberFormatException exception) {
+				
+			}
+		});
+				
+		// DetailsPane grid Formatting
+		detailsPane.setHgap(20);
+		detailsPane.setVgap(20);
+		
+		wrapperPane.setTop(medicineName);
+		wrapperPane.setCenter(detailsPane);
+		
+		bp.setCenter(wrapperPane);
+		bp.setBottom(errorMsg);
+		bp.setRight(null);
+		
+		
+		
+	}
+	
+	
+	public void changePrescription(Patient p, BorderPane bp) {
+		// Common error message
+		Label errorMsg = new Label();
+		
+		// Layout Items
+		GridPane detailsPane = new GridPane();
+		CheckBox nameBox = new CheckBox("Medicine Name");
+		CheckBox doseBox = new CheckBox("Medicine Dose");
+		CheckBox timeBox = new CheckBox("Medicine Time");
+		TextField nameUpdateField = new TextField();
+		TextField doseUpdateField = new TextField();
+		Label timeUpdateLabel = new Label();
+		HBox buttonHolder = co.addButtonHolder(bp);
+		HashMap<String,String> updateItems = new HashMap<String,String>();
+		ComboBox<String> nameDrop = new ComboBox<String>();
+		ComboBox<String> timeDrop = new ComboBox<String>();
+		
+		
+		// Label Formatting
+		timeUpdateLabel.setText("A new modification windows\nwill appear after this!");
+		
+		detailsPane.add(nameBox, 1, 1);
+		detailsPane.add(nameDrop, 2, 1);
+		detailsPane.add(nameUpdateField, 3, 1);
+		detailsPane.add(doseBox, 1, 2);
+		detailsPane.add(doseUpdateField, 2, 2);
+		detailsPane.add(timeBox, 1, 3);
+		detailsPane.add(timeDrop, 2, 3);
+		detailsPane.add(timeUpdateLabel, 3, 3);
+		detailsPane.add(buttonHolder, 2, 4);
+		
+		
+		nameUpdateField.setVisible(false);
+		doseUpdateField.setVisible(false);
+		timeUpdateLabel.setVisible(false);
+		
+		// Toggling visibility of textfields by checkbox selection
+		nameBox.setOnAction(e3->{
+			if(nameBox.isSelected())
+				nameUpdateField.setVisible(true);
+			else
+				nameUpdateField.setVisible(false);
+		});
+		
+		doseBox.setOnAction(e3->{
+			if(doseBox.isSelected())
+				doseUpdateField.setVisible(true);
+			else
+				doseUpdateField.setVisible(false);
+		});
+		
+		timeBox.setOnAction(e3->{
+			if(timeBox.isSelected()) {
+				timeUpdateLabel.setVisible(true);
+				timeDrop.setVisible(true);
+			}
+				
+			else {
+				timeUpdateLabel.setVisible(false);
+				timeDrop.setVisible(true);
+			}
+		});
+		
+		
+		((Button) buttonHolder.getChildren().get(0)).setOnAction(e3->{
+			try {
+				if(nameBox.isSelected()) {
+					String newName = nameUpdateField.getText();									
+					if(newName!="") {
+						Pair<Boolean,String> namePair = i.validateName(newName,false);
+						if(!namePair.getKey())
+							errorMsg.setText(namePair.getValue());
+						else
+							updateItems.put("Name", newName);
+					}else
+						updateItems.put("Name", "");
+					
+				}else
+					updateItems.put("Name", "");
+				
+				if(doseBox.isSelected()) {
+					String newAge = doseUpdateField.getText();									
+					if(newAge!="") {
+						Double newAge2 = Double.parseDouble(newAge);
+						Pair<Double,String> agePair = i.validateAge(newAge2);
+						if(agePair.getValue().length()>0)
+							errorMsg.setText(agePair.getValue());
+						else
+							updateItems.put("Dose",newAge);
+					}
+				}
+				else
+					updateItems.put("Dose", "");
+		
+			}catch(NumberFormatException exception) {
+				
+			}
+		});
+		
+		// DetailsPane grid Formatting
+		detailsPane.setHgap(20);
+		detailsPane.setVgap(20);
+		
+		bp.setCenter(detailsPane);
+		bp.setBottom(errorMsg);
+		bp.setRight(null);
+	}
+		
 	public void displayPatientDetails(Patient p,BorderPane bp) {
 		// Big Wrapper
 		BorderPane wrapperPane = new BorderPane();

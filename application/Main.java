@@ -922,19 +922,22 @@ public class Main extends Application {
 				,displayButton);
 			
 		addPrescriptionButton.setOnAction(e->{
-			doctorMain.patientSearch(d, bp, true);
+			doctorMain.patientSearch(d, bp, "add");
+		});
+		
+		updatePrescriptionButton.setOnAction(e->{
+			doctorMain.patientSearch(d,bp,"update");
 		});
 		
 		displayButton.setOnAction(e->{
-			doctorMain.patientSearch(d, bp, false);
+			doctorMain.patientSearch(d, bp, "x");
 		});
 			
 		// Adding elements to the main border pane
 		bp.setLeft(vbox);
 		bp.setTop(topBar);
 		
-		
-		doctorStage.setScene(new Scene(bp, 700, 300));
+		doctorStage.setScene(new Scene(bp, 800, 300));
 		doctorStage.show();
 		
 	}

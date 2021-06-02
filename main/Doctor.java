@@ -29,14 +29,16 @@ public class Doctor extends Employee{
 	public void updatePrescription() {
 		Patient p = enterPatientBed(true);
 		if(p.retPrescription()!=null)
-			updateMedicineBlock(p.retPrescription().retMedicineBlock(),p);
+			updateMedicineBlock(p);
 		else 
 			System.out.println("No prescription added");
 	}
 	
-	public void updateMedicineBlock(MedicineBlock mb,Patient p) {
-		String name = c.inputString("Enter the name of medicine. ");
+	
+	public void updateMedicineBlock(String name, String newName,Patient p) {
 		int choice=0;
+		MedicineBlock mb = p.retPrescription().retMedicineBlock();
+		
 		for (MedicineDose md: mb.retMedicines()) {
 			if (md.retName().equals(name)) {
 				do {
