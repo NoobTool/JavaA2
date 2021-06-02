@@ -27,15 +27,15 @@ import Actions.Action;
 public class test2 extends Application{
 	
 	final int wards = 2;
-	final int rooms =4;
+	final int rooms = 4;
 	final int room_size=4;
-	final int dual_rooms=1;
+	final int nDouble=1;
 	final int dual_room_size=2;
 	final int single_room=1;
-	final int single_room_size=1;
+	final int nSingle=1;
 	
 	ArrayList<VBox> roomList = new ArrayList<VBox>();
-	ArrayList<VBox> bedList = new ArrayList<VBox>();
+	ArrayList<Label> bedList = new ArrayList<Label>();
 	
 	public static void print(Object o) {
 		System.out.println(o);
@@ -93,7 +93,7 @@ public class test2 extends Application{
 				(wardBoxPaddingLeft+wardBoxPaddingRight)*2))/7;
 
 		// roomsBox HBox Parameters
-		int totalRooms = rooms+dual_rooms+single_room;
+		int totalRooms = rooms+nDouble+nSingle;
 		if(totalRooms%2!=0)
 			totalRooms+=1;
 		int no_of_rows = (totalRooms)/2;
@@ -109,10 +109,9 @@ public class test2 extends Application{
 
 		for(int i=0;i<3;i++) {
 			for(int j=0;j<2;j++) {
-				VBox vbox = addRooms(roomBoxWidth,roomBoxHeight);
+				VBox vbox = add4Rooms(roomBoxWidth,roomBoxHeight);
 				ward1Pane.add(vbox, j, i);
 				roomList.add(vbox);
-				addEvents(vbox);
 			}
 		}
 		
@@ -127,9 +126,22 @@ public class test2 extends Application{
 		
 		GridPane ward2Pane = new GridPane();
 
+		VBox vbox = new VBox();
+		int k = 0;
 		for(int i=0;i<3;i++) {
-			for(int j=0;j<2;j++) {
-				VBox vbox = addRooms(roomBoxWidth,roomBoxHeight);
+			for(int j=0;j<2;j++) {		
+				if(k<nSingle) {
+					vbox = add1Room(roomBoxWidth,roomBoxHeight);
+					++k;
+				}
+				else if(k<nDouble+nSingle) {
+					vbox = add2Rooms(roomBoxWidth,roomBoxHeight);
+					++k;
+				}
+				else {
+					vbox = add4Rooms(roomBoxWidth,roomBoxHeight);
+					++k;
+				}
 				ward2Pane.add(vbox, j, i);
 				roomList.add(vbox);
 			}
@@ -158,8 +170,8 @@ public class test2 extends Application{
 	}
 	
 	
-	public VBox addBeds() {
-		VBox shape = new VBox();
+	public Label addBeds() {
+		Label shape = new Label();
 		shape.setBorder(new Border(new BorderStroke(Color.BLACK,BorderStrokeStyle.SOLID
 				,null,new BorderWidths(3))));
 		shape.setPrefSize(30,30);
@@ -169,7 +181,55 @@ public class test2 extends Application{
 	}
 	
 	
-	public VBox addRooms(int width, int height) {
+public VBox add1Room(int width, int height) {
+		
+		VBox shape = new VBox();
+		shape.setBorder(new Border(new BorderStroke(Color.BLACK,BorderStrokeStyle.SOLID
+				,null,new BorderWidths(3))));
+		shape.setPrefSize(width, height);
+		shape.setMaxHeight(width);
+		shape.setMaxWidth(height);	
+		
+		GridPane gp = new GridPane();
+		Label bed = addBeds();
+		bedList.add(bed);
+		gp.add(bed,0,0);
+		addEvents(bed);
+		
+		gp.setPadding(new Insets(15,15,15,15));
+		
+		shape.getChildren().add(gp);
+		return shape;
+	}
+
+	public VBox add2Rooms(int width, int height) {
+		
+		VBox shape = new VBox();
+		shape.setBorder(new Border(new BorderStroke(Color.BLACK,BorderStrokeStyle.SOLID
+				,null,new BorderWidths(3))));
+		shape.setPrefSize(width, height);
+		shape.setMaxHeight(width);
+		shape.setMaxWidth(height);	
+		
+		GridPane gp = new GridPane();
+		
+		
+		for (int j=0;j<2;j++) {
+			Label bed = addBeds();
+			bedList.add(bed);
+			gp.add(bed, j, 0);
+			addEvents(bed);
+		}
+		
+		gp.setHgap(30);
+		gp.setVgap(30);
+		gp.setPadding(new Insets(15,0,0,15));
+		
+		shape.getChildren().add(gp);
+		return shape;
+}
+	
+	public VBox add4Rooms(int width, int height) {
 		
 		VBox shape = new VBox();
 		shape.setBorder(new Border(new BorderStroke(Color.BLACK,BorderStrokeStyle.SOLID
@@ -182,7 +242,7 @@ public class test2 extends Application{
 		
 		for(int i=0;i<2;i++) {
 			for (int j=0;j<2;j++) {
-				VBox bed = addBeds();
+				Label bed = addBeds();
 				bedList.add(bed);
 				gp.add(bed, i, j);
 				addEvents(bed);
@@ -191,17 +251,19 @@ public class test2 extends Application{
 		
 		gp.setHgap(30);
 		gp.setVgap(30);
-		
-		gp.setPadding(new Insets(10,0,0,10));
+		gp.setPadding(new Insets(15,0,0,15));
 		
 		shape.getChildren().add(gp);
 		return shape;
 	}
 	
-	public void addEvents(VBox v) {
+	public void addEvents(Label v) {
 		v.setOnMouseClicked(e->{
-			v.setBorder(new Border(new BorderStroke(Color.RED,BorderStrokeStyle.SOLID
-					,null,new BorderWidths(3))));
+//			v.setBorder(new Border(new BorderStroke(Color.RED,BorderStrokeStyle.SOLID
+//					,null,new BorderWidths(3))));
+			v.setStyle("-fx-background-color: red;");
+			int temp = bedList.indexOf(v)+1;
+		
 		});
 	}
 	

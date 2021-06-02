@@ -23,7 +23,7 @@ import CommonSnippets.*;
 import CustomExceptions.*;
 import Actions.Action;
 
-public class test extends Application{
+public class test {
 	
 	final int wards = 2;
 	final int rooms =4;
@@ -41,66 +41,11 @@ public class test extends Application{
 		System.out.println();
 	}
 	
-	public void start(Stage primaryStage) {
-		
-		// Wrapper
-		HBox canvas = new HBox(30);
-		
-		// Canvas Parameters
-		int canvasWidth = 800;
-		int canvasHeight = 800;
-		int canvasPaddingTop=100;
-		int canvasPaddingRight=100;
-		int canvasPaddingBottom=100;
-		int canvasPaddingLeft=100;
-		
-		// Ward Padding Parameters
-		// Canvas Parameters
-		int wardPaddingTop=40;
-		int wardPaddingRight=40;
-		int wardPaddingBottom=40;
-		int wardPaddingLeft=40;
-		
-		int wardRectangleWidth = (canvasWidth-(canvasPaddingRight+canvasPaddingLeft))/wards;
-		int wardRectangleHeight= (canvasHeight-(canvasPaddingTop+canvasPaddingBottom));
-		
-		int roomRectangleWidth = (wardRectangleWidth-(wardPaddingRight+wardPaddingLeft))/wards;
-		int roomRectangleHeight= (wardRectangleHeight-(wardPaddingTop+wardPaddingBottom));
-		
-		// Layout Elements
-		Rectangle ward1 = new Rectangle(1,1,wardRectangleWidth,wardRectangleHeight);
-		Rectangle ward2 = new Rectangle(1,1,wardRectangleWidth,wardRectangleHeight);
-		Rectangle room1 = new Rectangle(1,1,roomRectangleWidth,roomRectangleHeight);
-		Rectangle room2 = new Rectangle(1,1,roomRectangleWidth,roomRectangleHeight);
-		
-		
-		// Adding elements to wrapper
-		canvas.getChildren().addAll(ward1,ward2);
-		
-		
-		// Formatting Wards
-		ward1.setFill(Color.TRANSPARENT);
-		ward1.setStroke(Color.BLACK);
-		ward1.setStrokeWidth(3);
-		
-		ward2.setFill(Color.TRANSPARENT);
-		ward2.setStroke(Color.BLACK);
-		ward2.setStrokeWidth(3);
-		
-		
-		//Formatting wrapper
-		canvas.setPadding(new Insets(canvasPaddingTop,canvasPaddingRight,
-				canvasPaddingBottom,canvasPaddingLeft));
-		
-		ward1.setOnMouseClicked(e->{
-			print("Ward 1");
-		});
-		
-		ward2.setOnMouseClicked(e->{
-			print("Ward 2");
-		});
-		
-		primaryStage.setScene(new Scene(canvas,canvasWidth,canvasHeight));
-		primaryStage.show();
+	public static void main(String args[]) {
+		for(int i=0;i<3;i++) {
+			for(int j=0;j<2;j++)
+				print(i+j+1);
+		}
 	}
+
 }
