@@ -26,48 +26,60 @@ public class Doctor extends Employee{
 		a.addAction(new Action(this.retId(),p.retId(),"prescription addition",LocalDate.now(),LocalTime.now()));
 	}
 
-	public void updatePrescription() {
-		Patient p = enterPatientBed(true);
+	public void updatePrescription(String name, String time, Patient p) {
 		if(p.retPrescription()!=null)
-			updateMedicineBlock(p);
+			updateMedicineBlock(name, time, p);
 		else 
 			System.out.println("No prescription added");
 	}
 	
 	
-	public void updateMedicineBlock(String name, String newName,Patient p) {
+	public void updateMedicineBlock(String name, String time,Patient p) {
 		int choice=0;
-		MedicineBlock mb = p.retPrescription().retMedicineBlock();
+		ArrayList<MedicineDose> meds = p.retPrescription().retMedicineBlock()
+										.retMedicines();
 		
-		for (MedicineDose md: mb.retMedicines()) {
-			if (md.retName().equals(name)) {
-				do {
-					dm.doctorDoseMenu();
-					choice = c.inputInt("");
-					
-					switch(choice) {
-					case 1: String medicineName = c.inputString(" Enter the new name of the medicine! ");
-							md.setName(medicineName);
-							a.addAction(new Action(this.retId(),p.retId(),"medicine name updation",LocalDate.now(),LocalTime.now()));
-							break;							
-					case 2: int dose = c.inputInt("Enter the number of doses ");
-							md.setDose(dose);
-							a.addAction(new Action(this.retId(),p.retId(),"dose updation",LocalDate.now(),LocalTime.now()));
-							break;
-							
-					case 3: md.changeDoseTime();
-							a.addAction(new Action(this.retId(),p.retId(),"dose time updation",LocalDate.now(),LocalTime.now()));
-							break;
-							
-					case 4: System.out.println("Exiting...");
-							break;
-							
-					default: System.out.println("Wrong choice, enter again. ");
-						
-					}
-				}while(choice!=4);
-			}
+		if(name!="") {
+			String medicineName = name.split("#")[0];
+			int index = Integer.parseInt(name.split("#")[1]);
+			meds.get(index).setName(medicineName);
 		}
+		
+		if(time!="") {
+			LocalTime medicineTime = LocalTime.parse(time.split("#")[0]);
+			int index = Integer.parseInt(time.split("#")[1]);
+			meds.get(index).setTime(index,medicineTime);
+		}
+		
+//		for (MedicineDose md: mb.retMedicines()) {
+//			if (md.retName().equals(name)) {
+//				do {
+//					dm.doctorDoseMenu();
+//					choice = c.inputInt("");
+//					
+//					switch(choice) {
+//					case 1: String medicineName = c.inputString(" Enter the new name of the medicine! ");
+//							md.setName(medicineName);
+//							a.addAction(new Action(this.retId(),p.retId(),"medicine name updation",LocalDate.now(),LocalTime.now()));
+//							break;							
+//					case 2: int dose = c.inputInt("Enter the number of doses ");
+//							md.setDose(dose);
+//							a.addAction(new Action(this.retId(),p.retId(),"dose updation",LocalDate.now(),LocalTime.now()));
+//							break;
+//							
+//					case 3: md.changeDoseTime();
+//							a.addAction(new Action(this.retId(),p.retId(),"dose time updation",LocalDate.now(),LocalTime.now()));
+//							break;
+//							
+//					case 4: System.out.println("Exiting...");
+//							break;
+//							
+//					default: System.out.println("Wrong choice, enter again. ");
+//						
+//					}
+//				}while(choice!=4);
+//			}
+//		}
 	}	
 	
 	public Patient doctorSearch(ArrayList<Patient> patientList, long id, String name) {

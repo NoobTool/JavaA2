@@ -141,6 +141,10 @@ public class MedicineDose {
 			alterTimes();
 	}
 	
+	public void setTime(int n,LocalTime time) {
+		times.set(n,time);
+	}
+	
 	public String retName() {
 		return this.medicineName;
 	}

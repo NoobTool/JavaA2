@@ -90,7 +90,7 @@ public class DoctorMain {
 							addPrescription(d,bp);
 						else if(add.contentEquals("update")) {
 							if(p.retPrescription()!=null)
-								updatePrescription(p,bp);
+								updatePrescription(d,bp);
 							else
 								errorMsg.setText("Add a prescription first! ");
 						}
@@ -251,7 +251,7 @@ public class DoctorMain {
 	}
 	
 	
-	public void updatePrescription(Patient p,BorderPane bp) {		
+	public void updatePrescription(Doctor d,BorderPane bp) {		
 		// Big Wrapper
 		BorderPane wrapperPane = new BorderPane();
 		
@@ -352,7 +352,7 @@ public class DoctorMain {
 							if(!namePair.getKey())
 								errorMsg.setText(namePair.getValue());
 							else
-								updateItems.put("Name", newName);
+								updateItems.put("Name", newName+"#"+medicineIndex);
 						}else
 							updateItems.put("Name", "");
 						
@@ -360,21 +360,33 @@ public class DoctorMain {
 						updateItems.put("Name", "");
 					
 					if(timeBox.isSelected()) {
-						String newAge = timeUpdateField.getText();									
-						if(newAge!="") {
-							Double newAge2 = Double.parseDouble(newAge);
-							Pair<Double,String> agePair = i.validateAge(newAge2);
-							if(agePair.getValue().length()>0)
-								errorMsg.setText(agePair.getValue());
-							else
-								updateItems.put("Dose",newAge);
+						String newTime = timeUpdateField.getText();	
+						timeDrop.getItems().removeAll();
+						ArrayList<LocalTime> timeList = p.retPrescription().
+								retMedicineBlock().retMedicines().get(medicineIndex).retTimes();
+						for(LocalTime t: timeList)
+							timeDrop.getItems().add(t.toString());
+						if(newTime!="") {
+							LocalTime newTime2= LocalTime.parse(newTime);
+//		!!!!!!!!! Important !!!!!!!!
+							// Check if same time exists or not
+//							if(agePair.getValue().length()>0)
+//								errorMsg.setText(agePair.getValue());
+//							else
+//								updateItems.put("Dose",newTime2);
+							updateItems.put("Time", newTime+"#"+timeDrop.getSelectionModel()
+							.getSelectedIndex());
 						}
 					}
 					else
-						updateItems.put("Dose", "");
-			
-				}catch(NumberFormatException exception) {
+						updateItems.put("Time", "");
 					
+					d.updatePrescription(updateItems.get("Name"),updateItems.get("Time"),p);
+					
+				}catch(NumberFormatException exception) {
+					errorMsg.setText("Expected numeric characters in doses.");
+				}catch(DateTimeParseException exception) {
+					errorMsg.setText("Please enter time in format HH:MM");
 				}
 			}
 		});
