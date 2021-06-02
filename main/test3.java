@@ -24,7 +24,7 @@ import CommonSnippets.*;
 import CustomExceptions.*;
 import Actions.Action;
 
-public class test2 extends Application{
+public class test3 extends Application{
 	
 	final int wards = 2;
 	final int rooms =4;
