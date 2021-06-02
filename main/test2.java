@@ -128,21 +128,21 @@ public class test2 extends Application{
 		roomBox1.setBorder(new Border(new BorderStroke(Color.BLACK,BorderStrokeStyle.SOLID
 				,null,new BorderWidths(2))));
 		
-		VBox roomBox2 = new VBox();
+		VBox roomBox2 = new VBox(-roomBoxHeight/2);
 		roomBox2.setPrefSize(roomBoxWidth, roomBoxHeight);
 		roomBox2.setMaxHeight(roomBoxWidth);
 		roomBox2.setMaxWidth(roomBoxHeight);
 		roomBox2.setBorder(new Border(new BorderStroke(Color.BLACK,BorderStrokeStyle.SOLID
 				,null,new BorderWidths(2))));
 		
-		VBox roomBox3 = new VBox();
+		VBox roomBox3 = new VBox(-roomBoxHeight/4);
 		roomBox3.setPrefSize(roomBoxWidth, roomBoxHeight);
 		roomBox3.setMaxHeight(roomBoxWidth);
 		roomBox3.setMaxWidth(roomBoxHeight);
 		roomBox3.setBorder(new Border(new BorderStroke(Color.BLACK,BorderStrokeStyle.SOLID
 				,null,new BorderWidths(2))));
 		
-		VBox roomBox4 = new VBox();
+		VBox roomBox4 = new VBox(-roomBoxHeight/4);
 		roomBox4.setPrefSize(roomBoxWidth, roomBoxHeight);
 		roomBox4.setMaxHeight(roomBoxWidth);
 		roomBox4.setMaxWidth(roomBoxHeight);
@@ -150,14 +150,14 @@ public class test2 extends Application{
 				,null,new BorderWidths(2))));
 		
 		
-		VBox roomBox5 = new VBox();
+		VBox roomBox5 = new VBox(-roomBoxHeight/4);
 		roomBox5.setPrefSize(roomBoxWidth, roomBoxHeight);
 		roomBox5.setMaxHeight(roomBoxWidth);
 		roomBox5.setMaxWidth(roomBoxHeight);
 		roomBox5.setBorder(new Border(new BorderStroke(Color.BLACK,BorderStrokeStyle.SOLID
 				,null,new BorderWidths(2))));
 		
-		VBox roomBox6 = new VBox();
+		VBox roomBox6 = new VBox(-roomBoxHeight/4);
 		roomBox6.setPrefSize(roomBoxWidth, roomBoxHeight);
 		roomBox6.setMaxHeight(roomBoxWidth);
 		roomBox6.setMaxWidth(roomBoxHeight);
@@ -169,22 +169,18 @@ public class test2 extends Application{
 		////////////////////////////////////////////////////////////////////////
 		///////////////////////////////////////////////////////////////////////
 		
-		HBox bedsBox1 = new HBox(roomBoxWidth/2);
-		HBox bedsBox2 = new HBox(roomBoxWidth/2);
+		HBox bedsBox1 = new HBox(roomBoxWidth/6);
+		HBox bedsBox2 = new HBox(roomBoxWidth/6);
 		
-		// Bed parameters
-		// bedsBox HBox Parameters
-//		int total4Beds = 4;
-		int total4Length = roomBoxHeight*no_of_rows;
-		
+		int total4Length = roomBoxHeight/2;
 		int bedsBoxPaddingTop = (roomBoxHeight-total4Length)/3;
 		int bedsBoxPaddingRight = 20;
-		int bedsBoxPaddingBottom = 0;
+		int bedsBoxPaddingBottom = (roomBoxHeight-total4Length)/3;
 		int bedsBoxPaddingLeft = 20;
 		int bedBoxHeight = (roomBoxHeight-(
-				(bedsBoxPaddingBottom+bedsBoxPaddingTop)*2))/2;
+				(bedsBoxPaddingBottom+bedsBoxPaddingTop))/3);
 		int bedBoxWidth = (roomBoxWidth-(
-				(bedsBoxPaddingLeft+bedsBoxPaddingRight)*2))/2;
+				(bedsBoxPaddingLeft+bedsBoxPaddingRight)));
 
 		
 		// Formatting BedsBox HBox
@@ -197,32 +193,32 @@ public class test2 extends Application{
 		bedsBox2.setAlignment(Pos.CENTER);
 		
 
-		// Creating Rooms
+		// Creating Beds
 		VBox bedBox1 = new VBox();
 		bedBox1.setPrefSize(bedBoxWidth, bedBoxHeight);
-		bedBox1.setMaxHeight(bedBoxWidth);
-		bedBox1.setMaxWidth(bedBoxHeight);
+		bedBox1.setMaxWidth(bedBoxWidth);
+		bedBox1.setMaxHeight(bedBoxHeight);
 		bedBox1.setBorder(new Border(new BorderStroke(Color.BLACK,BorderStrokeStyle.SOLID
 				,null,new BorderWidths(2))));
 		
 		VBox bedBox2 = new VBox();
 		bedBox2.setPrefSize(bedBoxWidth, bedBoxHeight);
-		bedBox2.setMaxHeight(bedBoxWidth);
-		bedBox2.setMaxWidth(bedBoxHeight);
+		bedBox2.setMaxWidth(bedBoxWidth);
+		bedBox2.setMaxHeight(bedBoxHeight);
 		bedBox2.setBorder(new Border(new BorderStroke(Color.BLACK,BorderStrokeStyle.SOLID
 				,null,new BorderWidths(2))));
 		
 		VBox bedBox3 = new VBox();
 		bedBox3.setPrefSize(bedBoxWidth, bedBoxHeight);
-		bedBox3.setMaxHeight(bedBoxWidth);
-		bedBox3.setMaxWidth(bedBoxHeight);
+		bedBox3.setMaxWidth(bedBoxWidth);
+		bedBox3.setMaxHeight(bedBoxHeight);
 		bedBox3.setBorder(new Border(new BorderStroke(Color.BLACK,BorderStrokeStyle.SOLID
 				,null,new BorderWidths(2))));
 		
 		VBox bedBox4 = new VBox();
 		bedBox4.setPrefSize(bedBoxWidth, bedBoxHeight);
-		bedBox4.setMaxHeight(bedBoxWidth);
-		bedBox4.setMaxWidth(bedBoxHeight);
+		bedBox4.setMaxWidth(bedBoxWidth);
+		bedBox4.setMaxHeight(bedBoxHeight);
 		bedBox4.setBorder(new Border(new BorderStroke(Color.BLACK,BorderStrokeStyle.SOLID
 				,null,new BorderWidths(2))));
 	
@@ -231,7 +227,11 @@ public class test2 extends Application{
 		bedsBox2.getChildren().addAll(bedBox3,bedBox4);
 		
 		// Adding bedsBox to roomBoxes
-		roomBox1.getChildren().addAll(bedsBox1,bedsBox2);
+		roomBox2.getChildren().addAll(bedsBox1);
+		roomBox3.getChildren().addAll(bedsBox1,bedsBox2);
+		roomBox4.getChildren().addAll(bedsBox1,bedsBox2);
+		roomBox5.getChildren().addAll(bedsBox1,bedsBox2);
+		roomBox6.getChildren().addAll(bedsBox1,bedsBox2);
 		
 		
 		// Adding room in roomsBox
