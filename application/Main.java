@@ -975,7 +975,7 @@ public class Main extends Application {
 	    //Setting elements in Vbox
 		vbox.setPadding(new Insets(10,0,0,50));
 		vbox.getChildren().addAll(administerButton,changeAutoButton
-				,changeManualButton);
+				,changeManualButton,displayButton);
 			
 		administerButton.setOnAction(e->{
 			nurseMain.patientSearch(n, bp, "Administer");

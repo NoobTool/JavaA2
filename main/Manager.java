@@ -11,11 +11,12 @@ import ward.WardDetails;
 import Actions.*;
 import prescription.*;
 import javafx.util.Pair;
+import application.WardMap;
+import javafx.stage.*;
 
 public class Manager extends Employee{
 	final static int NO_OF_WARDS = 2;
 	final static int MAX_SHIFTS = 2;
-	
 	CommonCodes c = new CommonCodes();
 	static Staff<Manager> managerList = new Staff<Manager>();
 	static Staff<Doctor> doctorList = new Staff<Doctor>();
@@ -30,7 +31,7 @@ public class Manager extends Employee{
 
 	InputValidation i = new InputValidation();
 	DisplayMenu dm = new DisplayMenu();
-	 
+	
 	public Manager(){
 		for(int i=0;i<NO_OF_WARDS;i++)
 			wards[i]= new Ward();
@@ -63,6 +64,9 @@ public class Manager extends Employee{
 		
 		availableIdList.add((long)7830675);
 		availableIdList.add((long)6830012);
+		
+		WardMap wm = new WardMap();
+		wm = new WardMap(retPatientList());
 	}
 	
 	public Manager(String msg) {}

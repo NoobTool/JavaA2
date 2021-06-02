@@ -1,7 +1,7 @@
 package application;
 
 import java.util.ArrayList;
-
+import main.Manager;
 import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
@@ -15,6 +15,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
+import main.Patient;
 
 public class WardMap extends Application{
 	final int wards = 2;
@@ -26,12 +27,14 @@ public class WardMap extends Application{
 	final int nSingle=1;
 	final int totalBeds = nSingle + (2*nDouble)+ (4*nRooms);
 	
+	//static HBox wrapperBox = new HBox();
+	
 	int bedNumber;
 	int roomNumber;
 	int WardNumber;
 	
-	ArrayList<VBox> roomList = new ArrayList<VBox>();
-	ArrayList<Label> bedList = new ArrayList<Label>();
+	static ArrayList<Label> bedList = new ArrayList<Label>();
+	static HBox wrapperBox;
 	
 	public static void print(Object o) {
 		System.out.println(o);
@@ -41,10 +44,23 @@ public class WardMap extends Application{
 		System.out.println();
 	}
 	
+	public WardMap() {
+		start(new Stage());
+	}
+	
+	public WardMap(ArrayList<Patient> patients) {
+		for(Patient p: patients) {
+			int index = p.retRoomNumber()+p.retBedNumber();
+			char gender = p.retGender();
+			changeBg(index, gender);
+		}
+	}
+	
+	public WardMap(String s) {}
+	
 	public void start(Stage primaryStage) {
-		
-		// Wrapper
-		HBox wrapperBox = new HBox(50);
+			
+		wrapperBox = new HBox(50);
 		
 		// Layout params
 		VBox vbox = new VBox();
@@ -122,7 +138,6 @@ public class WardMap extends Application{
 					++k;
 				}
 				ward1Pane.add(vbox, j, i);
-				roomList.add(vbox);
 			}
 		}
 		
@@ -153,7 +168,6 @@ public class WardMap extends Application{
 					++k;
 				}
 				ward2Pane.add(vbox, j, i);
-				roomList.add(vbox);
 			}
 		}
 		
@@ -173,10 +187,9 @@ public class WardMap extends Application{
 		// Formatting wrapperBox
 		wrapperBox.setPadding(new Insets(wrapperBoxPaddingTop,wrapperBoxPaddingRight,
 				wrapperBoxPaddingBottom,wrapperBoxPaddingLeft));
-
-		changeBg(13,'M');
-		primaryStage.setScene(new Scene(wrapperBox,wrapperBoxWidth,wrapperBoxHeight));
-		primaryStage.show();
+		
+//		primaryStage.setScene(new Scene(wrapperBox,wrapperBoxWidth,wrapperBoxHeight));
+//		primaryStage.show();
 	}
 	
 	
@@ -319,4 +332,9 @@ public class WardMap extends Application{
 		else
 			bedList.get(index).setStyle("-fx-background-color:red");
 	}
+	
+	public HBox retMap() {
+		return wrapperBox;
+	}
+	
 }

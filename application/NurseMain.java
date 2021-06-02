@@ -2,6 +2,8 @@ package application;
 import main.Manager;
 import main.Nurse;
 import main.Patient;
+import javafx.stage.*;
+import javafx.scene.*;
 import javafx.geometry.Insets;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -100,6 +102,13 @@ public class NurseMain {
 	
 	
 	public void administerMedicine() {
+		Stage primaryStage = new Stage();
+		Manager m = new Manager("To return patients list");
+		WardMap wm = new WardMap(m.retPatientList());
+		HBox map = wm.retMap();
+		primaryStage.setScene(new Scene(map,1000,1000));
+		primaryStage.show();
+		
 		
 	}
 	
