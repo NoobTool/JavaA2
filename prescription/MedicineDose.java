@@ -2,7 +2,7 @@ package prescription;
 import java.util.ArrayList;
 import java.time.LocalTime;
 import CommonSnippets.*;
-
+ 
 public class MedicineDose {
 	private String medicineName;
 	private int dose;
@@ -59,25 +59,6 @@ public class MedicineDose {
 				sortTimes();
 			}
 		}
-	}
-	
-	public void changeTimes() {
-		DisplayMenu dm = new DisplayMenu();
-		CommonCodes c = new CommonCodes();
-		int choice=0;
-		do {
-			dm.doctorDoseMenu();
-			choice = c.inputInt("");
-			
-			switch(choice) {
-				case 1: changeDoseTime();
-						sortTimes();
-						break;
-						
-				case 2: break;
-						
-			}
-		}while(choice!=4);
 	}
 	
 	public void sortTimes()
