@@ -8,12 +8,13 @@ import java.util.Collections;
 import java.util.Objects;
 import java.util.Scanner;
 import java.time.temporal.ChronoUnit;
-import java.util.*;
+import javafx.event.EventHandler;
 import javafx.util.Pair;
 import javafx.application.Application;
 import javafx.stage.Stage;
 import javafx.scene.Scene;
 import javafx.scene.text.*;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.control.*;
 import javafx.scene.layout.*;
 import javafx.scene.shape.Rectangle;
@@ -47,8 +48,8 @@ public class test2 extends Application{
 		HBox wrapperBox = new HBox(50);
 		
 		// Wrapper Box parameters
-		int wrapperBoxHeight =800;
-		int wrapperBoxWidth =800;
+		int wrapperBoxHeight =1000;
+		int wrapperBoxWidth =1000;
 		int wrapperBoxPaddingTop=20;
 		int wrapperBoxPaddingRight=20;
 		int wrapperBoxPaddingBottom=20;
@@ -81,14 +82,42 @@ public class test2 extends Application{
 		wardBox2.setBorder(new Border(new BorderStroke(Color.BLACK,BorderStrokeStyle.SOLID
 				,null,new BorderWidths(3))));
 		
+		// Adding elements in wards
+		HBox roomsBox1 = new HBox(50);
+		HBox roomsBox2 = new HBox(50);
+		HBox roomsBox3 = new HBox(50);
+		
 		// Room parameters
 		int roomBoxHeight = (wardBoxHeight-(
-				(wardBoxPaddingBottom+wardBoxPaddingTop)*2))/10;
+				(wardBoxPaddingBottom+wardBoxPaddingTop)*2))/7;
 		int roomBoxWidth = (wardBoxWidth-(
-				(wardBoxPaddingLeft+wardBoxPaddingRight)*2))/10;
+				(wardBoxPaddingLeft+wardBoxPaddingRight)*2))/7;
+
+		// roomsBox HBox Parameters
+		int totalRooms = rooms+dual_rooms+single_room;
+		if(totalRooms%2!=0)
+			totalRooms+=1;
+		int no_of_rows = (totalRooms)/2;
+		int totalLength = roomBoxHeight*no_of_rows;
 		
-		// Adding elements in wards
-		HBox roomsBox1 = new HBox(20);
+		int roomsBoxPaddingTop = (wardBoxHeight-totalLength)/(no_of_rows+1);
+		int roomsBoxPaddingRight = 20;
+		int roomsBoxPaddingBottom = 0;
+		int roomsBoxPaddingLeft = 20;
+		
+		// Formatting RoomsBox HBox
+		roomsBox1.setPadding(new Insets(roomsBoxPaddingTop,roomsBoxPaddingRight,
+				roomsBoxPaddingBottom,roomsBoxPaddingLeft));
+		roomsBox1.setAlignment(Pos.CENTER);
+		
+		roomsBox2.setPadding(new Insets(roomsBoxPaddingTop,roomsBoxPaddingRight,
+				roomsBoxPaddingBottom,roomsBoxPaddingLeft));
+		roomsBox2.setAlignment(Pos.CENTER);
+		
+		roomsBox3.setPadding(new Insets(roomsBoxPaddingTop,roomsBoxPaddingRight,
+				roomsBoxPaddingBottom,roomsBoxPaddingLeft));
+		roomsBox3.setAlignment(Pos.CENTER);
+		
 		
 		
 		// Creating Rooms
@@ -106,8 +135,43 @@ public class test2 extends Application{
 		roomBox2.setBorder(new Border(new BorderStroke(Color.BLACK,BorderStrokeStyle.SOLID
 				,null,new BorderWidths(2))));
 		
+		VBox roomBox3 = new VBox();
+		roomBox3.setPrefSize(roomBoxWidth, roomBoxHeight);
+		roomBox3.setMaxHeight(roomBoxWidth);
+		roomBox3.setMaxWidth(roomBoxHeight);
+		roomBox3.setBorder(new Border(new BorderStroke(Color.BLACK,BorderStrokeStyle.SOLID
+				,null,new BorderWidths(2))));
+		
+		VBox roomBox4 = new VBox();
+		roomBox4.setPrefSize(roomBoxWidth, roomBoxHeight);
+		roomBox4.setMaxHeight(roomBoxWidth);
+		roomBox4.setMaxWidth(roomBoxHeight);
+		roomBox4.setBorder(new Border(new BorderStroke(Color.BLACK,BorderStrokeStyle.SOLID
+				,null,new BorderWidths(2))));
+		
+		
+		VBox roomBox5 = new VBox();
+		roomBox5.setPrefSize(roomBoxWidth, roomBoxHeight);
+		roomBox5.setMaxHeight(roomBoxWidth);
+		roomBox5.setMaxWidth(roomBoxHeight);
+		roomBox5.setBorder(new Border(new BorderStroke(Color.BLACK,BorderStrokeStyle.SOLID
+				,null,new BorderWidths(2))));
+		
+		VBox roomBox6 = new VBox();
+		roomBox6.setPrefSize(roomBoxWidth, roomBoxHeight);
+		roomBox6.setMaxHeight(roomBoxWidth);
+		roomBox6.setMaxWidth(roomBoxHeight);
+		roomBox6.setBorder(new Border(new BorderStroke(Color.BLACK,BorderStrokeStyle.SOLID
+				,null,new BorderWidths(2))));
+		
+		
 		// Adding beds in rooms
 		roomsBox1.getChildren().addAll(roomBox1,roomBox2);
+		roomsBox2.getChildren().addAll(roomBox3,roomBox4);
+		roomsBox3.getChildren().addAll(roomBox5,roomBox6);
+		
+		// Adding rooms to wards
+		wardBox1.getChildren().addAll(roomsBox1,roomsBox2,roomsBox3);
 		
 		// Adding elements in wrapper box
 		wrapperBox.getChildren().addAll(wardBox1,wardBox2);
@@ -115,6 +179,17 @@ public class test2 extends Application{
 		// Formatting wrapperBox
 		wrapperBox.setPadding(new Insets(wrapperBoxPaddingTop,wrapperBoxPaddingRight,
 				wrapperBoxPaddingBottom,wrapperBoxPaddingLeft));
+		
+		VBox selectedRoom = ((VBox)((HBox)wardBox1.getChildren().get(2)).getChildren().get(0));
+		
+		selectedRoom.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
+
+		     @Override
+		     public void handle(MouseEvent event) {
+		         System.out.println("Tile pressed ");
+		         event.consume();
+		     }
+		});
 		
 		primaryStage.setScene(new Scene(wrapperBox,wrapperBoxWidth,wrapperBoxHeight));
 		primaryStage.show();
