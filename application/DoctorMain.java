@@ -433,34 +433,42 @@ public class DoctorMain {
 	//Function to update timings after dose updation
 	private void changeDose(int index, int oldDose, int newDose, ArrayList<LocalTime> timeList,
 			boolean increased, BorderPane bp) {
-		
+		// Initiliazing stage
 		Stage primaryStage = new Stage();
-		VBox doseBox = new VBox(40);
+		
+		// Layout elements
+		VBox doseBox = new VBox(30);
+		HBox buttonHolder = new HBox(10);
+		HBox inputHolder = new HBox(10);
+		Button submit = new Button("Submit");
+		Button cancel = new Button("Cancel");
+		Label errorMsg = new Label();
+		
 		MedicineDose md = p.retPrescription().retMedicineBlock().
 				retMedicineDose(index);
-		String labelContent = "Previous doses were "+oldDose+"\n"
-				+ "and new doses are "+newDose+".";
-		
-		
-		doseBox.getChildren().add(new Label(labelContent));
-		
+			
 		TextField timeField = new TextField();
 		ComboBox<String> timeBox = new ComboBox<String>();
 		
 		if(increased)
-			doseBox.getChildren().add(timeField);
+			inputHolder.getChildren().addAll(new Label("Add "+(newDose-oldDose)
+					+"\nmore timings"),timeField);
 		
 		else {
-			doseBox.getChildren().add(timeBox);
+			inputHolder.getChildren().addAll(new Label("Delete "+(oldDose-newDose)
+					+"\nmore timings"),timeBox);
 			for(LocalTime t: timeList)
 				timeBox.getItems().add(t.toString());
 		}
 		
-		HBox buttonHolder = co.addButtonHolder(bp);
-		Label errorMsg = new Label();
-		doseBox.getChildren().addAll(buttonHolder,errorMsg);
+		// Adding elements in HBox
+		buttonHolder.getChildren().addAll(submit,cancel);
+
+		//Adding elements to VBox
+		doseBox.getChildren().addAll(inputHolder,buttonHolder,errorMsg);
 		
 		((Button) buttonHolder.getChildren().get(0)).setOnAction(e->{
+			errorMsg.setTextFill(Color.RED);
 			if(increased) {
 				try {
 					boolean flag =true;
@@ -488,9 +496,8 @@ public class DoctorMain {
 						if(flag && newTime.size()==(newDose - oldDose)) {
 							md.addTime(newTime);
 							md.setDose(newDose);
-							System.out.println(timingsSet);
+							errorMsg.setTextFill(Color.GREEN);
 							primaryStage.close();
-							return;
 						}
 					}
 									
@@ -503,25 +510,31 @@ public class DoctorMain {
 				if(oldDose==newDose) {
 					md.setDose(newDose);
 					md.removeTime(removeTimeList);
+					errorMsg.setTextFill(Color.GREEN);
+					errorMsg.setText("Added Successfully!");
 					primaryStage.close();
 				}
 				
 				else {
 					int selectedIndex = timeBox.getSelectionModel().getSelectedIndex();
 					if(selectedIndex==-1) 
-						errorMsg.setText("Please select a shift to be deleted.");
+						errorMsg.setText("Please select a time to be deleted.");
 					else {
 						removeTimeList.add(timeList.get(selectedIndex));
 						timeList.remove(selectedIndex);
-						changeDose(index,oldDose,newDose,timeList,false,bp);
+						changeDose(index,newDose,oldDose-1,timeList,false,bp);
 						primaryStage.close();
 					}
 					
 				}
 			}
 		});
+	
+		// Formatting VBox
+		doseBox.setAlignment(Pos.CENTER);
+		doseBox.setPadding(new Insets(30,0,0,20));
 		
-		primaryStage.setScene(new Scene(doseBox,300,500));	
+		primaryStage.setScene(new Scene(doseBox,300,200));	
 		primaryStage.show();
 	} 
 	
