@@ -9,6 +9,7 @@ import CommonSnippets.CommonCodes;
 import ward.Ward;
 import ward.WardDetails;
 import Actions.*;
+import prescription.*;
 import javafx.util.Pair;
 
 public class Manager extends Employee{
@@ -49,6 +50,14 @@ public class Manager extends Employee{
 		nurseList.addStaff(nurse1);
 		
 		admitPatient("Radhe", 89, 'M', "Patient");
+		ArrayList<LocalTime> medTimes = new ArrayList<LocalTime>();
+		ArrayList<MedicineDose> meds = new ArrayList<MedicineDose>();
+		medTimes.add(LocalTime.parse("12:00"));
+		medTimes.add(LocalTime.parse("18:00"));
+		MedicineDose md = new MedicineDose("Crocin",2,medTimes);
+		meds.add(md);
+		Prescription prescription = new Prescription(new MedicineBlock(meds));
+		patientList.retStaff().get(0).addPrescription(prescription);
 		
 		availableIdList.add((long)7830675);
 		availableIdList.add((long)6830012);
