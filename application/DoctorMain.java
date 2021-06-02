@@ -265,6 +265,7 @@ public class DoctorMain {
 		
 		// Common error message
 		Label errorMsg = new Label();
+		errorMsg.setTextFill(Color.RED);
 		
 		// Layout Items
 		GridPane detailsPane = new GridPane();
@@ -291,8 +292,9 @@ public class DoctorMain {
 		detailsPane.add(timeUpdateField, 3, 3);
 		detailsPane.add(buttonHolder, 2, 4);
 		
-		detailsPane.setVisible(false);
-		
+		nameBox.setVisible(false);
+		doseBox.setVisible(false);
+		timeBox.setVisible(false);
 		nameUpdateField.setVisible(false);
 		doseUpdateLabel.setVisible(false);
 		timeUpdateField.setVisible(false);
@@ -321,7 +323,7 @@ public class DoctorMain {
 				
 			else {
 				timeUpdateField.setVisible(false);
-				timeDrop.setVisible(true);
+				timeDrop.setVisible(false);
 			}
 		});
 		
@@ -334,8 +336,10 @@ public class DoctorMain {
 				errorMsg.setText("Please select a medicine name first");
 			}
 			
-			else if(!detailsPane.isVisible()) {
-				detailsPane.setVisible(true);
+			else if(!nameBox.isVisible()) {
+				nameBox.setVisible(true);
+				doseBox.setVisible(true);
+				timeBox.setVisible(true);
 				medicineName.setVisible(false);
 			}
 			
@@ -381,9 +385,11 @@ public class DoctorMain {
 		
 		wrapperPane.setTop(medicineName);
 		wrapperPane.setCenter(detailsPane);
+		wrapperPane.setBottom(errorMsg);
+		BorderPane.setAlignment(errorMsg, Pos.CENTER);
 		
 		bp.setCenter(wrapperPane);
-		bp.setBottom(errorMsg);
+		bp.setBottom(null);
 		bp.setRight(null);
 		
 		
