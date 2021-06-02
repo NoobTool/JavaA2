@@ -42,4 +42,9 @@ public class CommonOperations {
 		return hbox;
 	}
 	
+	public void setVisibilityFalse(CheckBox...args) {
+		for(CheckBox c: args)
+			c.setVisible(false);
+	}
+	
 }

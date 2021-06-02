@@ -3,6 +3,7 @@ import java.time.LocalTime;
 import java.time.format.*;
 import prescription.MedicineDose;
 import CustomExceptions.InputValidation;
+import CustomExceptions.TooManyShiftsException;
 import main.Doctor;
 import main.Manager;
 import main.Patient;
@@ -23,6 +24,8 @@ public class DoctorMain {
 	InputValidation i = new InputValidation();
 	ArrayList<MedicineDose> meds = new ArrayList<MedicineDose>();
 	Patient p;
+	Boolean timingsSet=false;
+	ArrayList<LocalTime> removeTimeList = new ArrayList<LocalTime>();
 	
 	public void patientSearch(Doctor d, BorderPane bp, String add) {
 		// Big Wrapper
@@ -274,19 +277,15 @@ public class DoctorMain {
 		CheckBox timeBox = new CheckBox("Medicine Time");
 		TextField nameUpdateField = new TextField();
 		TextField timeUpdateField = new TextField();
-		Label doseUpdateLabel = new Label();
+		TextField doseUpdateField = new TextField();
 		HBox buttonHolder = co.addButtonHolder(bp);
 		HashMap<String,String> updateItems = new HashMap<String,String>();
 		ComboBox<String> timeDrop = new ComboBox<String>();
 		
-		
-		// Label Formatting
-		doseUpdateLabel.setText("A new modification windows\nwill appear after this!");
-		
 		detailsPane.add(nameBox, 1, 1);
 		detailsPane.add(nameUpdateField, 2, 1);
 		detailsPane.add(doseBox, 1, 2);
-		detailsPane.add(doseUpdateLabel, 2, 2);
+		detailsPane.add(doseUpdateField, 2, 2);
 		detailsPane.add(timeBox, 1, 3);
 		detailsPane.add(timeDrop, 2, 3);
 		detailsPane.add(timeUpdateField, 3, 3);
@@ -296,11 +295,11 @@ public class DoctorMain {
 		doseBox.setVisible(false);
 		timeBox.setVisible(false);
 		nameUpdateField.setVisible(false);
-		doseUpdateLabel.setVisible(false);
+		doseUpdateField.setVisible(false);
 		timeUpdateField.setVisible(false);
 		timeDrop.setVisible(false);
 		
-		// Toggling visibility of textfields by checkbox selection
+		// Toggling visibility of text fields by check box selection
 		nameBox.setOnAction(e3->{
 			if(nameBox.isSelected())
 				nameUpdateField.setVisible(true);
@@ -310,9 +309,9 @@ public class DoctorMain {
 		
 		doseBox.setOnAction(e3->{
 			if(doseBox.isSelected())
-				doseUpdateLabel.setVisible(true);
+				doseUpdateField.setVisible(true);
 			else
-				doseUpdateLabel.setVisible(false);
+				doseUpdateField.setVisible(false);
 		});
 		
 		timeBox.setOnAction(e3->{
@@ -327,10 +326,11 @@ public class DoctorMain {
 			}
 		});
 		
-		
 		((Button) buttonHolder.getChildren().get(0)).setOnAction(e3->{
 			int medicineIndex = medicineName.getSelectionModel()
 					.getSelectedIndex();
+			ArrayList<LocalTime> timeList = p.retPrescription().
+					retMedicineBlock().retMedicines().get(medicineIndex).retTimes();
 			
 			if(medicineIndex==-1) {
 				errorMsg.setText("Please select a medicine name first");
@@ -341,6 +341,10 @@ public class DoctorMain {
 				doseBox.setVisible(true);
 				timeBox.setVisible(true);
 				medicineName.setVisible(false);
+				timeDrop.getItems().removeAll();
+				for(LocalTime t: timeList) {
+					timeDrop.getItems().add(t.toString());
+				}
 			}
 			
 			else {
@@ -352,7 +356,7 @@ public class DoctorMain {
 							if(!namePair.getKey())
 								errorMsg.setText(namePair.getValue());
 							else
-								updateItems.put("Name", newName+"#"+medicineIndex);
+								updateItems.put("Name", newName+"");
 						}else
 							updateItems.put("Name", "");
 						
@@ -361,27 +365,48 @@ public class DoctorMain {
 					
 					if(timeBox.isSelected()) {
 						String newTime = timeUpdateField.getText();	
-						timeDrop.getItems().removeAll();
-						ArrayList<LocalTime> timeList = p.retPrescription().
-								retMedicineBlock().retMedicines().get(medicineIndex).retTimes();
-						for(LocalTime t: timeList)
-							timeDrop.getItems().add(t.toString());
+						Boolean flag=true;
 						if(newTime!="") {
 							LocalTime newTime2= LocalTime.parse(newTime);
-//		!!!!!!!!! Important !!!!!!!!
-							// Check if same time exists or not
-//							if(agePair.getValue().length()>0)
-//								errorMsg.setText(agePair.getValue());
-//							else
-//								updateItems.put("Dose",newTime2);
-							updateItems.put("Time", newTime+"#"+timeDrop.getSelectionModel()
-							.getSelectedIndex());
+							
+							for (LocalTime t: timeList)
+								if(newTime2==t) {
+									errorMsg.setText("The new time is already present!");
+									updateItems.put("Time","");
+									flag=false;
+								}
+									
+							if(flag)
+								updateItems.put("Time", newTime+"#"+timeDrop.getSelectionModel()
+								.getSelectedIndex());
 						}
 					}
 					else
-						updateItems.put("Time", "");
+						updateItems.put("Time", "");	
 					
-					d.updatePrescription(updateItems.get("Name"),updateItems.get("Time"),p);
+					d.updatePrescription(medicineIndex,updateItems.get("Name"),updateItems.get("Time"),p);
+					
+					if(doseBox.isSelected()) {
+						int newDoses = Integer.parseInt(doseUpdateField.getText().strip());
+						
+						if(newDoses>0) {
+							int oldDoses = p.retPrescription().retMedicineBlock()
+									.retMedicineDose(medicineIndex).retDose();
+							if(oldDoses<newDoses) 
+								changeDose(medicineIndex,oldDoses,newDoses,timeList,true,bp);
+							if(oldDoses>newDoses)
+								changeDose(medicineIndex,oldDoses,newDoses,timeList,false,bp);
+						}
+						
+					}
+
+					// Clearing fields after submission
+					co.clearAllFields(nameUpdateField,timeUpdateField,doseUpdateField);
+					timeBox.setSelected(false);
+					nameBox.setSelected(false);
+					doseBox.setSelected(false);
+					timeDrop.setVisible(false);
+					doseUpdateField.setVisible(false);
 					
 				}catch(NumberFormatException exception) {
 					errorMsg.setText("Expected numeric characters in doses.");
@@ -402,11 +427,104 @@ public class DoctorMain {
 		
 		bp.setCenter(wrapperPane);
 		bp.setBottom(null);
-		bp.setRight(null);
-		
-		
-		
+		bp.setRight(null);		
 	}
+	
+	//Function to update timings after dose updation
+	private void changeDose(int index, int oldDose, int newDose, ArrayList<LocalTime> timeList,
+			boolean increased, BorderPane bp) {
+		
+		Stage primaryStage = new Stage();
+		VBox doseBox = new VBox(40);
+		MedicineDose md = p.retPrescription().retMedicineBlock().
+				retMedicineDose(index);
+		String labelContent = "Previous doses were "+oldDose+"\n"
+				+ "and new doses are "+newDose+".";
+		
+		
+		doseBox.getChildren().add(new Label(labelContent));
+		
+		TextField timeField = new TextField();
+		ComboBox<String> timeBox = new ComboBox<String>();
+		
+		if(increased)
+			doseBox.getChildren().add(timeField);
+		
+		else {
+			doseBox.getChildren().add(timeBox);
+			for(LocalTime t: timeList)
+				timeBox.getItems().add(t.toString());
+		}
+		
+		HBox buttonHolder = co.addButtonHolder(bp);
+		Label errorMsg = new Label();
+		doseBox.getChildren().addAll(buttonHolder,errorMsg);
+		
+		((Button) buttonHolder.getChildren().get(0)).setOnAction(e->{
+			if(increased) {
+				try {
+					boolean flag =true;
+					String[] timings = timeField.getText().split(",");
+					
+					if(timings.length!=(newDose - oldDose)) {
+						errorMsg.setText("Number of times is not equal to doses.");
+					}
+					
+					else {
+						ArrayList<LocalTime> newTime = new ArrayList<LocalTime>();
+						for(int i=0;i<timings.length;i++) {
+							LocalTime validatedTime = LocalTime.parse(timings[i]);
+							for(LocalTime t: timeList)
+								if(t==validatedTime) {
+									errorMsg.setText(t+" is already present, enter again.");
+									flag=false;
+									break;
+								}
+							if(!flag)
+								break;
+							newTime.add(validatedTime);
+						}
+							
+						if(flag && newTime.size()==(newDose - oldDose)) {
+							md.addTime(newTime);
+							md.setDose(newDose);
+							System.out.println(timingsSet);
+							primaryStage.close();
+							return;
+						}
+					}
+									
+				}catch(DateTimeParseException exception) {
+					errorMsg.setText("\n\n\n\nPlease enter time in format HH:MM");
+				}
+			}
+			
+			else {
+				if(oldDose==newDose) {
+					md.setDose(newDose);
+					md.removeTime(removeTimeList);
+					primaryStage.close();
+				}
+				
+				else {
+					int selectedIndex = timeBox.getSelectionModel().getSelectedIndex();
+					if(selectedIndex==-1) 
+						errorMsg.setText("Please select a shift to be deleted.");
+					else {
+						removeTimeList.add(timeList.get(selectedIndex));
+						timeList.remove(selectedIndex);
+						changeDose(index,oldDose,newDose,timeList,false,bp);
+						primaryStage.close();
+					}
+					
+				}
+			}
+		});
+		
+		primaryStage.setScene(new Scene(doseBox,300,500));	
+		primaryStage.show();
+	} 
+	
 
 	// Function to display patients
 	public void displayPatientDetails(Patient p,BorderPane bp) {

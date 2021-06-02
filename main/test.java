@@ -20,5 +20,8 @@ public class test {
 	}
 	
 	public static void main(String args[]) {
+		boolean str;
+		str = LocalTime.parse("12:00")==LocalTime.parse("12:00");
+		print(str);
 	}
 }

@@ -130,15 +130,19 @@ public class MedicineDose {
 		this.medicineName = medicineName;
 	}
 	
+//	public void setDose(int n) {
+//		CommonCodes c =  new CommonCodes();
+//		while(n<=0) {
+//			System.out.println("Number of doses must be greater than 0.");
+//			n = c.inputInt("Enter again! ");
+//		}
+//		dose = n;
+//		if(dose!=times.size())
+//			alterTimes();
+//	}
+	
 	public void setDose(int n) {
-		CommonCodes c =  new CommonCodes();
-		while(n<=0) {
-			System.out.println("Number of doses must be greater than 0.");
-			n = c.inputInt("Enter again! ");
-		}
-		dose = n;
-		if(dose!=times.size())
-			alterTimes();
+		this.dose = n;
 	}
 	
 	public void setTime(int n,LocalTime time) {
@@ -156,4 +160,14 @@ public class MedicineDose {
 	public ArrayList<LocalTime> retTimes(){
 		return this.times;
 	}
+	
+	public void removeTime(ArrayList<LocalTime> time) {
+		times.removeAll(time);
+	}
+	
+	public void addTime(ArrayList<LocalTime> time) {
+		this.times.addAll(time);
+		sortTimes();
+	}
+	
 }

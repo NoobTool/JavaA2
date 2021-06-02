@@ -48,5 +48,7 @@ public class MedicineBlock {
 		return this.medicines;
 	}
 	
-	
+	public MedicineDose retMedicineDose(int index) {
+		return medicines.get(index);
+	}
 }
