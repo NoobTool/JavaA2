@@ -30,7 +30,7 @@ public class Manager extends Employee{
 
 	InputValidation i = new InputValidation();
 	DisplayMenu dm = new DisplayMenu();
-	
+	 
 	public Manager(){
 		for(int i=0;i<NO_OF_WARDS;i++)
 			wards[i]= new Ward();
@@ -45,8 +45,10 @@ public class Manager extends Employee{
 				+LocalTime.parse(startTime).plusHours(6),"1234"));
 		doctorList.addStaff(new Doctor((long)6830000,"Babu",16,'M',startTime+"-"
 				+LocalTime.parse(startTime).plusHours(1),"1234"));
+		
 		Nurse nurse1= new Nurse((long)7830000,"Elisa",18,'F',"10:00-16:00","1234");
-		nurse1.setShifts("14:00-22:00");
+		nurse1.setShifts(startTime+"-"
+				+LocalTime.parse(startTime).plusHours(8));
 		nurseList.addStaff(nurse1);
 		
 		admitPatient("Radhe", 89, 'M', "Patient");

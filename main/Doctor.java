@@ -66,8 +66,6 @@ public class Doctor extends Employee{
 			}
 		}
 	
-	public void addPrescriptionTime(Patient p) {}
-	
 	// Getter functions
 	
 		public long retId() {

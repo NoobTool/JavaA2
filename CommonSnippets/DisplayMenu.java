@@ -66,11 +66,9 @@ public class DisplayMenu {
 	
 	public ArrayList<String> nurseMenu() {
 		ArrayList<String> nurseMenu = new ArrayList<String>();
-		nurseMenu.add("1. Administer a medicine. ");
-		nurseMenu.add("2. Change bed automatically. ");
-		nurseMenu.add("3. Change bed manually. ");
-		nurseMenu.add("4. Exit. ");
-		nurseMenu.add("Enter your choice. ");
+		nurseMenu.add("Administer medicine. ");
+		nurseMenu.add("Change bed automatically. ");
+		nurseMenu.add("Change bed manually. ");
 		return nurseMenu;
 	}
 	

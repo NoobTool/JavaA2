@@ -132,7 +132,7 @@ public class Main extends Application {
 				errorMsg.setText("*Invalid ID\n\n\n");
 			}
 			
-			
+			  
 			//primaryStage.close();
 		});
 		
@@ -942,27 +942,58 @@ public class Main extends Application {
 		
 	}
 
-	
+	 
 	private void nurseStart(Nurse n) {
+		NurseMain nurseMain = new NurseMain();
+		
+		// Layout Elements
 		Stage nurseStage = new Stage();
 		BorderPane bp = new BorderPane();
-		VBox vbox = new VBox();
-		HBox hbox = new HBox();
-	    hbox.setPadding(new Insets(15, 12, 15, 12));
-	    hbox.setSpacing(10);
-	    hbox.setStyle("-fx-background-color: #4477aa;");
-
-	    Label currentUser = new Label("Elisa");
-
-	    hbox.getChildren().addAll(currentUser, addExitButton(nurseStage));
+		VBox vbox = new VBox(25);
+		BorderPane topBar = new BorderPane();
 		
+		// VBox and HBox formatting
+		topBar.setPadding(new Insets(15, 12, 15, 12));
+	    topBar.setStyle("-fx-background-color: #4477aa;");
+	    vbox.setPadding(new Insets(60,50,50,50));
+	    
+	    // Hi message
+	    Label currentUser = new Label("Hi, "+n.retName());
+	    currentUser.setFont(new Font("cambria",16));
+	    currentUser.setStyle("-fx-font-weight: bold");
+	    
+	    //Buttons
+	    Button administerButton = new Button(dm.nurseMenu().get(0));
+	    Button changeAutoButton = new Button(dm.doctorMenu().get(1));
+	    Button changeManualButton = new Button(dm.doctorMenu().get(2));
+	    
+	    // Top Bar hbox formatting
+	    topBar.setLeft(currentUser);
+	    topBar.setRight(addExitButton(nurseStage));
+		
+	    //Setting elements in Vbox
 		vbox.setPadding(new Insets(10,0,0,50));
-		for(int i=0;i<dm.nurseMenu().size();i++)
-			vbox.getChildren().add(new Button(dm.nurseMenu().get(i)));
+		vbox.getChildren().addAll(administerButton,changeAutoButton
+				,changeManualButton);
+			
+		administerButton.setOnAction(e->{
+			//nurseMain.patientSearch(d, bp, "add");
+		});
+		
+		changeAutoButton.setOnAction(e->{
+			//nurseMain.patientSearch(d,bp,"update");
+		});
+		
+		changeManualButton.setOnAction(e->{
+			//nurseMain.patientSearch(d, bp, "x");
+		});
+			
+		// Adding elements to the main border pane
 		bp.setLeft(vbox);
-		bp.setTop(hbox);
-		nurseStage.setScene(new Scene(bp,1000,450));
-		nurseStage.show();		
+		bp.setTop(topBar);
+		
+		nurseStage.setScene(new Scene(bp, 800, 300));
+		nurseStage.show();
 	}
 	
 	
