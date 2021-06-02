@@ -1,38 +1,34 @@
-package main;
-import java.util.*;
-import java.time.*;
-import java.time.format.DateTimeFormatter;
-import CommonSnippets.CommonCodes;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Objects;
-import java.util.Scanner;
-import java.time.temporal.ChronoUnit;
-import javafx.event.EventHandler;
-import javafx.util.Pair;
-import javafx.application.Application;
-import javafx.stage.Stage;
-import javafx.scene.Scene;
-import javafx.scene.text.*;
-import javafx.scene.input.MouseEvent;
-import javafx.scene.control.*;
-import javafx.scene.layout.*;
-import javafx.scene.shape.Rectangle;
-import javafx.scene.paint.Color;
-import javafx.geometry.*;
-import CommonSnippets.*;
-import CustomExceptions.*;
-import Actions.Action;
+package application;
 
-public class test2 extends Application{
-	
+import java.util.ArrayList;
+
+import javafx.application.Application;
+import javafx.geometry.Insets;
+import javafx.scene.Scene;
+import javafx.scene.control.Label;
+import javafx.scene.layout.Border;
+import javafx.scene.layout.BorderStroke;
+import javafx.scene.layout.BorderStrokeStyle;
+import javafx.scene.layout.BorderWidths;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
+import javafx.stage.Stage;
+
+public class WardMap extends Application{
 	final int wards = 2;
-	final int rooms = 4;
+	final int nRooms = 4;
 	final int room_size=4;
 	final int nDouble=1;
 	final int dual_room_size=2;
 	final int single_room=1;
 	final int nSingle=1;
+	final int totalBeds = nSingle + (2*nDouble)+ (4*nRooms);
+	
+	int bedNumber;
+	int roomNumber;
+	int WardNumber;
 	
 	ArrayList<VBox> roomList = new ArrayList<VBox>();
 	ArrayList<Label> bedList = new ArrayList<Label>();
@@ -95,19 +91,19 @@ public class test2 extends Application{
 		int roomBoxWidth = (wardBoxWidth-(
 				(wardBoxPaddingLeft+wardBoxPaddingRight)*2))/7;
 
-		// roomsBox HBox Parameters
-		int totalRooms = rooms+nDouble+nSingle;
+		// nRoomsBox HBox Parameters
+		int totalRooms = nRooms+nDouble+nSingle;
 		if(totalRooms%2!=0)
 			totalRooms+=1;
 		int no_of_rows = (totalRooms)/2;
 		int totalLength = roomBoxHeight*no_of_rows;
 		
-		int roomsBoxPaddingTop = (wardBoxHeight-totalLength)/(no_of_rows+1);
-		int roomsBoxPaddingRight = 20;
-		int roomsBoxPaddingBottom = (wardBoxHeight-totalLength)/(no_of_rows+1);
-		int roomsBoxPaddingLeft = 40;
+		int nRoomsBoxPaddingTop = (wardBoxHeight-totalLength)/(no_of_rows+1);
+		int nRoomsBoxPaddingRight = 20;
+		int nRoomsBoxPaddingBottom = (wardBoxHeight-totalLength)/(no_of_rows+1);
+		int nRoomsBoxPaddingLeft = 40;
 		
-		// Creating rooms		
+		// Creating nRooms		
 		GridPane ward1Pane = new GridPane();
 
 		int k = 0;
@@ -131,8 +127,8 @@ public class test2 extends Application{
 		}
 		
 		// Ward1Pane formatting 
-		ward1Pane.setPadding(new Insets(roomsBoxPaddingTop,roomsBoxPaddingRight,
-				roomsBoxPaddingBottom,roomsBoxPaddingLeft));
+		ward1Pane.setPadding(new Insets(nRoomsBoxPaddingTop,nRoomsBoxPaddingRight,
+				nRoomsBoxPaddingBottom,nRoomsBoxPaddingLeft));
 		ward1Pane.setHgap(100);
 		ward1Pane.setVgap((wardBoxHeight-totalLength)/(no_of_rows+1));
 		
@@ -162,8 +158,8 @@ public class test2 extends Application{
 		}
 		
 		// Ward1Pane formatting 
-		ward2Pane.setPadding(new Insets(roomsBoxPaddingTop,roomsBoxPaddingRight,
-				roomsBoxPaddingBottom,roomsBoxPaddingLeft));
+		ward2Pane.setPadding(new Insets(nRoomsBoxPaddingTop,nRoomsBoxPaddingRight,
+				nRoomsBoxPaddingBottom,nRoomsBoxPaddingLeft));
 		ward2Pane.setHgap(100);
 		ward2Pane.setVgap((wardBoxHeight-totalLength)/(no_of_rows+1));
 		
@@ -274,11 +270,46 @@ public class test2 extends Application{
 	
 	public void addEvents(Label v) {
 		v.setOnMouseClicked(e->{
-//			v.setBorder(new Border(new BorderStroke(Color.RED,BorderStrokeStyle.SOLID
-//					,null,new BorderWidths(3))));
-			v.setStyle("-fx-background-color: red;");
-			int temp = bedList.indexOf(v)+1;
-		
+			//v.setStyle("-fx-background-color: red;");
+			
+			int ward=1,room=0,operand=1,temp = bedList.indexOf(v)+1;
+			
+			if(temp>totalBeds) {
+				ward=2;
+				temp-=totalBeds;
+			}
+			
+			
+			for(int i=0;i<nSingle;i++) {
+				temp-=1;
+				if(temp==0)
+					room=i+1;
+			}
+			
+			if(temp>0) {
+				for(int i=0;i<nDouble;i++) {
+					temp-=2;
+					if(temp<=0) {
+						room=i+1+nSingle;
+						operand=2;
+						break;
+					}
+						
+				}
+			}
+			
+			if(temp>0) {
+				for(int i=0;i<nRooms;i++) {
+					temp-=4;
+					if(temp<=0) {
+						room=i+1+nSingle+nDouble;
+						operand=4;
+						break;
+					}
+				}
+			}
+			
+			print("Ward Number is"+ward+" Room Number is "+room+" Bed Number is "+(temp+operand));			
 		});
 	}
 	
@@ -288,5 +319,4 @@ public class test2 extends Application{
 		else
 			bedList.get(index).setStyle("-fx-background-color:red");
 	}
-	
 }
