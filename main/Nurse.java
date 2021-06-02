@@ -109,6 +109,27 @@ public class Nurse extends Employee{
 		}
 	}
 	
+	public Patient nurseSearch(ArrayList<Patient> patientList, long id, String name) {
+		
+		if(id!=-1) {
+			for (Patient p : patientList) {
+				if (p.retId()==id)
+					return p;
+			}
+		return new Patient();
+		}
+			 		
+		else {
+			for (Patient p: patientList) {
+				if (p.retName().matches(name))
+					return p;
+			}
+			return new Patient();
+		}
+	}
+	
+	
+	
 	// Removing patient from bed
 	
 	public void removePatient(int wardNumber, int roomNumber, int bedNumber) {

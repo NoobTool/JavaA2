@@ -69,6 +69,7 @@ public class DisplayMenu {
 		nurseMenu.add("Administer medicine. ");
 		nurseMenu.add("Change bed automatically. ");
 		nurseMenu.add("Change bed manually. ");
+		nurseMenu.add("Display Patient Details. ");
 		return nurseMenu;
 	}
 	

@@ -86,7 +86,7 @@ public class Main extends Application {
 								errorMsg.setText("Hi, "+d.retName()+"\n\n\n");
 								primaryStage.close();
 								doctorStart(d);
-							}
+							} 
 							else {
 								errorMsg.setText("Id or password is wrong!"+"\n\n\n");
 								co.clearAllFields(usernameField, passwordField);
@@ -964,8 +964,9 @@ public class Main extends Application {
 	    
 	    //Buttons
 	    Button administerButton = new Button(dm.nurseMenu().get(0));
-	    Button changeAutoButton = new Button(dm.doctorMenu().get(1));
-	    Button changeManualButton = new Button(dm.doctorMenu().get(2));
+	    Button changeAutoButton = new Button(dm.nurseMenu().get(1));
+	    Button changeManualButton = new Button(dm.nurseMenu().get(2));
+	    Button displayButton = new Button(dm.nurseMenu().get(3));
 	    
 	    // Top Bar hbox formatting
 	    topBar.setLeft(currentUser);
@@ -977,15 +978,15 @@ public class Main extends Application {
 				,changeManualButton);
 			
 		administerButton.setOnAction(e->{
-			//nurseMain.patientSearch(d, bp, "add");
+			nurseMain.patientSearch(n, bp, "Administer");
 		});
 		
 		changeAutoButton.setOnAction(e->{
 			//nurseMain.patientSearch(d,bp,"update");
 		});
 		
-		changeManualButton.setOnAction(e->{
-			//nurseMain.patientSearch(d, bp, "x");
+		displayButton.setOnAction(e->{
+			nurseMain.patientSearch(n, bp, "x");
 		});
 			
 		// Adding elements to the main border pane
