@@ -182,13 +182,8 @@ public class test2 extends Application{
 		
 		VBox selectedRoom = ((VBox)((HBox)wardBox1.getChildren().get(2)).getChildren().get(0));
 		
-		selectedRoom.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
-
-		     @Override
-		     public void handle(MouseEvent event) {
-		         System.out.println("Tile pressed ");
-		         event.consume();
-		     }
+		selectedRoom.setOnMouseClicked(e->{
+			print("Tile pressed");
 		});
 		
 		primaryStage.setScene(new Scene(wrapperBox,wrapperBoxWidth,wrapperBoxHeight));
