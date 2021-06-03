@@ -42,7 +42,8 @@ public class test {
 	}
 	
 	public static void main(String args[]) {
-		Scene scene=null;
-		print(scene==null);
+		String shifts = "12:00";
+		shifts = shifts.replace(":", ".");
+		print(shifts);
 	}
 }

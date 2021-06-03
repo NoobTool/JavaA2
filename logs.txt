@@ -1,3 +1,16 @@
+commit 3642187fc2a1a1908aa2921629142a10b7a9c979
+Author: Ram Rattan Goyal <codebits.ram@gmail.com>
+Date:   Thu Jun 3 20:13:33 2021 +0530
+
+    SerializationBegins
+
+ Actions/Action.java     |   3 +-
+ Actions/ActionList.java |   8 +-
+ application/Main.java   |  44 +++-
+ logs.txt                | 523 ++++++++++++++++++++++++++++++++++++++++++++++++
+ main/Manager.java       |   9 +-
+ 5 files changed, 581 insertions(+), 6 deletions(-)
+
 commit a0332b4375614ebe0257bfdfc93f9b3a433c0479
 Author: Ram Rattan Goyal <codebits.ram@gmail.com>
 Date:   Thu Jun 3 18:32:35 2021 +0530
