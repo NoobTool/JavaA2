@@ -2,19 +2,23 @@ package application;
 import main.Manager;
 import main.Nurse;
 import main.Patient;
+import prescription.MedicineBlock;
+import prescription.MedicineDose;
 import javafx.stage.*;
 import javafx.scene.*;
+
+import java.util.ArrayList;
+import java.util.Objects;
+
 import javafx.geometry.Insets;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.HBox;
+import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
-import main.Doctor;
 
 public class NurseMain {
 	
@@ -86,7 +90,7 @@ public class NurseMain {
 						p =  n.nurseSearch(m.retPatientList(),Long.parseLong(id)
 								,"");
 						if(purpose=="Administer")
-							administerMedicine();
+							administerMedicine(n,p,bp);
 						else
 							displayPatientDetails(p,bp);
 						
@@ -102,7 +106,53 @@ public class NurseMain {
 	}
 	
 	
-	public void administerMedicine() {
+	public void administerMedicine(Nurse n, Patient p, BorderPane bp) {
+		
+		Label errorMsg = co.retErrorLabel();
+		
+		if(!Objects.isNull(p.retPrescription())) {
+			MedicineBlock medicineBlock = p.retPrescription().retMedicineBlock();
+			ArrayList<MedicineDose> medicines = medicineBlock.retMedicines();
+			
+			// Layout Elements
+			VBox wrapperBox = new VBox(30);
+			HBox inputBox = new HBox(50);
+			Label administerMsg = new Label("Choose the medicine to be administered");
+			
+			ComboBox<String> medicineBox = new ComboBox<String>();
+			HBox buttonHolder = co.addButtonHolder(bp);
+			
+			// Addding strings in comboBox
+			for(MedicineDose md: medicines)
+				medicineBox.getItems().add(md.retName());
+			
+			((Button)buttonHolder.getChildren().get(0)).setOnAction(e->{
+				int medicineIndex = medicineBox.getSelectionModel().getSelectedIndex();
+				String returnValue = n.administerMedicine(p, medicines.get(medicineIndex));
+				
+				if(returnValue=="")
+					errorMsg.setText(" Successfully administered "+
+							medicines.get(medicineIndex).retName());
+				else
+					errorMsg.setText(returnValue);
+				
+			});
+			
+			
+			// Adding elements in inputBox
+			inputBox.getChildren().addAll(administerMsg,medicineBox);
+			
+			// Adding elements in button holder
+			wrapperBox.getChildren().addAll(inputBox,buttonHolder);
+			bp.setCenter(wrapperBox);
+		}
+		
+		
+		bp.setBottom(errorMsg);
+		
+	}
+	
+	public void displayMap() {
 		Stage primaryStage = new Stage();
 		HBox map = new HBox();
 		Manager m = new Manager("To return patients list");

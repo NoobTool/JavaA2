@@ -4,6 +4,8 @@ import javafx.scene.control.*;
 import javafx.stage.Stage;
 import javafx.scene.layout.*;
 import javafx.geometry.*;
+import javafx.scene.paint.*;
+import javafx.scene.text.*;
 
 public class CommonOperations {
 	
@@ -45,6 +47,14 @@ public class CommonOperations {
 	public void setVisibilityFalse(CheckBox...args) {
 		for(CheckBox c: args)
 			c.setVisible(false);
+	}
+	
+	public Label retErrorLabel() {
+		Label errorMsg = new Label();
+		errorMsg.setTextFill(Color.RED);
+		errorMsg.setFont(new Font("cambria",14));
+		errorMsg.setText("");
+		return errorMsg;
 	}
 	
 }

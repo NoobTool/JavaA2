@@ -168,63 +168,85 @@ public class Nurse extends Employee{
 		return new Patient();
 	}
 	
+	// Administering Medicines
+	// Index = index of the medicine chosen
+	public String administerMedicine(Patient p, MedicineDose medicine) {
+		for(LocalTime time: medicine.retTimes()) {
+			LocalTime currentTime = LocalTime.now();
+			LocalDate currentDate = LocalDate.now();
+			if(Math.abs(time.until(currentTime,ChronoUnit.MINUTES))<5) {
+				int timeIndex = medicine.retTimes().indexOf(time);
+				boolean administered  = checkMedicineAdministered(p.retId(),timeIndex,medicine.retTimes().get(timeIndex),currentDate);
+				if(administered==false) {
+					administeredMedicines.add(new AdministerMedicine(p.retId(),
+							this.retId(), medicine,timeIndex,currentDate,currentTime));
+					a.addAction(new Action(this.retId(),p.retId(),"medicine administered",LocalDate.now(),LocalTime.now()));
+					return "";
+				}
+				else
+					return "This medicine has already been administered";
+			}
+		}
+		return "This medicine is not administered for this time. ";
+	}
+	
 	
 	// Administer Medicine
-	public void administerMedicine() {
-		int choice,medSize=0;
-		Patient p = enterPatientBed(true);
-		if(!Objects.isNull(p)) {
-			Prescription prescription = p.retPrescription();
-			if(!Objects.isNull(prescription)) {
-				MedicineBlock medicineBlock = prescription.retMedicineBlock();
-				ArrayList<MedicineDose> medicines = medicineBlock.retMedicines();
-				medSize = medicines.size();
-				do {
-					for(int i=0;i<medSize;i++) {
-						System.out.println((i+1)+". "+medicines.get(i).retName().toLowerCase());
-					}
-					System.out.println((medSize+1)+". Exit");
-					choice = c.inputInt("Enter your choice!");
-					if(choice<medSize+1) {
-						boolean flag=false;
-						MedicineDose medicine = medicines.get(choice-1);
-						for(LocalTime time: medicine.retTimes()) {
-							LocalTime currentTime = LocalTime.now();
-							LocalDate currentDate = LocalDate.now();
-							if(Math.abs(time.until(currentTime,ChronoUnit.MINUTES))<5) {
-								int timeIndex = medicine.retTimes().indexOf(time);
-								boolean administered  = checkMedicineAdministered(p.retId(),timeIndex,medicine.retTimes().get(timeIndex),currentDate);
-								if(administered==false) {
-									administeredMedicines.add(new AdministerMedicine(p.retId(),
-											this.retId(), medicine,timeIndex,currentDate,currentTime));
-									System.out.println("Successfully administered "+medicine.retName());
-									flag=true;
-									a.addAction(new Action(this.retId(),p.retId(),"medicine administered",LocalDate.now(),LocalTime.now()));
-									break;
-								}
-								else {
-									System.out.println("This medicine has already been administered");
-									flag=true;
-									break;
-								}
-							}
-						}
-						if(flag==false)
-							System.out.println("This medicine is not administered for this time. ");
-					}
-					
-					else if(choice == medSize+1) {
-						System.out.println("Exiting...");
-					}
-					
-					else {
-						System.out.println("Wrong choice, enter again! ");
-					}
-				}while(choice!=medSize+1);
-			}else { System.out.println("No prescription added! ");}
-		}else {System.out.println("No patient present");}
-		
-	}
+//	public void administerMedicine() {
+//		int choice,medSize=0;
+//		Patient p = enterPatientBed(true);
+//		if(!Objects.isNull(p)) {
+//			Prescription prescription = p.retPrescription();
+//			if(!Objects.isNull(prescription)) {
+//				MedicineBlock medicineBlock = prescription.retMedicineBlock();
+//				ArrayList<MedicineDose> medicines = medicineBlock.retMedicines();
+//				medSize = medicines.size();
+//				do {
+//					for(int i=0;i<medSize;i++) {
+//						System.out.println((i+1)+". "+medicines.get(i).retName().toLowerCase());
+//					}
+//					System.out.println((medSize+1)+". Exit");
+//					choice = c.inputInt("Enter your choice!");
+//					if(choice<medSize+1) {
+//						boolean flag=false;
+//						MedicineDose medicine = medicines.get(choice-1);
+//						for(LocalTime time: medicine.retTimes()) {
+//							LocalTime currentTime = LocalTime.now();
+//							LocalDate currentDate = LocalDate.now();
+//							if(Math.abs(time.until(currentTime,ChronoUnit.MINUTES))<5) {
+//								int timeIndex = medicine.retTimes().indexOf(time);
+//								boolean administered  = checkMedicineAdministered(p.retId(),timeIndex,medicine.retTimes().get(timeIndex),currentDate);
+//								if(administered==false) {
+//									administeredMedicines.add(new AdministerMedicine(p.retId(),
+//											this.retId(), medicine,timeIndex,currentDate,currentTime));
+//									System.out.println("Successfully administered "+medicine.retName());
+//									flag=true;
+//									a.addAction(new Action(this.retId(),p.retId(),"medicine administered",LocalDate.now(),LocalTime.now()));
+//									break;
+//								}
+//								else {
+//									System.out.println("This medicine has already been administered");
+//									flag=true;
+//									break;
+//								}
+//							}
+//						}
+//						if(flag==false)
+//							System.out.println("This medicine is not administered for this time. ");
+//					}
+//					
+//					else if(choice == medSize+1) {
+//						System.out.println("Exiting...");
+//					}
+//					
+//					else {
+//						System.out.println("Wrong choice, enter again! ");
+//					}
+//				}while(choice!=medSize+1);
+//			}else { System.out.println("No prescription added! ");}
+//		}else {System.out.println("No patient present");}
+//		
+//	}
 	
 	
 	// Check if medicine is already administered or not
