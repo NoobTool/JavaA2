@@ -230,7 +230,6 @@ public class Manager extends Employee{
 					return e;
 			}
 			return new Employee();
-			//return post.substring(0,1).toUpperCase()+post.substring(1)+" not found ";
 		}
 	}
 	

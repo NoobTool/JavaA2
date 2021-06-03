@@ -3,7 +3,6 @@ import java.time.LocalTime;
 import java.time.format.*;
 import prescription.MedicineDose;
 import CustomExceptions.InputValidation;
-import CustomExceptions.TooManyShiftsException;
 import main.Doctor;
 import main.Manager;
 import main.Patient;
@@ -26,6 +25,7 @@ public class DoctorMain {
 	Patient p;
 	Boolean timingsSet=false;
 	ArrayList<LocalTime> removeTimeList = new ArrayList<LocalTime>();
+	InputValidation iv = new InputValidation();
 	
 	public void patientSearch(Doctor d, BorderPane bp, String add) {
 		// Big Wrapper
@@ -89,27 +89,53 @@ public class DoctorMain {
 					else {
 						p =  d.doctorSearch(m.retPatientList(),Long.parseLong(id)
 								,"");
-						if(add.contentEquals("add"))
-							addPrescription(d,bp);
-						else if(add.contentEquals("update")) {
-							if(p.retPrescription()!=null)
-								updatePrescription(d,bp);
-							else
-								errorMsg.setText("Add a prescription first! ");
-						}
-							
+						if(p.retName()!=null)
+							callFeatures(d,add,bp);
 						else
-							displayPatientDetails(p,bp);
-						
+							errorMsg.setText("Patient does not exist.");						
 					}
 				}catch(NumberFormatException exception) {
 					errorMsg.setText("The ID must be in numberic characters!");
+				}
+			}
+			
+			// Searching by name
+			else {
+				if(!co.checkBlankFields(nameField.getText()))
+					errorMsg.setText("Please fill the name field.");
+				else {
+					Pair<Boolean,String> namePair = iv.validateName(nameField.getText(),true);
+					if(namePair.getKey()) {
+						p = d.doctorSearch(m.retPatientList(),-1,namePair.getValue());
+						if(p.retName()!=null)
+							callFeatures(d,add,bp);
+						else
+							errorMsg.setText("Patient does not exist.");
+					}
+						
+					else
+						errorMsg.setText("Wrong Name");
 				}
 			}
 		});	
 		
 		bp.setCenter(wrapperPane);
 		bp.setBottom(errorMsg);
+	}
+	
+	
+	private void callFeatures(Doctor d,String add, BorderPane bp) {
+		Label errorMsg = co.retErrorLabel();
+		if(add.contentEquals("add"))
+			addPrescription(d,bp);
+		else if(add.contentEquals("update")) {
+			if(p.retPrescription()!=null)
+				updatePrescription(d,bp);
+			else
+				errorMsg.setText("Add a prescription first! ");
+		}
+		else
+			displayPatientDetails(p,bp);
 	}
 	
 	private void addPrescription(Doctor d, BorderPane bp) {

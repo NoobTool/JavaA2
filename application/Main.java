@@ -509,7 +509,7 @@ public class Main extends Application {
 			idField.setVisible(false);
 			nameField.setVisible(false);
 			searchGrid.setPadding(new Insets(20,0,0,0));
-			Label errorMsg = new Label();
+			Label errorMsg = co.retErrorLabel();
 			
 			// Editing the ComboBox for post selection
 			personBox.getItems().addAll("Patient","Manager","Doctor","Nurse");
@@ -550,315 +550,25 @@ public class Main extends Application {
 						try {
 							Employee emp = m.modifyDetails(selectedItem, Long.parseLong(idField.getText()), "");
 							long id = Long.parseLong(idField.getText());
-							String returnValue = i.validateId(id, selectedItem);
-							if(returnValue.length()==0) {
-								
-								// Layout Items
-								GridPane detailsPane = new GridPane();
-								CheckBox nameBox = new CheckBox("Name");
-								CheckBox ageBox = new CheckBox("Age");
-								CheckBox genderBox = new CheckBox("Gender");
-								CheckBox shiftsBox = new CheckBox("Shifts");
-								CheckBox passwordBox = new CheckBox("Password");
-								TextField nameModifyField = new TextField();
-								TextField ageModifyField = new TextField();
-								TextField genderModifyField = new TextField();
-								Label shiftsModifyLabel = new Label();
-								shiftsModifyLabel.setText("A new modification windows will appear after this!");
-								TextField passwordModifyField = new PasswordField();
-								Button submitButton2 = new Button("Submit");
-								HashMap modifiedItems = new HashMap();
-								
-								detailsPane.add(nameBox, 1, 1);
-								detailsPane.add(nameModifyField, 2, 1);
-								detailsPane.add(ageBox, 1, 2);
-								detailsPane.add(ageModifyField, 2, 2);
-								detailsPane.add(genderBox, 1, 3);
-								detailsPane.add(genderModifyField, 2, 3);
-								detailsPane.add(shiftsBox, 1, 4);
-								detailsPane.add(shiftsModifyLabel, 2, 4);
-								detailsPane.add(passwordBox, 1, 5);
-								detailsPane.add(passwordModifyField, 2, 5);
-								detailsPane.add(submitButton2, 2, 6);
-								detailsPane.add(co.addCancelButton(bp), 3, 6);
-								
-								nameModifyField.setVisible(false);
-								ageModifyField.setVisible(false);
-								genderModifyField.setVisible(false);
-								shiftsModifyLabel.setVisible(false);
-								passwordModifyField.setVisible(false);
-								
-								
-								// Toggling visibility of textfields by checkbox selection
-								nameBox.setOnAction(e3->{
-									if(nameBox.isSelected())
-										nameModifyField.setVisible(true);
-									else
-										nameModifyField.setVisible(false);
-								});
-								
-								ageBox.setOnAction(e3->{
-									if(ageBox.isSelected())
-										ageModifyField.setVisible(true);
-									else
-										ageModifyField.setVisible(false);
-								});
-								 
-								genderBox.setOnAction(e3->{
-									if(genderBox.isSelected())
-										genderModifyField.setVisible(true);
-									else
-										genderModifyField.setVisible(false);
-								});
-								
-								shiftsBox.setOnAction(e3->{
-									if(shiftsBox.isSelected())
-										shiftsModifyLabel.setVisible(true);
-									else
-										shiftsModifyLabel.setVisible(false);
-								});
-								
-								passwordBox.setOnAction(e3->{
-									if(passwordBox.isSelected())
-										passwordModifyField.setVisible(true);
-									else
-										passwordModifyField.setVisible(false);
-								});
-								
-								// DetailsPane grid Formatting
-								detailsPane.setHgap(20);
-								detailsPane.setVgap(20);
-								
-								wrapperPane.setCenter(detailsPane);
-								wrapperPane.setTop(null);
-								wrapperPane.setRight(null);
-								
-								submitButton2.setOnAction(e3->{
-									try {
-										if(nameBox.isSelected()) {
-											String newName = nameModifyField.getText();									
-											if(newName!="") {
-												Pair<Boolean,String> namePair = i.validateName(newName,false);
-												if(!namePair.getKey())
-													errorMsg.setText(namePair.getValue());
-												else
-													modifiedItems.put("Name", newName);
-											}else
-												modifiedItems.put("Name", "");
-											
-										}else
-											modifiedItems.put("Name", "");
-										
-										if(ageBox.isSelected()) {
-											String newAge = ageModifyField.getText();									
-											if(newAge!="") {
-												Double newAge2 = Double.parseDouble(newAge);
-												Pair<Double,String> agePair = i.validateAge(newAge2);
-												if(agePair.getValue().length()>0)
-													errorMsg.setText(agePair.getValue());
-												else
-													modifiedItems.put("Age",newAge2);
-											}
-											
-										}
-										else
-											modifiedItems.put("Age", -1);
-										
-										if(genderBox.isSelected()) {
-											String newGender = genderModifyField.getText();									
-											if(!newGender.equals("")) {
-												String genderString = i.validateGender(newGender.toUpperCase().charAt(0));
-												if(genderString.length()>0)
-													errorMsg.setText(genderString);
-												else 
-													modifiedItems.put("Gender",newGender.toUpperCase());	
-													
-											}
-											else {
-												errorMsg.setText("Gender field cannot be empty while selected.");
-												modifiedItems.put("Gender","");
-											}
-												
-										}
-										else
-											modifiedItems.put("Gender","");
-										
-										if(passwordBox.isSelected()) {
-											String newPass = passwordModifyField.getText();									
-											if(!i.validatePassword(newPass))
-												errorMsg.setText("Password must be more than 4 characters");
-												
-											else
-												modifiedItems.put("Password",newPass);
-										}
-										else 	
-											modifiedItems.put("Password","");
-										
-										m.changeDetails(emp, selectedItem, modifiedItems.get("Name").toString(),
-												Double.parseDouble(modifiedItems.get("Age").toString())
-												,modifiedItems.get("Gender").toString(),modifiedItems.get("Password").toString());
-										
-										if(shiftsBox.isSelected()) {
-											// Layout 
-											GridPane shiftPane = new GridPane();
-											Button addShift = new Button("Add shifts");
-											Button changeShift = new Button("Change shifts");
-											Button deleteShift = new Button("Delete shift(s)");
-											Button submitButton3 = new Button("Submit");
-											TextField addShiftField = new TextField();
-											TextField changeShiftField = new TextField();
-											ComboBox<String> changeShiftBox = new ComboBox<String>();
-											ComboBox<String> deleteShiftBox = new ComboBox<String>();
-											
-											// Setting Visibilities
-											addShiftField.setVisible(false);
-											changeShiftField.setVisible(false);
-											changeShiftBox.setVisible(false);
-											deleteShiftBox.setVisible(false);
-											
-											// Adding elements to combo boxes
-											changeShiftBox.getItems().add("None");
-											deleteShiftBox.getItems().add("None");
-											
-											// Adding elements to shiftPane grid pane
-											shiftPane.add(addShift, 1, 1);
-											shiftPane.add(addShiftField, 2, 1);
-											shiftPane.add(changeShift, 1, 2);
-											shiftPane.add(changeShiftBox, 2, 2);
-											shiftPane.add(changeShiftField, 3, 2);
-											shiftPane.add(deleteShift, 1, 3);
-											shiftPane.add(deleteShiftBox, 2, 3);
-											shiftPane.add(submitButton3, 2, 4);
-											shiftPane.add(co.addCancelButton(bp), 3, 4);
-											
-											// Formatting grid pane
-											shiftPane.setHgap(20);
-											shiftPane.setVgap(20);
-											
-											// Adding actions on buttons
-											addShift.setOnAction(e4->{
-												addShiftField.setVisible(true);
-												changeShiftField.setVisible(false);
-												changeShiftBox.setVisible(false);
-												deleteShiftBox.setVisible(false);
-												co.clearAllFields(changeShiftField,addShiftField);
-												errorMsg.setText("");
-											});
-											
-											changeShift.setOnAction(e4->{
-												// Adding shifts to drop-down
-												// New changes will also be reflected here
-												changeShiftBox.getItems().remove(0, changeShiftBox.getItems().size());
-												for(String s: emp.retShifts())
-													changeShiftBox.getItems().add(s);
-												addShiftField.setVisible(false);
-												changeShiftField.setVisible(true);
-												changeShiftBox.setVisible(true);
-												deleteShiftBox.setVisible(false);
-												co.clearAllFields(changeShiftField,addShiftField);
-												errorMsg.setText("");
-											});
-											
-											deleteShift.setOnAction(e4->{
-												deleteShiftBox.getItems().remove(0, deleteShiftBox.getItems().size());
-												for(String s: emp.retShifts())
-													deleteShiftBox.getItems().add(s);
-												addShiftField.setVisible(false);
-												changeShiftField.setVisible(false);
-												changeShiftBox.setVisible(false);
-												deleteShiftBox.setVisible(true);
-												co.clearAllFields(changeShiftField,addShiftField);
-												errorMsg.setText("");
-											});
-											
-											submitButton3.setOnAction(e4->{
-												errorMsg.setTextFill(Color.RED);
-																							
-												try {
-													if(addShiftField.isVisible()) {
-														Pair<Boolean,String> newShift = i.validateShifts(addShiftField.getText(),selectedItem);
-														if(newShift.getKey()) {
-															String returnValue2 = m.changeDetails(emp,selectedItem,
-																	-1,addShiftField.getText(),1 );
-															if(returnValue.length()==0) {
-																errorMsg.setTextFill(Color.GREEN);
-																errorMsg.setText("Added Successfully");
-															}
-															else
-																errorMsg.setText(returnValue2);
-														}
-														else
-															errorMsg.setText(newShift.getValue());
-													} 
-													
-													else if(changeShiftField.isVisible()) {
-														if(!changeShiftBox.getSelectionModel().isEmpty()) {
-															Pair<Boolean,String> newShift = i.validateShifts(changeShiftField.getText(),selectedItem);
-															int oldShiftIndex = emp.retShifts().indexOf(changeShiftBox.getSelectionModel().getSelectedItem());
-															if(newShift.getKey()) {
-																String returnValue2 = m.changeDetails(emp,selectedItem,oldShiftIndex
-																		,changeShiftField.getText(),2 );
-																if(returnValue2.length()==0) {
-																	errorMsg.setTextFill(Color.GREEN);
-																	errorMsg.setText("Changed Successfully");
-																}
-																else
-																	errorMsg.setText(returnValue2);
-															}
-																
-															else
-																errorMsg.setText(newShift.getValue());
-														}
-														else {
-															errorMsg.setText("Please select a shift from the drop-down.");
-														}
-													}
-													
-													else {
-														String returnValue2 = m.changeDetails(emp,selectedItem,emp.retShifts().indexOf(
-																deleteShiftBox.getSelectionModel().getSelectedItem())
-																,"",3 );
-														if(returnValue2.length()==0) {
-															errorMsg.setTextFill(Color.GREEN);
-															errorMsg.setText("Deleted Successfully");
-														}
-														else
-															errorMsg.setText(returnValue2);
-													}
-													
-													addShiftField.setVisible(false);
-													changeShiftField.setVisible(false);
-													changeShiftBox.setVisible(false);
-													deleteShiftBox.setVisible(false);
-														
-												}catch(TooManyShiftsException exception) {
-													errorMsg.setText("Too Many shifts");
-													addShiftField.setVisible(false);
-													changeShiftField.setVisible(false);
-													changeShiftBox.setVisible(false);
-													deleteShiftBox.setVisible(false);
-												}
-											});
-											
-											wrapperPane.setCenter(shiftPane);
-											wrapperPane.setTop(null);
-											wrapperPane.setRight(null);
-										}
-										
-										
-									}catch(NumberFormatException exception) {
-										errorMsg.setText("Age must be in number");
-									}
-									
-								});
-								
-							}
-							else
-								errorMsg.setText(returnValue);
-							
+							managerModify(selectedItem,emp,wrapperPane,bp);							
 						}catch(NumberFormatException exception) {
 							errorMsg.setText("ID must contain only numbers!");
 						}
+					}
+				}
+				
+				// Searching by name
+				else if(nameField.isVisible() && selectedItem!=null){
+					Pair<Boolean,String> namePair = i.validateName(nameField.getText(),true);
+					if(!co.checkBlankFields(nameField.getText()))
+						errorMsg.setText("Please fill the name field.");
+					else if(namePair.getKey())
+						errorMsg.setText("Incorrect name, enter again");
+					else if(m.modifyDetails(selectedItem, -1, nameField.getText()).retName()==null)
+						errorMsg.setText(selectedItem.substring(0,1).toUpperCase()+selectedItem.substring(1)+" not found ");
+					else {
+						Employee emp = m.modifyDetails(selectedItem,-1, namePair.getValue());
+						managerModify(selectedItem,emp,wrapperPane,bp);
 					}
 				}
 				
@@ -877,15 +587,319 @@ public class Main extends Application {
 			wrapperPane.setTop(personBox);
 			wrapperPane.setCenter(searchGrid);
 			wrapperPane.setBottom(errorMsg);
-			wrapperPane.setAlignment(errorMsg, Pos.CENTER);
+			BorderPane.setAlignment(errorMsg, Pos.CENTER);
 			bp.setCenter(wrapperPane);
-			
 			
 		});
 		
 		managerStage.setScene(new Scene(bp,1000,450));
 		managerStage.show();
 	}
+	
+	
+	private void managerModify(String selectedItem,Employee emp, BorderPane wrapperPane,BorderPane bp) {
+		Label errorMsg = co.retErrorLabel();
+		
+		// Layout Items
+		GridPane detailsPane = new GridPane();
+		CheckBox nameBox = new CheckBox("Name");
+		CheckBox ageBox = new CheckBox("Age");
+		CheckBox genderBox = new CheckBox("Gender");
+		CheckBox shiftsBox = new CheckBox("Shifts");
+		CheckBox passwordBox = new CheckBox("Password");
+		TextField nameModifyField = new TextField();
+		TextField ageModifyField = new TextField();
+		TextField genderModifyField = new TextField();
+		Label shiftsModifyLabel = new Label();
+		shiftsModifyLabel.setText("A new modification windows will appear after this!");
+		TextField passwordModifyField = new PasswordField();
+		Button submitButton2 = new Button("Submit");
+		HashMap modifiedItems = new HashMap();
+		
+		detailsPane.add(nameBox, 1, 1);
+		detailsPane.add(nameModifyField, 2, 1);
+		detailsPane.add(ageBox, 1, 2);
+		detailsPane.add(ageModifyField, 2, 2);
+		detailsPane.add(genderBox, 1, 3);
+		detailsPane.add(genderModifyField, 2, 3);
+		detailsPane.add(shiftsBox, 1, 4);
+		detailsPane.add(shiftsModifyLabel, 2, 4);
+		detailsPane.add(passwordBox, 1, 5);
+		detailsPane.add(passwordModifyField, 2, 5);
+		detailsPane.add(submitButton2, 2, 6);
+		detailsPane.add(co.addCancelButton(bp), 3, 6);
+		
+		nameModifyField.setVisible(false);
+		ageModifyField.setVisible(false);
+		genderModifyField.setVisible(false);
+		shiftsModifyLabel.setVisible(false);
+		passwordModifyField.setVisible(false);
+		
+		
+		// Toggling visibility of textfields by checkbox selection
+		nameBox.setOnAction(e3->{
+			if(nameBox.isSelected())
+				nameModifyField.setVisible(true);
+			else
+				nameModifyField.setVisible(false);
+		});
+		
+		ageBox.setOnAction(e3->{
+			if(ageBox.isSelected())
+				ageModifyField.setVisible(true);
+			else
+				ageModifyField.setVisible(false);
+		});
+		 
+		genderBox.setOnAction(e3->{
+			if(genderBox.isSelected())
+				genderModifyField.setVisible(true);
+			else
+				genderModifyField.setVisible(false);
+		});
+		
+		shiftsBox.setOnAction(e3->{
+			if(shiftsBox.isSelected())
+				shiftsModifyLabel.setVisible(true);
+			else
+				shiftsModifyLabel.setVisible(false);
+		});
+		
+		passwordBox.setOnAction(e3->{
+			if(passwordBox.isSelected())
+				passwordModifyField.setVisible(true);
+			else
+				passwordModifyField.setVisible(false);
+		});
+		
+		// DetailsPane grid Formatting
+		detailsPane.setHgap(20);
+		detailsPane.setVgap(20);
+		
+		wrapperPane.setCenter(detailsPane);
+		wrapperPane.setTop(null);
+		wrapperPane.setRight(null);
+		
+		submitButton2.setOnAction(e3->{
+			try {
+				if(nameBox.isSelected()) {
+					String newName = nameModifyField.getText();									
+					if(newName!="") {
+						Pair<Boolean,String> namePair = i.validateName(newName,false);
+						if(!namePair.getKey())
+							errorMsg.setText(namePair.getValue());
+						else
+							modifiedItems.put("Name", newName);
+					}else
+						modifiedItems.put("Name", "");
+					
+				}else
+					modifiedItems.put("Name", "");
+				
+				if(ageBox.isSelected()) {
+					String newAge = ageModifyField.getText();									
+					if(newAge!="") {
+						Double newAge2 = Double.parseDouble(newAge);
+						Pair<Double,String> agePair = i.validateAge(newAge2);
+						if(agePair.getValue().length()>0)
+							errorMsg.setText(agePair.getValue());
+						else
+							modifiedItems.put("Age",newAge2);
+					}
+					
+				}
+				else
+					modifiedItems.put("Age", -1);
+				
+				if(genderBox.isSelected()) {
+					String newGender = genderModifyField.getText();									
+					if(!newGender.equals("")) {
+						String genderString = i.validateGender(newGender.toUpperCase().charAt(0));
+						if(genderString.length()>0)
+							errorMsg.setText(genderString);
+						else 
+							modifiedItems.put("Gender",newGender.toUpperCase());	
+							
+					}
+					else {
+						errorMsg.setText("Gender field cannot be empty while selected.");
+						modifiedItems.put("Gender","");
+					}
+						
+				}
+				else
+					modifiedItems.put("Gender","");
+				
+				if(passwordBox.isSelected()) {
+					String newPass = passwordModifyField.getText();									
+					if(!i.validatePassword(newPass))
+						errorMsg.setText("Password must be more than 4 characters");
+						
+					else
+						modifiedItems.put("Password",newPass);
+				}
+				else 	
+					modifiedItems.put("Password","");
+				
+				m.changeDetails(emp, selectedItem, modifiedItems.get("Name").toString(),
+						Double.parseDouble(modifiedItems.get("Age").toString())
+						,modifiedItems.get("Gender").toString(),modifiedItems.get("Password").toString());
+				
+				if(shiftsBox.isSelected()) {
+					// Layout 
+					GridPane shiftPane = new GridPane();
+					Button addShift = new Button("Add shifts");
+					Button changeShift = new Button("Change shifts");
+					Button deleteShift = new Button("Delete shift(s)");
+					Button submitButton3 = new Button("Submit");
+					TextField addShiftField = new TextField();
+					TextField changeShiftField = new TextField();
+					ComboBox<String> changeShiftBox = new ComboBox<String>();
+					ComboBox<String> deleteShiftBox = new ComboBox<String>();
+					
+					// Setting Visibilities
+					addShiftField.setVisible(false);
+					changeShiftField.setVisible(false);
+					changeShiftBox.setVisible(false);
+					deleteShiftBox.setVisible(false);
+					
+					// Adding elements to combo boxes
+					changeShiftBox.getItems().add("None");
+					deleteShiftBox.getItems().add("None");
+					
+					// Adding elements to shiftPane grid pane
+					shiftPane.add(addShift, 1, 1);
+					shiftPane.add(addShiftField, 2, 1);
+					shiftPane.add(changeShift, 1, 2);
+					shiftPane.add(changeShiftBox, 2, 2);
+					shiftPane.add(changeShiftField, 3, 2);
+					shiftPane.add(deleteShift, 1, 3);
+					shiftPane.add(deleteShiftBox, 2, 3);
+					shiftPane.add(submitButton3, 2, 4);
+					shiftPane.add(co.addCancelButton(bp), 3, 4);
+					
+					// Formatting grid pane
+					shiftPane.setHgap(20);
+					shiftPane.setVgap(20);
+					
+					// Adding actions on buttons
+					addShift.setOnAction(e4->{
+						addShiftField.setVisible(true);
+						changeShiftField.setVisible(false);
+						changeShiftBox.setVisible(false);
+						deleteShiftBox.setVisible(false);
+						co.clearAllFields(changeShiftField,addShiftField);
+						errorMsg.setText("");
+					});
+					
+					changeShift.setOnAction(e4->{
+						// Adding shifts to drop-down
+						// New changes will also be reflected here
+						changeShiftBox.getItems().remove(0, changeShiftBox.getItems().size());
+						for(String s: emp.retShifts())
+							changeShiftBox.getItems().add(s);
+						addShiftField.setVisible(false);
+						changeShiftField.setVisible(true);
+						changeShiftBox.setVisible(true);
+						deleteShiftBox.setVisible(false);
+						co.clearAllFields(changeShiftField,addShiftField);
+						errorMsg.setText("");
+					});
+					
+					deleteShift.setOnAction(e4->{
+						deleteShiftBox.getItems().remove(0, deleteShiftBox.getItems().size());
+						for(String s: emp.retShifts())
+							deleteShiftBox.getItems().add(s);
+						addShiftField.setVisible(false);
+						changeShiftField.setVisible(false);
+						changeShiftBox.setVisible(false);
+						deleteShiftBox.setVisible(true);
+						co.clearAllFields(changeShiftField,addShiftField);
+						errorMsg.setText("");
+					});
+					
+					submitButton3.setOnAction(e4->{
+						errorMsg.setTextFill(Color.RED);
+																	
+						try {
+							if(addShiftField.isVisible()) {
+								Pair<Boolean,String> newShift = i.validateShifts(addShiftField.getText(),selectedItem);
+								if(newShift.getKey()) {
+									String returnValue2 = m.changeDetails(emp,selectedItem,
+											-1,addShiftField.getText(),1 );
+									if(returnValue2.length()==0) {
+										errorMsg.setTextFill(Color.GREEN);
+										errorMsg.setText("Added Successfully");
+									}
+									else
+										errorMsg.setText(returnValue2);
+								}
+								else
+									errorMsg.setText(newShift.getValue());
+							} 
+							
+							else if(changeShiftField.isVisible()) {
+								if(!changeShiftBox.getSelectionModel().isEmpty()) {
+									Pair<Boolean,String> newShift = i.validateShifts(changeShiftField.getText(),selectedItem);
+									int oldShiftIndex = emp.retShifts().indexOf(changeShiftBox.getSelectionModel().getSelectedItem());
+									if(newShift.getKey()) {
+										String returnValue2 = m.changeDetails(emp,selectedItem,oldShiftIndex
+												,changeShiftField.getText(),2 );
+										if(returnValue2.length()==0) {
+											errorMsg.setTextFill(Color.GREEN);
+											errorMsg.setText("Changed Successfully");
+										}
+										else
+											errorMsg.setText(returnValue2);
+									}
+										
+									else
+										errorMsg.setText(newShift.getValue());
+								}
+								else {
+									errorMsg.setText("Please select a shift from the drop-down.");
+								}
+							}
+							
+							else {
+								String returnValue2 = m.changeDetails(emp,selectedItem,emp.retShifts().indexOf(
+										deleteShiftBox.getSelectionModel().getSelectedItem())
+										,"",3 );
+								if(returnValue2.length()==0) {
+									errorMsg.setTextFill(Color.GREEN);
+									errorMsg.setText("Deleted Successfully");
+								}
+								else
+									errorMsg.setText(returnValue2);
+							}
+							
+							addShiftField.setVisible(false);
+							changeShiftField.setVisible(false);
+							changeShiftBox.setVisible(false);
+							deleteShiftBox.setVisible(false);
+								
+						}catch(TooManyShiftsException exception) {
+							errorMsg.setText("Too Many shifts");
+							addShiftField.setVisible(false);
+							changeShiftField.setVisible(false);
+							changeShiftBox.setVisible(false);
+							deleteShiftBox.setVisible(false);
+						}
+					});
+					
+					wrapperPane.setCenter(shiftPane);
+					wrapperPane.setTop(null);
+					wrapperPane.setRight(null);
+				}
+				
+				
+			}catch(NumberFormatException exception) {
+				errorMsg.setText("Age must be in number");
+			}
+			
+		});
+	}
+	
 	
 	private void doctorStart(Doctor d) {
 		
