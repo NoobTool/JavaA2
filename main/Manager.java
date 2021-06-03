@@ -226,7 +226,7 @@ public class Manager extends Employee{
 		else {
 			for (Object o: list) {
 				Employee e = (Employee) o;
-				if (e.retName().matches(name))
+				if (e.retName().matches(name.strip()))
 					return e;
 			}
 			return new Employee();

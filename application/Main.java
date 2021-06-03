@@ -562,7 +562,7 @@ public class Main extends Application {
 					Pair<Boolean,String> namePair = i.validateName(nameField.getText(),true);
 					if(!co.checkBlankFields(nameField.getText()))
 						errorMsg.setText("Please fill the name field.");
-					else if(namePair.getKey())
+					else if(!namePair.getKey())
 						errorMsg.setText("Incorrect name, enter again");
 					else if(m.modifyDetails(selectedItem, -1, nameField.getText()).retName()==null)
 						errorMsg.setText(selectedItem.substring(0,1).toUpperCase()+selectedItem.substring(1)+" not found ");
@@ -570,11 +570,6 @@ public class Main extends Application {
 						Employee emp = m.modifyDetails(selectedItem,-1, namePair.getValue());
 						managerModify(selectedItem,emp,wrapperPane,bp);
 					}
-				}
-				
-				else if(idField.isVisible() && selectedItem!=null) {
-					if(!co.checkBlankFields(nameField.getText()))
-						errorMsg.setText("Please fill the name field.");
 				}
 				
 				else {
