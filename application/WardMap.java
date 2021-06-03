@@ -49,8 +49,12 @@ public class WardMap extends Application{
 	}
 	
 	public WardMap(ArrayList<Patient> patients) {
+		int index=0;	
 		for(Patient p: patients) {
-			int index = p.retRoomNumber()+p.retBedNumber();
+			for(int i=0;i<p.retRoomNumber();i++) {
+				
+			}
+			index = calculateIndex(p.retRoomNumber())+p.retBedNumber()-1;
 			char gender = p.retGender();
 			changeBg(index, gender);
 		}
@@ -333,6 +337,40 @@ public class WardMap extends Application{
 			bedList.get(index).setStyle("-fx-background-color:red");
 	}
 	
+	public int calculateIndex(int roomNumber) {
+		
+		int index=-1,k=0;
+		
+		while(roomNumber>0 && k<nSingle) {
+			roomNumber-=1;
+			index+=1;
+			k+=1;
+		}
+		
+		k=0;
+		while(roomNumber>0 && k<nDouble) {
+			roomNumber-=1;
+			index+=2;
+			k+=1;
+		}
+		index-=1;
+		
+		k=0;
+		while(roomNumber>0 && k<nRooms) {
+			roomNumber-=1;
+			index+=4;
+			k+=1;
+		}
+		index-=2;
+		
+		if(roomNumber==0)
+			return index;
+		else
+			return -1;
+	}
+	
+	
+	// Getter Functions
 	public HBox retMap() {
 		return wrapperBox;
 	}
