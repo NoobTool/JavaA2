@@ -12,7 +12,6 @@ import Actions.*;
 import prescription.*;
 import javafx.util.Pair;
 import application.WardMap;
-import javafx.stage.*;
 
 public class Manager extends Employee{
 	final static int NO_OF_WARDS = 2;

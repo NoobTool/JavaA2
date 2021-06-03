@@ -50,7 +50,6 @@ public class WardMap extends Application{
 	public WardMap(ArrayList<Patient> patients) {
 		int index;
 		for(Patient p: patients) {
-			print(p.retName());
 			index = calculateIndex(p.retRoomNumber())+p.retBedNumber()-1;
 			if(index!=-1) {
 				char gender = p.retGender();
@@ -327,8 +326,6 @@ public class WardMap extends Application{
 			r.setWard(ward);
 			r.setRoom(room);
 			r.setBed(temp+operand);
-			
-			print("Ward Number is"+ward+" Room Number is "+room+" Bed Number is "+(temp+operand));	
 		});
 	}
 	
@@ -382,7 +379,6 @@ public class WardMap extends Application{
 	
 	public int retWardNumber() {
 		int returnValue = r.retWard();
-//		wardNumber=0;
 		return returnValue;
 	}
 	
@@ -393,7 +389,6 @@ public class WardMap extends Application{
 	
 	public int retBedNumber() {
 		int returnValue = r.retBed();
-//		System.out.println("In return value "+roomNumber);
 		return returnValue;
 	}
 	

@@ -555,7 +555,7 @@ public class Main extends Application {
 							errorMsg.setText("ID must contain only numbers!");
 						}
 					}
-				}
+				} 
 				
 				// Searching by name
 				else if(nameField.isVisible() && selectedItem!=null){

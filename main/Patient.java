@@ -22,11 +22,6 @@ public class Patient extends Person{
 		this.prescription = p;
 	}
 	
-	public void displayPatients() {
-		System.out.println("\nId: "+this.retId()+"\nName: "+this.retName()+
-				"\nAge: "+this.retAge()+"\nGender: "+this.retGender());
-	}
-	
 	public String printPrescription() {
 		String returnValue="";
 		if(prescription!=null) {
@@ -34,13 +29,6 @@ public class Patient extends Person{
 			returnValue+="\n"+this.prescription.printPrescription();
 		}
 		return returnValue;
-	}
-	
-	public void printWardDetails() {
-		System.out.println("\n\n");
-		System.out.println("Ward Number: "+retWardNumber());
-		System.out.println("Room Number: "+retRoomNumber());
-		System.out.println("Bed Number: "+retBedNumber());
 	}
 	
 	// Setter functions

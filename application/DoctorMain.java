@@ -26,6 +26,11 @@ public class DoctorMain {
 	Boolean timingsSet=false;
 	ArrayList<LocalTime> removeTimeList = new ArrayList<LocalTime>();
 	InputValidation iv = new InputValidation();
+	static Scene scene=null;
+	public int bedNum;
+	public int wardNum;
+	public int roomNum;
+	
 	
 	public void patientSearch(Doctor d, BorderPane bp, String add) {
 		// Big Wrapper
@@ -39,6 +44,7 @@ public class DoctorMain {
 		TextField idField = new TextField();
 		TextField nameField = new TextField();
 		HBox buttonHolder = co.addButtonHolder(bp);
+		Button mapButton = co.retMapButton();
 		
 		//Adding nodes in grid pane
 		searchGrid.add(idButton, 1, 0);
@@ -119,6 +125,40 @@ public class DoctorMain {
 			}
 		});	
 		
+		mapButton.setOnAction(e->{
+			Stage primaryStage = new Stage();
+			HBox map = new HBox();
+			Manager m = new Manager("To return patients list");
+			WardMap wm = new WardMap(m.retPatientList());
+			map = wm.retMap();
+			if(scene==null)
+				scene = new Scene(map,1000,1000);
+			
+			scene.setOnMouseClicked(e2->{
+				if(wm.retWardNumber()!=0) {
+					bedNum = wm.retBedNumber();
+					roomNum = wm.retRoomNumber();
+					wardNum = wm.retWardNumber();
+					Pair<String,Patient> patientPair = d.patientInBed(bedNum, roomNum, wardNum);
+					primaryStage.close();
+					if(patientPair.getKey()=="") {
+						p = patientPair.getValue();
+						callFeatures(d,add,bp);
+					}
+					else {
+						errorMsg.setText("Patient not present!");
+					}
+				}
+					
+			});		
+		
+			primaryStage.setScene(scene);
+			primaryStage.show();
+		
+		});
+		
+		bp.setRight(mapButton);
+		BorderPane.setMargin(mapButton, new Insets(40,30,10,10));
 		bp.setCenter(wrapperPane);
 		bp.setBottom(errorMsg);
 	}
