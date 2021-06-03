@@ -33,6 +33,15 @@ public class CommonOperations {
 		return true;
 	}
 	
+	
+	public Boolean checkBlankFields(TextField ...args) {
+		for (TextField t:args) {
+			if(t.getText().equals(""))
+				return false;
+		}		
+		return true;
+	}
+	
 	public HBox addButtonHolder(BorderPane bp) {
 		HBox hbox = new HBox(10);
 		Button submitButton = new Button("Submit");

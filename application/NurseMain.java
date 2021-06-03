@@ -6,10 +6,10 @@ import prescription.MedicineBlock;
 import prescription.MedicineDose;
 import javafx.stage.*;
 import javafx.scene.*;
-
+import CustomExceptions.InputValidation;
 import java.util.ArrayList;
 import java.util.Objects;
-
+import javafx.util.Pair;
 import javafx.geometry.Insets;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -91,6 +91,10 @@ public class NurseMain {
 								,"");
 						if(purpose=="Administer")
 							administerMedicine(n,p,bp);
+						else if(purpose=="ChangeBed")
+							changeBed(n,p,bp);
+						else if(purpose=="ChangeBedAuto")
+							changeBedAuto(n,p,bp);
 						else
 							displayPatientDetails(p,bp);
 						
@@ -127,15 +131,20 @@ public class NurseMain {
 				medicineBox.getItems().add(md.retName());
 			
 			((Button)buttonHolder.getChildren().get(0)).setOnAction(e->{
+				
 				int medicineIndex = medicineBox.getSelectionModel().getSelectedIndex();
-				String returnValue = n.administerMedicine(p, medicines.get(medicineIndex));
+				if(medicineIndex!=-1) {
+					String returnValue = n.administerMedicine(p, medicines.get(medicineIndex));
+					
+					if(returnValue=="")
+						errorMsg.setText(" Successfully administered "+
+								medicines.get(medicineIndex).retName());
+					else
+						errorMsg.setText(returnValue);
+				}
 				
-				if(returnValue=="")
-					errorMsg.setText(" Successfully administered "+
-							medicines.get(medicineIndex).retName());
-				else
-					errorMsg.setText(returnValue);
-				
+				else 
+					errorMsg.setText("Please make a selection first.");				
 			});
 			
 			
@@ -153,6 +162,87 @@ public class NurseMain {
 		bp.setBottom(errorMsg);
 		
 	}
+	
+	public void changeBed(Nurse n, Patient p, BorderPane bp) {
+		
+		InputValidation iv = new InputValidation();
+		
+		// Layout Elements
+		GridPane wrapperPane = new GridPane();
+		Label errorMsg = co.retErrorLabel();
+		TextField wardField = new TextField();
+		TextField roomField = new TextField();
+		TextField bedField = new TextField();
+		HBox buttonHolder = co.addButtonHolder(bp);
+		
+		// Adding Elements in wrapperPane
+		wrapperPane.add(new Label("Enter new ward number"), 0, 0);
+		wrapperPane.add(wardField, 1, 0);
+		wrapperPane.add(new Label("Enter new room number"), 0, 1);
+		wrapperPane.add(roomField, 1, 1);
+		wrapperPane.add(new Label("Enter new bed number"), 0, 2);
+		wrapperPane.add(bedField, 1, 2);
+		wrapperPane.add(buttonHolder, 1, 3);
+		
+		((Button)buttonHolder.getChildren().get(0)).setOnAction(e->{
+			errorMsg.setTextFill(Color.RED);
+			
+			if(!co.checkBlankFields(wardField,roomField,bedField)) {
+				
+				try {
+					
+					int wardNumber = Integer.parseInt(wardField.getText());
+					int roomNumber = Integer.parseInt(roomField.getText());
+					int bedNumber = Integer.parseInt(bedField.getText());
+					
+					String wardMsg = iv.validateWardNumber(wardNumber);
+					String roomMsg = iv.validateRoomNumber(roomNumber);
+					String bedMsg = iv.validateBedNumber(bedNumber);
+					
+					if(wardMsg.length()>0)
+						errorMsg.setText(wardMsg);
+					
+					else if(roomMsg.length()>0)
+						errorMsg.setText(roomMsg);
+				
+					else if(bedMsg.length()>0)
+						errorMsg.setText(bedMsg);
+						
+					else{
+						Pair<Boolean,String> returnValue = n.changeBed(p, wardNumber, roomNumber
+								, bedNumber);
+						if(returnValue.getKey()==false)
+							errorMsg.setText(returnValue.getValue());
+						else {
+							errorMsg.setTextFill(Color.GREEN);
+							errorMsg.setText(returnValue.getValue());
+						}
+					}
+					
+				}catch(NumberFormatException exception) {
+					errorMsg.setText("Only numeric Characters are expected in all fields. ");
+				}
+			}
+			else 
+				errorMsg.setText("All fields are mandatory");
+		});
+		
+		
+		// Formatting wrapperPane
+		wrapperPane.setHgap(30);
+		wrapperPane.setVgap(40);
+		wrapperPane.setPadding(new Insets(30,0,0,40));
+		
+		bp.setCenter(wrapperPane);
+		bp.setBottom(errorMsg);
+				
+	}
+	
+	public void changeBedAuto(Nurse n, Patient p, BorderPane bp) {
+		
+	}
+	
+	
 	
 	public void displayMap() {
 		Stage primaryStage = new Stage();

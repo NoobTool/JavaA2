@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import CommonSnippets.CommonCodes;
 import CustomExceptions.InputValidation;
 import Actions.*;
+import javafx.util.Pair;
 
 public class Nurse extends Employee{
 	CommonCodes c = new CommonCodes();
@@ -24,12 +25,8 @@ public class Nurse extends Employee{
 	}
 	
 	// Changing patient's bed manually
-	public void changeBed(Patient p) {
-		WardDetails oldDetails = p.retWardDetails(); 
-		int wardNumber = c.inputInt("Enter the new ward number. ");
-		int roomNumber = c.inputInt("Enter the new room number. ");
-		int bedNumber = c.inputInt("Enter the new bed number. ");
-		
+	public Pair<Boolean,String> changeBed(Patient p, int wardNumber, int roomNumber, int bedNumber) {
+		WardDetails oldDetails = p.retWardDetails(); 	
 		Ward ward = m.retWardList()[wardNumber-1];
 		Room room = ward.retRoomList()[roomNumber-1];
 		Bed bed = room.retBedList()[bedNumber-1];
@@ -41,17 +38,17 @@ public class Nurse extends Employee{
 					p.setWard(new WardDetails(wardNumber,roomNumber,bedNumber));
 					removePatient(oldDetails.retWardNumber(),oldDetails.retRoomNumber(),oldDetails.retBedNumber());
 					a.addAction(new Action(this.retId(),p.retId(),"bed change",LocalDate.now(),LocalTime.now()));
+					return new Pair<Boolean,String>(true,"Bed changed successfully! ");
 				}
 			}
 		}
-		
-		else {
-			System.out.println("Bed not available! ");
-		}
+		return new Pair<Boolean,String>(false,"Bed not available! ");
 	}
 	
 	// Changing patient's bed automatically
-	public void changeWardAutomatically(Patient p) {
+	public Pair<Boolean,String> changeWardAutomatically(Patient p, int wardNumber, int roomNumber, 
+			int bedNumber) {
+		
 		Manager m = new Manager("Empty Object");
 		Ward wards[] = m.retWardList();
 		WardDetails wardDetails = new WardDetails();
@@ -62,18 +59,16 @@ public class Nurse extends Employee{
 				if(wardDetails.retRoomNumber()!=-1) {
 					wardDetails.setWardNumber((i+1));
 					p.setWard(wardDetails);
-					System.out.println("Patient: "+p.retName()+" is resting at "
-							+"ward "+(i+1)+" in room "+p.retRoomNumber()
-							+" in bed "+p.retBedNumber());
 					removePatient(oldDetails.retWardNumber(),oldDetails.retRoomNumber(),oldDetails.retBedNumber());
 					a.addAction(new Action(this.retId(),p.retId(),"bed changed",LocalDate.now(),LocalTime.now()));
-					return;
+					return new Pair<Boolean,String>(true,"Patient: "+p.retName()+" is resting at "
+							+"ward "+(i+1)+" in room "+p.retRoomNumber()
+							+" in bed "+p.retBedNumber());
+					
 				}
 			}
 		}
-		
-		System.out.println("Sorry, no space for you in the care centre! ");
-		return;
+		return new Pair<Boolean,String>(false,"Sorry, no space for you in the care centre! ");
 	}
 	
 	// Assign single room to a patient
@@ -138,36 +133,6 @@ public class Nurse extends Employee{
 		wards[wardNumber-1].unOccupyRoom(roomNumber-1,bedNumber-1);
 	}
 	
-	
-	
-	// Preparations for administering medicine
-	
-	// Entering the patient's ward details
-	public Patient retPatientInBed() {
-		InputValidation i = new InputValidation();
-		int wardNumber = i.validateWardNumber(c.inputInt("Enter patient's ward number. "));
-		int roomNumber = i.validateRoomNumber(c.inputInt("Enter patient's room number. "));
-		int bedNumber = i.validateBedNumber(c.inputInt("Enter patient's bed number. "));
-		return retPatientInBed(bedNumber, roomNumber, wardNumber);
-	}
-	
-	// Return a patient in specific bed number
-	private Patient retPatientInBed(int bedNumber,int roomNumber,int wardNumber) {
-		Manager m = new Manager("Empty Object");
-		Ward wards[] = m.retWardList();
-		Ward w = wards[wardNumber-1];
-		Room r = w.retRoom(roomNumber-1);
-		Patient p = r.retPatient(bedNumber-1);
-		if(!Objects.isNull(p)) {
-			return p;
-		}
-		
-		else {
-			System.out.println("No patient present at this bed! ");
-		}
-		return new Patient();
-	}
-	
 	// Administering Medicines
 	// Index = index of the medicine chosen
 	public String administerMedicine(Patient p, MedicineDose medicine) {
@@ -188,66 +153,7 @@ public class Nurse extends Employee{
 			}
 		}
 		return "This medicine is not administered for this time. ";
-	}
-	
-	
-	// Administer Medicine
-//	public void administerMedicine() {
-//		int choice,medSize=0;
-//		Patient p = enterPatientBed(true);
-//		if(!Objects.isNull(p)) {
-//			Prescription prescription = p.retPrescription();
-//			if(!Objects.isNull(prescription)) {
-//				MedicineBlock medicineBlock = prescription.retMedicineBlock();
-//				ArrayList<MedicineDose> medicines = medicineBlock.retMedicines();
-//				medSize = medicines.size();
-//				do {
-//					for(int i=0;i<medSize;i++) {
-//						System.out.println((i+1)+". "+medicines.get(i).retName().toLowerCase());
-//					}
-//					System.out.println((medSize+1)+". Exit");
-//					choice = c.inputInt("Enter your choice!");
-//					if(choice<medSize+1) {
-//						boolean flag=false;
-//						MedicineDose medicine = medicines.get(choice-1);
-//						for(LocalTime time: medicine.retTimes()) {
-//							LocalTime currentTime = LocalTime.now();
-//							LocalDate currentDate = LocalDate.now();
-//							if(Math.abs(time.until(currentTime,ChronoUnit.MINUTES))<5) {
-//								int timeIndex = medicine.retTimes().indexOf(time);
-//								boolean administered  = checkMedicineAdministered(p.retId(),timeIndex,medicine.retTimes().get(timeIndex),currentDate);
-//								if(administered==false) {
-//									administeredMedicines.add(new AdministerMedicine(p.retId(),
-//											this.retId(), medicine,timeIndex,currentDate,currentTime));
-//									System.out.println("Successfully administered "+medicine.retName());
-//									flag=true;
-//									a.addAction(new Action(this.retId(),p.retId(),"medicine administered",LocalDate.now(),LocalTime.now()));
-//									break;
-//								}
-//								else {
-//									System.out.println("This medicine has already been administered");
-//									flag=true;
-//									break;
-//								}
-//							}
-//						}
-//						if(flag==false)
-//							System.out.println("This medicine is not administered for this time. ");
-//					}
-//					
-//					else if(choice == medSize+1) {
-//						System.out.println("Exiting...");
-//					}
-//					
-//					else {
-//						System.out.println("Wrong choice, enter again! ");
-//					}
-//				}while(choice!=medSize+1);
-//			}else { System.out.println("No prescription added! ");}
-//		}else {System.out.println("No patient present");}
-//		
-//	}
-	
+	}	
 	
 	// Check if medicine is already administered or not
 	public boolean checkMedicineAdministered(long id, int timeIndex, LocalTime time, LocalDate date) {

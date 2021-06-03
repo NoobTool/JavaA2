@@ -119,30 +119,24 @@ public class InputValidation {
 		return true;
 	}
 	
-	public int validateWardNumber(int n) {
+	public String validateWardNumber(int n) {
 		Manager m = new Manager(this);
-		if(n<=0 || n>m.retWards()) {
-			n = c.inputInt("Ward doesn't exist, enter again! ");
-			n = validateWardNumber(n);
-		}		
-		return n;
+		if(n<=0 || n>m.retWards())
+			return "Ward doesn't exist, enter again! ";
+		return "";
 	}
 	
-	public int validateRoomNumber(int n) {
+	public String validateRoomNumber(int n) {
 		Ward w = new Ward(this);
-		if(n<=0 || n>w.retWards()) {
-			n = c.inputInt("Room doesn't exist, enter again! ");
-			n = validateRoomNumber(n);
-		}		
-		return n;
+		if(n<=0 || n>w.retWards())
+			return "Room doesn't exist, enter again! ";
+		return "";
 	}
 	
-	public int validateBedNumber(int n) {
+	public String validateBedNumber(int n) {
 		Room r = new Room();
-		if(n<=0 || n>r.retRooms()) {
-			n = c.inputInt("Bed doesn't exist, enter again! ");
-			n = validateBedNumber(n);
-		}		
-		return n;
+		if(n<=0 || n>r.retRooms())
+			return "Bed doesn't exist, enter again! ";		
+		return "";
 	}
 }
