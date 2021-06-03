@@ -2,7 +2,6 @@ package main;
 import CommonSnippets.CommonCodes;
 import java.time.LocalTime;
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import CustomExceptions.InputValidation;
 import java.util.Objects;
@@ -144,8 +143,7 @@ public class Employee extends Person{
 	// Check if new start time is not in between another shift time
 	// Same for end time
 	public boolean checkShifts(Employee e, String shifts, Boolean change, String post) {
-		InputValidation iv = new InputValidation();
-		
+			
 		if(e.retShifts().size()==0)
 			return true;
 		else if(e.retShifts().size()==1 && change==true)
