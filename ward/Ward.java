@@ -101,6 +101,10 @@ public class Ward {
 		return this.rooms[n];
 	}
 	
+	public DualRoom retDualRoom(int n) {
+		return this.dualRooms[n];
+	}
+	
 	public Room[] retRoomList() {
 		return rooms;
 	}

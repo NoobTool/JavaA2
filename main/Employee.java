@@ -5,8 +5,7 @@ import java.util.ArrayList;
 import java.util.Objects;
 import CustomExceptions.*;
 import javafx.util.Pair;
-import ward.Room;
-import ward.Ward;
+import ward.*;
 
 public class Employee extends Person{
 	final int MAX_MINUTES = 360 ;
@@ -35,14 +34,45 @@ public class Employee extends Person{
 		Manager m = new Manager("Empty Object");
 		Ward wards[] = m.retWardList();
 		Ward w = wards[wardNumber-1];
-		Room r = w.retRoom(roomNumber-1);
-		Patient p = r.retPatient(bedNumber-1);
-		if(!Objects.isNull(p)) {	
-			return new Pair<String,Patient>("", new Patient());
+		
+		// Patient in singleRoom
+		if(roomNumber<=w.retSingleRooms()) {
+			SingleRoom r = w.retSingleRoomsList()[roomNumber-1];
+			Patient p = r.retPatient();
+			if(p!=null) {	
+				return new Pair<String,Patient>("", p);
+			}
+			else {
+				return new Pair<String,Patient>("No patient present at this bed! ", 
+						new Patient());
+			}
 		}
+		
+		// Patient in dual rooms
+		else if(roomNumber>w.retSingleRooms() && roomNumber<=w.retDualRooms()+w.retSingleRooms()) {
+			DualRoom r = w.retDualRoomList()[roomNumber-1];
+			Patient p = r.retPatient(bedNumber-1);
+			System.out.println("p in employee is "+p);
+			if(p!=null) {	
+				return new Pair<String,Patient>("", p);
+			}
+			else {
+				return new Pair<String,Patient>("No patient present at this bed! ", 
+						new Patient());
+			}
+		}
+		
 		else {
-			return new Pair<String,Patient>("No patient present at this bed! ", 
-					new Patient());
+			roomNumber -= w.retSingleRooms()+w.retDualRooms();
+			Room r = w.retRoom(roomNumber-1);
+			Patient p = r.retPatient(bedNumber-1);
+			if(p!=null) {	
+				return new Pair<String,Patient>("", p);
+			}
+			else {
+				return new Pair<String,Patient>("No patient present at this bed! ", 
+						new Patient());
+			}
 		}
 	}
 	

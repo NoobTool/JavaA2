@@ -26,10 +26,11 @@ public class WardMap extends Application{
 	final int single_room=1;
 	final int nSingle=1;
 	final int totalBeds = nSingle + (2*nDouble)+ (4*nRooms);
+	RetrieveValues r = new RetrieveValues();
 	
-	int bedNumber=0;
-	int roomNumber=0;
-	int wardNumber=0;
+//	int bedNumber;
+//	static int roomNumber=0;
+//	static int wardNumber=0;
 	
 	static ArrayList<Label> bedList = new ArrayList<Label>();
 	static HBox wrapperBox;
@@ -323,11 +324,11 @@ public class WardMap extends Application{
 				}
 			}
 			
-			wardNumber = ward;
-			roomNumber = room;
-			bedNumber = temp+operand;
+			r.setWard(ward);
+			r.setRoom(room);
+			r.setBed(temp+operand);
 			
-			print("Ward Number is"+ward+" Room Number is "+room+" Bed Number is "+(temp+operand));			
+			print("Ward Number is"+ward+" Room Number is "+room+" Bed Number is "+(temp+operand));	
 		});
 	}
 	
@@ -380,15 +381,20 @@ public class WardMap extends Application{
 	}
 	
 	public int retWardNumber() {
-		return wardNumber;
+		int returnValue = r.retWard();
+//		wardNumber=0;
+		return returnValue;
 	}
 	
 	public int retRoomNumber() {
-		return roomNumber;
+		int returnValue = r.retRoom();
+		return returnValue;
 	}
 	
 	public int retBedNumber() {
-		return bedNumber;
+		int returnValue = r.retBed();
+//		System.out.println("In return value "+roomNumber);
+		return returnValue;
 	}
 	
 }

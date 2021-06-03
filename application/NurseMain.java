@@ -27,9 +27,11 @@ public class NurseMain {
 	static Scene scene=null;
 	Patient p;
 	InputValidation iv = new InputValidation();
-	int wardNumber=0;
-	int roomNumber=0;
-	int bedNumber=0;
+	RetrieveValues r = new RetrieveValues();
+	
+	public int bedNum;
+	public int wardNum;
+	public int roomNum;
 	
 	public void patientSearch(Nurse n, BorderPane bp, String purpose) {
 		// Big Wrapper
@@ -126,17 +128,43 @@ public class NurseMain {
 		
 		
 		mapButton.setOnAction(e->{
-			displayMap();
-			if(wardNumber!=0) {
-				Pair<String,Patient> patientPair = n.patientInBed(bedNumber,
-						roomNumber, wardNumber);
-				if(patientPair.getKey()!="")
-					errorMsg.setText(patientPair.getKey());
-				else
-					callFeatures(n,patientPair.getValue(),purpose,bp);
-			}
-		});
+			Stage primaryStage = new Stage();
+			HBox map = new HBox();
+			Manager m = new Manager("To return patients list");
+			WardMap wm = new WardMap(m.retPatientList());
+			map = wm.retMap();
+			if(scene==null)
+				scene = new Scene(map,1000,1000);
+			
+			scene.setOnMouseClicked(e2->{
+				if(wm.retWardNumber()!=0) {
+					bedNum = wm.retBedNumber();
+					roomNum = wm.retRoomNumber();
+					wardNum = wm.retWardNumber();
+					Pair<String,Patient> patientPair = n.patientInBed(bedNum, roomNum, wardNum);
+					primaryStage.close();
+					if(patientPair.getKey()=="") {
+						callFeatures(n,patientPair.getValue(),purpose,bp);
+					}
+				}
+					
+			});
+			
+//			if(r.retWard()!=0) {
+//				Pair<String,Patient> patientPair = n.patientInBed(r.retBed(),
+//						r.retRoom(), r.retWard());
+//				if(patientPair.getKey()!="")
+//					errorMsg.setText(patientPair.getKey());
+//				else
+//					callFeatures(n,patientPair.getValue(),purpose,bp);
+//			}
 		
+		
+			primaryStage.setScene(scene);
+			primaryStage.show();
+		
+		});
+		bp.setRight(mapButton);
 		bp.setCenter(wrapperPane);
 		bp.setBottom(errorMsg);
 	}
@@ -328,11 +356,10 @@ public class NurseMain {
 		if(scene==null)
 			scene = new Scene(map,1000,1000);
 		scene.setOnMouseClicked(e->{
-			if(wm.retWardNumber()!=0) {
-				wardNumber = wm.retWardNumber();
-				roomNumber = wm.retRoomNumber();
-				bedNumber = wm.retBedNumber();
-			}
+			if(wm.retWardNumber()!=0)
+				bedNum = wm.retWardNumber();
+				roomNum = wm.retRoomNumber();
+				bedNum = wm.retWardNumber();
 			primaryStage.close();
 		});
 		primaryStage.setScene(scene);
