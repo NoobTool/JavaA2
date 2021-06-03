@@ -2,9 +2,10 @@ package prescription;
 import java.util.*;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
+import java.io.Serializable;
 import java.time.LocalDate;
 
-public class MedicineBlock {
+public class MedicineBlock implements Serializable{
 	LocalDate date = LocalDate.now();
 	LocalTime time = LocalTime.now();
 	ArrayList<MedicineDose> medicines = new ArrayList<MedicineDose>();

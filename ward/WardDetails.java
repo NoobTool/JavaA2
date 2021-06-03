@@ -1,6 +1,9 @@
 package ward;
 
-public class WardDetails {
+import java.io.Serializable;
+
+
+public class WardDetails implements Serializable{
 	private int wardNumber;
 	private int roomNumber;
 	private int bedNumber;

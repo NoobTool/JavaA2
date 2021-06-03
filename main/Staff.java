@@ -27,6 +27,10 @@ public class Staff<P> {
 		return this.members.size();
 	}
 	
+	public void setStaff(ArrayList<P> members) {
+		this.members = members;
+	}
+	
 	public ArrayList<P> retStaff(){
 		return this.members;
 	}

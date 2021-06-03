@@ -42,8 +42,15 @@ public class test {
 	}
 	
 	public static void main(String args[]) {
-		String shifts = "12:00";
-		shifts = shifts.replace(":", ".");
-		print(shifts);
+		ArrayList<String> a = new ArrayList<String>();
+		a.add("a");
+		a.add("b");
+		String finalStr = "";
+		for(String s: a) {
+			finalStr+=(s+",");
+		}
+		finalStr = finalStr.substring(0,finalStr.length()-1);
+		print(finalStr);
+		
 	}
 }

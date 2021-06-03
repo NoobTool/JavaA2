@@ -73,6 +73,12 @@ public class Manager extends Employee implements Serializable{
 		availableIdList.add((long)6830012);
 		
 		WardMap wm = new WardMap();
+		
+		try {
+			ObjectInputStream input = new ObjectInputStream(new FileInputStream("patients"));
+			patientList.setStaff((ArrayList<Patient>)input.readObject());
+		}catch(Exception e) {System.out.println("IN manager "+e);}
+		
 	}
 	
 	public Manager(String msg) {}

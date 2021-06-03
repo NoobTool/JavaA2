@@ -1,7 +1,9 @@
 package prescription;
+import java.io.Serializable;
 import java.util.*;
 
-public class Prescription {
+
+public class Prescription implements Serializable{
 	
 	private ArrayList<MedicineBlock> medicineBlock = new ArrayList<MedicineBlock>(); 
 	MedicineBlock mb = new MedicineBlock();

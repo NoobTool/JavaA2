@@ -15,8 +15,9 @@ import javafx.scene.control.*;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.geometry.*;
+import java.io.*;
 
-public class DoctorMain {
+public class DoctorMain implements Serializable{
 	
 	CommonOperations co = new CommonOperations();
 	Manager m = new Manager("Object to return patient list");
@@ -221,6 +222,13 @@ public class DoctorMain {
 			
 			((Button)prescriptionButtonHolder.getChildren().get(0)).setOnAction(e3->{
 				d.addPrescription(p, meds);
+				try {
+					ObjectOutputStream output = new ObjectOutputStream(new FileOutputStream("patients"));
+					output.writeObject(m.retPatientList());
+					output.close();
+				}catch(Exception exception) {
+					errorMsg.setText(exception.toString());
+				}
 			});
 			bp.setCenter(wrapperPane);
 		}

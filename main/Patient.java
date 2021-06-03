@@ -1,9 +1,10 @@
 package main;
 import ward.WardDetails;
+import java.io.*;
 import prescription.Prescription;
 
 
-public class Patient extends Person{
+public class Patient extends Person implements Serializable{
 	private long id;
 	private Prescription prescription = new Prescription();
 	private WardDetails ward;

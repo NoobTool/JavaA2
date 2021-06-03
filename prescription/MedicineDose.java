@@ -1,13 +1,13 @@
 package prescription;
 import java.util.ArrayList;
+import java.io.Serializable;
 import java.time.LocalTime;
 import CommonSnippets.*;
  
-public class MedicineDose {
+public class MedicineDose implements Serializable{
 	private String medicineName;
 	private int dose;
 	private ArrayList<LocalTime> times = new ArrayList<LocalTime>();
-	private CommonCodes c = new CommonCodes();
 	
 	public MedicineDose() {}
 	
@@ -33,32 +33,6 @@ public class MedicineDose {
 	public void printMedicineDose(int dose) {
 		System.out.println("Medicine Name: "+this.retName()+"\n");
 		System.out.println("Dose: "+this.retTimes().get(dose));			
-	}
-	
-	// Function to input/delete times to be equal to doses
-	public void alterTimes() {
-		if(dose<times.size()) {
-			while(dose!=times.size()) {
-				for(int i=0;i<times.size();i++) {
-					System.out.println((i+1)+". "+times.get(i));
-				}
-				try {
-					times.remove(c.inputInt("Enter time to be deleted. ")-1);
-					alterTimes();
-					sortTimes();
-				}catch(Exception e) {System.out.println("Incorrect choice! ");alterTimes();}
-			}
-		}
-		else {
-			while(dose!=times.size()) {
-				for(int i=0;i<times.size();i++) {
-					System.out.println((i+1)+". "+times.get(i));
-				}
-				times.add(c.inputTime("Enter new time. "));
-				alterTimes();
-				sortTimes();
-			}
-		}
 	}
 	
 	public void sortTimes()
