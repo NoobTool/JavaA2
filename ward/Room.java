@@ -56,6 +56,14 @@ public class Room {
 		}
 	}
 	
+	public void setEmpty(Boolean empty) {
+		this.empty=empty;
+	}
+	
+	public void setGender(char gender) {
+		this.gender = gender;
+	}
+	
 	public void unoccupyBed(int n) {
 		beds[n].unoccupyBed();
 		empty = true;

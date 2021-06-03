@@ -53,6 +53,14 @@ public class DualRoom {
 		}
 	}
 	
+	public void setEmpty(boolean empty) {
+		this.empty = empty;
+	}
+	
+	public void setGender(char gender) {
+		this.gender = gender;
+	}
+	
 	public void unoccupyBed(int n) {
 		beds[n].unoccupyBed();
 		empty = true;

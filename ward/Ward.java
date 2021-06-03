@@ -127,6 +127,14 @@ public class Ward {
 		return rooms;
 	}
 	
+	public DualRoom[] retDualRoomList() {
+		return dualRooms;
+	}
+	
+	public SingleRoom[] retSingleRoomList() {
+		return singleRooms;
+	}
+	
 	public int retWards() {
 		return this.WARD_SIZE;
 	}

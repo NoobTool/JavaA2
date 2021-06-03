@@ -96,6 +96,7 @@ public class NurseMain {
 						else if(purpose=="ChangeBedAuto")
 							changeBedAuto(n,p,bp);
 						else
+//							displayMap();
 							displayPatientDetails(p,bp);
 						
 					}
@@ -188,7 +189,7 @@ public class NurseMain {
 		((Button)buttonHolder.getChildren().get(0)).setOnAction(e->{
 			errorMsg.setTextFill(Color.RED);
 			
-			if(!co.checkBlankFields(wardField,roomField,bedField)) {
+			if(co.checkBlankFields(wardField,roomField,bedField)) {
 				
 				try {
 					
@@ -231,7 +232,7 @@ public class NurseMain {
 		
 		// Formatting wrapperPane
 		wrapperPane.setHgap(30);
-		wrapperPane.setVgap(40);
+		wrapperPane.setVgap(20);
 		wrapperPane.setPadding(new Insets(30,0,0,40));
 		
 		bp.setCenter(wrapperPane);
@@ -294,11 +295,14 @@ public class NurseMain {
 		BorderPane wrapperPane = new BorderPane();
 		wrapperPane.setPadding(new Insets(20,0,0,20));
 		
-		
 		// Layout Elements
 		ScrollPane sp = new ScrollPane();
 		
-		String returnValue = p.printPrescription();
+		
+		String returnValue = "Name: "+p.retName()+"\nAge: "+p.retAge()
+				+"Gender: "+p.retGender()+"\nWard Number: "+p.retWardNumber()
+				+"\nRoom Number: "+p.retRoomNumber()+"\nBed Number: "+p.retBedNumber()+"\n";
+		returnValue+=p.printPrescription();
 		
 		sp.setContent(new Label(returnValue));
 		

@@ -1,14 +1,12 @@
 package main;
 import prescription.*;
 import ward.*;
-import java.util.Objects;
 import Actions.Action;
 import java.time.LocalTime;
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import CommonSnippets.CommonCodes;
-import CustomExceptions.InputValidation;
 import Actions.*;
 import javafx.util.Pair;
 
@@ -28,19 +26,52 @@ public class Nurse extends Employee{
 	public Pair<Boolean,String> changeBed(Patient p, int wardNumber, int roomNumber, int bedNumber) {
 		WardDetails oldDetails = p.retWardDetails(); 	
 		Ward ward = m.retWardList()[wardNumber-1];
-		Room room = ward.retRoomList()[roomNumber-1];
-		Bed bed = room.retBedList()[bedNumber-1];
+		if(ward.retSingleRooms()>=roomNumber)
+			return new Pair<Boolean,String>(false,"Isolation can't be provided through here,"
+					+ " please choose 'Provide Isolation'");
 		
-		if(!ward.isFull()) {
-			if((!room.isFull() && p.retGender()==room.retGender()) || room.retEmpty()) {
-				if(bed.retOccupied()==false) {
-					bed.addPatient(p);
-					p.setWard(new WardDetails(wardNumber,roomNumber,bedNumber));
-					removePatient(oldDetails.retWardNumber(),oldDetails.retRoomNumber(),oldDetails.retBedNumber());
-					a.addAction(new Action(this.retId(),p.retId(),"bed change",LocalDate.now(),LocalTime.now()));
-					return new Pair<Boolean,String>(true,"Bed changed successfully! ");
+		if(!ward.isFull()) {			
+			
+			if(ward.retDualRooms()>=roomNumber) {
+				DualRoom room = ward.retDualRoomList()[roomNumber-1];
+				Bed bed = room.retBedList()[bedNumber-1];
+				
+				if(bedNumber>room.retRooms())
+					return new Pair<Boolean,String>(false,"Bed Number should be smaller"
+							+ " than 3");
+				else {
+					if((!room.isFull() && p.retGender()==room.retGender()) || room.retEmpty()) {
+						if(bed.retOccupied()==false) {
+							bed.addPatient(p);
+							room.setEmpty(false);
+							if(room.retEmpty())
+								room.setGender(p.retGender());
+							p.setWard(new WardDetails(wardNumber,roomNumber,bedNumber));
+							removePatient(oldDetails.retWardNumber(),oldDetails.retRoomNumber(),oldDetails.retBedNumber());
+							a.addAction(new Action(this.retId(),p.retId(),"bed change",LocalDate.now(),LocalTime.now()));
+							return new Pair<Boolean,String>(true,"Bed changed successfully! ");
+						}
+					}
 				}
 			}
+			
+			else {
+				Room room = ward.retRoomList()[roomNumber-1];
+				Bed bed = room.retBedList()[bedNumber-1];
+				if((!room.isFull() && p.retGender()==room.retGender()) || room.retEmpty()) {
+					if(bed.retOccupied()==false) {
+						bed.addPatient(p);
+						room.setEmpty(false);
+						if(room.retEmpty())
+							room.setGender(p.retGender());
+						p.setWard(new WardDetails(wardNumber,roomNumber,bedNumber));
+						removePatient(oldDetails.retWardNumber(),oldDetails.retRoomNumber(),oldDetails.retBedNumber());
+						a.addAction(new Action(this.retId(),p.retId(),"bed change",LocalDate.now(),LocalTime.now()));
+						return new Pair<Boolean,String>(true,"Bed changed successfully! ");
+					}
+				}
+			}
+			
 		}
 		return new Pair<Boolean,String>(false,"Bed not available! ");
 	}

@@ -981,8 +981,12 @@ public class Main extends Application {
 			nurseMain.patientSearch(n, bp, "Administer");
 		});
 		
+		changeManualButton.setOnAction(e->{
+			nurseMain.patientSearch(n,bp,"ChangeBed");
+		});
+		
 		changeAutoButton.setOnAction(e->{
-			//nurseMain.patientSearch(d,bp,"update");
+			nurseMain.patientSearch(n,bp,"ChangeBedAuto");
 		});
 		
 		displayButton.setOnAction(e->{
@@ -993,7 +997,7 @@ public class Main extends Application {
 		bp.setLeft(vbox);
 		bp.setTop(topBar);
 		
-		nurseStage.setScene(new Scene(bp, 800, 300));
+		nurseStage.setScene(new Scene(bp, 800, 400));
 		nurseStage.show();
 	}
 	
