@@ -27,9 +27,9 @@ public class WardMap extends Application{
 	final int nSingle=1;
 	final int totalBeds = nSingle + (2*nDouble)+ (4*nRooms);
 	
-	int bedNumber;
-	int roomNumber;
-	int WardNumber;
+	int bedNumber=0;
+	int roomNumber=0;
+	int wardNumber=0;
 	
 	static ArrayList<Label> bedList = new ArrayList<Label>();
 	static HBox wrapperBox;
@@ -323,6 +323,10 @@ public class WardMap extends Application{
 				}
 			}
 			
+			wardNumber = ward;
+			roomNumber = room;
+			bedNumber = temp+operand;
+			
 			print("Ward Number is"+ward+" Room Number is "+room+" Bed Number is "+(temp+operand));			
 		});
 	}
@@ -373,6 +377,18 @@ public class WardMap extends Application{
 	// Getter Functions
 	public HBox retMap() {
 		return wrapperBox;
+	}
+	
+	public int retWardNumber() {
+		return wardNumber;
+	}
+	
+	public int retRoomNumber() {
+		return roomNumber;
+	}
+	
+	public int retBedNumber() {
+		return bedNumber;
 	}
 	
 }

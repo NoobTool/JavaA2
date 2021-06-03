@@ -27,12 +27,15 @@ public class NurseMain {
 	static Scene scene=null;
 	Patient p;
 	InputValidation iv = new InputValidation();
+	int wardNumber=0;
+	int roomNumber=0;
+	int bedNumber=0;
 	
 	public void patientSearch(Nurse n, BorderPane bp, String purpose) {
 		// Big Wrapper
 		BorderPane wrapperPane = new BorderPane();
 		wrapperPane.setPadding(new Insets(20,0,0,20));
-		
+		 
 		// Layouts
 		GridPane searchGrid = new GridPane();
 		Button idButton = new Button("Search by ID");
@@ -40,6 +43,7 @@ public class NurseMain {
 		TextField idField = new TextField();
 		TextField nameField = new TextField();
 		HBox buttonHolder = co.addButtonHolder(bp);
+		Button mapButton = co.retMapButton();
 		
 		//Adding nodes in grid pane
 		searchGrid.add(idButton, 1, 0);
@@ -91,7 +95,7 @@ public class NurseMain {
 					if(!co.checkBlankFields(idField.getText()) && nameField.isVisible())
 						errorMsg.setText("Please fill the ID field.");
 					
-					if(!co.checkBlankFields(idField.getText()) && nameField.isVisible())
+					else if(!co.checkBlankFields(idField.getText()) && nameField.isVisible())
 						errorMsg.setText("Please fill the name field.");
 					
 					else {
@@ -112,17 +116,7 @@ public class NurseMain {
 							else
 								errorMsg.setText("Patient does not exist");
 						}
-							
-						if(purpose=="Administer")
-							administerMedicine(n,p,bp);
-						else if(purpose=="ChangeBed")
-							changeBed(n,p,bp);
-						else if(purpose=="ChangeBedAuto")
-							changeBedAuto(n,p,bp);
-						else
-							displayMap();
-//							displayPatientDetails(p,bp);
-						
+						callFeatures(n,p,purpose,bp);
 					}
 				}catch(NumberFormatException exception) {
 					errorMsg.setText("The ID must be in numberic characters!");
@@ -130,12 +124,25 @@ public class NurseMain {
 			}
 		});	
 		
+		
+		mapButton.setOnAction(e->{
+			displayMap();
+			if(wardNumber!=0) {
+				Pair<String,Patient> patientPair = n.patientInBed(bedNumber,
+						roomNumber, wardNumber);
+				if(patientPair.getKey()!="")
+					errorMsg.setText(patientPair.getKey());
+				else
+					callFeatures(n,patientPair.getValue(),purpose,bp);
+			}
+		});
+		
 		bp.setCenter(wrapperPane);
 		bp.setBottom(errorMsg);
 	}
 	
 	
-	public void callFeatures(Nurse n,Patient p, String purpose, BorderPane bp) {
+	private void callFeatures(Nurse n,Patient p, String purpose, BorderPane bp) {
 		
 		if(purpose=="Administer")
 			administerMedicine(n,p,bp);
@@ -320,7 +327,14 @@ public class NurseMain {
 			System.out.println("In nurse patient name "+p.retName()+p.retRoomNumber()+p.retBedNumber());
 		if(scene==null)
 			scene = new Scene(map,1000,1000);
-		
+		scene.setOnMouseClicked(e->{
+			if(wm.retWardNumber()!=0) {
+				wardNumber = wm.retWardNumber();
+				roomNumber = wm.retRoomNumber();
+				bedNumber = wm.retBedNumber();
+			}
+			primaryStage.close();
+		});
 		primaryStage.setScene(scene);
 		primaryStage.show();
 	}

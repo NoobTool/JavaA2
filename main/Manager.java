@@ -105,7 +105,6 @@ public class Manager extends Employee{
 							+" in bed "+wardDetails.retBedNumber()+"";
 					a.addAction(new Action(retId(),p.retId(),"centre admission",LocalDate.now(),LocalTime.now()));
 					return new Pair<Boolean,String>(true,returnValue);
-					
 				}
 			}
 		}

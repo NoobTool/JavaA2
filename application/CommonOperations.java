@@ -66,4 +66,10 @@ public class CommonOperations {
 		return errorMsg;
 	}
 	
+	public Button retMapButton() {
+		Button mapButton = new Button("M");
+		mapButton.setTextFill(Color.BLUEVIOLET);
+		return mapButton;
+	}
+	
 }
