@@ -22,6 +22,7 @@ public class Nurse extends Employee{
 		super(id,name,age,gender,shifts,password);
 	}
 	
+	
 	// Changing patient's bed manually
 	public Pair<Boolean,String> changeBed(Patient p, int wardNumber, int roomNumber, int bedNumber) {
 		WardDetails oldDetails = p.retWardDetails(); 	
@@ -71,7 +72,6 @@ public class Nurse extends Employee{
 					}
 				}
 			}
-			
 		}
 		return new Pair<Boolean,String>(false,"Bed not available! ");
 	}

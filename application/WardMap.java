@@ -27,8 +27,6 @@ public class WardMap extends Application{
 	final int nSingle=1;
 	final int totalBeds = nSingle + (2*nDouble)+ (4*nRooms);
 	
-	//static HBox wrapperBox = new HBox();
-	
 	int bedNumber;
 	int roomNumber;
 	int WardNumber;
@@ -339,6 +337,7 @@ public class WardMap extends Application{
 	public int calculateIndex(int roomNumber) {
 		
 		int index=-1,k=0;
+		Boolean passedLoop = false;
 		
 		while(roomNumber>0 && k<nSingle) {
 			roomNumber-=1;
@@ -352,22 +351,24 @@ public class WardMap extends Application{
 			index+=2;
 			k+=1;
 		}
-		index-=1;
+		if(index!=0)
+			index-=1;
 		
 		k=0;
 		while(roomNumber>0 && k<nRooms) {
 			roomNumber-=1;
 			index+=4;
 			k+=1;
+			passedLoop=true;
 		}
-		index-=2;
+		if(passedLoop)
+			index-=2;
 		
-		if(roomNumber==0)
+		if(roomNumber>=0)
 			return index;
 		else
 			return -1;
 	}
-	
 	
 	// Getter Functions
 	public HBox retMap() {

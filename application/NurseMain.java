@@ -26,6 +26,7 @@ public class NurseMain {
 	Manager m = new Manager("Object to return patientlist");
 	static Scene scene=null;
 	Patient p;
+	InputValidation iv = new InputValidation();
 	
 	public void patientSearch(Nurse n, BorderPane bp, String purpose) {
 		// Big Wrapper
@@ -75,6 +76,9 @@ public class NurseMain {
 		
 		wrapperPane.setTop(searchGrid);
 		
+		
+		
+		
 		((Button)buttonHolder.getChildren().get(0)).setOnAction(e->{
 			
 			if (!idField.isVisible() && !nameField.isVisible())
@@ -84,11 +88,31 @@ public class NurseMain {
 			else if(idField.isVisible()) {
 				String id = idField.getText();
 				try {
-					if(!co.checkBlankFields(idField.getText()))
+					if(!co.checkBlankFields(idField.getText()) && nameField.isVisible())
 						errorMsg.setText("Please fill the ID field.");
+					
+					if(!co.checkBlankFields(idField.getText()) && nameField.isVisible())
+						errorMsg.setText("Please fill the name field.");
+					
 					else {
-						p =  n.nurseSearch(m.retPatientList(),Long.parseLong(id)
-								,"");
+						
+						if (idField.isVisible()) {
+							String idError = iv.validateId(Long.parseLong(id),"Patient");
+							if(idError.length()==0)
+							p =  n.nurseSearch(m.retPatientList(),Long.parseLong(id)
+									,"");
+							else
+								errorMsg.setText("Patient does not exist!");
+						}
+							
+						else {
+							Pair<Boolean,String> namePair = iv.validateName(nameField.getText(),true);
+							if(namePair.getKey())
+								p = n.nurseSearch(m.retPatientList(),-1,namePair.getValue());
+							else
+								errorMsg.setText("Patient does not exist");
+						}
+							
 						if(purpose=="Administer")
 							administerMedicine(n,p,bp);
 						else if(purpose=="ChangeBed")
@@ -96,8 +120,8 @@ public class NurseMain {
 						else if(purpose=="ChangeBedAuto")
 							changeBedAuto(n,p,bp);
 						else
-//							displayMap();
-							displayPatientDetails(p,bp);
+							displayMap();
+//							displayPatientDetails(p,bp);
 						
 					}
 				}catch(NumberFormatException exception) {
@@ -110,6 +134,19 @@ public class NurseMain {
 		bp.setBottom(errorMsg);
 	}
 	
+	
+	public void callFeatures(Nurse n,Patient p, String purpose, BorderPane bp) {
+		
+		if(purpose=="Administer")
+			administerMedicine(n,p,bp);
+		else if(purpose=="ChangeBed")
+			changeBed(n,p,bp);
+		else if(purpose=="ChangeBedAuto")
+			changeBedAuto(n,p,bp);
+		else
+			displayMap();
+//			displayPatientDetails(p,bp);
+	}
 	
 	public void administerMedicine(Nurse n, Patient p, BorderPane bp) {
 		

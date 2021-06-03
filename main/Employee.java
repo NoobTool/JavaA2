@@ -1,11 +1,10 @@
 package main;
-import CommonSnippets.CommonCodes;
 import java.time.LocalTime;
 import java.time.LocalDate;
 import java.util.ArrayList;
-import CustomExceptions.InputValidation;
 import java.util.Objects;
 import CustomExceptions.*;
+import javafx.util.Pair;
 import ward.Room;
 import ward.Ward;
 
@@ -18,7 +17,7 @@ public class Employee extends Person{
 	private String password;
 	private LocalDate lastShiftDate;
 	private String chosenShiftTime;
-	private CommonCodes c = new CommonCodes();
+
 	
 	public Employee(){}
 	
@@ -30,37 +29,21 @@ public class Employee extends Person{
 		
 	}
 	
-	public Patient enterPatientBed(boolean shouldReturn) {
-		InputValidation i = new InputValidation();
-		int wardNumber = i.validateWardNumber(c.inputInt("Enter patient's ward number. "));
-		int roomNumber = i.validateRoomNumber(c.inputInt("Enter patient's room number. "));
-		int bedNumber = i.validateBedNumber(c.inputInt("Enter patient's bed number. "));
-		if(shouldReturn==false)
-			return patientInBed(bedNumber, roomNumber, wardNumber,false);
-		else
-			return patientInBed(bedNumber, roomNumber, wardNumber,true);
-			
-	}
 	
-	private Patient patientInBed(int bedNumber,int roomNumber,int wardNumber,boolean shouldReturn) {
+	public Pair<String,Patient> patientInBed(int bedNumber,int roomNumber,int wardNumber) {
+		
 		Manager m = new Manager("Empty Object");
 		Ward wards[] = m.retWardList();
 		Ward w = wards[wardNumber-1];
 		Room r = w.retRoom(roomNumber-1);
 		Patient p = r.retPatient(bedNumber-1);
-		if(!Objects.isNull(p)) {
-			if(shouldReturn == false) {
-				p.displayPatients();
-				p.printPrescription();
-				p.printWardDetails();
-			}
-			else
-				return p;
+		if(!Objects.isNull(p)) {	
+			return new Pair<String,Patient>("", new Patient());
 		}
 		else {
-			System.out.println("No patient present at this bed! ");
+			return new Pair<String,Patient>("No patient present at this bed! ", 
+					new Patient());
 		}
-		return new Patient();
 	}
 	
 	// Setter functions

@@ -60,28 +60,6 @@ public class Ward {
 		return new WardDetails();
 	}
 	
-	// Printing Ward Status (Polymorphism)
-	public void printWardStatus() {
-		int i=0;
-		for(Room r: rooms) {
-			System.out.println("Room "+(i+1));
-			r.printRoomStatus();
-			i+=1;
-		}
-		
-		for(DualRoom r: dualRooms) {
-			System.out.println("Room "+(i+1));
-			r.printRoomStatus();
-			i+=1;
-		}
-		
-		for(SingleRoom r: singleRooms) {
-			System.out.println("Room "+(i+1));
-			r.printRoomStatus();
-			i+=1;
-		}
-	}
-	
 	
 	// Unoccupy room
 	public void unOccupyRoom(int room, int bed) {

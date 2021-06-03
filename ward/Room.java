@@ -18,7 +18,7 @@ public class Room {
 		if(!isFull()) {
 			for(int i=0;i<ROOM_SIZE;i++) {
 				if(beds[i].retOccupied()==false) {
-					System.out.println("Patient name"+p.retName()+"Room"+(i+1));
+					
 					// Check if room is fully empty or not 
 					// in which case we don't require to check gender
 					if(empty==true) {
@@ -36,26 +36,15 @@ public class Room {
 							wd.setBedNumber((i+1));
 							return wd;
 						}
-						else {
-							System.out.println("Sorry, the gender is not right! ");
+						else
 							return new WardDetails();
-						}	
 					}
 				}
 			}
 		}
 		return new WardDetails();
 	}
-	
-	public void printRoomStatus() {
-		int c=0;
-		for(Bed b: beds) {
-			c+=1;
-			if(b.retOccupied())
-				System.out.println("Name: "+b.retName()+" Room No. "+c);
-		}
-	}
-	
+		
 	public void setEmpty(Boolean empty) {
 		this.empty=empty;
 	}
