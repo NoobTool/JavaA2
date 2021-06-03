@@ -108,6 +108,8 @@ public class NurseMain {
 		Manager m = new Manager("To return patients list");
 		WardMap wm = new WardMap(m.retPatientList());
 		map = wm.retMap();
+		for(Patient p:m.retPatientList())
+			System.out.println("In nurse patient name "+p.retName()+p.retRoomNumber()+p.retBedNumber());
 		if(scene==null)
 			scene = new Scene(map,1000,1000);
 		

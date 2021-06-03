@@ -4,7 +4,6 @@ import main.Patient;
 
 public class SingleRoom {
 	private Bed bed = new Bed();
-	private WardDetails wd = new WardDetails();
 	
 	public SingleRoom() {
 		bed = new Bed();
@@ -12,7 +11,8 @@ public class SingleRoom {
 	
 	public WardDetails addPatient(Patient p) {
 		if(bed.retOccupied()==false) {
-			bed=new Bed(true, p, 1);
+			bed=new Bed(true, p);
+			WardDetails wd = new WardDetails();
 			wd.setBedNumber(1);
 			return wd;
 		}	

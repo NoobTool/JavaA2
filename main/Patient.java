@@ -14,6 +14,7 @@ public class Patient extends Person{
 	public Patient(long id, String name, double age, char gender){
 		super(name,age,gender);
 		this.id=id;
+		ward=null;
 		prescription = null;
 	}
 	
@@ -81,7 +82,7 @@ public class Patient extends Person{
 	}
 	
 	public WardDetails retWardDetails() {
-		return new WardDetails(ward.retWardNumber(),ward.retRoomNumber(),ward.retBedNumber());
+		return ward;
 	}
 	
 }

@@ -66,7 +66,6 @@ public class Manager extends Employee{
 		availableIdList.add((long)6830012);
 		
 		WardMap wm = new WardMap();
-		wm = new WardMap(retPatientList());
 	}
 	
 	public Manager(String msg) {}
@@ -101,6 +100,8 @@ public class Manager extends Employee{
 				if(wardDetails.retRoomNumber()!=-1) {
 					wardDetails.setWardNumber((i+1));
 					p.setWard(wardDetails);
+					for(Patient pat:retPatientList())
+						System.out.println(pat.retName()+pat.retRoomNumber()+pat.retBedNumber());
 					String returnValue = "Patient: "+p.retName()+" is resting at "
 							+"ward "+(i+1)+" in room "+wardDetails.retRoomNumber()
 							+" in bed "+wardDetails.retBedNumber()+"";
@@ -180,10 +181,11 @@ public class Manager extends Employee{
 	// Admit Patient
 	public Pair<Boolean,String> admitPatient(String name, double age, char gender, String post) {
 		long id = allotId(post);
-		 
+//		for(Patient pat:retPatientList())
+//			System.out.println(pat.retName()+pat.retRoomNumber()+pat.retBedNumber());
 		if(id==0) {
 			Patient p =  new Patient(idList.get(3)+1, name, age, gender);
-			idList.set(2,idList.get(2)+1);
+			idList.set(3,idList.get(3)+1);
 			patientList.addStaff(p);
 			return addWard(p);
 		}

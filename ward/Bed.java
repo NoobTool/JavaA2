@@ -4,18 +4,15 @@ import main.Patient;
 public class Bed {
 	private boolean occupied;
 	private Patient patient;
-	private WardDetails wd = new WardDetails();
 	
 	public Bed() {
 		occupied=false;
 		patient=null;
 	}
 	
-	public Bed(boolean occupied, Patient p, int n) {
+	public Bed(boolean occupied, Patient p) {
 		this.occupied = occupied;
-		this.patient = p;
-		wd.setBedNumber(n);
-		
+		this.patient = p;		
 	}
 	
 	public void addPatient(Patient p) {

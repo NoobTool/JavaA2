@@ -6,7 +6,7 @@ public class Room {
 	private Bed beds[] = new Bed[ROOM_SIZE];
 	private char gender;
 	private boolean empty;
-	private WardDetails wd = new WardDetails();
+	//private WardDetails wd = new WardDetails();
 	
 	public Room() {
 		empty=true;
@@ -18,28 +18,31 @@ public class Room {
 		if(!isFull()) {
 			for(int i=0;i<ROOM_SIZE;i++) {
 				if(beds[i].retOccupied()==false) {
+					System.out.println("Patient name"+p.retName()+"Room"+(i+1));
+					// Check if room is fully empty or not 
+					// in which case we don't require to check gender
 					if(empty==true) {
-						beds[i]= new Bed(true, p, (i+1));
+						beds[i]= new Bed(true, p);
 						gender = p.retGender();
 						empty=false;
+						WardDetails wd = new WardDetails();
 						wd.setBedNumber((i+1));
 						return wd;
 					}
 					else {
 						if(gender==p.retGender()) {
-							beds[i]= new Bed(true, p, (i+1));
+							beds[i]= new Bed(true, p);
+							WardDetails wd = new WardDetails();
 							wd.setBedNumber((i+1));
 							return wd;
 						}
 						else {
 							System.out.println("Sorry, the gender is not right! ");
-							wd.setBedNumber(-1);
-							break;
+							return new WardDetails();
 						}	
 					}
 				}
 			}
-			return wd;
 		}
 		return new WardDetails();
 	}
@@ -58,6 +61,7 @@ public class Room {
 		empty = true;
 	}
 	
+	// Check if even one bed is empty
 	public boolean isFull() {
 		for(Bed b: beds) {
 			if(b.retOccupied()==false)
