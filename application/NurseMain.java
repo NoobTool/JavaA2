@@ -20,6 +20,7 @@ public class NurseMain {
 	
 	CommonOperations co = new CommonOperations();
 	Manager m = new Manager("Object to return patientlist");
+	static Scene scene=null;
 	Patient p;
 	
 	public void patientSearch(Nurse n, BorderPane bp, String purpose) {
@@ -103,13 +104,15 @@ public class NurseMain {
 	
 	public void administerMedicine() {
 		Stage primaryStage = new Stage();
+		HBox map = new HBox();
 		Manager m = new Manager("To return patients list");
 		WardMap wm = new WardMap(m.retPatientList());
-		HBox map = wm.retMap();
-		primaryStage.setScene(new Scene(map,1000,1000));
+		map = wm.retMap();
+		if(scene==null)
+			scene = new Scene(map,1000,1000);
+		
+		primaryStage.setScene(scene);
 		primaryStage.show();
-		
-		
 	}
 	
 	

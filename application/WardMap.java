@@ -49,14 +49,14 @@ public class WardMap extends Application{
 	}
 	
 	public WardMap(ArrayList<Patient> patients) {
-		int index=0;	
+		int index;
 		for(Patient p: patients) {
-			for(int i=0;i<p.retRoomNumber();i++) {
-				
-			}
+			print(p.retName());
 			index = calculateIndex(p.retRoomNumber())+p.retBedNumber()-1;
-			char gender = p.retGender();
-			changeBg(index, gender);
+			if(index!=-1) {
+				char gender = p.retGender();
+				changeBg(index, gender);
+			}
 		}
 	}
 	
@@ -287,8 +287,7 @@ public class WardMap extends Application{
 	
 	public void addEvents(Label v) {
 		v.setOnMouseClicked(e->{
-			//v.setStyle("-fx-background-color: red;");
-			
+						
 			int ward=1,room=0,operand=1,temp = bedList.indexOf(v)+1;
 			
 			if(temp>totalBeds) {
@@ -334,7 +333,7 @@ public class WardMap extends Application{
 		if(gender=='M')
 			((Label)bedList.get(index)).setStyle("-fx-background-color:blue");
 		else
-			bedList.get(index).setStyle("-fx-background-color:red");
+			((Label)bedList.get(index)).setStyle("-fx-background-color:red");
 	}
 	
 	public int calculateIndex(int roomNumber) {

@@ -42,6 +42,7 @@ public class test {
 	}
 	
 	public static void main(String args[]) {
-		
+		Scene scene=null;
+		print(scene==null);
 	}
 }
