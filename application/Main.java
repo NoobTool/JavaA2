@@ -12,14 +12,41 @@ import javafx.scene.paint.Color;
 import javafx.geometry.*;
 import CommonSnippets.*;
 import CustomExceptions.*;
-import Actions.Action;
+import Actions.*;
+import java.io.*;
 
-public class Main extends Application {
+public class Main extends Application implements Serializable{
 		
 	Manager m = new Manager();
 	DisplayMenu dm = new DisplayMenu();
 	CommonOperations co = new CommonOperations();
 	InputValidation i = new InputValidation();
+	
+	protected void finalize() {
+		try {
+			Manager m = new Manager("Storing objects");
+			ObjectOutputStream output = new ObjectOutputStream(new FileOutputStream("objects"));
+			output.writeObject(m.retActionList());
+			System.out.println(m.retActionList().get(1).retActionName());
+		}catch(Exception e) {
+			System.out.println("Error in file handling!");
+		}		
+	}
+	
+	public Main() {
+		try {
+			ObjectInputStream input = new ObjectInputStream(new FileInputStream("objects"));
+			ArrayList<Action> a = (ArrayList) input.readObject();
+			ActionList aList = new ActionList();
+			aList.initActionList(a);
+			m.initActionList(aList);
+			System.out.println(a.get(1).retActionName());
+			
+		}catch(Exception e) {
+			System.out.println(e);
+		}
+		
+	}
 	
 	@Override
 	public void start(Stage primaryStage) {
@@ -132,6 +159,7 @@ public class Main extends Application {
 				errorMsg.setText("*Invalid ID\n\n\n");
 			}
 			
+				
 			  
 			//primaryStage.close();
 		});
@@ -273,6 +301,12 @@ public class Main extends Application {
 						if(returnValue.getKey()==true) {
 							errorMsg.setTextFill(Color.GREEN);
 							errorMsg.setText(returnValue.getValue());
+							try {
+								ObjectOutputStream output = new ObjectOutputStream(new FileOutputStream("objects"));
+								output.writeObject(m.retActionList());
+							}catch(Exception exception) {
+								System.out.println("Error in file handling!");
+							}	
 						}
 						
 						else {
@@ -382,6 +416,12 @@ public class Main extends Application {
 						errorMsg.setText("Password must be greater than 4 letters");
 					 
 					else {
+						try {
+							ObjectOutputStream output = new ObjectOutputStream(new FileOutputStream("objects"));
+							output.writeObject(m.retActionList());
+						}catch(Exception exception) {
+							System.out.println("Error in file handling!");
+						}	
 						m.addPeople(namePair.getValue(), 
 								Double.parseDouble(age.getText()), 
 								gender.getText().toUpperCase().charAt(0), 

@@ -1,7 +1,8 @@
 package Actions;
 import java.util.ArrayList;
+import java.io.*;
 
-public class ActionList {
+public class ActionList implements Serializable{
 	static ArrayList<Action> actionList = new ArrayList<Action>();
 	
 	public ActionList() {}
@@ -77,12 +78,15 @@ public class ActionList {
 			}	
 		}
 	}
-	
 
 	// Getter
 	
 	public ArrayList<Action> retActionList() {
 		return actionList;
+	}
+	
+	public void initActionList(ArrayList<Action> a) {
+		actionList=a;
 	}
 	
 	public int retSize() {

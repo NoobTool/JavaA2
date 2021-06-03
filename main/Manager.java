@@ -12,11 +12,13 @@ import Actions.*;
 import prescription.*;
 import javafx.util.Pair;
 import application.WardMap;
+import java.io.*;
 
-public class Manager extends Employee{
+public class Manager extends Employee implements Serializable{
 	final static int NO_OF_WARDS = 2;
 	final static int MAX_SHIFTS = 2;
 	CommonCodes c = new CommonCodes();
+	
 	static Staff<Manager> managerList = new Staff<Manager>();
 	static Staff<Doctor> doctorList = new Staff<Doctor>();
 	static Staff<Nurse> nurseList = new Staff<Nurse>();
@@ -40,6 +42,7 @@ public class Manager extends Employee{
 		idList.add((long)6830000);
 		idList.add((long)7830000);
 		idList.add((long)8030000);
+		
 		String startTime = LocalTime.now().format(DateTimeFormatter.ofPattern("HH:00"));
 		managerList.addStaff(new Manager((long)7730000,"Ram",21,'M',startTime+"-"
 				+LocalTime.parse(startTime).plusHours(6),"1234"));
@@ -284,6 +287,10 @@ public class Manager extends Employee{
 	// Setter Functions
 	public void addAction(Action action) {
 		a.addAction(action);
+	}
+	
+	public void initActionList(ActionList actionList) {
+		a = actionList;
 	}
 	
 	

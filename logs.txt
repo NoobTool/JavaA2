@@ -1,3 +1,526 @@
+commit a0332b4375614ebe0257bfdfc93f9b3a433c0479
+Author: Ram Rattan Goyal <codebits.ram@gmail.com>
+Date:   Thu Jun 3 18:32:35 2021 +0530
+
+    Complete
+
+ application/DoctorMain.java | 40 ++++++++++++++++++++++++++++++++++++++++
+ application/Main.java       |  2 +-
+ application/WardMap.java    |  5 -----
+ main/Manager.java           |  1 -
+ main/Patient.java           | 12 ------------
+ 5 files changed, 41 insertions(+), 19 deletions(-)
+
+commit 56ae1b5fe80ad9e1a0b2b4fb24820dc71417b732
+Author: Ram Rattan Goyal <codebits.ram@gmail.com>
+Date:   Thu Jun 3 18:13:32 2021 +0530
+
+    ManagerNameComplete
+
+ application/Main.java | 7 +------
+ main/Manager.java     | 2 +-
+ 2 files changed, 2 insertions(+), 7 deletions(-)
+
+commit 68f418863c05e498d6ad8fd870163aa6e4eda354
+Author: Ram Rattan Goyal <codebits.ram@gmail.com>
+Date:   Thu Jun 3 18:10:29 2021 +0530
+
+    ManagerAddedNameSearch
+
+ application/DoctorMain.java |  50 +++-
+ application/Main.java       | 632 ++++++++++++++++++++++----------------------
+ main/Manager.java           |   1 -
+ 3 files changed, 361 insertions(+), 322 deletions(-)
+
+commit f1692ab294b28dca43f080029e55fa99cd682e54
+Author: Ram Rattan Goyal <codebits.ram@gmail.com>
+Date:   Thu Jun 3 17:46:19 2021 +0530
+
+    NurseComplete
+
+ application/CommonOperations.java |  2 ++
+ application/NurseMain.java        | 65 +++++++++++++++++++--------------------
+ main/Nurse.java                   |  4 +--
+ 3 files changed, 36 insertions(+), 35 deletions(-)
+
+commit 5f3c6faf61dfbbd6b07fe8129f0718f44d3c0987
+Author: Ram Rattan Goyal <codebits.ram@gmail.com>
+Date:   Thu Jun 3 17:27:27 2021 +0530
+
+    MapClickDone!
+
+ application/NurseMain.java      | 63 +++++++++++++++++++++++++++++------------
+ application/RetrieveValues.java | 33 +++++++++++++++++++++
+ application/WardMap.java        | 26 ++++++++++-------
+ main/Employee.java              | 46 ++++++++++++++++++++++++------
+ ward/Ward.java                  |  4 +++
+ 5 files changed, 136 insertions(+), 36 deletions(-)
+
+commit d82450a7ce2dae07a83a454ebb6388fffb1d5e51
+Author: Ram Rattan Goyal <codebits.ram@gmail.com>
+Date:   Thu Jun 3 15:57:49 2021 +0530
+
+    MapButtonInit
+
+ application/CommonOperations.java |  6 ++++++
+ application/NurseMain.java        | 44 ++++++++++++++++++++++++++-------------
+ application/WardMap.java          | 22 +++++++++++++++++---
+ main/Manager.java                 |  1 -
+ 4 files changed, 54 insertions(+), 19 deletions(-)
+
+commit eb428031b0a40eed4e5983bf08bd4e3f7c145285
+Author: Ram Rattan Goyal <codebits.ram@gmail.com>
+Date:   Thu Jun 3 15:38:00 2021 +0530
+
+    RemovingPrints
+
+ application/NurseMain.java | 47 +++++++++++++++++++++++++++++++++++++++++-----
+ application/WardMap.java   | 13 +++++++------
+ main/Employee.java         | 33 ++++++++------------------------
+ main/Manager.java          |  6 +-----
+ main/Nurse.java            |  2 +-
+ ward/DualRoom.java         | 15 ++-------------
+ ward/Room.java             | 17 +++--------------
+ ward/Ward.java             | 22 ----------------------
+ 8 files changed, 64 insertions(+), 91 deletions(-)
+
+commit a4eb0b9f4be499633e5ab8db9830139f7ba71b2b
+Author: Ram Rattan Goyal <codebits.ram@gmail.com>
+Date:   Thu Jun 3 14:41:10 2021 +0530
+
+    ChangeBedBugSquashed
+
+ CommonSnippets/OptionSequence.java | 46 -------------------------------
+ application/Main.java              |  8 ++++--
+ application/NurseMain.java         | 12 ++++++---
+ main/Nurse.java                    | 55 +++++++++++++++++++++++++++++---------
+ ward/DualRoom.java                 |  8 ++++++
+ ward/Room.java                     |  8 ++++++
+ ward/Ward.java                     |  8 ++++++
+ 7 files changed, 81 insertions(+), 64 deletions(-)
+
+commit cc922a3833cca7085bd13414e545693aecd84d84
+Author: Ram Rattan Goyal <codebits.ram@gmail.com>
+Date:   Thu Jun 3 14:01:39 2021 +0530
+
+    ChangingBed
+
+ application/NurseMain.java | 28 ++++++++++++++++++++++++++++
+ main/Nurse.java            |  3 +--
+ 2 files changed, 29 insertions(+), 2 deletions(-)
+
+commit f819f84c5cfe40f7e640efcd34ac86e0244c91b9
+Author: Ram Rattan Goyal <codebits.ram@gmail.com>
+Date:   Thu Jun 3 13:53:11 2021 +0530
+
+    ChangeBedIn1Go
+
+ CustomExceptions/InputValidation.java |  30 ++++-----
+ application/CommonOperations.java     |   9 +++
+ application/NurseMain.java            | 108 +++++++++++++++++++++++++++---
+ main/Nurse.java                       | 122 ++++------------------------------
+ 4 files changed, 134 insertions(+), 135 deletions(-)
+
+commit e569485af5775abc01826d9a935a11e93b8c4b2f
+Author: Ram Rattan Goyal <codebits.ram@gmail.com>
+Date:   Thu Jun 3 13:19:08 2021 +0530
+
+    Administerin1GO
+
+ application/NurseMain.java | 8 +++++---
+ 1 file changed, 5 insertions(+), 3 deletions(-)
+
+commit 5cbe20ee572447e31923580f7822a00316e9e16a
+Author: Ram Rattan Goyal <codebits.ram@gmail.com>
+Date:   Thu Jun 3 13:15:18 2021 +0530
+
+    NurseAdministerInit
+
+ application/CommonOperations.java |  10 +++
+ application/NurseMain.java        |  62 ++++++++++++++++--
+ main/Nurse.java                   | 132 ++++++++++++++++++++++----------------
+ 3 files changed, 143 insertions(+), 61 deletions(-)
+
+commit 7a4a7949bd76e670f877f0725d58ab4daa49009c
+Author: Ram Rattan Goyal <codebits.ram@gmail.com>
+Date:   Thu Jun 3 12:40:57 2021 +0530
+
+    SomeRemovals
+
+ main/Employee.java     |   4 +-
+ main/ResidentCare.java |  49 ---------
+ main/test2.java        | 292 -------------------------------------------------
+ main/test3.java        |  30 -----
+ 4 files changed, 1 insertion(+), 374 deletions(-)
+
+commit 69d2c45c1fa925ad7abd2cfa8909532a14c58d3e
+Author: Ram Rattan Goyal <codebits.ram@gmail.com>
+Date:   Thu Jun 3 11:26:45 2021 +0530
+
+    AdmissionBugFixed
+
+ application/NurseMain.java |  2 ++
+ main/Manager.java          |  8 +++++---
+ main/Patient.java          |  3 ++-
+ ward/Bed.java              |  7 ++-----
+ ward/DualRoom.java         | 11 +++++------
+ ward/Room.java             | 16 ++++++++++------
+ ward/SingleRoom.java       |  4 ++--
+ 7 files changed, 28 insertions(+), 23 deletions(-)
+
+commit 996ffeba380aeae1093bcc2715a596a5ca62333b
+Author: Ram Rattan Goyal <codebits.ram@gmail.com>
+Date:   Thu Jun 3 10:21:05 2021 +0530
+
+    IndexCalculationForMapClick
+
+ application/NurseMain.java | 11 +++++++----
+ application/WardMap.java   | 17 ++++++++---------
+ main/test.java             |  3 ++-
+ 3 files changed, 17 insertions(+), 14 deletions(-)
+
+commit 5fd764d4dbfa25b51dea8af77889451eb9097015
+Author: Ram Rattan Goyal <codebits.ram@gmail.com>
+Date:   Thu Jun 3 10:00:24 2021 +0530
+
+    indexCalculation
+
+ application/WardMap.java | 40 +++++++++++++++++++++++++++++++++++++++-
+ main/test.java           |  6 +-----
+ 2 files changed, 40 insertions(+), 6 deletions(-)
+
+commit b4807833582a031483c02cef2767ebb79d2b2753
+Author: Ram Rattan Goyal <codebits.ram@gmail.com>
+Date:   Wed Jun 2 21:52:20 2021 +0530
+
+    MapTakingPatients
+
+ application/Main.java      |  2 +-
+ application/NurseMain.java |  9 +++++++++
+ application/WardMap.java   | 42 ++++++++++++++++++++++++++++++------------
+ main/Manager.java          |  8 ++++++--
+ 4 files changed, 46 insertions(+), 15 deletions(-)
+
+commit a971588215a69416a6b2640eda1704924b6cea4d
+Author: Ram Rattan Goyal <codebits.ram@gmail.com>
+Date:   Wed Jun 2 21:02:12 2021 +0530
+
+    UnnecessaryRemovals
+
+ CommonSnippets/DisplayMenu.java | 45 +----------------------------------------
+ prescription/MedicineDose.java  | 21 +------------------
+ 2 files changed, 2 insertions(+), 64 deletions(-)
+
+commit 3e7667832c787e794ec63c6d3810b059ef3d897c
+Author: Ram Rattan Goyal <codebits.ram@gmail.com>
+Date:   Wed Jun 2 21:00:22 2021 +0530
+
+    NurseInit
+
+ CommonSnippets/DisplayMenu.java |   1 +
+ application/Main.java           |  13 ++--
+ application/NurseMain.java      | 127 +++++++++++++++++++++++++++++++++++++++-
+ main/Nurse.java                 |  21 +++++++
+ 4 files changed, 155 insertions(+), 7 deletions(-)
+
+commit 14e9b6ca506258895257566111656ed1ec85bd92
+Author: Ram Rattan Goyal <codebits.ram@gmail.com>
+Date:   Wed Jun 2 20:51:01 2021 +0530
+
+    MapComplete
+
+ .~lock.Features.odt#     |   1 -
+ application/WardMap.java | 322 +++++++++++++++++++++++++++++++++++++++++++++++
+ main/test2.java          |  45 +++++--
+ 3 files changed, 354 insertions(+), 14 deletions(-)
+
+commit 0c07f6258c1a9c7ee28fff02c329a3de7a641ea0
+Author: Ram Rattan Goyal <codebits.ram@gmail.com>
+Date:   Wed Jun 2 20:04:31 2021 +0530
+
+    FormattingForMap
+
+ main/test.java  |  69 ++---------------
+ main/test2.java |  98 +++++++++++++++++++-----
+ main/test3.java | 233 --------------------------------------------------------
+ 3 files changed, 87 insertions(+), 313 deletions(-)
+
+commit bb120f2ddecfdb49a88bf8cede75cdc7ec7e68a7
+Author: Ram Rattan Goyal <codebits.ram@gmail.com>
+Date:   Wed Jun 2 19:15:22 2021 +0530
+
+    MapLayoutComplete
+
+ main/test2.java | 230 ++++++++++++++++++++++----------------------------------
+ main/test3.java |   2 +-
+ 2 files changed, 90 insertions(+), 142 deletions(-)
+
+commit 69dd1bfda92b8588681e8c4c44a11b8edeb283fe
+Author: Ram Rattan Goyal <codebits.ram@gmail.com>
+Date:   Wed Jun 2 18:31:29 2021 +0530
+
+    Trial3Begins
+
+ main/test3.java | 263 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+ 1 file changed, 263 insertions(+)
+
+commit c1ce7b4273250e380014a907f326b784e60c4525
+Author: Ram Rattan Goyal <codebits.ram@gmail.com>
+Date:   Wed Jun 2 18:22:38 2021 +0530
+
+    BedsAddedToRoom6
+
+ main/test2.java | 50 +++++++++++++++++++++++++-------------------------
+ 1 file changed, 25 insertions(+), 25 deletions(-)
+
+commit 05cfb9d76d9562ac9b09a558bf9839099e82d822
+Author: Ram Rattan Goyal <codebits.ram@gmail.com>
+Date:   Wed Jun 2 18:06:09 2021 +0530
+
+    Another Attempt
+
+ main/test2.java | 75 +++++++++++++++++++++++++++++++++++++++++++++++++++++++--
+ 1 file changed, 73 insertions(+), 2 deletions(-)
+
+commit f78e408cb2ba53301209403d34f65c49174f0757
+Author: Ram Rattan Goyal <codebits.ram@gmail.com>
+Date:   Wed Jun 2 17:15:10 2021 +0530
+
+    Refactored
+
+ main/test2.java | 9 ++-------
+ 1 file changed, 2 insertions(+), 7 deletions(-)
+
+commit 14108d7a3fb9d66544c0c1863aaf19ecec16bfbc
+Author: Ram Rattan Goyal <codebits.ram@gmail.com>
+Date:   Wed Jun 2 17:12:15 2021 +0530
+
+    MapFirstClickEvent
+
+ main/test2.java | 89 ++++++++++++++++++++++++++++++++++++++++++++++++++++-----
+ 1 file changed, 82 insertions(+), 7 deletions(-)
+
+commit f7b05584f5582e46c03b8d7488b1239a6f13a3f9
+Author: Ram Rattan Goyal <codebits.ram@gmail.com>
+Date:   Wed Jun 2 16:37:14 2021 +0530
+
+    WardMapTrials
+
+ .~lock.Features.odt#               |   1 +
+ CommonSnippets/DisplayMenu.java    |   8 +--
+ CommonSnippets/OptionSequence.java |  36 -----------
+ Features.odt                       | Bin 16602 -> 17209 bytes
+ application/Main.java              |  63 ++++++++++++++-----
+ application/NurseMain.java         |   5 ++
+ main/Doctor.java                   |   2 -
+ main/Manager.java                  |   6 +-
+ main/test.java                     |  89 +++++++++++++++++++++++++--
+ main/test2.java                    | 122 +++++++++++++++++++++++++++++++++++++
+ 10 files changed, 266 insertions(+), 66 deletions(-)
+
+commit 1a0bdc57e5eb23cf0a247d4fffdcbbc6e6f2e9de
+Author: Ram Rattan Goyal <codebits.ram@gmail.com>
+Date:   Wed Jun 2 14:54:48 2021 +0530
+
+    DoctorDone
+
+ application/DoctorMain.java | 49 ++++++++++++++++++++++++++++-----------------
+ 1 file changed, 31 insertions(+), 18 deletions(-)
+
+commit 7dcd1dff61f7e0525d4485ca0fe476de897856f4
+Author: Ram Rattan Goyal <codebits.ram@gmail.com>
+Date:   Wed Jun 2 14:09:03 2021 +0530
+
+    UpdatePrescription100%
+
+ application/CommonOperations.java |   5 ++
+ application/DoctorMain.java       | 176 +++++++++++++++++++++++++++++++-------
+ main/Doctor.java                  |  57 +++---------
+ main/test.java                    |   3 +
+ prescription/MedicineBlock.java   |   4 +-
+ prescription/MedicineDose.java    |  30 +++++--
+ 6 files changed, 192 insertions(+), 83 deletions(-)
+
+commit a63dd9785ee8ddd2b6112f70e04a2e79a303c635
+Author: Ram Rattan Goyal <codebits.ram@gmail.com>
+Date:   Wed Jun 2 11:22:55 2021 +0530
+
+    MedicineNameChanged
+
+ application/DoctorMain.java    | 40 ++++++++++++++--------
+ main/Doctor.java               | 78 ++++++++++++++++++++++++------------------
+ prescription/MedicineDose.java |  4 +++
+ 3 files changed, 75 insertions(+), 47 deletions(-)
+
+commit b30dbf152c3682ca60fa184ba7f1356a36dcbc4a
+Author: Ram Rattan Goyal <codebits.ram@gmail.com>
+Date:   Wed Jun 2 10:54:22 2021 +0530
+
+    PrescriptionInitGUI100%
+
+ application/DoctorMain.java | 18 ++++++++++++------
+ 1 file changed, 12 insertions(+), 6 deletions(-)
+
+commit 3b2e6e404d588cec01582405a565d7c45e5128a7
+Author: Ram Rattan Goyal <codebits.ram@gmail.com>
+Date:   Wed Jun 2 10:47:09 2021 +0530
+
+    InitExecPrescription
+
+ application/DoctorMain.java | 204 ++++++++++++--------------------------------
+ main/Manager.java           |   9 ++
+ 2 files changed, 62 insertions(+), 151 deletions(-)
+
+commit a7bfbfcb4d4a3cf0cf160ba2ea1319b31eaf962a
+Author: Ram Rattan Goyal <codebits.ram@gmail.com>
+Date:   Wed Jun 2 10:29:52 2021 +0530
+
+    UpdatePrescriptionInit
+
+ Features.odt                      | Bin 16056 -> 16602 bytes
+ application/CommonOperations.java |   2 +
+ application/DoctorMain.java       | 249 +++++++++++++++++++++++++++++++++++++-
+ application/Main.java             |  11 +-
+ main/Doctor.java                  |   8 +-
+ 5 files changed, 261 insertions(+), 9 deletions(-)
+
+commit 0838910cabe6fc64b9579fe08f3d26a771d27e4a
+Author: Ram Rattan Goyal <codebits.ram@gmail.com>
+Date:   Wed Jun 2 09:03:39 2021 +0530
+
+    UnnecessaryRemoval
+
+ CommonSnippets/OptionSequence.java | 98 +-------------------------------------
+ 1 file changed, 1 insertion(+), 97 deletions(-)
+
+commit 0faec1d726f4c933548b6564f23feeaef7f88386
+Author: Ram Rattan Goyal <codebits.ram@gmail.com>
+Date:   Tue Jun 1 22:48:24 2021 +0530
+
+    ConsoleCleaned
+
+ ward/Ward.java | 2 --
+ 1 file changed, 2 deletions(-)
+
+commit 6fadb72e14c8be68199ecfccf7c67efed0eccac6
+Author: Ram Rattan Goyal <codebits.ram@gmail.com>
+Date:   Tue Jun 1 20:27:32 2021 +0530
+
+    DisplayingPatientDetails
+
+ application/DoctorMain.java     | 33 ++++++++++++++++++---------------
+ application/Main.java           |  2 +-
+ main/Doctor.java                |  3 ---
+ main/Patient.java               |  8 +++++---
+ prescription/MedicineBlock.java | 21 ++++++++++++---------
+ prescription/MedicineDose.java  | 10 ++++++----
+ prescription/Prescription.java  | 13 +++++++------
+ 7 files changed, 49 insertions(+), 41 deletions(-)
+
+commit 3ea82ace4320ba7f813decf0a28080962f0e51cf
+Author: Ram Rattan Goyal <codebits.ram@gmail.com>
+Date:   Tue Jun 1 20:03:16 2021 +0530
+
+    PrescriptionAddRefactored
+
+ application/DoctorMain.java | 115 +++++++++++++++++++++++++++++---------------
+ application/Main.java       |  11 +++--
+ main/Doctor.java            |   2 -
+ 3 files changed, 83 insertions(+), 45 deletions(-)
+
+commit 183cb1fde75dd42a4f186fa4f833e3981c77ef8a
+Author: Ram Rattan Goyal <codebits.ram@gmail.com>
+Date:   Tue Jun 1 19:20:04 2021 +0530
+
+    AddedPrescription
+
+ CustomExceptions/InputValidation.java |  10 ++-
+ application/CommonOperations.java     |  10 +++
+ application/DoctorMain.java           | 162 ++++++++++++++++++++++++++++++----
+ application/Main.java                 |   9 +-
+ main/Doctor.java                      |  61 +++----------
+ main/Manager.java                     |  77 ----------------
+ prescription/MedicineDose.java        |   3 +-
+ 7 files changed, 177 insertions(+), 155 deletions(-)
+
+commit b123eaba5bdd57431f4dba068a8cc0bb755612c0
+Author: Ram Rattan Goyal <codebits.ram@gmail.com>
+Date:   Tue Jun 1 15:26:37 2021 +0530
+
+    DoctorSearchIDComplete
+
+ application/DoctorMain.java | 81 ++++++++++++++++++++++++++++++++++++++++++++-
+ application/Main.java       | 18 +++++-----
+ main/Doctor.java            | 21 +++++-------
+ main/Manager.java           |  2 ++
+ 4 files changed, 101 insertions(+), 21 deletions(-)
+
+commit d6cc18d5de5ad12ce36103c327f93b72eaac70bf
+Author: Ram Rattan Goyal <codebits.ram@gmail.com>
+Date:   Tue Jun 1 14:53:41 2021 +0530
+
+    doctorSearchInit
+
+ application/DoctorMain.java    |   4 ++
+ application/Main.java          |  79 +++++++++++++++------------
+ main/Doctor.java               | 121 +++++++++++++++++++++++------------------
+ main/Manager.java              |  18 ------
+ prescription/MedicineDose.java |   9 +--
+ 5 files changed, 117 insertions(+), 114 deletions(-)
+
+commit 19348d2d791492c4bc9ecd7a5d0be262105d831a
+Author: Ram Rattan Goyal <codebits.ram@gmail.com>
+Date:   Tue Jun 1 14:30:43 2021 +0530
+
+    DoctorInit
+
+ application/CommonOperations.java |  27 +++++++-
+ application/DoctorMain.java       |  19 ++++++
+ application/Main.java             | 140 +++++++++++++++++++-------------------
+ 3 files changed, 114 insertions(+), 72 deletions(-)
+
+commit 8b7964f117b1e1e9ec0827d61d0cd80af1efe000
+Author: Ram Rattan Goyal <codebits.ram@gmail.com>
+Date:   Tue Jun 1 13:43:43 2021 +0530
+
+    DoctorsMenuChanges
+
+ CommonSnippets/DisplayMenu.java | 7 +++----
+ 1 file changed, 3 insertions(+), 4 deletions(-)
+
+commit 9a9f4c266540d77a1b472add6095d8823e629362
+Author: Ram Rattan Goyal <codebits.ram@gmail.com>
+Date:   Tue Jun 1 13:36:12 2021 +0530
+
+    MinorBugFixes
+
+ application/Main.java | 48 +++++++++++++++++++++++++++++-------------------
+ 1 file changed, 29 insertions(+), 19 deletions(-)
+
+commit 284a8264f6be3b31b742aaf4a4b4918c9ca25b28
+Author: Ram Rattan Goyal <codebits.ram@gmail.com>
+Date:   Mon May 31 13:38:15 2021 +0530
+
+    ShiftUpdationComplete
+
+ application/Main.java | 74 ++++++++++++++++++++++++++++++++++++++-------------
+ main/Employee.java    |  6 ++---
+ main/Manager.java     |  5 ++--
+ 3 files changed, 62 insertions(+), 23 deletions(-)
+
+commit a10eeb5e63a8ad047d3a789a5c071e75c865f3a2
+Author: Ram Rattan Goyal <codebits.ram@gmail.com>
+Date:   Mon May 31 12:53:27 2021 +0530
+
+    ChangesToShiftModification
+
+ application/Main.java |   35 ++
+ logs.txt              | 1206 +++++++++++++++++++++++++++++++++++++++++++++++++
+ main/Employee.java    |  134 +++---
+ main/Manager.java     |    7 +-
+ snippet.py            |   27 ++
+ 5 files changed, 1325 insertions(+), 84 deletions(-)
+
 commit b2b75d1a1f200c1f704cdb2aeb3d5b42bca9a614
 Author: Ram Rattan Goyal <codebits.ram@gmail.com>
 Date:   Sun May 30 23:04:22 2021 +0530

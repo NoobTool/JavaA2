@@ -2,8 +2,9 @@ package Actions;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.time.LocalDate;
+import java.io.*;
 
-public class Action {
+public class Action implements Serializable{
 	private long performerId;
 	private long receiverId;
 	private String actionName;
