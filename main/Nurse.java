@@ -46,8 +46,7 @@ public class Nurse extends Employee{
 	}
 	
 	// Changing patient's bed automatically
-	public Pair<Boolean,String> changeWardAutomatically(Patient p, int wardNumber, int roomNumber, 
-			int bedNumber) {
+	public Pair<Boolean,String> changeWardAutomatically(Patient p) {
 		
 		Manager m = new Manager("Empty Object");
 		Ward wards[] = m.retWardList();

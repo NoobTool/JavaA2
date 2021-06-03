@@ -163,6 +163,7 @@ public class NurseMain {
 		
 	}
 	
+	// Changing bed manually
 	public void changeBed(Nurse n, Patient p, BorderPane bp) {
 		
 		InputValidation iv = new InputValidation();
@@ -238,7 +239,34 @@ public class NurseMain {
 				
 	}
 	
+	// Changing bed automatically
 	public void changeBedAuto(Nurse n, Patient p, BorderPane bp) {
+		
+		// Label Elements
+		HBox wrapperBox = new HBox(40);
+		HBox buttonHolder = co.addButtonHolder(bp);
+		((Button)buttonHolder.getChildren().get(0)).setText("Change Ward Automatically");
+		Label errorMsg = co.retErrorLabel();
+				
+		((Button)buttonHolder.getChildren().get(0)).setOnAction(e->{
+			errorMsg.setTextFill(Color.RED);
+			Pair<Boolean,String> returnValue = n.changeWardAutomatically(p);
+			if(returnValue.getKey()) {
+				errorMsg.setTextFill(Color.GREEN);
+				errorMsg.setText("Changed Successfully");
+			}
+			else
+				errorMsg.setText(returnValue.getValue());
+			
+		});
+		
+		// Adding and formatting elements in wrapperBox
+		wrapperBox.getChildren().addAll(new Label("Press this button to change ward magically!"),
+				buttonHolder);
+		wrapperBox.setPadding(new Insets(30,0,0,40));
+		
+		bp.setCenter(wrapperBox);
+		bp.setBottom(errorMsg);
 		
 	}
 	
