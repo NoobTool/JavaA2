@@ -14,6 +14,7 @@ import CommonSnippets.*;
 import CustomExceptions.*;
 import Actions.*;
 import java.io.*;
+import database.*;
 
 public class Main extends Application implements Serializable{
 		
@@ -21,20 +22,11 @@ public class Main extends Application implements Serializable{
 	DisplayMenu dm = new DisplayMenu();
 	CommonOperations co = new CommonOperations();
 	InputValidation i = new InputValidation();
-	
-	protected void finalize() {
-		try {
-			Manager m = new Manager("Storing objects");
-			ObjectOutputStream output = new ObjectOutputStream(new FileOutputStream("objects"));
-			output.writeObject(m.retActionList());
-			System.out.println(m.retActionList().get(1).retActionName());
-		}catch(Exception e) {
-			System.out.println("Error in file handling!");
-		}		
-	}
+	DBClass db = new DBClass();
 	
 	public Main() {
 		try {
+
 			ObjectInputStream input = new ObjectInputStream(new FileInputStream("objects"));
 			ArrayList<Action> a = (ArrayList) input.readObject();
 			ActionList aList = new ActionList();
@@ -416,20 +408,23 @@ public class Main extends Application implements Serializable{
 						errorMsg.setText("Password must be greater than 4 letters");
 					 
 					else {
-						try {
-							ObjectOutputStream output = new ObjectOutputStream(new FileOutputStream("objects"));
-							output.writeObject(m.retActionList());
-						}catch(Exception exception) {
-							System.out.println("Error in file handling!");
-						}	
-						m.addPeople(namePair.getValue(), 
+						long id = m.addPeople(namePair.getValue(), 
 								Double.parseDouble(age.getText()), 
 								gender.getText().toUpperCase().charAt(0), 
 								shifts.getText(), password.getText(),
 								selectedItem);
-						errorMsg.setTextFill(Color.GREEN);
-						errorMsg.setText("Added successfully!");
-						co.clearAllFields(name,age,gender,shifts,password);
+						try {
+							db.addStaff(id, namePair.getValue(), 
+								Double.parseDouble(age.getText()), 
+								gender.getText().toUpperCase().charAt(0), 
+								shifts.getText(), password.getText(),
+								selectedItem);
+							errorMsg.setTextFill(Color.GREEN);
+							errorMsg.setText("Added successfully!");
+							co.clearAllFields(name,age,gender,shifts,password);
+						}catch(Exception exception) {
+							errorMsg.setText(exception.toString());
+						}
 					}
 						
 				}

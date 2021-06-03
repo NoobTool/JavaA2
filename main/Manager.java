@@ -13,6 +13,7 @@ import prescription.*;
 import javafx.util.Pair;
 import application.WardMap;
 import java.io.*;
+import database.*;
 
 public class Manager extends Employee implements Serializable{
 	final static int NO_OF_WARDS = 2;
@@ -34,6 +35,10 @@ public class Manager extends Employee implements Serializable{
 	DisplayMenu dm = new DisplayMenu();
 	
 	public Manager(){
+		
+		DBClass db = new DBClass();
+		db.createTables();
+		
 		for(int i=0;i<NO_OF_WARDS;i++)
 			wards[i]= new Ward();
 			
@@ -126,7 +131,7 @@ public class Manager extends Employee implements Serializable{
 	}
 	
 	// Hire staff
-	public void addPeople(String name, double age, char gender, String shifts, String password, String post){
+	public long addPeople(String name, double age, char gender, String shifts, String password, String post){
 		
 		long id;
 		id = allotId(post);
@@ -136,13 +141,15 @@ public class Manager extends Employee implements Serializable{
 			if(id==0) {
 				Manager m =  new Manager(idList.get(0)+1, name, age, gender, shifts, password);
 				idList.set(0,idList.get(0)+1);
-				managerList.addStaff(m, retId(), m.retId());				
+				managerList.addStaff(m, retId(), m.retId());
+				return id;
 			}
 			
 			else {
 				Manager m =  new Manager(id, name, age, gender, shifts, password);
 				availableIdList.remove(availableIdList.indexOf(id));
 				managerList.addStaff(m, retId(), m.retId());
+				return id;
 			}			
 		}
 		
@@ -151,12 +158,14 @@ public class Manager extends Employee implements Serializable{
 				Doctor d =  new Doctor(idList.get(1)+1, name, age, gender, shifts, password);
 				idList.set(1,idList.get(1)+1);
 				doctorList.addStaff(d, retId(), d.retId());
+				return id;
 			}
 			
 			else {
 				Doctor d =  new Doctor(id, name, age, gender, shifts, password);
 				availableIdList.remove(availableIdList.indexOf(id));
 				doctorList.addStaff(d, retId(), d.retId());
+				return id;
 			}
 		}
 		
@@ -166,6 +175,7 @@ public class Manager extends Employee implements Serializable{
 				n.setShifts("14:00-22:00");
 				idList.set(2,idList.get(2)+1);
 				nurseList.addStaff(n, retId(), n.retId());
+				return id;
 			}
 			
 			else {
@@ -173,6 +183,7 @@ public class Manager extends Employee implements Serializable{
 				n.setShifts("14:00-22:00");
 				availableIdList.remove(availableIdList.indexOf(id));
 				nurseList.addStaff(n, retId(), n.retId());
+				return id;
 			}
 		}
 	}

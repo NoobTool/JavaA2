@@ -28,6 +28,7 @@ public class DBClass {
 			
 			for(String s: posts) {
 				stmt = "CREATE TABLE IF NOT EXISTS "+s+"("
+						+ "ID INT,"
 						+ "NAME VARCHAR(50),"
 						+ "AGE DOUBLE,"
 						+ "GENDER CHAR,"
@@ -44,14 +45,14 @@ public class DBClass {
 		}
 	}
 	
-	public void addStaff(String name, double age, char gender, String shifts, String password, String post) {
+	public void addStaff(long id, String name, double age, char gender, String shifts, String password, String post) {
 		try {
 			
 			Class.forName("org.hsqldb.jdbc.JDBCDriver");
 			connection = DriverManager.getConnection("jdbc:hsqldb:hsql://localhost/java2", "SA", "");
 			Statement statement = connection.createStatement();
 			
-			String stmt = "INSERT INTO "+post.toUpperCase()+" VALUES('"+name+"',"+age+",'"+gender+"',"
+			String stmt = "INSERT INTO "+post.toUpperCase()+" VALUES("+id+",'"+name+"',"+age+",'"+gender+"',"
 					+ "'"+shifts+"','"+password+"')";
 			
 			statement.executeQuery(stmt);
@@ -103,12 +104,13 @@ public class DBClass {
 		}catch(Exception e) {
 			System.out.println(e);
 		}
-	}
+	} 
 	
-	public static void main(String args[]) {
-		DBClass db = new DBClass();
-		db.dropTables("Manager","Nurse","Doctor");
-		db.createTables();
-		db.addStaff("Pappu", 23, 'M', "09:00-12:00", "1234","Nurse");
-	}	
+//	public static void main(String args[]) {
+//		DBClass db = new DBClass();
+//		db.dropTables("Manager","Nurse","Doctor");
+//		db.createTables();
+//		db.addStaff(7730001,"Pappu", 23, 'M', "09:00-12:00", "1234","Nurse");
+//		db.printRows("Manager");
+//	}	
 }
