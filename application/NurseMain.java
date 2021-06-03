@@ -116,13 +116,13 @@ public class NurseMain {
 			
 			// Layout Elements
 			VBox wrapperBox = new VBox(30);
-			HBox inputBox = new HBox(50);
+			HBox inputBox = new HBox(80);
 			Label administerMsg = new Label("Choose the medicine to be administered");
 			
 			ComboBox<String> medicineBox = new ComboBox<String>();
 			HBox buttonHolder = co.addButtonHolder(bp);
 			
-			// Addding strings in comboBox
+			// Adding strings in comboBox
 			for(MedicineDose md: medicines)
 				medicineBox.getItems().add(md.retName());
 			
@@ -142,8 +142,10 @@ public class NurseMain {
 			// Adding elements in inputBox
 			inputBox.getChildren().addAll(administerMsg,medicineBox);
 			
-			// Adding elements in button holder
+			// Adding and formatting elements in wrapperBox
 			wrapperBox.getChildren().addAll(inputBox,buttonHolder);
+			wrapperBox.setPadding(new Insets(30,0,0,80));
+			
 			bp.setCenter(wrapperBox);
 		}
 		
