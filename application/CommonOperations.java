@@ -69,6 +69,8 @@ public class CommonOperations {
 	public Button retMapButton() {
 		Button mapButton = new Button("M");
 		mapButton.setTextFill(Color.BLUEVIOLET);
+		mapButton.setPrefSize(50, 20);
+		mapButton.setFont(new Font("cambria",16));
 		return mapButton;
 	}
 	

@@ -54,7 +54,7 @@ public class Nurse extends Employee{
 						}
 					}
 				}
-			}
+			} 
 			
 			else {
 				Room room = ward.retRoomList()[roomNumber-1];
@@ -146,7 +146,7 @@ public class Nurse extends Employee{
 			 		
 		else {
 			for (Patient p: patientList) {
-				if (p.retName().matches(name))
+				if (p.retName().matches(name.strip()))
 					return p;
 			}
 			return new Patient();

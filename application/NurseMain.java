@@ -94,34 +94,42 @@ public class NurseMain {
 			else if(idField.isVisible()) {
 				String id = idField.getText();
 				try {
-					if(!co.checkBlankFields(idField.getText()) && nameField.isVisible())
+					if(!co.checkBlankFields(idField.getText()))
 						errorMsg.setText("Please fill the ID field.");
 					
-					else if(!co.checkBlankFields(idField.getText()) && nameField.isVisible())
-						errorMsg.setText("Please fill the name field.");
-					
 					else {
-						
-						if (idField.isVisible()) {
-							String idError = iv.validateId(Long.parseLong(id),"Patient");
-							if(idError.length()==0)
-							p =  n.nurseSearch(m.retPatientList(),Long.parseLong(id)
-									,"");
+						String idError = iv.validateId(Long.parseLong(id),"Patient");
+						if(idError.length()==0) {
+							p =  n.nurseSearch(m.retPatientList(),Long.parseLong(id),"");
+							if(p.retName()!=null)
+								callFeatures(n,p,purpose,bp);
 							else
-								errorMsg.setText("Patient does not exist!");
+								errorMsg.setText("Patient does not exist.");
 						}
-							
-						else {
-							Pair<Boolean,String> namePair = iv.validateName(nameField.getText(),true);
-							if(namePair.getKey())
-								p = n.nurseSearch(m.retPatientList(),-1,namePair.getValue());
-							else
-								errorMsg.setText("Patient does not exist");
-						}
-						callFeatures(n,p,purpose,bp);
+						else
+							errorMsg.setText("Wrong ID");
 					}
 				}catch(NumberFormatException exception) {
 					errorMsg.setText("The ID must be in numberic characters!");
+				}
+			}
+			
+			// Searching by name
+			else {
+				if(!co.checkBlankFields(nameField.getText()))
+					errorMsg.setText("Please fill the name field.");
+				else {
+					Pair<Boolean,String> namePair = iv.validateName(nameField.getText(),true);
+					if(namePair.getKey()) {
+						p = n.nurseSearch(m.retPatientList(),-1,namePair.getValue());
+						if(p.retName()!=null)
+							callFeatures(n,p,purpose,bp);
+						else
+							errorMsg.setText("Patient does not exist.");
+					}
+						
+					else
+						errorMsg.setText("Wrong Name");
 				}
 			}
 		});	
@@ -148,23 +156,14 @@ public class NurseMain {
 					}
 				}
 					
-			});
-			
-//			if(r.retWard()!=0) {
-//				Pair<String,Patient> patientPair = n.patientInBed(r.retBed(),
-//						r.retRoom(), r.retWard());
-//				if(patientPair.getKey()!="")
-//					errorMsg.setText(patientPair.getKey());
-//				else
-//					callFeatures(n,patientPair.getValue(),purpose,bp);
-//			}
-		
+			});		
 		
 			primaryStage.setScene(scene);
 			primaryStage.show();
 		
 		});
 		bp.setRight(mapButton);
+		BorderPane.setMargin(mapButton, new Insets(40,30,10,10));
 		bp.setCenter(wrapperPane);
 		bp.setBottom(errorMsg);
 	}
@@ -179,8 +178,8 @@ public class NurseMain {
 		else if(purpose=="ChangeBedAuto")
 			changeBedAuto(n,p,bp);
 		else
-			displayMap();
-//			displayPatientDetails(p,bp);
+			displayPatientDetails(p,bp);
+		bp.setRight(null);
 	}
 	
 	public void administerMedicine(Nurse n, Patient p, BorderPane bp) {
