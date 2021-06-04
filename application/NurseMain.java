@@ -446,7 +446,9 @@ public class NurseMain {
 	public void dischargePatient(Nurse n, Patient p) {
 		m.retOldPatientList().add(p);
 		n.removePatient(p.retWardNumber(), p.retRoomNumber(), p.retBedNumber());
+		
 		try {
+			co.writePatients(m.retPatientList());
 			ObjectOutputStream output = new ObjectOutputStream
 					( new FileOutputStream("oldPatients"));
 			output.writeObject(m.retOldPatientList());

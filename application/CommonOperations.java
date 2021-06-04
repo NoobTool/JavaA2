@@ -77,7 +77,7 @@ public class CommonOperations {
 	}
 	
 	public void writePatients(ArrayList<Patient> patientList) throws Exception{
-		ObjectOutputStream output = new ObjectOutputStream(new FileOutputStream("patients"));
+		ObjectOutputStream output = new ObjectOutputStream(new FileOutputStream("patients.txt"));
 		output.writeObject(patientList);
 		output.close();
 	}

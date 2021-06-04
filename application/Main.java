@@ -1129,6 +1129,7 @@ public class Main extends Application implements Serializable{
 	    Button changeManualButton = new Button(dm.nurseMenu().get(2));
 	    Button isolateButton = new Button(dm.nurseMenu().get(3));
 	    Button displayButton = new Button(dm.nurseMenu().get(4));
+	    Button dischargeButton = new Button(dm.nurseMenu().get(5));
 	    
 	    // Top Bar hbox formatting
 	    topBar.setLeft(currentUser);
@@ -1137,7 +1138,7 @@ public class Main extends Application implements Serializable{
 	    //Setting elements in Vbox
 		vbox.setPadding(new Insets(10,0,0,50));
 		vbox.getChildren().addAll(administerButton,changeAutoButton
-				,changeManualButton,isolateButton,displayButton);
+				,changeManualButton,isolateButton,dischargeButton, displayButton);
 			
 		administerButton.setOnAction(e->{
 			nurseMain.patientSearch(n, bp, "Administer");
@@ -1153,6 +1154,10 @@ public class Main extends Application implements Serializable{
 		
 		isolateButton.setOnAction(e->{
 			nurseMain.patientSearch(n,bp,"isolate");
+		});
+		
+		dischargeButton.setOnAction(e->{
+			nurseMain.patientSearch(n,bp,"discharge");
 		});
 		
 		displayButton.setOnAction(e->{

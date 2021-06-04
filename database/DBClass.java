@@ -17,6 +17,7 @@ public class DBClass {
 		System.out.println(o);
 	}
 	
+	
 	public DBClass() {}
 	
 	public void createTables() {
@@ -53,6 +54,11 @@ public class DBClass {
 					+ "TIME VARCHAR(10));";
 			statement.executeQuery(stmt);
 			
+			
+			stmt = "CREATE TABLE IF NOT EXISTS AVAILABLE("
+					+ "ID INT);";
+			statement.executeQuery(stmt);
+			
 			connection.commit();
 			connection.close();
 			
@@ -60,6 +66,63 @@ public class DBClass {
 			System.out.println(e);
 		}
 	}
+	
+	public void availableId(long id) {
+		try {
+			
+			Class.forName("org.hsqldb.jdbc.JDBCDriver");
+			connection = DriverManager.getConnection("jdbc:hsqldb:hsql://localhost/java2", "SA", "");
+			Statement statement = connection.createStatement();
+			
+			String stmt = "INSERT INTO AVAILABLE VALUES("+id+")";
+			statement.executeQuery(stmt);
+			
+			connection.commit();
+			connection.close();
+		}catch(Exception exception) {
+			System.out.println(exception);
+		}		
+	}
+	
+	public void removeAvailableId(long id) {
+		try {
+			
+			Class.forName("org.hsqldb.jdbc.JDBCDriver");
+			connection = DriverManager.getConnection("jdbc:hsqldb:hsql://localhost/java2", "SA", "");
+			Statement statement = connection.createStatement();
+			
+			String stmt = "DELETE FROM AVAILABLE WHERE ID = "+id+";";
+			statement.executeQuery(stmt);
+			
+			connection.commit();
+			connection.close();
+		}catch(Exception exception) {
+			System.out.println(exception);
+		}		
+	}
+	
+	
+	public ArrayList<Long> retAvailableId() {
+		try {
+			
+			ArrayList<Long> availableID = new ArrayList<Long>();
+			Class.forName("org.hsqldb.jdbc.JDBCDriver");
+			connection = DriverManager.getConnection("jdbc:hsqldb:hsql://localhost/java2", "SA", "");
+			Statement statement = connection.createStatement();
+			
+			String stmt = "SELECT * FROM AVAILABLE;";
+			ResultSet result = statement.executeQuery(stmt);
+			
+			while(result.next())
+				availableID.add((long)result.getInt("ID"));
+			connection.commit();
+			connection.close();
+			return availableID;
+		}catch(Exception e) {
+			return new ArrayList<Long>();
+		}		
+	}
+	
 	
 	public void addStaff(long id, String name, double age, char gender, String shifts, String password, String post) {
 		try {
