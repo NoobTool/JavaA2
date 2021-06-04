@@ -84,7 +84,7 @@ public class DBClass {
 			Statement statement = connection.createStatement();
 			
 			String stmt = "INSERT INTO ACTION VALUES("+a.retPerformerId()+",'"+a.retReceiverId()+"','"+a.retActionName()+"','"
-			+a.retDate()+"','"+a.retTime()+"')";
+			+a.retDate().toString()+"','"+a.retTime().toString()+"')";
 			statement.executeQuery(stmt);
 			
 			connection.commit();
@@ -108,10 +108,12 @@ public class DBClass {
 			
 			ResultSet result = statement.executeQuery(stmt);
 			
-			while(result.next())
+			while(result.next()) {
 				actions.add(new Action(result.getLong("PERFORMER"),result.getLong("RECEIVER"),
 						result.getString("NAME"),LocalDate.parse(result.getString("DATE"))
 						,LocalTime.parse(result.getString("TIME"))));
+			}
+				
 				
 			
 			connection.commit();
@@ -167,9 +169,9 @@ public class DBClass {
 	
 //	public static void main(String args[]) {
 //		DBClass db = new DBClass();
-//		db.dropTables("Manager","Nurse","Doctor","Patient","medicine");
+//		db.dropTables("Manager","Nurse","Doctor","ACTION");
 //		db.createTables();
-		
+//		
 //		db.addStaff(7730001,"Pappu", 23, 'M', "09:00-12:00", "1234","Nurse");
 //		db.printRows("Manager");
 //	}	

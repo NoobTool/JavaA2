@@ -65,7 +65,7 @@ public class Action implements Serializable{
 	}
 	
 	public String retDate() {
-		return date.format(DateTimeFormatter.ofPattern("dd-MM-YYYY"));
+		return date.toString();
 	}
 	
 	public String retTime() {

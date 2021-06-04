@@ -6,6 +6,7 @@ import org.junit.jupiter.api.Test;
 import main.*;
 import ward.*;
 import prescription.*;
+import javafx.util.Pair;
 
 class ResidentCareTest {
 	
@@ -256,6 +257,13 @@ class ResidentCareTest {
 	void managerStartTest() {
 		Main main = new Main();
 		main.managerStart();
+	}
+	
+	@Test
+	void isolationTest() {
+		Nurse n = new Nurse();
+		Pair<Boolean,String> value = n.provideIsolation(new Patient((long)11,"Stinky",(double)34,'F'));
+		assertEquals(true,value.getKey());
 	}
 	
 }

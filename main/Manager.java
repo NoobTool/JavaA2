@@ -37,7 +37,7 @@ public class Manager extends Employee implements Serializable{
 	public Manager(){
 		
 		
-		// Restoring variables
+		//Restoring variables
 		DBClass db = new DBClass();
 		db.createTables();
 		a.initActionList(db.retActions());
@@ -74,7 +74,7 @@ public class Manager extends Employee implements Serializable{
 		availableIdList.add((long)7830675);
 		availableIdList.add((long)6830012);
 		
-		WardMap wm = new WardMap();
+		//WardMap wm = new WardMap();
 		
 		try {
 			ObjectInputStream input = new ObjectInputStream(new FileInputStream("patients"));

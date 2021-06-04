@@ -178,6 +178,8 @@ public class NurseMain {
 			changeBed(n,p,bp);
 		else if(purpose=="ChangeBedAuto")
 			changeBedAuto(n,p,bp);
+		else if(purpose=="isolate")
+			provideIsolation(n, p, bp);
 		else
 			displayPatientDetails(p,bp);
 		bp.setRight(null);
@@ -394,7 +396,7 @@ public class NurseMain {
 		// Label Elements
 		HBox wrapperBox = new HBox(40);
 		HBox buttonHolder = co.addButtonHolder(bp);
-		((Button)buttonHolder.getChildren().get(0)).setText("Change Ward Automatically");
+		((Button)buttonHolder.getChildren().get(0)).setText("Provide Isolation");
 		Label errorMsg = co.retErrorLabel();
 				
 		((Button)buttonHolder.getChildren().get(0)).setOnAction(e->{
