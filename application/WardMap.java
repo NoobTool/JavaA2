@@ -48,14 +48,16 @@ public class WardMap extends Application{
 	}
 	
 	public WardMap(ArrayList<Patient> patients) {
-		int index=0,ward,room;
+		int index,ward,room;
 		for(Patient p: patients) {
+			index=0;
 			ward = p.retWardNumber();
 			while(ward>1) {
 				index+=totalBeds;
 				--ward;
 			}
 			index += calculateIndex(p.retRoomNumber())+p.retBedNumber()-1;
+			print("index is "+index);
 			if(index!=-1) {
 				char gender = p.retGender();
 				changeBg(index, gender);

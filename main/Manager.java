@@ -83,12 +83,15 @@ public class Manager extends Employee implements Serializable{
 		WardMap wm = new WardMap();
 		
 		try {
-			new FileOutputStream("patients").close();
-//			ObjectInputStream input = new ObjectInputStream(new FileInputStream("patients"));
-//			patientList.setStaff((ArrayList<Patient>)input.readObject());
-//			for(Patient patient: retPatientList())
-//				setPatient(patient,patient.retBedNumber(),patient.retRoomNumber(),patient.retWardNumber());
-//			input.close();
+			//new FileOutputStream("patients").close();
+			ObjectInputStream input = new ObjectInputStream(new FileInputStream("patients"));
+			patientList.setStaff((ArrayList<Patient>)input.readObject());
+			for(Patient patient: retPatientList())
+				setPatient(patient,patient.retBedNumber(),patient.retRoomNumber(),patient.retWardNumber());
+			input.close();
+			for(Patient patient: retPatientList()) {
+				System.out.println(patient.retName()+patient.retRoomNumber());
+			}
 		}catch(Exception e) {System.out.println("In manager "+e);}
 		
 	}
@@ -129,21 +132,17 @@ public class Manager extends Employee implements Serializable{
 							+"ward "+(i+1)+" in room "+wardDetails.retRoomNumber()
 							+" in bed "+wardDetails.retBedNumber()+"";
 					a.addAction(new Action(retId(),p.retId(),"centre admission",LocalDate.now(),LocalTime.now()));
+					try {
+						ObjectOutputStream output = new ObjectOutputStream(new FileOutputStream("patients"));
+						output.writeObject(retPatientList());
+						System.out.println("Length is "+retPatientList().size());
+						output.close();
+					}catch(Exception e) {
+						System.out.println(e.toString());
+					}
 					return new Pair<Boolean,String>(true,returnValue);
 				}
 			}
-		}
-		
-		char ans = c.inputChar(" Press 'y' to provide isolation instead. ");
-		if(ans=='y'){
-			Nurse n = new Nurse();
-			n.provideIsolation(p);
-		    if(p.retWardDetails()!=null) {
-		    	a.addAction(new Action(retId(),p.retId(),"centre isolation",LocalDate.now(),LocalTime.now()));
-		    	return new Pair<Boolean,String>(true, "Patient: "+p.retName()+" is isolated at "
-				  		+"ward "+p.retWardNumber()+" in room "+wardDetails.retRoomNumber());
-			    
-		    }
 		}
 		return new Pair<Boolean,String>(false,"Sorry, no space for you in the care centre! ");
 	}

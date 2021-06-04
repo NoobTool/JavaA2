@@ -1,7 +1,6 @@
 package application;
 import java.io.*;
 import javafx.scene.control.*;
-import javafx.stage.Stage;
 import javafx.scene.layout.*;
 import javafx.geometry.*;
 import javafx.scene.paint.*;

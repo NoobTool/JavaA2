@@ -28,7 +28,7 @@ public class DBClass {
 			posts.add("NURSE");
 			
 			Class.forName("org.hsqldb.jdbc.JDBCDriver");
-			connection = DriverManager.getConnection("jdbc:hsqldb:hsql://localhost/testdb", "SA", "");
+			connection = DriverManager.getConnection("jdbc:hsqldb:hsql://localhost/java2", "SA", "");
 			Statement statement = connection.createStatement();
 			
 			String stmt=""; 
@@ -65,7 +65,7 @@ public class DBClass {
 		try {
 			
 			Class.forName("org.hsqldb.jdbc.JDBCDriver");
-			connection = DriverManager.getConnection("jdbc:hsqldb:hsql://localhost/testdb", "SA", "");
+			connection = DriverManager.getConnection("jdbc:hsqldb:hsql://localhost/java2", "SA", "");
 			Statement statement = connection.createStatement();
 			
 			String stmt = "INSERT INTO "+post.toUpperCase()+" VALUES("+id+",'"+name+"',"+age+",'"+gender+"',"
@@ -83,7 +83,7 @@ public class DBClass {
 	public void deleteStaff(long id, String post) {
 		try {
 			Class.forName("org.hsqldb.jdbc.JDBCDriver");
-			connection = DriverManager.getConnection("jdbc:hsqldb:hsql://localhost/testdb", "SA", "");
+			connection = DriverManager.getConnection("jdbc:hsqldb:hsql://localhost/java2", "SA", "");
 			Statement statement = connection.createStatement();
 			
 			String stmt = "DELETE FROM "+post.toUpperCase()+" WHERE ID = "+id;
@@ -102,7 +102,7 @@ public class DBClass {
 			
 			ArrayList<Manager> managerList = new ArrayList<Manager>();
 			Class.forName("org.hsqldb.jdbc.JDBCDriver");
-			connection = DriverManager.getConnection("jdbc:hsqldb:hsql://localhost/testdb", "SA", "");
+			connection = DriverManager.getConnection("jdbc:hsqldb:hsql://localhost/java2", "SA", "");
 			Statement statement = connection.createStatement();
 			
 			String stmt = "SELECT * FROM MANAGER";
@@ -128,7 +128,7 @@ public class DBClass {
 			
 			ArrayList<Doctor> doctorList = new ArrayList<Doctor>();
 			Class.forName("org.hsqldb.jdbc.JDBCDriver");
-			connection = DriverManager.getConnection("jdbc:hsqldb:hsql://localhost/testdb", "SA", "");
+			connection = DriverManager.getConnection("jdbc:hsqldb:hsql://localhost/java2", "SA", "");
 			Statement statement = connection.createStatement();
 			
 			String stmt = "SELECT * FROM DOCTOR";
@@ -154,7 +154,7 @@ public class DBClass {
 			
 			ArrayList<Nurse> nurseList = new ArrayList<Nurse>();
 			Class.forName("org.hsqldb.jdbc.JDBCDriver");
-			connection = DriverManager.getConnection("jdbc:hsqldb:hsql://localhost/testdb", "SA", "");
+			connection = DriverManager.getConnection("jdbc:hsqldb:hsql://localhost/java2", "SA", "");
 			Statement statement = connection.createStatement();
 			
 			String stmt = "SELECT * FROM NURSE";
@@ -179,7 +179,7 @@ public class DBClass {
 			String password, String post) {
 		try {
 			Class.forName("org.hsqldb.jdbc.JDBCDriver");
-			connection = DriverManager.getConnection("jdbc:hsqldb:hsql://localhost/testdb", "SA", "");
+			connection = DriverManager.getConnection("jdbc:hsqldb:hsql://localhost/java2", "SA", "");
 			Statement statement = connection.createStatement();
 			
 			if(name!="") {
@@ -228,7 +228,7 @@ public class DBClass {
 		try {
 			
 			Class.forName("org.hsqldb.jdbc.JDBCDriver");
-			connection = DriverManager.getConnection("jdbc:hsqldb:hsql://localhost/testdb", "SA", "");
+			connection = DriverManager.getConnection("jdbc:hsqldb:hsql://localhost/java2", "SA", "");
 			Statement statement = connection.createStatement();
 			
 			String stmt = "INSERT INTO ACTION VALUES("+a.retPerformerId()+",'"+a.retReceiverId()+"','"+a.retActionName()+"','"
@@ -249,7 +249,7 @@ public class DBClass {
 			
 			ArrayList<Action> actions = new ArrayList<Action>();
 			Class.forName("org.hsqldb.jdbc.JDBCDriver");
-			connection = DriverManager.getConnection("jdbc:hsqldb:hsql://localhost/testdb", "SA", "");
+			connection = DriverManager.getConnection("jdbc:hsqldb:hsql://localhost/java2", "SA", "");
 			Statement statement = connection.createStatement();
 			
 			String stmt = "SELECT * FROM ACTION";
@@ -279,7 +279,7 @@ public class DBClass {
 		try {
 	
 			Class.forName("org.hsqldb.jdbc.JDBCDriver");
-			connection = DriverManager.getConnection("jdbc:hsqldb:hsql://localhost/testdb", "SA", "");
+			connection = DriverManager.getConnection("jdbc:hsqldb:hsql://localhost/java2", "SA", "");
 			Statement statement = connection.createStatement();
 			
 			ResultSet result = statement.executeQuery("SELECT * FROM "+tableName.toUpperCase());
@@ -299,7 +299,7 @@ public class DBClass {
 		try {
 			
 			Class.forName("org.hsqldb.jdbc.JDBCDriver");
-			connection = DriverManager.getConnection("jdbc:hsqldb:hsql://localhost/testdb", "SA", "");
+			connection = DriverManager.getConnection("jdbc:hsqldb:hsql://localhost/java2", "SA", "");
 			Statement statement = connection.createStatement();
 			
 			for(String s: args) {
@@ -317,9 +317,8 @@ public class DBClass {
 	
 //	public static void main(String args[]) {
 //		DBClass db = new DBClass();
-//		db.dropTables("Manager","Nurse","Doctor","ACTION");
+//		db.dropTables("Manager","Nurse","Doctor","Action");
 //		db.createTables();
-//		
 //		db.addStaff(7730001,"Pappu", 23, 'M', "09:00-12:00", "1234","Nurse");
 //		db.printRows("Manager");
 //	}	
