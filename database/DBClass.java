@@ -1,9 +1,9 @@
 package database;
 import java.sql.*;
+import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
-import main.Patient;
-import prescription.*;
+import Actions.*;
 
 public class DBClass {
 	
@@ -41,24 +41,12 @@ public class DBClass {
 			}
 			
 			
-			stmt = "CREATE TABLE IF NOT EXISTS PATIENT("
-					+ "ID INT PRIMARY KEY,"
+			stmt = "CREATE TABLE IF NOT EXISTS ACTION("
+					+ "PERFORMER INT,"
+					+ "RECEIVER INT,"
 					+ "NAME VARCHAR(30),"
-					+ "AGE DOUBLE,"
-					+ "GENDER CHAR,"
-					+ "WARD INT,"
-					+ "ROOM INT,"
-					+ "BED INT);";
-			statement.executeQuery(stmt);
-			
-			
-			stmt = "CREATE TABLE IF NOT EXISTS MEDICINE("
-					+ "ID INT,"
-					+ "NAME VARCHAR(30),"
-					+ "DOSE INT,"
-					+ "DOSETIME VARCHAR(50),"
-					+ "FOREIGN KEY (ID) REFERENCES PATIENT(ID));";
-			
+					+ "DATE VARCHAR(15),"
+					+ "TIME VARCHAR(10));";
 			statement.executeQuery(stmt);
 			
 			connection.commit();
@@ -88,32 +76,16 @@ public class DBClass {
 		}		
 	}
 	
-	public void addPatient(Patient p) {
+	public void addAction(Action a) {
 		try {
 			
 			Class.forName("org.hsqldb.jdbc.JDBCDriver");
 			connection = DriverManager.getConnection("jdbc:hsqldb:hsql://localhost/java2", "SA", "");
 			Statement statement = connection.createStatement();
 			
-			String stmt = "INSERT INTO PATIENT VALUES("+p.retId()+",'"+p.retName()+"',"+p.retAge()+",'"
-			+p.retGender()+"',"+p.retWardNumber()+","+p.retRoomNumber()+","+p.retBedNumber()+")";
+			String stmt = "INSERT INTO ACTION VALUES("+a.retPerformerId()+",'"+a.retReceiverId()+"','"+a.retActionName()+"','"
+			+a.retDate()+"','"+a.retTime()+"')";
 			statement.executeQuery(stmt);
-			
-			ArrayList<MedicineDose> medicines= p.retPrescription().retMedicineBlock().retMedicines();
-			
-			for(MedicineDose md: medicines) {
-				// Converting time list to a string
-				String finalTime = "";
-				for(LocalTime t: md.retTimes())
-					finalTime+=(t.toString()+",");
-				finalTime = finalTime.substring(0,finalTime.length()-1);
-				
-				// Inserting elements in medicine table
-				String stmt2 = "INSERT INTO MEDICINE VALUES("+p.retId()
-						+","+md.retName()
-						+","+md.retDose()
-						+","+finalTime+")";
-			}
 			
 			connection.commit();
 			connection.close();
@@ -123,44 +95,32 @@ public class DBClass {
 		
 	}
 	
-	public void retPatient() {
+	public ArrayList<Action> retActions() {
 		
-		ArrayList<Patient> patientList = new ArrayList<Patient>();
-		ArrayList<MedicineDose> medicines = new ArrayList<MedicineDose>();
 		try {
 			
+			ArrayList<Action> actions = new ArrayList<Action>();
 			Class.forName("org.hsqldb.jdbc.JDBCDriver");
 			connection = DriverManager.getConnection("jdbc:hsqldb:hsql://localhost/java2", "SA", "");
 			Statement statement = connection.createStatement();
 			
-			String stmt = "SELECT * FROM PATIENT";
+			String stmt = "SELECT * FROM ACTION";
 			
 			ResultSet result = statement.executeQuery(stmt);
 			
-			while(result.next()) {
+			while(result.next())
+				actions.add(new Action(result.getLong("PERFORMER"),result.getLong("RECEIVER"),
+						result.getString("NAME"),LocalDate.parse(result.getString("DATE"))
+						,LocalTime.parse(result.getString("TIME"))));
 				
-				Patient p = new Patient(result.getInt("ID"),result.getString("NAME"),
-						result.getDouble("AGE"),result.getString("GENDER").charAt(0));
-				stmt = "SELECT * FROM MEDICINE WHERE ID = "+result.getInt("ID")+";";
-				ResultSet medicineDoses = statement.executeQuery(stmt);
-				
-				while(medicineDoses.next()) {
-					ArrayList<LocalTime> times = new ArrayList<LocalTime>();
-					for(String s: medicineDoses.getString("DOSETIME").split(","))
-						times.add(LocalTime.parse(s));
-					
-					medicines.add(new MedicineDose(medicineDoses.getString("NAME"),
-							medicineDoses.getInt("DOSE"),times));
-				}
-
-//				p.addPrescription(prescription);
-				
-			}
 			
 			connection.commit();
 			connection.close();
+			
+			return actions;
 		}catch(Exception exception) {
 			System.out.println(exception);
+			return new ArrayList<Action>();
 		}
 		
 	}

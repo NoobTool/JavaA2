@@ -1,6 +1,7 @@
 package Actions;
 import java.util.ArrayList;
 import java.io.*;
+import database.*;
 
 public class ActionList implements Serializable{
 	static ArrayList<Action> actionList = new ArrayList<Action>();
@@ -8,7 +9,9 @@ public class ActionList implements Serializable{
 	public ActionList() {}
 	
 	public void addAction(Action a) {
+		DBClass db = new DBClass();
 		actionList.add(a);
+		db.addAction(a);
 	}
 	
 	public void last5Actions() {

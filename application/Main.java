@@ -24,22 +24,6 @@ public class Main extends Application implements Serializable{
 	InputValidation i = new InputValidation();
 	DBClass db = new DBClass();
 	
-	public Main() {
-		try {
-
-			ObjectInputStream input = new ObjectInputStream(new FileInputStream("objects"));
-			ArrayList<Action> a = (ArrayList) input.readObject();
-			ActionList aList = new ActionList();
-			aList.initActionList(a);
-			m.initActionList(aList);
-			System.out.println(a.get(1).retActionName());
-			
-		}catch(Exception e) {
-			System.out.println(e);
-		}
-		
-	}
-	
 	@Override
 	public void start(Stage primaryStage) {
 		

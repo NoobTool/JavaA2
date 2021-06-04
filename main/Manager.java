@@ -36,8 +36,11 @@ public class Manager extends Employee implements Serializable{
 	
 	public Manager(){
 		
+		
+		// Restoring variables
 		DBClass db = new DBClass();
 		db.createTables();
+		a.initActionList(db.retActions());
 		
 		for(int i=0;i<NO_OF_WARDS;i++)
 			wards[i]= new Ward();
