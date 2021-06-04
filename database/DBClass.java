@@ -76,6 +76,72 @@ public class DBClass {
 		}		
 	}
 	
+	public void deleteStaff(long id, String post) {
+		try {
+			Class.forName("org.hsqldb.jdbc.JDBCDriver");
+			connection = DriverManager.getConnection("jdbc:hsqldb:hsql://localhost/testdb", "SA", "");
+			Statement statement = connection.createStatement();
+			
+			String stmt = "DELETE FROM "+post.toUpperCase()+" WHERE ID = "+id;
+			
+			statement.executeQuery(stmt);
+			
+			connection.commit();
+			connection.close();
+		}catch(Exception exception) {
+			System.out.println(exception);
+		}		
+	}
+	
+	public void updateStaff(long id, String name, double age, char gender, String shifts,
+			String password, String post) {
+		try {
+			Class.forName("org.hsqldb.jdbc.JDBCDriver");
+			connection = DriverManager.getConnection("jdbc:hsqldb:hsql://localhost/testdb", "SA", "");
+			Statement statement = connection.createStatement();
+			
+			if(name!="") {
+				String stmt = "UPDATE "+post.toUpperCase()
+				+" SET NAME = "+name
+				+" WHERE ID = "+id;
+				statement.executeQuery(stmt);
+			}
+			
+			if(age!=-1) {
+				String stmt = "UPDATE "+post.toUpperCase()
+				+" SET AGE = "+age
+				+" WHERE ID = "+id;
+				statement.executeQuery(stmt);
+			}
+			
+			if(gender!='x') {
+				String stmt = "UPDATE "+post.toUpperCase()
+				+" SET GENDER = "+gender
+				+" WHERE ID = "+id;
+				statement.executeQuery(stmt);
+			}
+			
+			if(password!="") {
+				String stmt = "UPDATE "+post.toUpperCase()
+				+" SET PASSWORD = "+password
+				+" WHERE ID = "+id;
+				statement.executeQuery(stmt);
+			}
+			
+			if(shifts!="") {
+				String stmt = "UPDATE "+post.toUpperCase()
+				+" SET SHIFTS = "+shifts
+				+" WHERE ID = "+id;
+				statement.executeQuery(stmt);
+			}
+			
+			connection.commit();
+			connection.close();
+		}catch(Exception exception) {
+			System.out.println(exception);
+		}		
+	}
+	
 	public void addAction(Action a) {
 		try {
 			

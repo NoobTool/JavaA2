@@ -145,66 +145,7 @@ public class Main extends Application implements Serializable{
 		
 	}
 	
-	private String removeEmployee(long id, String name, String post) {
-		Manager manager = new Manager("Return lists");
-		
-		if(id!=-1) {
-			if(post=="Manager") {
-				for(Manager m2: manager.retManagerList()) {
-					if(m2.retId()==id) {
-						manager.retManagerList().remove(m2);
-						return "";
-					}
-				}return "Manager not found";
-			}
-			
-			else if(post=="Doctor") {
-				for(Doctor d2: manager.retDoctorList()) {
-					if(d2.retId()==id) {
-						manager.retDoctorList().remove(d2);
-						return "";
-					}
-				}return "Doctor not found";
-			}
-			
-			else {
-				for(Nurse n2: manager.retNurseList()) {
-					if(n2.retId()==id) {
-						manager.retManagerList().remove(n2);
-						return "";
-					}
-				}return "Manager not found";
-			}
-		}
-		else {
-			if(post=="Manager") {
-				for(Manager m2: manager.retManagerList()) {
-					if(m2.retName()==name) {
-						manager.retManagerList().remove(m2);
-						return "";
-					}
-				}return "Manager not found";
-			}
-			
-			else if(post=="Doctor") {
-				for(Doctor d2: manager.retDoctorList()) {
-					if(d2.retName()==name) {
-						manager.retDoctorList().remove(d2);
-						return "";
-					}
-				}return "Doctor not found";
-			}
-			
-			else {
-				for(Nurse n2: manager.retNurseList()) {
-					if(n2.retName()==name) {
-						manager.retManagerList().remove(n2);
-						return "";
-					}
-				}return "Manager not found";
-			}
-		}
-	}
+	
 	
 	private Button addExitButton(Stage thisStage) {
 		Button exit = new Button("Exit");
@@ -338,9 +279,6 @@ public class Main extends Application implements Serializable{
 			
 			wrapperPane.setTop(searchGrid);
 			
-			
-			
-			
 			((Button)buttonHolder.getChildren().get(0)).setOnAction(e2->{
 				String selectedItem = cb.getSelectionModel().getSelectedItem();
 				
@@ -355,10 +293,10 @@ public class Main extends Application implements Serializable{
 							errorMsg.setText("Please fill the ID field.");
 						
 						else {
-							String idError = i.validateId(Long.parseLong(id),"Patient");
+							String idError = i.validateId(Long.parseLong(id),selectedItem);
 							if(idError.length()==0) {
-								String returnValue =  removeEmployee(Long.parseLong(id), "", selectedItem);
-								if(returnValue==null) {
+								String returnValue =  m.removeEmployee(Long.parseLong(id), "", selectedItem);
+								if(returnValue=="") {
 									errorMsg.setTextFill(Color.GREEN);
 									errorMsg.setText("Removed successfully");
 								}
@@ -380,8 +318,8 @@ public class Main extends Application implements Serializable{
 					else {
 						Pair<Boolean,String> namePair = i.validateName(nameField.getText(),true);
 						if(namePair.getKey()) {
-							String returnValue =  removeEmployee(-1, namePair.getValue(), selectedItem);
-							if(returnValue==null) {
+							String returnValue =  m.removeEmployee(-1, namePair.getValue(), selectedItem);
+							if(returnValue=="") {
 								errorMsg.setTextFill(Color.GREEN);
 								errorMsg.setText("Removed successfully");
 							}

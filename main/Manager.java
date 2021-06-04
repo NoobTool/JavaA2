@@ -289,6 +289,81 @@ public class Manager extends Employee implements Serializable{
 		}
 	
 	
+		public String removeEmployee(long id, String name, String post) {
+			// By ID
+			if(id!=-1) {
+				if(post=="Manager") {
+					for(Manager m2: retManagerList()) {
+						if(m2.retId()==id) {
+							retManagerList().remove(m2);
+							a.addAction(new Action(this.retId(),id," performer a deletion",
+									LocalDate.now(),LocalTime.now()));
+							return "";
+						}
+					}return "Manager not found";
+				}
+				
+				else if(post=="Doctor") {
+					for(Doctor d2: retDoctorList()) {
+						if(d2.retId()==id) {
+							retDoctorList().remove(d2);
+							a.addAction(new Action(this.retId(),id," performer a deletion",
+									LocalDate.now(),LocalTime.now()));
+							return "";
+						}
+					}return "Doctor not found";
+				}
+				
+				else {
+					for(Nurse n2: retNurseList()) {
+						if(n2.retId()==id) {
+							retNurseList().remove(n2);
+							a.addAction(new Action(this.retId(),id," performer a deletion",
+									LocalDate.now(),LocalTime.now()));
+							return "";
+						}
+					}return "Manager not found";
+				}
+			}
+			// By Name
+			else {
+				if(post=="Manager") {
+					for(Manager m2: retManagerList()) {
+						if(m2.retName()==name) {
+							retManagerList().remove(m2);
+							a.addAction(new Action(this.retId(),m2.retId()," performer a deletion",
+									LocalDate.now(),LocalTime.now()));
+							return "";
+						}
+					}return "Manager not found";
+				}
+				
+				else if(post=="Doctor") {
+					for(Doctor d2: retDoctorList()) {
+						if(d2.retName()==name) {
+							retDoctorList().remove(d2);
+							a.addAction(new Action(this.retId(),d2.retId()," performer a deletion",
+									LocalDate.now(),LocalTime.now()));
+							return "";
+						}
+					}return "Doctor not found";
+				}
+				
+				else {
+					for(Nurse n2: retNurseList()) {
+						if(n2.retName()==name) {
+							retNurseList().remove(n2);
+							a.addAction(new Action(this.retId(),n2.retId()," performer a deletion",
+									LocalDate.now(),LocalTime.now()));
+							return "";
+						}
+					}return "Manager not found";
+				}
+			}
+		}
+		
+		
+		
 	// Print all actions
 	
 	public void printActionList() {
