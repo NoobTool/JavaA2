@@ -394,11 +394,14 @@ public class NurseMain {
 	public void provideIsolation(Nurse n, Patient p, BorderPane bp) {
 		
 		// Label Elements
-		HBox wrapperBox = new HBox(40);
+		GridPane wrapperBox = new GridPane();
 		HBox buttonHolder = co.addButtonHolder(bp);
-		((Button)buttonHolder.getChildren().get(0)).setText("Provide Isolation");
+		buttonHolder.getChildren().set(0, new Button("Provide Isolation"));
 		Label errorMsg = co.retErrorLabel();
-				
+		buttonHolder.setMaxWidth(100);
+		
+		wrapperBox.add(new Label("Click this button \nto isolate automatically."), 0, 0);
+		wrapperBox.add(buttonHolder, 1, 0);
 		((Button)buttonHolder.getChildren().get(0)).setOnAction(e->{
 			errorMsg.setTextFill(Color.RED);
 			Pair<Boolean,String> returnValue = n.provideIsolation(p);
@@ -418,12 +421,13 @@ public class NurseMain {
 		});
 		
 		// Adding and formatting elements in wrapperBox
-		wrapperBox.getChildren().addAll(new Label("Press this button to change ward magically!"),
-				buttonHolder);
-		wrapperBox.setPadding(new Insets(30,0,0,40));
+		//wrapperBox.getChildren().addAll(new Label("Press this button \nto change ward magically!"),
+//				buttonHolder);
+		//buttonHolder.setPadding(new Insets(30,0,0,20));
 		
 		bp.setCenter(wrapperBox);
 		bp.setBottom(errorMsg);
+//		BorderPane.setAlignment(errorMsg, Pos.CENTER);
 		
 	}
 

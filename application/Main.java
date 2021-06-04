@@ -1004,7 +1004,7 @@ public class Main extends Application implements Serializable{
 	    //Setting elements in Vbox
 		vbox.setPadding(new Insets(10,0,0,50));
 		vbox.getChildren().addAll(administerButton,changeAutoButton
-				,changeManualButton,displayButton);
+				,changeManualButton,isolateButton,displayButton);
 			
 		administerButton.setOnAction(e->{
 			nurseMain.patientSearch(n, bp, "Administer");

@@ -163,9 +163,9 @@ public class Nurse extends Employee{
 		wm.neutralizeBg(wardNumber, roomNumber, bedNumber);
 		
 		if(roomNumber<=w.retSingleRooms())
-			wards[wardNumber-1].unOccupyDualRoom(roomNumber-1, bedNumber-1);
+			wards[wardNumber-1].unOccupySingleRoom(roomNumber-1);
 		
-		if(roomNumber<=(w.retSingleRooms()+w.retDualRooms())) {
+		else if(roomNumber<=(w.retSingleRooms()+w.retDualRooms())) {
 			roomNumber-=w.retSingleRooms();
 			wards[wardNumber-1].unOccupyDualRoom(roomNumber-1, bedNumber-1);
 		}

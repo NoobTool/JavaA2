@@ -52,6 +52,7 @@ public class CommonOperations {
 		hbox.setAlignment(Pos.CENTER);
 		hbox.setPrefSize(50,20);
 		hbox.setMaxWidth(150);
+		hbox.setMinWidth(50);
 		return hbox;
 	}
 	
