@@ -145,6 +145,67 @@ public class Main extends Application implements Serializable{
 		
 	}
 	
+	private String removeEmployee(long id, String name, String post) {
+		Manager manager = new Manager("Return lists");
+		
+		if(id!=-1) {
+			if(post=="Manager") {
+				for(Manager m2: manager.retManagerList()) {
+					if(m2.retId()==id) {
+						manager.retManagerList().remove(m2);
+						return "";
+					}
+				}return "Manager not found";
+			}
+			
+			else if(post=="Doctor") {
+				for(Doctor d2: manager.retDoctorList()) {
+					if(d2.retId()==id) {
+						manager.retDoctorList().remove(d2);
+						return "";
+					}
+				}return "Doctor not found";
+			}
+			
+			else {
+				for(Nurse n2: manager.retNurseList()) {
+					if(n2.retId()==id) {
+						manager.retManagerList().remove(n2);
+						return "";
+					}
+				}return "Manager not found";
+			}
+		}
+		else {
+			if(post=="Manager") {
+				for(Manager m2: manager.retManagerList()) {
+					if(m2.retName()==name) {
+						manager.retManagerList().remove(m2);
+						return "";
+					}
+				}return "Manager not found";
+			}
+			
+			else if(post=="Doctor") {
+				for(Doctor d2: manager.retDoctorList()) {
+					if(d2.retName()==name) {
+						manager.retDoctorList().remove(d2);
+						return "";
+					}
+				}return "Doctor not found";
+			}
+			
+			else {
+				for(Nurse n2: manager.retNurseList()) {
+					if(n2.retName()==name) {
+						manager.retManagerList().remove(n2);
+						return "";
+					}
+				}return "Manager not found";
+			}
+		}
+	}
+	
 	private Button addExitButton(Stage thisStage) {
 		Button exit = new Button("Exit");
 	    exit.setPrefSize(100, 20);
@@ -213,6 +274,7 @@ public class Main extends Application implements Serializable{
 	    Button modifyButton = new Button(dm.managerMenu().get(2));
 	    Button displayButton = new Button(dm.managerMenu().get(3));
 	    Button displayActions = new Button(dm.managerMenu().get(4));
+	    Button removeButton = new Button(dm.managerMenu().get(5));
 	    
 	    // Top Bar hbox formatting
 	    topBar.setLeft(currentUser);
@@ -220,11 +282,122 @@ public class Main extends Application implements Serializable{
 		
 	    //Setting elements in Vbox
 		vbox.setPadding(new Insets(10,0,0,50));
-		vbox.getChildren().addAll(admitButton,hireButton,modifyButton,displayButton,displayActions);
+		vbox.getChildren().addAll(admitButton,hireButton,modifyButton,removeButton,displayButton,displayActions);
 		
 		// Adding elements to the main border pane
 		bp.setLeft(vbox);
 		bp.setTop(topBar);
+		
+		removeButton.setOnAction(e->{
+			// Big Wrapper
+			BorderPane wrapperPane = new BorderPane();
+			wrapperPane.setPadding(new Insets(20,0,0,20));
+			 
+			// Layouts
+			GridPane searchGrid = new GridPane();
+			Button idButton = new Button("Search by ID");
+			Button nameButton = new Button("Search by Name");
+			TextField idField = new TextField();
+			TextField nameField = new TextField();
+			HBox buttonHolder = co.addButtonHolder(bp);
+			Button mapButton = co.retMapButton();
+			ComboBox<String> cb = new ComboBox<String>();
+			
+			//Adding nodes in grid pane
+			searchGrid.add(idButton, 1, 0);
+			searchGrid.add(idField, 2, 0);
+			searchGrid.add(nameButton, 1, 1);
+			searchGrid.add(nameField, 2, 1);
+			searchGrid.add(buttonHolder, 2, 2);
+			
+			// GridPane formatting
+			searchGrid.setHgap(20);
+			searchGrid.setVgap(20);
+			idField.setVisible(false);
+			nameField.setVisible(false);
+			searchGrid.setPadding(new Insets(20,0,0,0));
+			Label errorMsg = new Label();
+			
+			// errorMsg editing
+			errorMsg.setFont(new Font("cambria",16));
+			errorMsg.setTextFill(Color.RED);
+			
+			// Defining actions for the buttons
+			
+			idButton.setOnAction(e2->{
+				idField.setVisible(true);
+				nameField.setVisible(false);
+				nameField.setText("");
+			});
+			
+			nameButton.setOnAction(e2->{
+				idField.setVisible(false);
+				idField.setText("");
+				nameField.setVisible(true);
+			});
+			
+			wrapperPane.setTop(searchGrid);
+			
+			
+			
+			
+			((Button)buttonHolder.getChildren().get(0)).setOnAction(e2->{
+				String selectedItem = cb.getSelectionModel().getSelectedItem();
+				
+				if (!idField.isVisible() && !nameField.isVisible())
+					errorMsg.setText("Please select a search option.");
+				
+				// Searching by ID
+				else if(idField.isVisible()) {
+					String id = idField.getText();
+					try {
+						if(!co.checkBlankFields(idField.getText()))
+							errorMsg.setText("Please fill the ID field.");
+						
+						else {
+							String idError = i.validateId(Long.parseLong(id),"Patient");
+							if(idError.length()==0) {
+								String returnValue =  removeEmployee(Long.parseLong(id), "", selectedItem);
+								if(returnValue==null) {
+									errorMsg.setTextFill(Color.GREEN);
+									errorMsg.setText("Removed successfully");
+								}
+								else
+									errorMsg.setText(selectedItem+" does not exist.");
+							}
+							else
+								errorMsg.setText("Wrong ID");
+						}
+					}catch(NumberFormatException exception) {
+						errorMsg.setText("The ID must be in numberic characters!");
+					}
+				}
+				
+				// Searching by name
+				else {
+					if(!co.checkBlankFields(nameField.getText()))
+						errorMsg.setText("Please fill the name field.");
+					else {
+						Pair<Boolean,String> namePair = i.validateName(nameField.getText(),true);
+						if(namePair.getKey()) {
+							String returnValue =  removeEmployee(-1, namePair.getValue(), selectedItem);
+							if(returnValue==null) {
+								errorMsg.setTextFill(Color.GREEN);
+								errorMsg.setText("Removed successfully");
+							}
+							else
+								errorMsg.setText(selectedItem+" does not exist.");
+						}
+						else
+							errorMsg.setText("Wrong Name");
+					}
+				}
+			});	
+			
+			bp.setRight(null);
+			bp.setCenter(wrapperPane);
+			bp.setBottom(errorMsg);
+		});
 			
 		admitButton.setOnAction(e->{
 			Button submitButton = new Button("Submit");
@@ -318,6 +491,8 @@ public class Main extends Application implements Serializable{
 			
 	        // ComboBox Items
 			cb.getItems().addAll("Manager","Doctor","Nurse");
+			
+			
 		
 			// TextFields
 			TextField name = new TextField();

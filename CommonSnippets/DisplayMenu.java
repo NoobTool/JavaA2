@@ -10,6 +10,7 @@ public class DisplayMenu {
 		managerMenu.add("Modify staff details.");
 		managerMenu.add("Display staff members.");
 		managerMenu.add("Display the actions performed. ");
+		managerMenu.add("Remove employee. ");
 		return managerMenu;
 	}
 	
