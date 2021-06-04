@@ -41,7 +41,12 @@ Package:Ward
 This one contains the classes such as Ward, Room, Bed and hence as the names suggests, a package dedicated to the classes to operate wards, rooms, beds respectively.
 
 
-NOTE:- To run this masterpiece, you need to make sure that your current time falls within the object declaration of the Manager class. This process will soon be automated.
+Package application
+Contains all GUI related files.
+
+NOTE:- To run this masterpiece, you need to run the Main.java file in package application. I have used hsqldb version 2.6.0, java version 11.0.11 , sjavafx version 11.0.2 and JUnit 5.
+
+
 
 
 
