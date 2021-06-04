@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import java.util.Objects;
 import javafx.util.Pair;
 import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ComboBox;
@@ -392,16 +393,19 @@ public class NurseMain {
 	
 	// Provide isolation
 	public void provideIsolation(Nurse n, Patient p, BorderPane bp) {
+		bp.setCenter(null);
 		
 		// Label Elements
 		GridPane wrapperBox = new GridPane();
 		HBox buttonHolder = co.addButtonHolder(bp);
+		
+		
+		buttonHolder.setAlignment(Pos.CENTER);
 		buttonHolder.getChildren().set(0, new Button("Provide Isolation"));
 		Label errorMsg = co.retErrorLabel();
-		buttonHolder.setMaxWidth(100);
+		buttonHolder.setMaxWidth(500);
+		buttonHolder.setMinWidth(300);
 		
-		wrapperBox.add(new Label("Click this button \nto isolate automatically."), 0, 0);
-		wrapperBox.add(buttonHolder, 1, 0);
 		((Button)buttonHolder.getChildren().get(0)).setOnAction(e->{
 			errorMsg.setTextFill(Color.RED);
 			Pair<Boolean,String> returnValue = n.provideIsolation(p);
@@ -421,13 +425,19 @@ public class NurseMain {
 		});
 		
 		// Adding and formatting elements in wrapperBox
-		//wrapperBox.getChildren().addAll(new Label("Press this button \nto change ward magically!"),
+//		wrapperBox.getChildren().addAll(new Label("Press this button \nto change ward magically!"),
 //				buttonHolder);
-		//buttonHolder.setPadding(new Insets(30,0,0,20));
+		wrapperBox.setHgap(10);
+		wrapperBox.add(new Label("Press this button \nto change ward magically!"),0,0);
+		wrapperBox.add(buttonHolder, 1, 0);
+		wrapperBox.setPadding(new Insets(40,0,0,30));
+		
+		buttonHolder.setPadding(new Insets(0,0,0,
+				40));
 		
 		bp.setCenter(wrapperBox);
 		bp.setBottom(errorMsg);
-//		BorderPane.setAlignment(errorMsg, Pos.CENTER);
+		BorderPane.setAlignment(errorMsg, Pos.CENTER);
 		
 	}
 
@@ -436,7 +446,6 @@ public class NurseMain {
 	public void displayPatientDetails(Patient p,BorderPane bp) {
 		// Big Wrapper
 		BorderPane wrapperPane = new BorderPane();
-		wrapperPane.setPadding(new Insets(20,0,0,20));
 		
 		// Layout Elements
 		ScrollPane sp = new ScrollPane();
