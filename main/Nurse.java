@@ -102,36 +102,29 @@ public class Nurse extends Employee{
 	}
 	
 	// Assign single room to a patient
-	public void provideIsolation(Patient p) {
+	public Pair<Boolean,String> provideIsolation(Patient p) {
 		WardDetails oldDetails=null;
 		if(p.retWardDetails()!=null) {
 			oldDetails = p.retWardDetails();
 		}
-			 
 		
-		int wardNumber = c.inputInt("Enter the new ward number. ");
-		int roomNumber = c.inputInt("Enter the new room number. ");
 		
-		Ward ward = m.retWardList()[wardNumber-1];
-		if(roomNumber>ward.retSingleRooms()) {
-			System.out.println("This room is not used for isolation. ");
-			return;
-		}
-		
-		if(ward.isolationAvailable()) {
-			SingleRoom room = ward.retSingleRoomsList()[roomNumber-1];
-			if(!room.retOccupied()) {
-				room.addPatient(p);
-				p.setWard(new WardDetails(wardNumber,roomNumber,1));
-				if(oldDetails!=null)
-					removePatient(oldDetails.retWardNumber(),oldDetails.retRoomNumber(),oldDetails.retBedNumber());
-				a.addAction(new Action(this.retId(),p.retId(),"isolation provided",LocalDate.now(),LocalTime.now()));
+		for(int i=0;i<m.retWards();i++) {
+			Ward ward = m.retWardList()[i];
+			if(ward.isolationAvailable()) {
+				for(int j=0;j<ward.retSingleRooms();j++) {
+					SingleRoom room = ward.retSingleRoomsList()[i];
+					if(!room.retOccupied()) {
+						room.addPatient(p);
+						p.setWard(new WardDetails(i+1,j+1,1));
+						if(oldDetails!=null)
+							removePatient(oldDetails.retWardNumber(),oldDetails.retRoomNumber(),oldDetails.retBedNumber());
+						a.addAction(new Action(this.retId(),p.retId(),"isolation provided",LocalDate.now(),LocalTime.now()));
+						return new Pair<Boolean,String>(true,"");
+					}
+				}
 			}
-		}
-		
-		else {
-			System.out.println("Isolation can't be possible! ");
-		}
+		}return new Pair<Boolean,String>(false,"No space for isolation.");
 	}
 	
 	public Patient nurseSearch(ArrayList<Patient> patientList, long id, String name) {

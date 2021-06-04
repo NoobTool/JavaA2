@@ -45,7 +45,6 @@ public class Manager extends Employee implements Serializable{
 		for(int i=0;i<NO_OF_WARDS;i++)
 			wards[i]= new Ward();
 			
-		
 		idList.add((long)7730000);
 		idList.add((long)6830000);
 		idList.add((long)7830000);
