@@ -30,6 +30,7 @@ public class DisplayMenu {
 		nurseMenu.add("Change bed manually. ");
 		nurseMenu.add("Isolate a patient. ");
 		nurseMenu.add("Display Patient Details. ");
+		nurseMenu.add("Discharge Patient");
 		return nurseMenu;
 	}	
 	

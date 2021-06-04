@@ -19,7 +19,7 @@ public class Nurse extends Employee{
 	
 	public Nurse(){}
 	
-	Nurse(long id, String name, double age, char gender,String shifts,String password){
+	public Nurse(long id, String name, double age, char gender,String shifts,String password){
 		super(id,name,age,gender,shifts,password);
 	}
 	

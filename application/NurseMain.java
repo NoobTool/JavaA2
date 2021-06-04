@@ -181,6 +181,8 @@ public class NurseMain {
 			changeBedAuto(n,p,bp);
 		else if(purpose=="isolate")
 			provideIsolation(n, p, bp);
+		else if(purpose=="discharge")
+			dischargePatient(n,p);
 		else
 			displayPatientDetails(p,bp);
 		bp.setRight(null);
@@ -439,6 +441,19 @@ public class NurseMain {
 		bp.setBottom(errorMsg);
 		BorderPane.setAlignment(errorMsg, Pos.CENTER);
 		
+	}
+	
+	public void dischargePatient(Nurse n, Patient p) {
+		m.retOldPatientList().add(p);
+		n.removePatient(p.retWardNumber(), p.retRoomNumber(), p.retBedNumber());
+		try {
+			ObjectOutputStream output = new ObjectOutputStream
+					( new FileOutputStream("oldPatients"));
+			output.writeObject(m.retOldPatientList());
+			output.close();
+		}catch(Exception e ) {
+			System.out.println("error");
+		}
 	}
 
 	

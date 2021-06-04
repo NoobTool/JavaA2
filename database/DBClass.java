@@ -4,6 +4,10 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import Actions.*;
+import main.Manager;
+import main.Doctor;
+import main.Nurse;;
+
 
 public class DBClass {
 	
@@ -91,6 +95,84 @@ public class DBClass {
 		}catch(Exception exception) {
 			System.out.println(exception);
 		}		
+	}
+	
+	public ArrayList<Manager> retManagerList(){
+		try {
+			
+			ArrayList<Manager> managerList = new ArrayList<Manager>();
+			Class.forName("org.hsqldb.jdbc.JDBCDriver");
+			connection = DriverManager.getConnection("jdbc:hsqldb:hsql://localhost/testdb", "SA", "");
+			Statement statement = connection.createStatement();
+			
+			String stmt = "SELECT * FROM MANAGER";
+			ResultSet result = statement.executeQuery(stmt);
+			
+			while(result.next()) {
+				managerList.add(new Manager(result.getLong("ID"),result.getString("NAME"),
+						result.getDouble("AGE"),result.getString("GENDER").charAt(0),
+						result.getString("SHIFTS"),result.getString("PASSWORD")));
+			}
+			connection.commit();
+			connection.close();
+			
+			return managerList;
+		}catch(Exception exception) {
+			System.out.println(exception);
+			return new ArrayList<Manager>();
+		}
+	}
+	
+	public ArrayList<Doctor> retDoctorList(){
+		try {
+			
+			ArrayList<Doctor> doctorList = new ArrayList<Doctor>();
+			Class.forName("org.hsqldb.jdbc.JDBCDriver");
+			connection = DriverManager.getConnection("jdbc:hsqldb:hsql://localhost/testdb", "SA", "");
+			Statement statement = connection.createStatement();
+			
+			String stmt = "SELECT * FROM DOCTOR";
+			ResultSet result = statement.executeQuery(stmt);
+			
+			while(result.next()) {
+				doctorList.add(new Doctor(result.getLong("ID"),result.getString("NAME"),
+						result.getDouble("AGE"),result.getString("GENDER").charAt(0),
+						result.getString("SHIFTS"),result.getString("PASSWORD")));
+			}
+			connection.commit();
+			connection.close();
+			
+			return doctorList;
+		}catch(Exception exception) {
+			System.out.println(exception);
+			return new ArrayList<Doctor>();
+		}
+	}
+	
+	public ArrayList<Nurse> retNurseList(){
+		try {
+			
+			ArrayList<Nurse> nurseList = new ArrayList<Nurse>();
+			Class.forName("org.hsqldb.jdbc.JDBCDriver");
+			connection = DriverManager.getConnection("jdbc:hsqldb:hsql://localhost/testdb", "SA", "");
+			Statement statement = connection.createStatement();
+			
+			String stmt = "SELECT * FROM NURSE";
+			ResultSet result = statement.executeQuery(stmt);
+			
+			while(result.next()) {
+				nurseList.add(new Nurse(result.getLong("ID"),result.getString("NAME"),
+						result.getDouble("AGE"),result.getString("GENDER").charAt(0),
+						result.getString("SHIFTS"),result.getString("PASSWORD")));
+			}
+			connection.commit();
+			connection.close();
+			
+			return nurseList;
+		}catch(Exception exception) {
+			System.out.println(exception);
+			return new ArrayList<Nurse>();
+		}
 	}
 	
 	public void updateStaff(long id, String name, double age, char gender, String shifts,

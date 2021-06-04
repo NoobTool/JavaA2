@@ -44,9 +44,7 @@ public class Main extends Application implements Serializable{
 		
 		flowPane.getChildren().addAll(errorMsg,username, usernameField, password,
 				passwordField, new Label("\n\n"), submit);
-		
 		flowPane.setPadding(new Insets(10,0,0,50));
-		
 		submit.setOnAction(e->{
 			try {
 				long userId= Long.parseLong(usernameField.getText().strip());
@@ -871,6 +869,10 @@ public class Main extends Application implements Serializable{
 				m.changeDetails(emp, selectedItem, modifiedItems.get("Name").toString(),
 						Double.parseDouble(modifiedItems.get("Age").toString())
 						,modifiedItems.get("Gender").toString(),modifiedItems.get("Password").toString());
+				db.updateStaff(emp.retId(),modifiedItems.get("Name").toString(),
+						Double.parseDouble(modifiedItems.get("Age").toString())
+						,modifiedItems.get("Gender").toString().charAt(0),
+						"",modifiedItems.get("Password").toString(),selectedItem);
 				
 				if(shiftsBox.isSelected()) {
 					// Layout 
@@ -957,6 +959,12 @@ public class Main extends Application implements Serializable{
 									if(returnValue2.length()==0) {
 										errorMsg.setTextFill(Color.GREEN);
 										errorMsg.setText("Added Successfully");
+										String shiftsString="";
+										for(String s: emp.retShifts()) {
+											shiftsString+=s+",";
+										}
+										db.updateStaff(emp.retId(),"",(double)-1,'x',shiftsString.substring(0,shiftsString.length()-1),
+												"",selectedItem);
 									}
 									else
 										errorMsg.setText(returnValue2);
@@ -973,6 +981,12 @@ public class Main extends Application implements Serializable{
 										String returnValue2 = m.changeDetails(emp,selectedItem,oldShiftIndex
 												,changeShiftField.getText(),2 );
 										if(returnValue2.length()==0) {
+											String shiftsString="";
+											for(String s: emp.retShifts()) {
+												shiftsString+=s+",";
+											}
+											db.updateStaff(emp.retId(),"",(double)-1,'x',shiftsString.substring(0,shiftsString.length()-1),
+													"",selectedItem);
 											errorMsg.setTextFill(Color.GREEN);
 											errorMsg.setText("Changed Successfully");
 										}
@@ -993,6 +1007,12 @@ public class Main extends Application implements Serializable{
 										deleteShiftBox.getSelectionModel().getSelectedItem())
 										,"",3 );
 								if(returnValue2.length()==0) {
+									String shiftsString="";
+									for(String s: emp.retShifts()) {
+										shiftsString+=s+",";
+									}
+									db.updateStaff(emp.retId(),"",(double)-1,'x',shiftsString.substring(0,shiftsString.length()-1),
+											"",selectedItem);
 									errorMsg.setTextFill(Color.GREEN);
 									errorMsg.setText("Deleted Successfully");
 								}

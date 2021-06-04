@@ -24,6 +24,7 @@ public class Manager extends Employee implements Serializable{
 	static Staff<Doctor> doctorList = new Staff<Doctor>();
 	static Staff<Nurse> nurseList = new Staff<Nurse>();
 	static Staff<Patient> patientList = new Staff<Patient>();
+	static Staff<Patient> oldPatientList = new Staff<Patient>();
 	static Ward wards[] = new Ward[NO_OF_WARDS];
 	
 	static ActionList a = new ActionList(); 
@@ -41,6 +42,11 @@ public class Manager extends Employee implements Serializable{
 		DBClass db = new DBClass();
 		db.createTables();
 		a.initActionList(db.retActions());
+		managerList.setStaff(db.retManagerList());
+		nurseList.setStaff(db.retNurseList());
+		doctorList.setStaff(db.retDoctorList());
+				
+		
 		
 		for(int i=0;i<NO_OF_WARDS;i++)
 			wards[i]= new Ward();
@@ -324,7 +330,7 @@ public class Manager extends Employee implements Serializable{
 						}
 					}return "Manager not found";
 				}
-			}
+			} 
 			// By Name
 			else {
 				if(post=="Manager") {
@@ -441,6 +447,10 @@ public class Manager extends Employee implements Serializable{
 	}
 	public ArrayList<Patient> retPatientList(){
 		return patientList.retStaff();
+	}
+	
+	public ArrayList<Patient> retOldPatientList(){
+		return oldPatientList.retStaff();
 	}
 	
 	public ArrayList<Action> retActionList(){

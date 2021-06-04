@@ -12,7 +12,7 @@ public class Doctor extends Employee{
 	
 	public Doctor(){}
 	
-	Doctor(long id, String name, double age, char gender,String shifts, String password){
+	public Doctor(long id, String name, double age, char gender,String shifts, String password){
 		super(id,name,age,gender,shifts,password);
 	}
 
