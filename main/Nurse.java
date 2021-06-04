@@ -27,13 +27,14 @@ public class Nurse extends Employee{
 	public Pair<Boolean,String> changeBed(Patient p, int wardNumber, int roomNumber, int bedNumber) {
 		WardDetails oldDetails = p.retWardDetails(); 	
 		Ward ward = m.retWardList()[wardNumber-1];
-		if(ward.retSingleRooms()>=roomNumber)
+		if(roomNumber<=ward.retSingleRooms())
 			return new Pair<Boolean,String>(false,"Isolation can't be provided through here,"
 					+ " please choose 'Provide Isolation'");
 		
 		if(!ward.isFull()) {			
 			
-			if(ward.retDualRooms()>=roomNumber) {
+			if(ward.retDualRooms()+ward.retSingleRooms()>=roomNumber) {
+				roomNumber-=ward.retSingleRooms();
 				DualRoom room = ward.retDualRoomList()[roomNumber-1];
 				Bed bed = room.retBedList()[bedNumber-1];
 				
@@ -57,6 +58,7 @@ public class Nurse extends Employee{
 			} 
 			
 			else {
+				roomNumber-=(ward.retSingleRooms()+ward.retDualRooms());
 				Room room = ward.retRoomList()[roomNumber-1];
 				Bed bed = room.retBedList()[bedNumber-1];
 				if((!room.isFull() && p.retGender()==room.retGender()) || room.retEmpty()) {
@@ -113,7 +115,7 @@ public class Nurse extends Employee{
 			Ward ward = m.retWardList()[i];
 			if(ward.isolationAvailable()) {
 				for(int j=0;j<ward.retSingleRooms();j++) {
-					SingleRoom room = ward.retSingleRoomsList()[i];
+					SingleRoom room = ward.retSingleRoomsList()[j];
 					if(!room.retOccupied()) {
 						room.addPatient(p);
 						p.setWard(new WardDetails(i+1,j+1,1));

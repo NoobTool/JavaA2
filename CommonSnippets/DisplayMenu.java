@@ -27,19 +27,9 @@ public class DisplayMenu {
 		nurseMenu.add("Administer medicine. ");
 		nurseMenu.add("Change bed automatically. ");
 		nurseMenu.add("Change bed manually. ");
+		nurseMenu.add("Isolate a patient. ");
 		nurseMenu.add("Display Patient Details. ");
 		return nurseMenu;
-	}
-	
-	
-	// Medicine Dose
-	public void timesMenu() {
-		System.out.println("1. Change time of dose. ");
-		System.out.println("2. Create new dose schedule. ");
-		System.out.println("3. Exit. ");
-		System.out.println("Enter your choice. ");
-	}
-	
-	
+	}	
 	
 }

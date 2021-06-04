@@ -994,7 +994,7 @@ public class Main extends Application implements Serializable{
 	    Button administerButton = new Button(dm.nurseMenu().get(0));
 	    Button changeAutoButton = new Button(dm.nurseMenu().get(1));
 	    Button changeManualButton = new Button(dm.nurseMenu().get(2));
-	    Button isolateButton = new Button(dm.nurseMenu().get(5));
+	    Button isolateButton = new Button(dm.nurseMenu().get(3));
 	    Button displayButton = new Button(dm.nurseMenu().get(4));
 	    
 	    // Top Bar hbox formatting

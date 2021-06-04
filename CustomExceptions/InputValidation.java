@@ -128,15 +128,19 @@ public class InputValidation {
 	
 	public String validateRoomNumber(int n) {
 		Ward w = new Ward(this);
-		if(n<=0 || n>w.retWards())
+		if(n<=0 || n> (w.retWards() + w.retDualRooms() + w.retSingleRooms()))
 			return "Room doesn't exist, enter again! ";
 		return "";
 	}
 	
-	public String validateBedNumber(int n) {
-		Room r = new Room();
-		if(n<=0 || n>r.retRooms())
+	public String validateBedNumber(int n, int roomNumber) {
+		if(roomNumber<=w.retSingleRooms() && n!=1)
 			return "Bed doesn't exist, enter again! ";		
-		return "";
+		else if(roomNumber<=(w.retDualRooms()+w.retSingleRooms()) && (n<=0 || n>2))
+			return "Bed doesn't exist, enter again! ";		
+		else if(n<=0 || n>4)
+			return "Bed doesn't exist, enter again! ";	
+		else
+			return "";
 	}
 }

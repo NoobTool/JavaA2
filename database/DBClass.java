@@ -24,7 +24,7 @@ public class DBClass {
 			posts.add("NURSE");
 			
 			Class.forName("org.hsqldb.jdbc.JDBCDriver");
-			connection = DriverManager.getConnection("jdbc:hsqldb:hsql://localhost/java2", "SA", "");
+			connection = DriverManager.getConnection("jdbc:hsqldb:hsql://localhost/testdb", "SA", "");
 			Statement statement = connection.createStatement();
 			
 			String stmt=""; 
@@ -61,7 +61,7 @@ public class DBClass {
 		try {
 			
 			Class.forName("org.hsqldb.jdbc.JDBCDriver");
-			connection = DriverManager.getConnection("jdbc:hsqldb:hsql://localhost/java2", "SA", "");
+			connection = DriverManager.getConnection("jdbc:hsqldb:hsql://localhost/testdb", "SA", "");
 			Statement statement = connection.createStatement();
 			
 			String stmt = "INSERT INTO "+post.toUpperCase()+" VALUES("+id+",'"+name+"',"+age+",'"+gender+"',"
@@ -80,7 +80,7 @@ public class DBClass {
 		try {
 			
 			Class.forName("org.hsqldb.jdbc.JDBCDriver");
-			connection = DriverManager.getConnection("jdbc:hsqldb:hsql://localhost/java2", "SA", "");
+			connection = DriverManager.getConnection("jdbc:hsqldb:hsql://localhost/testdb", "SA", "");
 			Statement statement = connection.createStatement();
 			
 			String stmt = "INSERT INTO ACTION VALUES("+a.retPerformerId()+",'"+a.retReceiverId()+"','"+a.retActionName()+"','"
@@ -101,7 +101,7 @@ public class DBClass {
 			
 			ArrayList<Action> actions = new ArrayList<Action>();
 			Class.forName("org.hsqldb.jdbc.JDBCDriver");
-			connection = DriverManager.getConnection("jdbc:hsqldb:hsql://localhost/java2", "SA", "");
+			connection = DriverManager.getConnection("jdbc:hsqldb:hsql://localhost/testdb", "SA", "");
 			Statement statement = connection.createStatement();
 			
 			String stmt = "SELECT * FROM ACTION";
@@ -131,7 +131,7 @@ public class DBClass {
 		try {
 	
 			Class.forName("org.hsqldb.jdbc.JDBCDriver");
-			connection = DriverManager.getConnection("jdbc:hsqldb:hsql://localhost/java2", "SA", "");
+			connection = DriverManager.getConnection("jdbc:hsqldb:hsql://localhost/testdb", "SA", "");
 			Statement statement = connection.createStatement();
 			
 			ResultSet result = statement.executeQuery("SELECT * FROM "+tableName.toUpperCase());
@@ -151,7 +151,7 @@ public class DBClass {
 		try {
 			
 			Class.forName("org.hsqldb.jdbc.JDBCDriver");
-			connection = DriverManager.getConnection("jdbc:hsqldb:hsql://localhost/java2", "SA", "");
+			connection = DriverManager.getConnection("jdbc:hsqldb:hsql://localhost/testdb", "SA", "");
 			Statement statement = connection.createStatement();
 			
 			for(String s: args) {

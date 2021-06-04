@@ -283,7 +283,7 @@ public class NurseMain {
 					
 					String wardMsg = iv.validateWardNumber(wardNumber);
 					String roomMsg = iv.validateRoomNumber(roomNumber);
-					String bedMsg = iv.validateBedNumber(bedNumber);
+					String bedMsg = iv.validateBedNumber(bedNumber,roomNumber);
 					 
 					if(wardMsg.length()>0)
 						errorMsg.setText(wardMsg);
