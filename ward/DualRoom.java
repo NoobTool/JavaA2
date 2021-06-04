@@ -50,6 +50,10 @@ public class DualRoom {
 		this.gender = gender;
 	}
 	
+	public void setPatient(Patient p, int n) {
+		this.beds[n].addPatient(p);
+	}
+	
 	public void unoccupyBed(int n) {
 		beds[n].unoccupyBed();
 		empty = true;

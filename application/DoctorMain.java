@@ -223,10 +223,9 @@ public class DoctorMain implements Serializable{
 			((Button)prescriptionButtonHolder.getChildren().get(0)).setOnAction(e3->{
 				d.addPrescription(p, meds);
 				try {
-					ObjectOutputStream output = new ObjectOutputStream(new FileOutputStream("patients"));
-					output.writeObject(m.retPatientList());
-					output.close();
+					co.writePatients(m.retPatientList());
 				}catch(Exception exception) {
+					errorMsg.setTextFill(Color.RED);
 					errorMsg.setText(exception.toString());
 				}
 			});
@@ -459,7 +458,12 @@ public class DoctorMain implements Serializable{
 						updateItems.put("Time", "");	
 					
 					d.updatePrescription(medicineIndex,updateItems.get("Name"),updateItems.get("Time"),p);
-					
+					try {
+						co.writePatients(m.retPatientList());
+					}catch(Exception exception) {
+						errorMsg.setTextFill(Color.RED);
+						errorMsg.setText(exception.toString());
+					}
 					if(doseBox.isSelected()) {
 						int newDoses = Integer.parseInt(doseUpdateField.getText().strip());
 						
@@ -470,6 +474,12 @@ public class DoctorMain implements Serializable{
 								changeDose(medicineIndex,oldDoses,newDoses,timeList,true,bp);
 							if(oldDoses>newDoses)
 								changeDose(medicineIndex,oldDoses,newDoses,timeList,false,bp);
+							try {
+								co.writePatients(m.retPatientList());
+							}catch(Exception exception) {
+								errorMsg.setTextFill(Color.RED);
+								errorMsg.setText(exception.toString());
+							}
 						}
 						
 					}

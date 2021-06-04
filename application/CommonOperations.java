@@ -1,11 +1,13 @@
 package application;
-
+import java.io.*;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
 import javafx.scene.layout.*;
 import javafx.geometry.*;
 import javafx.scene.paint.*;
 import javafx.scene.text.*;
+import java.util.*;
+import main.Patient;
 
 public class CommonOperations {
 	
@@ -72,6 +74,12 @@ public class CommonOperations {
 		mapButton.setPrefSize(50, 20);
 		mapButton.setFont(new Font("cambria",16));
 		return mapButton;
+	}
+	
+	public void writePatients(ArrayList<Patient> patientList) throws Exception{
+		ObjectOutputStream output = new ObjectOutputStream(new FileOutputStream("patients"));
+		output.writeObject(patientList);
+		output.close();
 	}
 	
 }

@@ -7,6 +7,7 @@ import prescription.MedicineDose;
 import javafx.stage.*;
 import javafx.scene.*;
 import CustomExceptions.InputValidation;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.Objects;
 import javafx.util.Pair;
@@ -208,9 +209,19 @@ public class NurseMain {
 				if(medicineIndex!=-1) {
 					String returnValue = n.administerMedicine(p, medicines.get(medicineIndex));
 					
-					if(returnValue=="")
+					if(returnValue=="") {
+						errorMsg.setTextFill(Color.GREEN);
 						errorMsg.setText(" Successfully administered "+
 								medicines.get(medicineIndex).retName());
+						try {
+							ObjectOutputStream output = new ObjectOutputStream(new FileOutputStream("administers"));
+							output.writeObject(n.retAdministerMedicines());
+						}catch(Exception exception){
+							errorMsg.setTextFill(Color.RED);
+							errorMsg.setText(exception.toString());
+						}
+					}
+						
 					else
 						errorMsg.setText(returnValue);
 				}
@@ -271,7 +282,7 @@ public class NurseMain {
 					String wardMsg = iv.validateWardNumber(wardNumber);
 					String roomMsg = iv.validateRoomNumber(roomNumber);
 					String bedMsg = iv.validateBedNumber(bedNumber);
-					
+					 
 					if(wardMsg.length()>0)
 						errorMsg.setText(wardMsg);
 					
@@ -289,6 +300,12 @@ public class NurseMain {
 						else {
 							errorMsg.setTextFill(Color.GREEN);
 							errorMsg.setText(returnValue.getValue());
+							try {
+								co.writePatients(m.retPatientList());
+							}catch(Exception exception) {
+								errorMsg.setTextFill(Color.RED);
+								errorMsg.setText(exception.toString());
+							}
 						}
 					}
 					
@@ -326,6 +343,12 @@ public class NurseMain {
 			if(returnValue.getKey()) {
 				errorMsg.setTextFill(Color.GREEN);
 				errorMsg.setText("Changed Successfully");
+				try {
+					co.writePatients(m.retPatientList());
+				}catch(Exception exception) {
+					errorMsg.setTextFill(Color.RED);
+					errorMsg.setText(exception.toString());
+				}
 			}
 			else
 				errorMsg.setText(returnValue.getValue());

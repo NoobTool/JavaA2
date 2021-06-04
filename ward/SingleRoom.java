@@ -9,6 +9,10 @@ public class SingleRoom {
 		bed = new Bed();
 	}
 	
+	public void setPatient(Patient p) {
+		this.bed.addPatient(p);
+	}
+	
 	public WardDetails addPatient(Patient p) {
 		if(bed.retOccupied()==false) {
 			bed=new Bed(true, p);

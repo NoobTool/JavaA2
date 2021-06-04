@@ -1,6 +1,7 @@
 package main;
+import java.io.*;
 
-public abstract class Person {
+public abstract class Person implements Serializable{
 	
 	private String name;
 	private double age;
@@ -8,7 +9,7 @@ public abstract class Person {
 	
 	Person(){}
 	
-	Person (String name, double age, char gender){
+	Person (String name, double age, char gender) {
 		this.name=name;
 		this.gender=gender;
 		this.age=age;

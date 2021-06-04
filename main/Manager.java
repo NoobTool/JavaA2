@@ -77,7 +77,10 @@ public class Manager extends Employee implements Serializable{
 		try {
 			ObjectInputStream input = new ObjectInputStream(new FileInputStream("patients"));
 			patientList.setStaff((ArrayList<Patient>)input.readObject());
-		}catch(Exception e) {System.out.println("IN manager "+e);}
+			for(Patient patient: retPatientList())
+				setPatient(patient,patient.retBedNumber(),patient.retRoomNumber(),patient.retWardNumber());
+			
+		}catch(Exception e) {System.out.println("In manager "+e);}
 		
 	}
 	

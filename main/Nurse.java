@@ -188,12 +188,9 @@ public class Nurse extends Employee{
 	// Check if medicine is already administered or not
 	public boolean checkMedicineAdministered(long id, int timeIndex, LocalTime time, LocalDate date) {
 		if(administeredMedicines.size()>0) {
-			System.out.println("Greater than 0 ");
 			for(int i = administeredMedicines.size()-1;i>=0;i--) {
 				AdministerMedicine a = administeredMedicines.get(i);
 				if(a.retPatientId()==id) {
-					System.out.println("Returned time is "+(a.retMedicine().retTimes().get(timeIndex)==time));
-					System.out.println("Returned date is "+a.retDate().isBefore(date));
 					if(a.retMedicine().retTimes().get(timeIndex)==time && !a.retDate().isBefore(date)) {
 						return true;
 					}
@@ -220,7 +217,11 @@ public class Nurse extends Employee{
 		return true;
 	}
 	
+	// Setter Functions
 	
+	public void setAdministeredMedicines(ArrayList<AdministerMedicine> administeredList) {
+		administeredMedicines = administeredList;
+	}
 	
 	// Getter functions
 	
@@ -243,6 +244,10 @@ public class Nurse extends Employee{
 		
 		public ArrayList<String> retShifts() {
 			return super.retShifts();
+		}
+		
+		public ArrayList<AdministerMedicine> retAdministerMedicines(){
+			return administeredMedicines;
 		}
 	
 }

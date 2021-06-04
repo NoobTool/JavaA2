@@ -52,7 +52,6 @@ public class Employee extends Person{
 		else if(roomNumber>w.retSingleRooms() && roomNumber<=w.retDualRooms()+w.retSingleRooms()) {
 			DualRoom r = w.retDualRoomList()[roomNumber-1];
 			Patient p = r.retPatient(bedNumber-1);
-			System.out.println("p in employee is "+p);
 			if(p!=null) {	
 				return new Pair<String,Patient>("", p);
 			}
@@ -77,6 +76,31 @@ public class Employee extends Person{
 	}
 	
 	// Setter functions
+	
+	public void setPatient(Patient p,int bedNumber,int roomNumber,int wardNumber) {
+		
+		Manager m = new Manager("Empty Object");
+		Ward wards[] = m.retWardList();
+		Ward w = wards[wardNumber-1];
+		
+		// Patient in singleRoom
+		if(roomNumber<=w.retSingleRooms()) {
+			SingleRoom r = w.retSingleRoomsList()[roomNumber-1];
+			r.setPatient(p);
+		}
+		
+		// Patient in dual rooms
+		else if(roomNumber>w.retSingleRooms() && roomNumber<=w.retDualRooms()+w.retSingleRooms()) {
+			DualRoom r = w.retDualRoomList()[roomNumber-1];
+			r.setPatient(p,bedNumber-1);
+		}
+		
+		else {
+			roomNumber -= w.retSingleRooms()+w.retDualRooms();
+			Room r = w.retRoom(roomNumber-1);
+			r.setPatient(p,bedNumber-1);
+		}
+	}
 	
 	public void setName(String name) {
 		super.setName(name);
