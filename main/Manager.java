@@ -77,11 +77,12 @@ public class Manager extends Employee implements Serializable{
 		WardMap wm = new WardMap();
 		
 		try {
-			ObjectInputStream input = new ObjectInputStream(new FileInputStream("patients"));
-			patientList.setStaff((ArrayList<Patient>)input.readObject());
-			for(Patient patient: retPatientList())
-				setPatient(patient,patient.retBedNumber(),patient.retRoomNumber(),patient.retWardNumber());
-			input.close();
+			new FileOutputStream("patients").close();
+//			ObjectInputStream input = new ObjectInputStream(new FileInputStream("patients"));
+//			patientList.setStaff((ArrayList<Patient>)input.readObject());
+//			for(Patient patient: retPatientList())
+//				setPatient(patient,patient.retBedNumber(),patient.retRoomNumber(),patient.retWardNumber());
+//			input.close();
 		}catch(Exception e) {System.out.println("In manager "+e);}
 		
 	}

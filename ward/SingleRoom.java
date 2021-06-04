@@ -32,7 +32,7 @@ public class SingleRoom {
 		return bed.retOccupied();
 	}
 	
-	public void unoccupyBed(int n) {
+	public void unoccupyBed() {
 		bed.unoccupyBed();
 	}
 	

@@ -7,6 +7,7 @@ import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import CommonSnippets.CommonCodes;
+import application.WardMap;
 import Actions.*;
 import javafx.util.Pair;
 
@@ -34,6 +35,7 @@ public class Nurse extends Employee{
 		if(!ward.isFull()) {			
 			
 			if(ward.retDualRooms()+ward.retSingleRooms()>=roomNumber) {
+				int tempNumber = roomNumber;
 				roomNumber-=ward.retSingleRooms();
 				DualRoom room = ward.retDualRoomList()[roomNumber-1];
 				Bed bed = room.retBedList()[bedNumber-1];
@@ -48,7 +50,7 @@ public class Nurse extends Employee{
 							room.setEmpty(false);
 							if(room.retEmpty())
 								room.setGender(p.retGender());
-							p.setWard(new WardDetails(wardNumber,roomNumber,bedNumber));
+							p.setWard(new WardDetails(wardNumber,tempNumber,bedNumber));
 							removePatient(oldDetails.retWardNumber(),oldDetails.retRoomNumber(),oldDetails.retBedNumber());
 							a.addAction(new Action(this.retId(),p.retId(),"bed change",LocalDate.now(),LocalTime.now()));
 							return new Pair<Boolean,String>(true,"Bed changed successfully! ");
@@ -58,6 +60,7 @@ public class Nurse extends Employee{
 			} 
 			
 			else {
+				int tempNumber=roomNumber;
 				roomNumber-=(ward.retSingleRooms()+ward.retDualRooms());
 				Room room = ward.retRoomList()[roomNumber-1];
 				Bed bed = room.retBedList()[bedNumber-1];
@@ -67,7 +70,7 @@ public class Nurse extends Employee{
 						room.setEmpty(false);
 						if(room.retEmpty())
 							room.setGender(p.retGender());
-						p.setWard(new WardDetails(wardNumber,roomNumber,bedNumber));
+						p.setWard(new WardDetails(wardNumber,tempNumber,bedNumber));
 						removePatient(oldDetails.retWardNumber(),oldDetails.retRoomNumber(),oldDetails.retBedNumber());
 						a.addAction(new Action(this.retId(),p.retId(),"bed change",LocalDate.now(),LocalTime.now()));
 						return new Pair<Boolean,String>(true,"Bed changed successfully! ");
@@ -154,8 +157,23 @@ public class Nurse extends Employee{
 	
 	public void removePatient(int wardNumber, int roomNumber, int bedNumber) {
 		Manager m = new Manager("Empty Object");
+		Ward w = new Ward("Return number of rooms");
 		Ward wards[] = m.retWardList();
-		wards[wardNumber-1].unOccupyRoom(roomNumber-1,bedNumber-1);
+		WardMap wm = new WardMap("Neutralizing Colour");
+		wm.neutralizeBg(wardNumber, roomNumber, bedNumber);
+		
+		if(roomNumber<=w.retSingleRooms())
+			wards[wardNumber-1].unOccupyDualRoom(roomNumber-1, bedNumber-1);
+		
+		if(roomNumber<=(w.retSingleRooms()+w.retDualRooms())) {
+			roomNumber-=w.retSingleRooms();
+			wards[wardNumber-1].unOccupyDualRoom(roomNumber-1, bedNumber-1);
+		}
+			
+		else {
+			roomNumber-=(w.retSingleRooms()+w.retDualRooms());
+			wards[wardNumber-1].unOccupyRoom(roomNumber-1, bedNumber-1);
+		}
 	}
 	
 	// Administering Medicines

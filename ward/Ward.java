@@ -70,6 +70,10 @@ public class Ward {
 		dualRooms[room].unoccupyBed(bed);
 	}
 	
+	public void unOccupySingleRoom(int room) {
+		singleRooms[room].unoccupyBed();
+	}
+	
 	public boolean isFull() {
 		boolean isFull;
 		for (Room r: rooms) {

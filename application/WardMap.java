@@ -48,9 +48,14 @@ public class WardMap extends Application{
 	}
 	
 	public WardMap(ArrayList<Patient> patients) {
-		int index;
+		int index=0,ward,room;
 		for(Patient p: patients) {
-			index = calculateIndex(p.retRoomNumber())+p.retBedNumber()-1;
+			ward = p.retWardNumber();
+			while(ward>1) {
+				index+=totalBeds;
+				--ward;
+			}
+			index += calculateIndex(p.retRoomNumber())+p.retBedNumber()-1;
 			if(index!=-1) {
 				char gender = p.retGender();
 				changeBg(index, gender);
@@ -334,6 +339,17 @@ public class WardMap extends Application{
 			((Label)bedList.get(index)).setStyle("-fx-background-color:blue");
 		else
 			((Label)bedList.get(index)).setStyle("-fx-background-color:red");
+	}
+	
+	public void neutralizeBg(int ward, int room,int bed) {
+		int index = calculateIndex(room) + bed-1;
+		
+		while(ward>1) {
+			index+=totalBeds;
+			--ward;
+		}
+			
+		((Label)bedList.get(index)).setStyle("-fx-background-color:white");
 	}
 	
 	public int calculateIndex(int roomNumber) {
