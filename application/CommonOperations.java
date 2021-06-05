@@ -65,6 +65,7 @@ public class CommonOperations {
 		errorMsg.setTextFill(Color.RED);
 		errorMsg.setFont(new Font("cambria",14));
 		errorMsg.setText("");
+		BorderPane.setAlignment(errorMsg, Pos.CENTER);
 		return errorMsg;
 	}
 	

@@ -42,11 +42,10 @@ public class test {
 	}
 	
 	public static void main(String args[]) {
-		LocalDate date = LocalDate.now();
-		String d = date.format(DateTimeFormatter.ofPattern("dd-MM-YYYY"));
-		String[] dList = d.split("-");
-		
-		print(date);
+		ArrayList<String> a = new ArrayList<String>();
+		a.add("a");
+		a.remove("b");
+		print(a);
 		
 	}
 }

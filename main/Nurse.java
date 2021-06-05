@@ -1,5 +1,6 @@
 package main;
 import prescription.*;
+import java.io.*;
 import ward.*;
 import Actions.Action;
 import java.time.LocalTime;
@@ -10,8 +11,9 @@ import CommonSnippets.CommonCodes;
 import application.WardMap;
 import Actions.*;
 import javafx.util.Pair;
+import application.CommonOperations;
 
-public class Nurse extends Employee{
+public class Nurse extends Employee implements Serializable{
 	CommonCodes c = new CommonCodes();
 	Manager m = new Manager("Empty object");
 	ActionList a = new ActionList();
@@ -156,23 +158,32 @@ public class Nurse extends Employee{
 	// Removing patient from bed
 	
 	public void removePatient(int wardNumber, int roomNumber, int bedNumber) {
+		CommonOperations co = new CommonOperations();
 		Manager m = new Manager("Empty Object");
 		Ward w = new Ward("Return number of rooms");
 		Ward wards[] = m.retWardList();
 		WardMap wm = new WardMap("Neutralizing Colour");
 		wm.neutralizeBg(wardNumber, roomNumber, bedNumber);
 		
-		if(roomNumber<=w.retSingleRooms())
+		if(roomNumber<=w.retSingleRooms()) {
 			wards[wardNumber-1].unOccupySingleRoom(roomNumber-1);
-		
+			for(Patient patient: m.retPatientList())
+			m.retPatientList().remove(patientInBed(bedNumber, roomNumber, wardNumber).getValue());
+		}
+			
+		 
 		else if(roomNumber<=(w.retSingleRooms()+w.retDualRooms())) {
+			int temp=roomNumber;
 			roomNumber-=w.retSingleRooms();
 			wards[wardNumber-1].unOccupyDualRoom(roomNumber-1, bedNumber-1);
+			m.retPatientList().remove(patientInBed(bedNumber, temp, wardNumber).getValue());
 		}
 			
 		else {
+			int temp=roomNumber;
 			roomNumber-=(w.retSingleRooms()+w.retDualRooms());
-			wards[wardNumber-1].unOccupyRoom(roomNumber-1, bedNumber-1);
+			m.retPatientList().remove(patientInBed(bedNumber, temp, wardNumber).getValue());
+			wards[wardNumber-1].unOccupyRoom(roomNumber-1, bedNumber-1);			
 		}
 	}
 	
@@ -261,6 +272,10 @@ public class Nurse extends Employee{
 		
 		public ArrayList<AdministerMedicine> retAdministerMedicines(){
 			return administeredMedicines;
+		}
+		
+		public void setAdministerMedicines(ArrayList<AdministerMedicine> m){
+			administeredMedicines=m;
 		}
 	
 }

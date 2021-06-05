@@ -72,6 +72,61 @@ public class Login {
 		return false;
 	}
 	
+	public boolean checkCompliance(Employee e) {
+		ArrayList<String> shiftTimings = e.retShifts();
+		LocalTime shiftStart,shiftEnd;
+		LocalTime currentTime = LocalTime.now();
+		currentTime = LocalTime.parse(currentTime.format
+				(DateTimeFormatter.ofPattern("HH:mm")));
+		
+		for(int i=0;i<e.retShifts().size();i++) {
+			shiftStart = LocalTime.parse(shiftTimings.get(i).split("-")[0]);
+			shiftEnd = LocalTime.parse(shiftTimings.get(i).split("-")[1]);
+
+			// Checking if login within shift timings and a special case
+			
+			/* There could be a scenario where a nurse could login at
+			 * 14.01 hours and thus be lying in both the shifts and 
+			 * as the timings are sorted, the shift recognized by the 
+			 * if condition would be shift 1 which would finish in around
+			 * 2 hours disobeying business rules of the assignment in which
+			 * case the second shift should be considered.*/
+			
+			// Also checking if the login and end shift time are not close
+			
+			if(((currentTime.isAfter(shiftStart.minusNanos(1)) || currentTime.isAfter(shiftStart)) 
+						&& (currentTime.until(shiftEnd, ChronoUnit.MINUTES)>=0)
+						|| (currentTime.until(shiftEnd, ChronoUnit.MINUTES)+(24*60))>=0)) {
+				
+				// Below conditions are to ensure only 1 shift is 
+				// taken on a day
+				
+				if(e.retLastShiftDate()==null) {
+					e.setLastShiftDate(LocalDate.now());
+					e.setChosenShiftTime(shiftTimings.get(i));
+					System.out.println();
+					return true;
+				}
+				
+				else if(e.retLastShiftDate()!=LocalDate.now()) {
+					e.setLastShiftDate(LocalDate.now());
+					e.setChosenShiftTime(shiftTimings.get(i));
+					return true;
+				}
+				
+				else if(e.retLastShiftDate()==LocalDate.now()) {
+					if(e.retChosenShiftTime()==shiftTimings.get(i))
+						return true;
+					else
+						return false;
+				}
+			}
+			else
+				continue;
+		}
+		return false;
+	}
+	
 	public Manager managerLogin(long id, String password) 
 			throws RestrictedTimingException, InvalidCredentialsException{
 		for(Manager m: manager.retManagerList()) {

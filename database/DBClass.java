@@ -56,8 +56,37 @@ public class DBClass {
 			
 			
 			stmt = "CREATE TABLE IF NOT EXISTS AVAILABLE("
-					+ "ID INT);";
+					+ "ID INT PRIMARY KEY);";
 			statement.executeQuery(stmt);
+			
+			try {
+				stmt = "INSERT INTO AVAILABLE VALUES(6830012);";
+				statement.executeQuery(stmt);
+				stmt = "INSERT INTO AVAILABLE VALUES(7837645);";
+				statement.executeQuery(stmt);
+			}catch(Exception e) {
+			}
+			
+			
+			stmt = "CREATE TABLE IF NOT EXISTS IDTABLE("
+					+ "SNO INT,"
+					+ "ID INT,"
+					+ "PRIMARY KEY(SNO)"
+					+");";
+			statement.executeUpdate(stmt);
+			
+			try {
+				stmt = "INSERT INTO IDTABLE VALUES(1,7730000);";
+				statement.executeQuery(stmt);
+				stmt = "INSERT INTO IDTABLE VALUES(2,6830000);";
+				statement.executeQuery(stmt);
+				stmt = "INSERT INTO IDTABLE VALUES(3,7830000);";
+				statement.executeQuery(stmt);
+				stmt = "INSERT INTO IDTABLE VALUES(4,8030000);";
+				statement.executeQuery(stmt);
+			}catch(Exception e) {
+			}
+			
 			
 			connection.commit();
 			connection.close();
@@ -65,6 +94,87 @@ public class DBClass {
 		}catch(Exception e) {
 			System.out.println(e);
 		}
+	}
+	
+	public void addIdList(int index) {
+		try {
+			
+			Class.forName("org.hsqldb.jdbc.JDBCDriver");
+			connection = DriverManager.getConnection("jdbc:hsqldb:hsql://localhost/java2", "SA", "");
+			Statement statement = connection.createStatement();
+			
+			String stmt = "SELECT * FROM IDTABLE WHERE SNO = "+index;
+			ResultSet result = statement.executeQuery(stmt);
+			result.next();
+			int newId = result.getInt("ID")+1;
+			
+			stmt = "UPDATE IDTABLE SET ID = "+newId+""
+					+ " WHERE SNO = "+index;
+			statement.executeQuery(stmt);
+			
+			connection.commit();
+			connection.close();
+		}catch(Exception exception) {
+			System.out.println(exception);
+		}		
+	}
+	
+	public void appendIdList(long id, int index) {
+		try {
+			
+			Class.forName("org.hsqldb.jdbc.JDBCDriver");
+			connection = DriverManager.getConnection("jdbc:hsqldb:hsql://localhost/java2", "SA", "");
+			Statement statement = connection.createStatement();
+			
+			String stmt = "UPDATE IDTABLE WHERE ID = "+id+";";
+			statement.executeQuery(stmt);
+			
+			connection.commit();
+			connection.close();
+		}catch(Exception exception) {
+			System.out.println(exception);
+		}		
+	}
+	
+	public long retId(int index) {
+		try {
+			addIdList(index);
+			Class.forName("org.hsqldb.jdbc.JDBCDriver");
+			connection = DriverManager.getConnection("jdbc:hsqldb:hsql://localhost/java2", "SA", "");
+			Statement statement = connection.createStatement();
+			
+			String stmt = "SELECT * FROM IDTABLE WHERE SNO = "+index+";";
+			ResultSet result = statement.executeQuery(stmt);
+			result.next();
+			long id = result.getLong("ID");
+			connection.close();
+			return id;
+			
+		}catch(Exception e) {
+			return -1;
+		}		
+	}
+	
+	// Configuring availableIdList
+	public ArrayList<Long> retAvailableId() {
+		try {
+			
+			ArrayList<Long> availableID = new ArrayList<Long>();
+			Class.forName("org.hsqldb.jdbc.JDBCDriver");
+			connection = DriverManager.getConnection("jdbc:hsqldb:hsql://localhost/java2", "SA", "");
+			Statement statement = connection.createStatement();
+			
+			String stmt = "SELECT * FROM AVAILABLE;";
+			ResultSet result = statement.executeQuery(stmt);
+			
+			while(result.next())
+				availableID.add((long)result.getInt("ID"));
+			connection.commit();
+			connection.close();
+			return availableID;
+		}catch(Exception e) {
+			return new ArrayList<Long>();
+		}		
 	}
 	
 	public void availableId(long id) {
@@ -99,30 +209,7 @@ public class DBClass {
 		}catch(Exception exception) {
 			System.out.println(exception);
 		}		
-	}
-	
-	
-	public ArrayList<Long> retAvailableId() {
-		try {
-			
-			ArrayList<Long> availableID = new ArrayList<Long>();
-			Class.forName("org.hsqldb.jdbc.JDBCDriver");
-			connection = DriverManager.getConnection("jdbc:hsqldb:hsql://localhost/java2", "SA", "");
-			Statement statement = connection.createStatement();
-			
-			String stmt = "SELECT * FROM AVAILABLE;";
-			ResultSet result = statement.executeQuery(stmt);
-			
-			while(result.next())
-				availableID.add((long)result.getInt("ID"));
-			connection.commit();
-			connection.close();
-			return availableID;
-		}catch(Exception e) {
-			return new ArrayList<Long>();
-		}		
-	}
-	
+	}	
 	
 	public void addStaff(long id, String name, double age, char gender, String shifts, String password, String post) {
 		try {
@@ -143,13 +230,16 @@ public class DBClass {
 		}		
 	}
 	
-	public void deleteStaff(long id, String post) {
+	public void deleteStaff(long id, String post, String name) {
 		try {
 			Class.forName("org.hsqldb.jdbc.JDBCDriver");
 			connection = DriverManager.getConnection("jdbc:hsqldb:hsql://localhost/java2", "SA", "");
 			Statement statement = connection.createStatement();
-			
-			String stmt = "DELETE FROM "+post.toUpperCase()+" WHERE ID = "+id;
+			String stmt="";
+			if(id!=-1)
+				stmt = "DELETE FROM "+post.toUpperCase()+" WHERE ID = "+id+";";
+			else
+				stmt = "DELETE FROM "+post.toUpperCase()+" WHERE NAME = '"+name.strip()+"';";
 			
 			statement.executeQuery(stmt);
 			
@@ -238,7 +328,7 @@ public class DBClass {
 		}
 	}
 	
-	public void updateStaff(long id, String name, double age, char gender, String shifts,
+	public void updateStaff(long id, String name, double age,String gender, String shifts,
 			String password, String post) {
 		try {
 			Class.forName("org.hsqldb.jdbc.JDBCDriver");
@@ -247,9 +337,10 @@ public class DBClass {
 			
 			if(name!="") {
 				String stmt = "UPDATE "+post.toUpperCase()
-				+" SET NAME = "+name
-				+" WHERE ID = "+id;
+				+" SET NAME = '"+name
+				+"' WHERE ID = "+id;
 				statement.executeQuery(stmt);
+				connection.commit();
 			}
 			
 			if(age!=-1) {
@@ -257,30 +348,33 @@ public class DBClass {
 				+" SET AGE = "+age
 				+" WHERE ID = "+id;
 				statement.executeQuery(stmt);
+				connection.commit();
 			}
 			
-			if(gender!='x') {
+			if(!gender.equals("x")) {
 				String stmt = "UPDATE "+post.toUpperCase()
-				+" SET GENDER = "+gender
-				+" WHERE ID = "+id;
+				+" SET GENDER = '"+gender.charAt(0)
+				+"' WHERE ID = "+id;
 				statement.executeQuery(stmt);
+				connection.commit();
 			}
 			
 			if(password!="") {
 				String stmt = "UPDATE "+post.toUpperCase()
-				+" SET PASSWORD = "+password
-				+" WHERE ID = "+id;
+				+" SET PASSWORD = '"+password
+				+"' WHERE ID = "+id;
 				statement.executeQuery(stmt);
+				connection.commit();
 			}
 			
 			if(shifts!="") {
 				String stmt = "UPDATE "+post.toUpperCase()
-				+" SET SHIFTS = "+shifts
-				+" WHERE ID = "+id;
+				+" SET SHIFTS = '"+shifts
+				+"' WHERE ID = "+id;
 				statement.executeQuery(stmt);
+				connection.commit();
 			}
 			
-			connection.commit();
 			connection.close();
 		}catch(Exception exception) {
 			System.out.println(exception);
@@ -348,7 +442,7 @@ public class DBClass {
 			ResultSet result = statement.executeQuery("SELECT * FROM "+tableName.toUpperCase());
 			
 			while(result.next())
-				print(result.getString("NAME"));
+				print(result.getString("ID"));
 			
 			connection.commit();
 			connection.close();
@@ -378,11 +472,10 @@ public class DBClass {
 		}
 	} 
 	
+//	Reset the database tables from here	
 //	public static void main(String args[]) {
 //		DBClass db = new DBClass();
-//		db.dropTables("Manager","Nurse","Doctor","Action");
+//		db.dropTables("Manager","Nurse","Doctor","Action","IDTABLE","AVAILABLE");
 //		db.createTables();
-//		db.addStaff(7730001,"Pappu", 23, 'M', "09:00-12:00", "1234","Nurse");
-//		db.printRows("Manager");
 //	}	
 }

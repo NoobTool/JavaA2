@@ -2,6 +2,7 @@ package application;
 import main.Manager;
 import main.Nurse;
 import main.Patient;
+import main.Login;
 import prescription.MedicineBlock;
 import prescription.MedicineDose;
 import javafx.stage.*;
@@ -26,7 +27,7 @@ public class NurseMain {
 	
 	CommonOperations co = new CommonOperations();
 	Manager m = new Manager("Object to return patientlist");
-	static Scene scene=null;
+	Scene scene=null;
 	Patient p;
 	InputValidation iv = new InputValidation();
 	RetrieveValues r = new RetrieveValues();
@@ -103,8 +104,13 @@ public class NurseMain {
 						String idError = iv.validateId(Long.parseLong(id),"Patient");
 						if(idError.length()==0) {
 							p =  n.nurseSearch(m.retPatientList(),Long.parseLong(id),"");
-							if(p.retName()!=null)
-								callFeatures(n,p,purpose,bp);
+							Login login = new Login();
+							if(p.retName()!=null) {
+								if(login.checkCompliance(n)) {
+									callFeatures(n,p,purpose,bp);
+								}else
+									errorMsg.setText("Not rostered for this shift.");
+							}
 							else
 								errorMsg.setText("Patient does not exist.");
 						}
@@ -143,7 +149,9 @@ public class NurseMain {
 			Manager m = new Manager("To return patients list");
 			WardMap wm = new WardMap(m.retPatientList());
 			map = wm.retMap();
-			if(scene==null)
+			if(map.getScene()!=null)
+				scene = map.getScene();
+			else
 				scene = new Scene(map,1000,1000);
 			
 			scene.setOnMouseClicked(e2->{
@@ -153,6 +161,7 @@ public class NurseMain {
 					wardNum = wm.retWardNumber();
 					Pair<String,Patient> patientPair = n.patientInBed(bedNum, roomNum, wardNum);
 					primaryStage.close();
+					scene=null;
 					if(patientPair.getKey()=="") {
 						callFeatures(n,patientPair.getValue(),purpose,bp);
 					}
@@ -441,12 +450,13 @@ public class NurseMain {
 		bp.setBottom(errorMsg);
 		BorderPane.setAlignment(errorMsg, Pos.CENTER);
 		
-	}
+	} 
 	
 	public void dischargePatient(Nurse n, Patient p) {
 		m.retOldPatientList().add(p);
 		n.removePatient(p.retWardNumber(), p.retRoomNumber(), p.retBedNumber());
-		
+		for(Patient pat: m.retPatientList())
+			System.out.println(p.retName());
 		try {
 			co.writePatients(m.retPatientList());
 			ObjectOutputStream output = new ObjectOutputStream
@@ -469,8 +479,8 @@ public class NurseMain {
 		
 		
 		String returnValue = "Name: "+p.retName()+"\nAge: "+p.retAge()
-				+"Gender: "+p.retGender()+"\nWard Number: "+p.retWardNumber()
-				+"\nRoom Number: "+p.retRoomNumber()+"\nBed Number: "+p.retBedNumber()+"\n";
+				+"\nGender: "+p.retGender()+"\nWard Number: "+p.retWardNumber()
+				+"\nRoom Number: "+p.retRoomNumber()+"\nBed Number: "+p.retBedNumber()+"\n\n";
 		returnValue+=p.printPrescription();
 		
 		sp.setContent(new Label(returnValue));

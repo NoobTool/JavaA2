@@ -57,7 +57,6 @@ public class WardMap extends Application{
 				--ward;
 			}
 			index += calculateIndex(p.retRoomNumber())+p.retBedNumber()-1;
-			print("index is "+index);
 			if(index!=-1) {
 				char gender = p.retGender();
 				changeBg(index, gender);

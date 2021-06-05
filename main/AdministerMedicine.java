@@ -3,8 +3,9 @@ import java.time.LocalTime;
 import prescription.*;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.io.*;
 
-public class AdministerMedicine {
+public class AdministerMedicine implements Serializable{
 	private long patientId;
 	private long staffId;
 	private MedicineDose medicine;

@@ -23,7 +23,7 @@ public class Main extends Application implements Serializable{
 	CommonOperations co = new CommonOperations();
 	InputValidation i = new InputValidation();
 	DBClass db = new DBClass();
-	
+	Login login = new Login();
 	@Override
 	public void start(Stage primaryStage) {
 		
@@ -162,7 +162,10 @@ public class Main extends Application implements Serializable{
 		int rowIndex=1,columnIndex=1;
 		
 		GridPane displayCell = new GridPane();
-		displayCell.add(new Label("Name:"),1,rowIndex);
+		displayCell.add(new Label("ID:"),1,rowIndex);
+		displayCell.add(new Label(Long.toString(e.retId())),2,rowIndex);
+		
+		displayCell.add(new Label("Name:"),1,++rowIndex);
 		displayCell.add(new Label(e.retName().strip()),2,rowIndex);
 		
 		displayCell.add(new Label("Age:"),1,++rowIndex);
@@ -241,13 +244,15 @@ public class Main extends Application implements Serializable{
 			HBox buttonHolder = co.addButtonHolder(bp);
 			Button mapButton = co.retMapButton();
 			ComboBox<String> cb = new ComboBox<String>();
+			cb.getItems().addAll("Manager","Doctor","Nurse");
 			
 			//Adding nodes in grid pane
-			searchGrid.add(idButton, 1, 0);
-			searchGrid.add(idField, 2, 0);
-			searchGrid.add(nameButton, 1, 1);
-			searchGrid.add(nameField, 2, 1);
-			searchGrid.add(buttonHolder, 2, 2);
+			searchGrid.add(cb, 1, 0);
+			searchGrid.add(idButton, 1, 1);
+			searchGrid.add(idField, 2, 1);
+			searchGrid.add(nameButton, 1, 2);
+			searchGrid.add(nameField, 2, 2);
+			searchGrid.add(buttonHolder, 2, 3);
 			
 			// GridPane formatting
 			searchGrid.setHgap(20);
@@ -292,17 +297,21 @@ public class Main extends Application implements Serializable{
 						
 						else {
 							String idError = i.validateId(Long.parseLong(id),selectedItem);
-							if(idError.length()==0) {
-								String returnValue =  m.removeEmployee(Long.parseLong(id), "", selectedItem);
-								if(returnValue=="") {
-									errorMsg.setTextFill(Color.GREEN);
-									errorMsg.setText("Removed successfully");
+							if(login.checkCompliance(m)) {
+								if(idError.length()==0) {
+									String returnValue =  m.removeEmployee(Long.parseLong(id), "", selectedItem);
+									if(returnValue=="") {
+										db.deleteStaff(Long.parseLong(id), selectedItem, "");
+										errorMsg.setTextFill(Color.GREEN);
+										errorMsg.setText("Removed successfully");
+									}
+									else
+										errorMsg.setText(selectedItem+" does not exist.");
 								}
 								else
-									errorMsg.setText(selectedItem+" does not exist.");
-							}
-							else
-								errorMsg.setText("Wrong ID");
+									errorMsg.setText("Wrong ID");
+							}else
+								errorMsg.setText("Not rostered for this shift.");
 						}
 					}catch(NumberFormatException exception) {
 						errorMsg.setText("The ID must be in numberic characters!");
@@ -315,17 +324,21 @@ public class Main extends Application implements Serializable{
 						errorMsg.setText("Please fill the name field.");
 					else {
 						Pair<Boolean,String> namePair = i.validateName(nameField.getText(),true);
-						if(namePair.getKey()) {
-							String returnValue =  m.removeEmployee(-1, namePair.getValue(), selectedItem);
-							if(returnValue=="") {
-								errorMsg.setTextFill(Color.GREEN);
-								errorMsg.setText("Removed successfully");
+						if(login.checkCompliance(m)) {
+							if(namePair.getKey()) {
+								String returnValue =  m.removeEmployee(-1, namePair.getValue(), selectedItem);
+								if(returnValue=="") {
+									db.deleteStaff(-1,selectedItem,namePair.getValue());
+									errorMsg.setTextFill(Color.GREEN);
+									errorMsg.setText("Removed successfully");
+								}
+								else
+									errorMsg.setText(selectedItem+" does not exist or are more than 1, please try using ID");
 							}
 							else
-								errorMsg.setText(selectedItem+" does not exist.");
-						}
-						else
-							errorMsg.setText("Wrong Name");
+								errorMsg.setText("Wrong Name");
+						}else
+							errorMsg.setText("Not rostered for this shift");
 					}
 				}
 			});	
@@ -381,23 +394,27 @@ public class Main extends Application implements Serializable{
 						errorMsg.setText(genderString);
 					
 					else {
-						Pair<Boolean,String> returnValue = m.admitPatient(namePair.getValue(), 
-								agePair.getKey(),gender.getText().toUpperCase().charAt(0), "patient");
-						if(returnValue.getKey()==true) {
-							errorMsg.setTextFill(Color.GREEN);
-							errorMsg.setText(returnValue.getValue());
-							try {
-								ObjectOutputStream output = new ObjectOutputStream(new FileOutputStream("objects"));
-								output.writeObject(m.retActionList());
-							}catch(Exception exception) {
-								System.out.println("Error in file handling!");
-							}	
-						}
 						
-						else {
-							errorMsg.setTextFill(Color.RED);
-							errorMsg.setText(returnValue.getValue());
-						}
+						if(login.checkCompliance(m)) {
+							Pair<Boolean,String> returnValue = m.admitPatient(namePair.getValue(), 
+									agePair.getKey(),gender.getText().toUpperCase().charAt(0), "patient");
+							if(returnValue.getKey()==true) {
+								errorMsg.setTextFill(Color.GREEN);
+								errorMsg.setText(returnValue.getValue());
+								try {
+									ObjectOutputStream output = new ObjectOutputStream(new FileOutputStream("objects"));
+									output.writeObject(m.retActionList());
+								}catch(Exception exception) {
+									System.out.println("Error in file handling!");
+								}	
+							}
+							
+							else {
+								errorMsg.setTextFill(Color.RED);
+								errorMsg.setText(returnValue.getValue());
+							}
+						}else
+							errorMsg.setText("Not rostered for this shift");
 					}		
 				}
 				
@@ -503,23 +520,26 @@ public class Main extends Application implements Serializable{
 						errorMsg.setText("Password must be greater than 4 letters");
 					 
 					else {
-						long id = m.addPeople(namePair.getValue(), 
-								Double.parseDouble(age.getText()), 
-								gender.getText().toUpperCase().charAt(0), 
-								shifts.getText(), password.getText(),
-								selectedItem);
-						try {
-							db.addStaff(id, namePair.getValue(), 
-								Double.parseDouble(age.getText()), 
-								gender.getText().toUpperCase().charAt(0), 
-								shifts.getText(), password.getText(),
-								selectedItem);
-							errorMsg.setTextFill(Color.GREEN);
-							errorMsg.setText("Added successfully!");
-							co.clearAllFields(name,age,gender,shifts,password);
-						}catch(Exception exception) {
-							errorMsg.setText(exception.toString());
-						}
+						if(login.checkCompliance(m)) {
+							long id = m.addPeople(namePair.getValue(), 
+									Double.parseDouble(age.getText()), 
+									gender.getText().toUpperCase().charAt(0), 
+									shifts.getText(), password.getText(),
+									selectedItem);
+							try {
+								db.addStaff(id, namePair.getValue(), 
+									Double.parseDouble(age.getText()), 
+									gender.getText().toUpperCase().charAt(0), 
+									shifts.getText(), password.getText(),
+									selectedItem);
+								errorMsg.setTextFill(Color.GREEN);
+								errorMsg.setText("Added successfully!");
+								co.clearAllFields(name,age,gender,shifts,password);
+							}catch(Exception exception) {
+								errorMsg.setText(exception.toString());
+							}
+						}else
+							errorMsg.setText("Not rostered for this shift");
 					}
 						
 				}
@@ -550,7 +570,6 @@ public class Main extends Application implements Serializable{
 			cb.setOnAction(e2->{
 				String selectedItem = cb.getSelectionModel().getSelectedItem();
 				if(!selectedItem.isEmpty()) {
-					
 					if(selectedItem.equals("Manager")) {
 						VBox displayBox = new VBox(10);
 						for(Manager manager: m.retManagerList()) {
@@ -677,13 +696,16 @@ public class Main extends Application implements Serializable{
 					else if(m.modifyDetails(selectedItem, Long.parseLong(idField.getText()), "").retName()==null)
 						errorMsg.setText(selectedItem.substring(0,1).toUpperCase()+selectedItem.substring(1)+" not found ");
 					else {
-						try {
-							Employee emp = m.modifyDetails(selectedItem, Long.parseLong(idField.getText()), "");
-							long id = Long.parseLong(idField.getText());
-							managerModify(selectedItem,emp,wrapperPane,bp);							
-						}catch(NumberFormatException exception) {
-							errorMsg.setText("ID must contain only numbers!");
-						}
+						if(login.checkCompliance(m)) {
+							try {
+								Employee emp = m.modifyDetails(selectedItem, Long.parseLong(idField.getText()), "");
+								long id = Long.parseLong(idField.getText());
+								managerModify(selectedItem,emp,wrapperPane,bp);							
+							}catch(NumberFormatException exception) {
+								errorMsg.setText("ID must contain only numbers!");
+							}
+						}else
+							errorMsg.setText("Not rostered for this shift");
 					}
 				} 
 				
@@ -694,11 +716,14 @@ public class Main extends Application implements Serializable{
 						errorMsg.setText("Please fill the name field.");
 					else if(!namePair.getKey())
 						errorMsg.setText("Incorrect name, enter again");
-					else if(m.modifyDetails(selectedItem, -1, nameField.getText()).retName()==null)
-						errorMsg.setText(selectedItem.substring(0,1).toUpperCase()+selectedItem.substring(1)+" not found ");
+					else if(m.modifyDetails(selectedItem, -1, namePair.getValue()).retName()==null)
+						errorMsg.setText(selectedItem.substring(0,1).toUpperCase()+selectedItem.substring(1)+" not found or more than 1 present, try using ID.");
 					else {
-						Employee emp = m.modifyDetails(selectedItem,-1, namePair.getValue());
-						managerModify(selectedItem,emp,wrapperPane,bp);
+						if(login.checkCompliance(m)) {
+							Employee emp = m.modifyDetails(selectedItem,-1, namePair.getValue());
+							managerModify(selectedItem,emp,wrapperPane,bp);
+						}else
+							errorMsg.setText("Not rostered for this shift");
 					}
 				}
 				
@@ -853,7 +878,7 @@ public class Main extends Application implements Serializable{
 						
 				}
 				else
-					modifiedItems.put("Gender","");
+					modifiedItems.put("Gender","x");
 				
 				if(passwordBox.isSelected()) {
 					String newPass = passwordModifyField.getText();									
@@ -871,7 +896,7 @@ public class Main extends Application implements Serializable{
 						,modifiedItems.get("Gender").toString(),modifiedItems.get("Password").toString());
 				db.updateStaff(emp.retId(),modifiedItems.get("Name").toString(),
 						Double.parseDouble(modifiedItems.get("Age").toString())
-						,modifiedItems.get("Gender").toString().charAt(0),
+						,modifiedItems.get("Gender").toString(),
 						"",modifiedItems.get("Password").toString(),selectedItem);
 				
 				if(shiftsBox.isSelected()) {
@@ -963,7 +988,8 @@ public class Main extends Application implements Serializable{
 										for(String s: emp.retShifts()) {
 											shiftsString+=s+",";
 										}
-										db.updateStaff(emp.retId(),"",(double)-1,'x',shiftsString.substring(0,shiftsString.length()-1),
+										System.out.println(shiftsString);
+										db.updateStaff(emp.retId(),"",(double)-1,"x",shiftsString.substring(0,shiftsString.length()-1),
 												"",selectedItem);
 									}
 									else
@@ -985,7 +1011,8 @@ public class Main extends Application implements Serializable{
 											for(String s: emp.retShifts()) {
 												shiftsString+=s+",";
 											}
-											db.updateStaff(emp.retId(),"",(double)-1,'x',shiftsString.substring(0,shiftsString.length()-1),
+											System.out.println(shiftsString.length());
+											db.updateStaff(emp.retId(),"",(double)-1,"x",shiftsString.substring(0,shiftsString.length()-1),
 													"",selectedItem);
 											errorMsg.setTextFill(Color.GREEN);
 											errorMsg.setText("Changed Successfully");
@@ -1011,7 +1038,7 @@ public class Main extends Application implements Serializable{
 									for(String s: emp.retShifts()) {
 										shiftsString+=s+",";
 									}
-									db.updateStaff(emp.retId(),"",(double)-1,'x',shiftsString.substring(0,shiftsString.length()-1),
+									db.updateStaff(emp.retId(),"",(double)-1,"x",shiftsString.substring(0,shiftsString.length()-1),
 											"",selectedItem);
 									errorMsg.setTextFill(Color.GREEN);
 									errorMsg.setText("Deleted Successfully");
@@ -1131,7 +1158,7 @@ public class Main extends Application implements Serializable{
 	    Button displayButton = new Button(dm.nurseMenu().get(4));
 	    Button dischargeButton = new Button(dm.nurseMenu().get(5));
 	    
-	    // Top Bar hbox formatting
+	    // Top Bar hbox formatting 
 	    topBar.setLeft(currentUser);
 	    topBar.setRight(addExitButton(nurseStage));
 		
@@ -1139,7 +1166,7 @@ public class Main extends Application implements Serializable{
 		vbox.setPadding(new Insets(10,0,0,50));
 		vbox.getChildren().addAll(administerButton,changeAutoButton
 				,changeManualButton,isolateButton,dischargeButton, displayButton);
-			
+			 
 		administerButton.setOnAction(e->{
 			nurseMain.patientSearch(n, bp, "Administer");
 		});
@@ -1171,6 +1198,5 @@ public class Main extends Application implements Serializable{
 		nurseStage.setScene(new Scene(bp, 800, 400));
 		nurseStage.show();
 	}
-	
-	
+		
 }

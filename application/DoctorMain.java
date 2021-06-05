@@ -6,6 +6,7 @@ import CustomExceptions.InputValidation;
 import main.Doctor;
 import main.Manager;
 import main.Patient;
+import main.Login;
 import java.util.*;
 import javafx.util.Pair;
 import javafx.stage.Stage;
@@ -27,7 +28,8 @@ public class DoctorMain implements Serializable{
 	Boolean timingsSet=false;
 	ArrayList<LocalTime> removeTimeList = new ArrayList<LocalTime>();
 	InputValidation iv = new InputValidation();
-	static Scene scene=null;
+	Login login = new Login();
+	Scene scene=null;
 	public int bedNum;
 	public int wardNum;
 	public int roomNum;
@@ -115,7 +117,11 @@ public class DoctorMain implements Serializable{
 					if(namePair.getKey()) {
 						p = d.doctorSearch(m.retPatientList(),-1,namePair.getValue());
 						if(p.retName()!=null)
-							callFeatures(d,add,bp);
+							if(login.checkCompliance(d)) {
+								callFeatures(d,add,bp);
+							}else
+								errorMsg.setText("Not rostered for this shift");
+							
 						else
 							errorMsg.setText("Patient does not exist.");
 					}
@@ -132,7 +138,9 @@ public class DoctorMain implements Serializable{
 			Manager m = new Manager("To return patients list");
 			WardMap wm = new WardMap(m.retPatientList());
 			map = wm.retMap();
-			if(scene==null)
+			if(map.getScene()!=null)
+				scene = map.getScene();
+			else
 				scene = new Scene(map,1000,1000);
 			
 			scene.setOnMouseClicked(e2->{
@@ -633,7 +641,10 @@ public class DoctorMain implements Serializable{
 		// Layout Elements
 		ScrollPane sp = new ScrollPane();
 		
-		String returnValue = p.printPrescription();
+		String returnValue = "Name: "+p.retName()+"\nAge: "+p.retAge()
+		+"\nGender: "+p.retGender()+"\nWard Number: "+p.retWardNumber()
+		+"\nRoom Number: "+p.retRoomNumber()+"\nBed Number: "+p.retBedNumber()+"\n";
+		returnValue = p.printPrescription();
 		
 		sp.setContent(new Label(returnValue));
 		

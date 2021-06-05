@@ -9,7 +9,6 @@ import CommonSnippets.CommonCodes;
 import ward.Ward;
 import ward.WardDetails;
 import Actions.*;
-import prescription.*;
 import javafx.util.Pair;
 import application.CommonOperations;
 import application.WardMap;
@@ -30,9 +29,6 @@ public class Manager extends Employee implements Serializable{
 	static Ward wards[] = new Ward[NO_OF_WARDS];
 	
 	static ActionList a = new ActionList(); 
-	
-	static ArrayList<Long> idList = new ArrayList<Long>();
-	static ArrayList<Long> availableIdList = new ArrayList<Long>();
 
 	InputValidation i = new InputValidation();
 	DisplayMenu dm = new DisplayMenu();
@@ -46,29 +42,21 @@ public class Manager extends Employee implements Serializable{
 		managerList.setStaff(db.retManagerList());
 		nurseList.setStaff(db.retNurseList());
 		doctorList.setStaff(db.retDoctorList());
-				
 		
-		
+		// Initializing wards
 		for(int i=0;i<NO_OF_WARDS;i++)
 			wards[i]= new Ward();
-			
-		idList.add((long)7730000);
-		idList.add((long)6830000);
-		idList.add((long)7830000);
-		idList.add((long)8030000);
 		
 		String startTime = LocalTime.now().format(DateTimeFormatter.ofPattern("HH:00"));
 		managerList.addStaff(new Manager((long)7730000,"Ram",21,'M',startTime+"-"
 				+LocalTime.parse(startTime).plusHours(6),"1234"));
 		doctorList.addStaff(new Doctor((long)6830000,"Babu",16,'M',startTime+"-"
 				+LocalTime.parse(startTime).plusHours(1),"1234"));
-		
 		Nurse nurse1= new Nurse((long)7830000,"Elisa",18,'F',"10:00-16:00","1234");
 		nurse1.setShifts(startTime+"-"
 				+LocalTime.parse(startTime).plusHours(8));
 		nurseList.addStaff(nurse1);
 		
-		availableIdList = db.retAvailableId();
 		
 		WardMap wm = new WardMap();
 		
@@ -79,11 +67,15 @@ public class Manager extends Employee implements Serializable{
 			for(Patient patient: retPatientList())
 				setPatient(patient,patient.retBedNumber(),patient.retRoomNumber(),patient.retWardNumber());
 			input.close();
-		}catch(Exception e) {System.out.println("In manager "+e);
-		}
+			
+			ObjectInputStream input2 = new ObjectInputStream(new FileInputStream("administers"));
+			Nurse n = new Nurse();
+			n.setAdministerMedicines((ArrayList<AdministerMedicine>)input.readObject());
+			input2.close();
+			
+		}catch(Exception e) {}
 		
 		// Add a patient for testing
-		
 //		admitPatient("Radhe", 89, 'M', "Patient");
 //		ArrayList<LocalTime> medTimes = new ArrayList<LocalTime>();
 //		ArrayList<MedicineDose> meds = new ArrayList<MedicineDose>();
@@ -109,7 +101,7 @@ public class Manager extends Employee implements Serializable{
 		long postId = asciiCode*100000;
 		long postLastId = postId+100000-1;
 		
-		for(long x: availableIdList) {
+		for(long x: db.retAvailableId()) {
 			if(x>postId && x<postLastId)
 				return x;
 		}
@@ -155,15 +147,13 @@ public class Manager extends Employee implements Serializable{
 		if (post=="Manager") {
 			
 			if(id==0) {
-				Manager m =  new Manager(idList.get(0)+1, name, age, gender, shifts, password);
-				idList.set(0,idList.get(0)+1);
+				Manager m =  new Manager(db.retId(1), name, age, gender, shifts, password);
 				managerList.addStaff(m, retId(), m.retId());
 				return id;
 			}
 			
 			else {
 				Manager m =  new Manager(id, name, age, gender, shifts, password);
-				availableIdList.remove(availableIdList.indexOf(id));
 				db.removeAvailableId(id);
 				managerList.addStaff(m, retId(), m.retId());
 				return id;
@@ -172,15 +162,13 @@ public class Manager extends Employee implements Serializable{
 		
 		else if (post=="Doctor") {
 			if(id==0) {
-				Doctor d =  new Doctor(idList.get(1)+1, name, age, gender, shifts, password);
-				idList.set(1,idList.get(1)+1);
+				Doctor d =  new Doctor(db.retId(2), name, age, gender, shifts, password);
 				doctorList.addStaff(d, retId(), d.retId());
 				return id;
 			}
 			
 			else {
 				Doctor d =  new Doctor(id, name, age, gender, shifts, password);
-				availableIdList.remove(availableIdList.indexOf(id));
 				db.removeAvailableId(id);
 				doctorList.addStaff(d, retId(), d.retId());
 				return id;
@@ -189,9 +177,8 @@ public class Manager extends Employee implements Serializable{
 		
 		else {
 			if(id==0) {
-				Nurse n =  new Nurse(idList.get(2)+1, name, age, gender, "08:00-16:00", password);
+				Nurse n =  new Nurse(db.retId(3), name, age, gender, "08:00-16:00", password);
 				n.setShifts("14:00-22:00");
-				idList.set(2,idList.get(2)+1);
 				nurseList.addStaff(n, retId(), n.retId());
 				return id;
 			}
@@ -199,7 +186,6 @@ public class Manager extends Employee implements Serializable{
 			else {
 				Nurse n =  new Nurse(id, name, age, gender, "08:00-16:00", password);
 				n.setShifts("14:00-22:00");
-				availableIdList.remove(availableIdList.indexOf(id));
 				db.removeAvailableId(id);
 				nurseList.addStaff(n, retId(), n.retId());
 				return id;
@@ -211,14 +197,12 @@ public class Manager extends Employee implements Serializable{
 	public Pair<Boolean,String> admitPatient(String name, double age, char gender, String post) {
 		long id = allotId(post);
 		if(id==0) {
-			Patient p =  new Patient(idList.get(3)+1, name, age, gender);
-			idList.set(3,idList.get(3)+1);
+			Patient p =  new Patient(db.retId(4), name, age, gender);
 			return addWard(p);
 		}
 		 
 		else {
 			Patient p =  new Patient(id, name, age, gender);
-			availableIdList.remove(availableIdList.indexOf(id));
 			db.removeAvailableId(id);
 			return addWard(p);
 		}
@@ -255,10 +239,19 @@ public class Manager extends Employee implements Serializable{
 		}
 			 		
 		else {
+			Employee emp = new Employee();
+			name=name.strip();
+			int count=0;
 			for (Object o: list) {
 				Employee e = (Employee) o;
-				if (e.retName().matches(name.strip()))
-					return e;
+				if (e.retName().strip().contentEquals(name)) {
+					count+=1;
+					emp=e;
+				}
+				if(count==1)
+					return emp;
+				else
+					return new Employee();
 			}
 			return new Employee();
 		}
@@ -276,7 +269,7 @@ public class Manager extends Employee implements Serializable{
 				addAction(new Action(retId(),e.retId(),"age updation",LocalDate.now(),LocalTime.now()));
 			}
 				
-			if(gender!="") {
+			if(gender.contentEquals("x")) {
 				e.setGender(gender.charAt(0));
 				addAction(new Action(retId(),e.retId(),"gender updation",LocalDate.now(),LocalTime.now()));
 			}	
@@ -296,6 +289,7 @@ public class Manager extends Employee implements Serializable{
 	
 	
 		public String removeEmployee(long id, String name, String post) {
+			name = name.strip();
 			// By ID
 			if(id!=-1) {
 				if(post=="Manager") {
@@ -304,7 +298,7 @@ public class Manager extends Employee implements Serializable{
 							retManagerList().remove(m2);
 							a.addAction(new Action(this.retId(),id," performer a deletion",
 									LocalDate.now(),LocalTime.now()));
-							availableIdList.add(id);
+							db.availableId(id);
 							return "";
 						}
 					}return "Manager not found";
@@ -316,7 +310,7 @@ public class Manager extends Employee implements Serializable{
 							retDoctorList().remove(d2);
 							a.addAction(new Action(this.retId(),id," performer a deletion",
 									LocalDate.now(),LocalTime.now()));
-							availableIdList.add(id);
+							db.availableId(id);
 							return "";
 						}
 					}return "Doctor not found";
@@ -328,21 +322,21 @@ public class Manager extends Employee implements Serializable{
 							retNurseList().remove(n2);
 							a.addAction(new Action(this.retId(),id," performer a deletion",
 									LocalDate.now(),LocalTime.now()));
-							availableIdList.add(id);
+							db.availableId(id);
 							return "";
 						}
-					}return "Manager not found";
+					}return "Nurse not found";
 				}
 			} 
 			// By Name
 			else {
 				if(post=="Manager") {
 					for(Manager m2: retManagerList()) {
-						if(m2.retName()==name) {
+						if(m2.retName().contentEquals(name)) {
 							retManagerList().remove(m2);
 							a.addAction(new Action(this.retId(),m2.retId()," performer a deletion",
 									LocalDate.now(),LocalTime.now()));
-							availableIdList.add(id);
+							db.availableId(m2.retId());
 							return "";
 						}
 					}return "Manager not found";
@@ -350,11 +344,11 @@ public class Manager extends Employee implements Serializable{
 				
 				else if(post=="Doctor") {
 					for(Doctor d2: retDoctorList()) {
-						if(d2.retName()==name) {
+						if(d2.retName().strip().contentEquals(name)) {
 							retDoctorList().remove(d2);
 							a.addAction(new Action(this.retId(),d2.retId()," performer a deletion",
 									LocalDate.now(),LocalTime.now()));
-							availableIdList.add(id);
+							db.availableId(d2.retId());
 							return "";
 						}
 					}return "Doctor not found";
@@ -362,11 +356,11 @@ public class Manager extends Employee implements Serializable{
 				
 				else {
 					for(Nurse n2: retNurseList()) {
-						if(n2.retName()==name) {
+						if(n2.retName().strip().contentEquals(name)) {
 							retNurseList().remove(n2);
 							a.addAction(new Action(this.retId(),n2.retId()," performer a deletion",
 									LocalDate.now(),LocalTime.now()));
-							availableIdList.add(id);
+							db.availableId(n2.retId());
 							return "";
 						}
 					}return "Manager not found";
@@ -403,13 +397,12 @@ public class Manager extends Employee implements Serializable{
 	
 	public void addAvailableId(long id) {
 		DBClass db = new DBClass();
-		availableIdList.add(id);
+		db.availableId(id);
 		db.availableId(id);
 	}
 	
 	
 	// Getter functions
-	
 	public long retId() {
 		return super.retId();
 	}

@@ -92,5 +92,5 @@ class ResidentCareTest {
 		value = n.provideIsolation(new Patient((long)11,"Stinky",(double)34,'F'));
 		assertEquals(false,value.getKey());
 	}
-	
+		
 }
