@@ -1,7 +1,4 @@
-﻿The class design
-
-
-NOTE:- Though the main functionality was complete, due to the integration with GUI and identification of some bugs progress is still being made and cannot be concluded as done. But the GUI is still working, and most of the manager's role are completed successfully.
+Package Info
 
 Package:main
 
@@ -45,6 +42,24 @@ Package application
 Contains all GUI related files.
 
 NOTE:- To run this masterpiece, you need to run the Main.java file in package application. I have used hsqldb version 2.6.0, java version 11.0.11 , sjavafx version 11.0.2 and JUnit 5.
+
+Manager Credentials
+
+Username 7730000
+Password 1234
+
+Doctor Credentials
+
+Username 6830000
+Password 1234
+
+Nurse Credentials
+
+Username 7830000
+Password 1234
+
+Theses are some of the employees who can be accessible for testing the programs , others will be created and can log in under the business rules provided by the assignment.
+
 
 
 
